@@ -43,6 +43,9 @@ namespace WebApi
             (Configuration.GetConnectionString("AnthuriumConnection")));
 
             services.AddScoped<IClientInformation, SqlServerClientInformationRepository>();
+            services.AddScoped<IJobOrderDescriptionOfWork, SqlServerJobOrderDescriptionOfWorkRepository>();
+            services.AddScoped<IJobOrderRepository, SqlServerJobOrderRepository>();
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 

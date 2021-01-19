@@ -13,8 +13,10 @@ namespace WebApi.Profiles
         public JobOrderProfile()
         {
             //source->target
+    
+
             CreateMap<JobOrder, JobOrderReadDto>();
-            CreateMap<JobOrderReadDto, JobOrder>();
+            CreateMap<JobOrderCreateDto, JobOrder>();
             CreateMap<JobOrderUpdateDto, JobOrder>();
             CreateMap<JobOrder, JobOrderUpdateDto>();
         }
