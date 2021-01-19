@@ -19,7 +19,7 @@ namespace WebApi.Models
         [MaxLength(450)]
         public string CompanyAddress { get; set; }
 
-        public JobOrder JobOrder { get; set; }
+        public List<JobOrder> JobOrders { get; set; } = new List<JobOrder>();
 
         [Required]
         public DateTime DateCreated { get; set; }

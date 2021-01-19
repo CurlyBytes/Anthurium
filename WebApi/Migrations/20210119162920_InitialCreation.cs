@@ -8,19 +8,20 @@ namespace WebApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "JobOrderDescriptionOfWorks",
+                name: "ClientInformations",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    JobOrderTypeOfWOrk = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CompanyName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    CompanyAddress = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_JobOrderDescriptionOfWorks", x => x.Id);
+                    table.PrimaryKey("PK_ClientInformations", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -39,37 +40,36 @@ namespace WebApi.Migrations
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    JobOrderDescriptionOfWorkId = table.Column<int>(type: "int", nullable: true)
+                    ClientInformationId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_JobOrders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_JobOrders_JobOrderDescriptionOfWorks_JobOrderDescriptionOfWorkId",
-                        column: x => x.JobOrderDescriptionOfWorkId,
-                        principalTable: "JobOrderDescriptionOfWorks",
+                        name: "FK_JobOrders_ClientInformations_ClientInformationId",
+                        column: x => x.ClientInformationId,
+                        principalTable: "ClientInformations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ClientInformations",
+                name: "JobOrderDescriptionOfWorks",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CompanyName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    CompanyAddress = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    JobOrderId = table.Column<int>(type: "int", nullable: true),
+                    JobOrderTypeOfWOrk = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    JobOrderId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ClientInformations", x => x.Id);
+                    table.PrimaryKey("PK_JobOrderDescriptionOfWorks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ClientInformations_JobOrders_JobOrderId",
+                        name: "FK_JobOrderDescriptionOfWorks_JobOrders_JobOrderId",
                         column: x => x.JobOrderId,
                         principalTable: "JobOrders",
                         principalColumn: "Id",
@@ -77,26 +77,26 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClientInformations_JobOrderId",
-                table: "ClientInformations",
+                name: "IX_JobOrderDescriptionOfWorks_JobOrderId",
+                table: "JobOrderDescriptionOfWorks",
                 column: "JobOrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_JobOrders_JobOrderDescriptionOfWorkId",
+                name: "IX_JobOrders_ClientInformationId",
                 table: "JobOrders",
-                column: "JobOrderDescriptionOfWorkId");
+                column: "ClientInformationId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ClientInformations");
+                name: "JobOrderDescriptionOfWorks");
 
             migrationBuilder.DropTable(
                 name: "JobOrders");
 
             migrationBuilder.DropTable(
-                name: "JobOrderDescriptionOfWorks");
+                name: "ClientInformations");
         }
     }
 }

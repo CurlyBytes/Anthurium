@@ -29,6 +29,8 @@ namespace WebApi.Models
         [Required]
         public string  TimeEnded { get; set; }
 
+        public List<JobOrderDescriptionOfWork> JobOrderDescriptionOfWork { get; set; } = new List<JobOrderDescriptionOfWork>();
+
         [Required]
         public int TotalHours { get; set; }
 
@@ -41,9 +43,8 @@ namespace WebApi.Models
         [Required]
         public bool IsActive { get; set; }
 
-        public ICollection<ClientInformation> ClientInformations { get; set; }
 
-        public JobOrderDescriptionOfWork JobOrderDescriptionOfWork { get; set; }
+        
 
     }
 }

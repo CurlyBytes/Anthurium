@@ -45,12 +45,7 @@ namespace WebApi.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("JobOrderId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("JobOrderId");
 
                     b.ToTable("ClientInformations");
                 });
@@ -61,6 +56,9 @@ namespace WebApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
+
+                    b.Property<int?>("ClientInformationId")
+                        .HasColumnType("int");
 
                     b.Property<string>("CompanyAddress")
                         .IsRequired()
@@ -87,9 +85,6 @@ namespace WebApi.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("JobOrderDescriptionOfWorkId")
-                        .HasColumnType("int");
-
                     b.Property<string>("TimeEnded")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -103,7 +98,7 @@ namespace WebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("JobOrderDescriptionOfWorkId");
+                    b.HasIndex("ClientInformationId");
 
                     b.ToTable("JobOrders");
                 });
@@ -124,40 +119,42 @@ namespace WebApi.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("JobOrderId")
+                        .HasColumnType("int");
+
                     b.Property<string>("JobOrderTypeOfWOrk")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("JobOrderId");
+
                     b.ToTable("JobOrderDescriptionOfWorks");
                 });
 
-            modelBuilder.Entity("WebApi.Models.ClientInformation", b =>
-                {
-                    b.HasOne("WebApi.Models.JobOrder", "JobOrder")
-                        .WithMany("ClientInformations")
-                        .HasForeignKey("JobOrderId");
-
-                    b.Navigation("JobOrder");
-                });
-
             modelBuilder.Entity("WebApi.Models.JobOrder", b =>
                 {
-                    b.HasOne("WebApi.Models.JobOrderDescriptionOfWork", "JobOrderDescriptionOfWork")
+                    b.HasOne("WebApi.Models.ClientInformation", null)
                         .WithMany("JobOrders")
-                        .HasForeignKey("JobOrderDescriptionOfWorkId");
-
-                    b.Navigation("JobOrderDescriptionOfWork");
-                });
-
-            modelBuilder.Entity("WebApi.Models.JobOrder", b =>
-                {
-                    b.Navigation("ClientInformations");
+                        .HasForeignKey("ClientInformationId");
                 });
 
             modelBuilder.Entity("WebApi.Models.JobOrderDescriptionOfWork", b =>
                 {
+                    b.HasOne("WebApi.Models.JobOrder", null)
+                        .WithMany("JobOrderDescriptionOfWork")
+                        .HasForeignKey("JobOrderId");
+                });
+
+            modelBuilder.Entity("WebApi.Models.ClientInformation", b =>
+                {
                     b.Navigation("JobOrders");
+                });
+
+            modelBuilder.Entity("WebApi.Models.JobOrder", b =>
+                {
+                    b.Navigation("JobOrderDescriptionOfWork");
                 });
 #pragma warning restore 612, 618
         }

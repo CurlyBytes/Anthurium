@@ -12,6 +12,7 @@ namespace WebApi.Models
         [Key]
         public int Id { get; set; }
 
+        [Required]
         public string JobOrderTypeOfWOrk { get; set; }
 
         [Required]
@@ -23,6 +24,5 @@ namespace WebApi.Models
         [Required]
         public bool IsActive { get; set; }
 
-        public ICollection<JobOrder> JobOrders { get; set; }
     }
 }
