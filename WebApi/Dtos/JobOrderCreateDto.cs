@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace WebApi.Dtos
 {
-    public class JobOrderReadDto
+    public class JobOrderCreateDto
     {
-        public int Id { get; set; }
-
         [Required]
         public string CompanyName { get; set; }
 
@@ -30,7 +28,5 @@ namespace WebApi.Dtos
 
         [Required]
         public int TotalHours { get; set; }
-
-     
     }
 }

@@ -21,7 +21,7 @@ namespace WebApi.Repositories.SqlServer
         {
             return _context.ClientInformations.FirstOrDefault(p => p.Id == Id);
         }
-
+         
    
 
         public IEnumerable<ClientInformation> GetClientInformation()

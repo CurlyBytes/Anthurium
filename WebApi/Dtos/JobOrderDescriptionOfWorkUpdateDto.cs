@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace WebApi.Dtos
 {
-    public class JobOrderDescriptionOfWorkReadDto
+    public class JobOrderDescriptionOfWorkUpdateDto
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         public string JobOrderTypeOfWOrk { get; set; }
     }
