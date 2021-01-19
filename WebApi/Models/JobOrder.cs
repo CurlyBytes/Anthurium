@@ -11,24 +11,34 @@ namespace WebApi.Models
         [Key]
         public int Id { get; set; }
 
+        [Required]
         public string CompanyName { get; set; }
 
+        [Required]
         public string CompanyAddress { get; set; }
 
+        [Required]
         public string ContactPerson { get; set; }
 
+        [Required]
         public string ContactNumber { get; set; }
 
+        [Required]
         public string TimeStarted { get; set; }
 
+        [Required]
         public string  TimeEnded { get; set; }
 
+        [Required]
         public int TotalHours { get; set; }
 
+        [Required]
         public DateTime DateCreated { get; set; }
 
+        [Required]
         public DateTime DateUpdated { get; set; }
 
+        [Required]
         public bool IsActive { get; set; }
 
         public ICollection<ClientInformation> ClientInformations { get; set; }

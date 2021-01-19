@@ -40,7 +40,7 @@ namespace WebApi
             });
 
             services.AddDbContext<AnthuriumContext>(opt => opt.UseSqlServer
-            (Configuration.GetConnectionString("CommanderConnection")));
+            (Configuration.GetConnectionString("AnthuriumConnection")));
 
             services.AddScoped<IClientInformation, SqlServerClientInformationRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -52,16 +52,19 @@ namespace WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Anthurium v1"));
             }
+
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
         }
     }
