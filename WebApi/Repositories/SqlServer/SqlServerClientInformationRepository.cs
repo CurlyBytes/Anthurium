@@ -17,12 +17,14 @@ namespace WebApi.Repositories.SqlServer
             _context = context;
         }
 
-        public ClientInformation GetJobOrderById(int Id)
+        public ClientInformation ClientInformationById(int Id)
         {
             return _context.ClientInformations.FirstOrDefault(p => p.Id == Id);
         }
 
-        public IEnumerable<ClientInformation> GetJobOrders()
+   
+
+        public IEnumerable<ClientInformation> GetClientInformation()
         {
             return _context.ClientInformations.ToList();
         }

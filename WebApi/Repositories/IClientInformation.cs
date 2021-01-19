@@ -10,8 +10,8 @@ namespace WebApi.Repositories
     {
         bool SaveChanges();
 
-        IEnumerable<ClientInformation> GetJobOrders();
-        ClientInformation GetJobOrderById(int Id);
+        IEnumerable<ClientInformation> GetClientInformation();
+        ClientInformation ClientInformationById(int Id);
 
         void NewClientInformation(ClientInformation clientInformation);
 
