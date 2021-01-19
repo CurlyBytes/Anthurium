@@ -24,7 +24,6 @@
     <Folder Include="Controllers\" />
     <Folder Include="Dtos\" />
     <Folder Include="Profiles\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>
