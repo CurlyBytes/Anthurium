@@ -59,6 +59,7 @@ namespace Anthurium.API
             services.AddScoped<IJobOrderRepository, SqlServerJobOrderRepository>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +68,8 @@ namespace Anthurium.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Anthurium v1"));
             }
 
             //app.UseHttpsRedirection();

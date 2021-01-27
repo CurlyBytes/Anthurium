@@ -1,4 +1,4 @@
-﻿using Anthurium.Shared.Dtos;
+﻿using Anthurium.API.Dtos;
 using Anthurium.Shared.Models;
 using AutoMapper;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace Anthurium.Web.Profiles
+namespace Anthurium.API.Profiles
 {
     public class JobOrderDescriptionOfWorkProfile : Profile
     {

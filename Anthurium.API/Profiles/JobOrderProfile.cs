@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Anthurium.Shared.Dtos;
+using Anthurium.API.Dtos;
 using Anthurium.Shared.Models;
 using AutoMapper;
 
-namespace Anthurium.Web.Profiles
+namespace Anthurium.API.Profiles
 {
     public class JobOrderProfile : Profile
     {

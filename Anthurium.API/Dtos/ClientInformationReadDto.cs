@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Anthurium.Shared.Models;
 
-namespace Anthurium.Shared.Dtos
+namespace Anthurium.API.Dtos
 {
     public class ClientInformationReadDto
     {

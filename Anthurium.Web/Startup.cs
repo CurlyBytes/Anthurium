@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using IdentityModel.Client;
 using Blazored.SessionStorage;
+using System.Reflection;
+using AutoMapper;
 
 namespace Anthurium.Web
 {
@@ -50,6 +52,9 @@ namespace Anthurium.Web
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
+
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -4,10 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Anthurium.Shared.Dtos
+namespace Anthurium.API.Dtos
 {
-    public class JobOrderCreateDto
+    public class JobOrderReadDto
     {
+        public int Id { get; set; }
+
         [Required]
         public string CompanyName { get; set; }
 
@@ -28,5 +30,7 @@ namespace Anthurium.Shared.Dtos
 
         [Required]
         public int TotalHours { get; set; }
+
+     
     }
 }
