@@ -1,0 +1,21 @@
+﻿@page "/test"
+<h1>Greetings, @userName</h1>
+
+<button class="btn btn-primary" @onclick="ToggleName">Change Name</button>
+
+@code {
+    string userName = "Bradley";
+    void ToggleName()
+    {
+        if (userName == "Bradley")
+            userName = "Mr. Wells";
+        else
+            userName = "Bradley";
+    }
+}
+
+<input @bind-value="userNafme" @bind-value:event="oninput" />
+
+@code {
+    string userNafme = "Bradley";
+}

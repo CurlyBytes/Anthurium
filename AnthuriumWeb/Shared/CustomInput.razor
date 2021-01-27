@@ -1,0 +1,12 @@
+﻿<div class="form-group row">
+    <label for="@ID" class="col-sm-8 col-form-label">@ChildContent</label>
+    <input id="@ID" class="col-sm-4 form-control" />
+</div>
+
+@code {
+    [Parameter]
+    public string ID { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+}

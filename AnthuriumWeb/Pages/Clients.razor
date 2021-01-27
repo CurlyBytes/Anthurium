@@ -1,0 +1,41 @@
+﻿@page "/client"
+@inject Services.ClientService clientService
+@using WebApi.Dtos
+
+<h3>Client Information</h3>
+@if (clientInformations == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Company Name</th>
+                <th>Company Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var clientInformation in clientInformations)
+            {
+                <tr>
+                    <td>@clientInformation.Id</td>
+                    <td>@clientInformation.CompanyName</td>
+                    <td>@clientInformation.CompanyAddress</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    List<ClientInformationReadDto> clientInformations;
+
+    protected override async Task OnInitializedAsync()
+    {
+        
+        clientInformations = await clientService.GetContactsAsync();
+    }
+}
