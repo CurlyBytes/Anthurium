@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Anthurium.Shared.Dtos;
 using Anthurium.Shared.Models;
-using Anthurium.Web.Dtos;
 using AutoMapper;
 
 namespace Anthurium.Web.Profiles

@@ -1,5 +1,5 @@
-﻿using Anthurium.Shared.Models;
-using Anthurium.Web.Dtos;
+﻿using Anthurium.Shared.Dtos;
+using Anthurium.Shared.Models;
 using AutoMapper;
 using System;
 using System.Collections.Generic;

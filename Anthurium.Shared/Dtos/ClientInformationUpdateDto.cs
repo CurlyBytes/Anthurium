@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Anthurium.Web.Dtos
+namespace Anthurium.Shared.Dtos
 {
-    public class ClientInformationCreateDto
+    public class ClientInformationUpdateDto
     {
         [Required]
         [MaxLength(250)]
