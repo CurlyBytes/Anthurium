@@ -34,6 +34,17 @@ namespace WebApi
             services.AddControllers().AddNewtonsoftJson(s => {
                 s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
+
+
+            services.AddAuthentication("Bearer")
+              .AddJwtBearer("Bearer", options =>
+              {
+                  options.Authority = "http://localhost:5004"; //url of auth
+                  options.RequireHttpsMetadata = false;
+
+                  options.Audience = "anthurium-api";
+              });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Anthurium", Version = "v1" });
@@ -47,6 +58,9 @@ namespace WebApi
             services.AddScoped<IJobOrderRepository, SqlServerJobOrderRepository>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
+ 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +78,8 @@ namespace WebApi
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseAuthentication();
+     
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

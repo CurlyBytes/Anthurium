@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnthuriumWeb", "AnthuriumWeb\AnthuriumWeb.csproj", "{4BEED370-40D2-4BFB-9FC3-ACAAB1242B7D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnthuriumAuth", "AnthuriumAuth\AnthuriumAuth.csproj", "{05F357C1-C125-41BF-8260-A8B180FCE26E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4BEED370-40D2-4BFB-9FC3-ACAAB1242B7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BEED370-40D2-4BFB-9FC3-ACAAB1242B7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BEED370-40D2-4BFB-9FC3-ACAAB1242B7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05F357C1-C125-41BF-8260-A8B180FCE26E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05F357C1-C125-41BF-8260-A8B180FCE26E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05F357C1-C125-41BF-8260-A8B180FCE26E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05F357C1-C125-41BF-8260-A8B180FCE26E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

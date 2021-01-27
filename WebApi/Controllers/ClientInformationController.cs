@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,6 +14,7 @@ namespace WebApi.Controllers
 {
     [Route("api/client")]
     [ApiController]
+    [Authorize]
     public class ClientInformationController : ControllerBase
     {
 
