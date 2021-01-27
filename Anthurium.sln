@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{02B6E75F-2B1E-4D06-806A-58CF6E302644}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{02B6E75F-2B1E-4D06-806A-58CF6E302644}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnthuriumWeb", "AnthuriumWeb\AnthuriumWeb.csproj", "{4BEED370-40D2-4BFB-9FC3-ACAAB1242B7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{02B6E75F-2B1E-4D06-806A-58CF6E302644}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02B6E75F-2B1E-4D06-806A-58CF6E302644}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02B6E75F-2B1E-4D06-806A-58CF6E302644}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BEED370-40D2-4BFB-9FC3-ACAAB1242B7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BEED370-40D2-4BFB-9FC3-ACAAB1242B7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BEED370-40D2-4BFB-9FC3-ACAAB1242B7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BEED370-40D2-4BFB-9FC3-ACAAB1242B7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
