@@ -28,7 +28,7 @@ namespace Anthurium.API
 
                 try
                 {
-                    var context = services.GetRequiredService<ContactsContext>();
+                    var context = services.GetRequiredService<AnthuriumContext>();
                     DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)

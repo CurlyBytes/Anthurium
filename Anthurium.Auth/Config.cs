@@ -14,7 +14,7 @@ namespace Anthurium.Auth
         public static IEnumerable<ApiResource> Apis =>
             new ApiResource[] 
             {
-                new ApiResource("blazorcontacts-api")
+                new ApiResource("anthurium-api")
             };
         
         public static IEnumerable<Client> Clients =>
@@ -23,12 +23,12 @@ namespace Anthurium.Auth
                 new Client
                 {
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientId = "blazorcontacts-web",                 
+                    ClientId = "anthurium-web",                 
                     ClientSecrets =
                     {
                         new Secret("thisismyclientspecificsecret".Sha256())
                     },
-                    AllowedScopes = { "blazorcontacts-api" },
+                    AllowedScopes = { "anthurium-api" },
                 }
             };
         

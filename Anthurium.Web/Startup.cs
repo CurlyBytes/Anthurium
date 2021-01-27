@@ -39,7 +39,7 @@ namespace Anthurium.Web
                 options.Client.Clients.Add("web", new ClientCredentialsTokenRequest
                 {
                     RequestUri = new Uri("http://localhost:5000/connect/token"),
-                    ClientId = "blazorcontacts-web",
+                    ClientId = "anthurium-web",
                     ClientSecret = "thisismyclientspecificsecret"
                 });
             });

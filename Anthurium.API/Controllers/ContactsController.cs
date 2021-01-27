@@ -20,9 +20,9 @@ namespace Anthurium.API.Controllers
     //[ApiController]
     public class ContactsController : ODataController
     {
-        private readonly ContactsContext _context;
+        private readonly AnthuriumContext _context;
 
-        public ContactsController (ContactsContext context)
+        public ContactsController (AnthuriumContext context)
         {
             _context = context;
         }

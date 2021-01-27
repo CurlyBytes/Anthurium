@@ -8,7 +8,7 @@ namespace Anthurium.API.Data
 {
     public class DbInitializer
     {
-        public static void Initialize(ContactsContext context)
+        public static void Initialize(AnthuriumContext context)
         {
             //context.Database.EnsureCreated();
 

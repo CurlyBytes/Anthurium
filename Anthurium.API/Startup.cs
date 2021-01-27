@@ -41,12 +41,12 @@ namespace Anthurium.API
                 {
                     options.Authority = "http://localhost:5000";
                     options.RequireHttpsMetadata = false;
-                    options.ApiName = "blazorcontacts-api";
+                    options.ApiName = "anthurium-api";
                 });
 
             services.AddAuthorization();
 
-            services.AddDbContext<ContactsContext>(options =>
+            services.AddDbContext<AnthuriumContext>(options =>
                 options.UseInMemoryDatabase("Contacts"));
         }
 
