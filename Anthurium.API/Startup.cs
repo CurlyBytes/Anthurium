@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Anthurium.API.Data;
 using Anthurium.Shared.Models;
+using Anthurium.Web.Repositories;
+using Anthurium.Web.Repositories.SqlServer;
+using AutoMapper;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
@@ -48,6 +51,14 @@ namespace Anthurium.API
 
             services.AddDbContext<AnthuriumContext>(options =>
                 options.UseInMemoryDatabase("Contacts"));
+
+            // services.AddDbContext<AnthuriumContext>(opt => opt.UseSqlServer
+            //(Configuration.GetConnectionString("AnthuriumConnection")));
+            services.AddScoped<IClientInformation, SqlServerClientInformationRepository>();
+            services.AddScoped<IJobOrderDescriptionOfWork, SqlServerJobOrderDescriptionOfWorkRepository>();
+            services.AddScoped<IJobOrderRepository, SqlServerJobOrderRepository>();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
