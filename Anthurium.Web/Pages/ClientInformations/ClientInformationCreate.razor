@@ -1,0 +1,44 @@
+﻿@page "/clientinformation/create"
+@inject Services.ClientInformationService clientInformationService
+@using System.Text.Json
+@using Anthurium.API.Dtos
+
+<h3>New Client Information</h3>
+<div style="max-width: 400px;">
+    <EditForm Model="@clientInformationCreateDto" OnValidSubmit="@PostClientInformation">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group row">
+            <label for="contactName" class="col-sm-6 col-form-label">Company Name:</label>
+            <input id="contactName" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                   @bind="clientInformationCreateDto.CompanyName" />
+        </div>
+        <div class="form-group row">
+            <label for="contactPhone" class="col-sm-6 col-form-label">Company Address:</label>
+            <input id="contactPhone" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                   @bind="clientInformationCreateDto.CompanyAddress" />
+        </div>
+        <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
+        <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
+             hidden="@(message=="")">@message</div>
+        </EditForm>
+    </div>
+    @code {
+        private ClientInformationCreateDto clientInformationCreateDto = new ClientInformationCreateDto();
+        private bool isSuccess = false;
+        private string message = "";
+
+        public async void PostClientInformation()
+        {
+            //returns response message, so can check if success
+            var response = await clientInformationService.CreateClientInformationAsync(clientInformationCreateDto);
+            if (response.IsSuccessStatusCode)
+            {
+                isSuccess = true;
+                message = $"Success {response.Headers.Location}";
+            }
+            else
+                message = $"Error: {response.StatusCode.ToString()}. Please try again.";
+            this.StateHasChanged();
+        }
+    }

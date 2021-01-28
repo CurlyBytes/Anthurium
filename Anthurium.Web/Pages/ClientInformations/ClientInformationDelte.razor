@@ -1,0 +1,47 @@
+﻿@page "/clientinformation/{Id:int}/delete"
+@inject Services.ClientInformationService clientInformationService
+@inject NavigationManager NavManager
+@using Anthurium.Web.Pages
+@using Anthurium.API.Dtos
+<h3>Are you sure you want to delete this?</h3>
+
+@if (clientInformation == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-sm-4" style="background-color:lightgrey; padding:4px;">
+            <h4>@clientInformation.CompanyName</h4>
+            <h4>@clientInformation.CompanyAddress</h4>
+        </div>
+    </div>
+    <div class="row" style="margin-top:1rem;">
+        <div class="col-12">
+            <button @onclick="OnDeleteButtonClick" class="btn btn-danger">Delete</button> |
+            <a href="/clientinformation/@clientInformation.Id">Return to Client</a>
+        </div>
+    </div>
+}
+
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private ClientInformationReadDto clientInformation;
+
+    protected override async Task OnInitializedAsync()
+    {
+        clientInformation = await clientInformationService.GetClientInformationByIdAsync(Id);
+    }
+
+    private async void OnDeleteButtonClick()
+    {
+
+        await clientInformationService.DeleteClientInformationByIdAsync(Id);
+        NavManager.NavigateTo("/");
+    }
+}

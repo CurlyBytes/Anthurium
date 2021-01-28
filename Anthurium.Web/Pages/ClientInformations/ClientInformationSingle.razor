@@ -1,0 +1,41 @@
+﻿@page "/clientinformation/{Id:int}"
+@inject Services.ClientInformationService clientInformationService
+@using Anthurium.API.Dtos
+
+<h3>Client Id: @Id.ToString()</h3>
+
+@if (clientInformationReadDto == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-sm-8 text-right">
+            <a href="/clientinformation/@Id/edit" class="btn btn-sm btn-secondary">Edit</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h4>@clientInformationReadDto.CompanyName</h4>
+            <h4>@clientInformationReadDto.CompanyAddress</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a href="/">Return to List</a>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private ClientInformationReadDto clientInformationReadDto;
+
+    protected override async Task OnInitializedAsync()
+    {
+        clientInformationReadDto = await clientInformationService.GetClientInformationByIdAsync(Id);
+    }
+}

@@ -13,6 +13,8 @@ using IdentityModel.Client;
 using Blazored.SessionStorage;
 using System.Reflection;
 using AutoMapper;
+using Anthurium.API.Profiles;
+using Anthurium.Web.Services;
 
 namespace Anthurium.Web
 {
@@ -29,10 +31,17 @@ namespace Anthurium.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpClient<Services.ApiService>(client =>
+            services.AddHttpClient<ApiService>(client =>
             {
                 client.BaseAddress = new Uri("http://localhost:5001");
                 
+            })
+                .AddClientAccessTokenHandler("web");
+
+            services.AddHttpClient<ClientInformationService>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:5001");
+
             })
                 .AddClientAccessTokenHandler("web");
 
@@ -48,12 +57,22 @@ namespace Anthurium.Web
 
             services.AddBlazoredSessionStorage();
 
-            //services.AddSingleton<Services.ApiTokenCacheService>();
+            //services.AddSingleton<ApiTokenCacheService>();
+            
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            var mapperConfiguration = new MapperConfiguration(configuration =>
+            {
+                configuration.AddProfile(new ClientInformationProfile());
+                configuration.AddProfile(new JobOrderDescriptionOfWorkProfile());
+                configuration.AddProfile(new JobOrderProfile());
+            });
+
+            var mapper = mapperConfiguration.CreateMapper();
+
+            services.AddSingleton(mapper);
 
         }
 

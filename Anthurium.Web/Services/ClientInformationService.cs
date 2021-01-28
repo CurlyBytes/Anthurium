@@ -18,7 +18,7 @@ namespace Anthurium.Web.Services
             _httpClient = client;
         }
 
-        public async Task<ClientInformationApiResponse> GetContactsAsync(string orderBy, int skip, int top)
+        public async Task<ClientInformationApiResponse> GetClientInformationsAsync(string orderBy, int skip, int top)
         {
             var response = await _httpClient.GetAsync($"api/clientinformation?$count=true&$orderby={orderBy}&$skip={skip}&$top={top}");
 
@@ -31,7 +31,7 @@ namespace Anthurium.Web.Services
             return new ClientInformationApiResponse();
         }
 
-        public async Task<ClientInformationReadDto> GetContactByIdAsync(long id)
+        public async Task<ClientInformationReadDto> GetClientInformationByIdAsync(int id)
         {
             var response = await _httpClient.GetAsync($"api/clientinformation/{id}");
 
@@ -42,24 +42,24 @@ namespace Anthurium.Web.Services
             return await JsonSerializer.DeserializeAsync<ClientInformationReadDto>(responseContent);
         }
 
-        public async Task<HttpResponseMessage> DeleteContactByIdAsync(long id)
+        public async Task<HttpResponseMessage> DeleteClientInformationByIdAsync(int id)
         {
             //consider impact vs returning just status code
             return await _httpClient.DeleteAsync($"api/clientinformation/{id}");
         }
 
-        public async Task<HttpResponseMessage> CreateContactAsync(ClientInformationCreateDto clientinformation)
+        public async Task<HttpResponseMessage> CreateClientInformationAsync(ClientInformationCreateDto clientinformation)
         {
-            string jsonContact = JsonSerializer.Serialize(clientinformation);
-            var stringContent = new StringContent(jsonContact, System.Text.Encoding.UTF8, "application/json");
+            string jsonClientInformation = JsonSerializer.Serialize(clientinformation);
+            var stringContent = new StringContent(jsonClientInformation, System.Text.Encoding.UTF8, "application/json");
 
             return await _httpClient.PostAsync($"api/clientinformation", stringContent);
         }
 
-        public async Task<HttpResponseMessage> EditContactAsync(long id, ClientInformationUpdateDto clientinformation)
+        public async Task<HttpResponseMessage> EditClientInformationAsync(long id, ClientInformationReadDto clientinformation)
         {
-            string jsonContact = JsonSerializer.Serialize(clientinformation);
-            var stringContent = new StringContent(jsonContact, System.Text.Encoding.UTF8, "application/json");
+            string jsonClientInformation = JsonSerializer.Serialize(clientinformation);
+            var stringContent = new StringContent(jsonClientInformation, System.Text.Encoding.UTF8, "application/json");
 
             return await _httpClient.PatchAsync($"api/clientinformation/{id}", stringContent);
         }
