@@ -68,8 +68,6 @@ namespace Anthurium.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Anthurium v1"));
             }
 
             //app.UseHttpsRedirection();
@@ -79,18 +77,15 @@ namespace Anthurium.API
             app.UseAuthentication();
             app.UseAuthorization();
 
+
+            IEdmModel model = EdmModelBuilder.Build();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.Select().Filter().OrderBy().Expand().Count().MaxTop(50);
-                endpoints.MapODataRoute("api", "api", GetEdmModel());
+                endpoints.MapODataRoute("api", "api", model);
             });            
         }
 
-        private IEdmModel GetEdmModel()
-        {
-            var builder = new ODataConventionModelBuilder();
-            builder.EntitySet<Contact>("Contacts");
-            return builder.GetEdmModel();
-        }
+     
     }
 }

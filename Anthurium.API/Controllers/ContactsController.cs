@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Anthurium.API.Controllers
 {
-    [Authorize]
+
     //[Route("api/[controller]")]
     [ODataRoutePrefix("contacts")]
     //[ApiController]
