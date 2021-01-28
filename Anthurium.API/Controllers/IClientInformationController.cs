@@ -1,4 +1,5 @@
 ﻿using Anthurium.API.Dtos;
+using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Anthurium.API.Controllers
         ActionResult<ClientInformationReadDto> ClientInformationById(int id);
         ActionResult<ClientInformationReadDto> CreateCommand(ClientInformationCreateDto commandCreate);
         ActionResult<IEnumerable<ClientInformationReadDto>> GetAllCommands();
-        ActionResult PartialUpdate(int id, JsonPatchDocument<ClientInformationUpdateDto> patchDocument);
+        ActionResult PartialUpdate(int id, Delta<ClientInformationUpdateDto> patchDocument);
         ActionResult RemoveClientInformation(int id);
         ActionResult UpdateClientInformation(int id, ClientInformationUpdateDto ClientInformationUpdateDto);
     }

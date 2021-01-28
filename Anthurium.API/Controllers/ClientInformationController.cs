@@ -17,7 +17,7 @@ namespace Anthurium.API.Controllers
     [ODataRoutePrefix("clientinformation")]
     [Route("api/clientinformation")]
 
-    public class ClientInformationController : ODataController
+    public class ClientInformationController : ODataController, IClientInformationController
     {
         private readonly IClientInformation _repository;
         private readonly IMapper _mapper;
@@ -142,6 +142,7 @@ namespace Anthurium.API.Controllers
 
             return NoContent();
         }
+
 
     }
 }
