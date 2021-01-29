@@ -24,5 +24,8 @@ namespace Anthurium.Shared.Models
         [Required]
         public bool IsActive { get; set; }
 
+        [Required]
+        public int JobOrderId { get; set; }
+
     }
 }

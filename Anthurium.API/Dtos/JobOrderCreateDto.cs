@@ -8,6 +8,9 @@ namespace Anthurium.API.Dtos
 {
     public class JobOrderCreateDto
     {
+        
+
+
         [Required]
         public string CompanyName { get; set; }
 
@@ -21,12 +24,16 @@ namespace Anthurium.API.Dtos
         public string ContactNumber { get; set; }
 
         [Required]
-        public string TimeStarted { get; set; }
+        public DateTime TimeStarted { get; set; }
 
         [Required]
-        public string TimeEnded { get; set; }
+        public DateTime TimeEnded { get; set; }
 
         [Required]
         public int TotalHours { get; set; }
+
+        [Required]
+        public int ClientInformationId { get; set; }
+
     }
 }

@@ -1,0 +1,125 @@
+﻿@page "/joborder/create"
+@inject Services.JobOrderService jobOrderService
+@inject Services.ClientInformationService clientInformationService
+@using System.Text.Json
+@using Anthurium.API.Dtos
+@inject NavigationManager NavManager
+@using AutoMapper;
+@inject IMapper _mapper;
+
+
+<h3>New Job Order</h3>
+<div style="max-width: 400px;">
+    <EditForm Model="@jobOrdernCreateDto" OnValidSubmit="@PostJobOrder">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group row">
+            <label for="contactName" class="col-sm-6 col-form-label">Client Info:</label>
+            <select class="form-control selectpicker" value="@jobOrdernCreateDto.ClientInformationId" @onchange="ChangeOrder" >
+                <option>--select--</option>
+                @foreach (var item in clientInformationReadDto)
+                {
+                    <option value="@item.Id">@item.CompanyName</option>
+                    // Blazor needs to know what values it binds to!
+                }
+            </select>
+        </div>
+        <div class="form-group row">
+            <label for="contactName" class="col-sm-6 col-form-label">Company Name:</label>
+            <input id="contactName" class="form-control col-sm-6 input-lg" type="text" disabled
+                   @bind="jobOrdernCreateDto.CompanyName" />
+        </div>
+        <div class="form-group row">
+            <label for="contactPhone" class="col-sm-6 col-form-label">Company Address:</label>
+            <input id="contactPhone" class="form-control col-sm-6 input-lg" type="text" disabled
+                   @bind="jobOrdernCreateDto.CompanyAddress" />
+        </div>
+
+        <div class="form-group row">
+            <label for="jobOrderContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
+            <input id="jobOrderContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                   @bind="jobOrdernCreateDto.ContactPerson" />
+        </div>
+        <div class="form-group row">
+            <label for="jobOrderContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
+            <input id="jobOrderContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                   @bind="jobOrdernCreateDto.ContactNumber" />
+        </div>
+
+        <div class="form-group row">
+            <label for="jobOrderTimeStarted" class="col-sm-6 col-form-label">Contact Timestarted:</label>
+            <input id="jobOrderTimeStarted" class="form-control col-sm-6 input-lg" type="time" disabled="@isSuccess"
+                   @bind="jobOrdernCreateDto.TimeStarted" />
+        </div>
+
+        <div class="form-group row">
+            <label for="jobOrderTimeEnded" class="col-sm-6 col-form-label">Contact TimeEnded:</label>
+            <input id="jobOrderTimeEnded" class="form-control col-sm-6 input-lg" type="time" disabled="@isSuccess"
+                   @bind="jobOrdernCreateDto.TimeEnded" />
+        </div>
+
+        <div class="form-group row">
+            <label for="jobOrdeTotalHours" class="col-sm-6 col-form-label">Contact Number:</label>
+            <input id="jobOrderTotalHours" class="form-control col-sm-6 input-lg" type="number" disabled="@isSuccess"
+                   @bind="jobOrdernCreateDto.TotalHours" />
+        </div>
+
+
+
+
+
+        <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
+        <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
+             hidden="@(message=="")">@message</div>
+        </EditForm>
+    </div>
+    @code {
+        private List<ClientInformationReadDto> clientInformationReadDto = new List<ClientInformationReadDto>();
+        private JobOrderCreateDto jobOrdernCreateDto = new JobOrderCreateDto();
+        private JobOrderChangeCreate jobOrderChangeCreate = new JobOrderChangeCreate();
+        private ClientInformationReadDto clientInformationReadDtoSingle { get; set; } = new ClientInformationReadDto();
+
+        private bool isSuccess = false;
+        private string message = "";
+        private int matchingCount;
+
+
+        private async Task FetchListAsync()
+        {
+            var response = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
+            clientInformationReadDto = response.ClientInformation;
+            matchingCount = response.Count; clientInformationReadDto = response.ClientInformation;
+
+
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+            await FetchListAsync();
+        }
+
+        public async void PostJobOrder()
+        {
+            //returns response message, so can check if success
+            var response = await jobOrderService.CreateJobOrderAsync(jobOrdernCreateDto);
+            if (response.IsSuccessStatusCode)
+            {
+                isSuccess = true;
+                message = $"<a href='{response.Headers.Location}'>view</a>";
+
+                NavManager.NavigateTo("/");
+            }
+            else
+                message = $"Error: {response.StatusCode.ToString()}. Please try again.";
+            this.StateHasChanged();
+        }
+
+        private async Task ChangeOrder(ChangeEventArgs e)
+        {
+
+            clientInformationReadDtoSingle = await clientInformationService.GetClientInformationByIdAsync(Int32.Parse(e.Value.ToString()));
+            _mapper.Map(clientInformationReadDtoSingle, jobOrderChangeCreate);
+            _mapper.Map(jobOrderChangeCreate, jobOrdernCreateDto);
+            message="";
+        }
+    }

@@ -31,6 +31,19 @@ namespace Anthurium.Web.Services
             return new ClientInformationApiResponse();
         }
 
+        public async Task<ClientInformationApiResponse> GetClientInformationsAsync(string orderBy, int skip)
+        {
+            var response = await _httpClient.GetAsync($"api/clientinformation?$count=true&$orderby={orderBy}&$skip={skip}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<ClientInformationApiResponse>(responseContent);
+            }
+
+            return new ClientInformationApiResponse();
+        }
+
         public async Task<ClientInformationReadDto> GetClientInformationByIdAsync(int id)
         {
             var response = await _httpClient.GetAsync($"api/clientinformation/{id}");

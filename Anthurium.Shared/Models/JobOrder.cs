@@ -43,8 +43,9 @@ namespace Anthurium.Shared.Models
         [Required]
         public bool IsActive { get; set; }
 
+        [Required]
+        public int ClientInformationId { get; set; }
 
-        
 
     }
 }

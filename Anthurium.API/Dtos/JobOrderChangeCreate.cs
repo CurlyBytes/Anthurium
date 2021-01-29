@@ -6,29 +6,15 @@ using System.Threading.Tasks;
 
 namespace Anthurium.API.Dtos
 {
-    public class JobOrderUpdateDto
+    public class JobOrderChangeCreate
     {
-           
         [Required]
+        [MaxLength(250)]
         public string CompanyName { get; set; }
 
         [Required]
+        [MaxLength(450)]
         public string CompanyAddress { get; set; }
-
-        [Required]
-        public string ContactPerson { get; set; }
-
-        [Required]
-        public string ContactNumber { get; set; }
-
-        [Required]
-        public DateTime TimeStarted { get; set; }
-
-        [Required]
-        public DateTime TimeEnded { get; set; }
-
-        [Required]
-        public int TotalHours { get; set; }
 
         [Required]
         public int ClientInformationId { get; set; }
