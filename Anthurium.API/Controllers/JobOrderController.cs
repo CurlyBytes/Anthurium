@@ -3,6 +3,7 @@ using Anthurium.Shared.Models;
 using Anthurium.Web.Repositories;
 using AutoMapper;
 using Microsoft.AspNet.OData;
+using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,7 +15,7 @@ namespace Anthurium.API.Controllers
 {
     [Route("api/joborder")]
     [ApiController]
-
+    [ODataRoutePrefix("joborder")]
     public class JobOrderController : ODataController
     {
         private readonly IJobOrderRepository _repository;
@@ -26,7 +27,9 @@ namespace Anthurium.API.Controllers
             _mapper = mapper;
         }
 
+        [EnableQuery(PageSize = 50)]
         [HttpGet]
+        [ODataRoute]
         public ActionResult<IEnumerable<JobOrderReadDto>> GetJobOrders()
         {
             var commandItems = _repository.GetJobOrders();
@@ -35,8 +38,14 @@ namespace Anthurium.API.Controllers
         }
 
         [HttpGet("{id}", Name = "JobOrderById")]
+        [EnableQuery]
+        [ODataRoute("({id})")]
         public ActionResult<JobOrderReadDto> JobOrderById(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var commandItem = _repository.GetJobOrderById(id);
             if (commandItem == null)
             {
@@ -47,8 +56,13 @@ namespace Anthurium.API.Controllers
         }
 
         [HttpPost]
+        [ODataRoute]
         public ActionResult<JobOrderReadDto> CreateJobOrder(JobOrderCreateDto commandCreate)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             JobOrder commandItem = _mapper.Map<JobOrder>(commandCreate);
 
             _repository.CreateJobOrder(commandItem);
@@ -60,8 +74,13 @@ namespace Anthurium.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [ODataRoute("({id})")]
         public ActionResult UpdateJobOrder(int id, JobOrderUpdateDto JobOrderUpdateDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var commandItem = _repository.GetJobOrderById(id);
             if (commandItem == null)
             {
@@ -75,8 +94,13 @@ namespace Anthurium.API.Controllers
         }
 
         [HttpPatch("{id}")]
+        [ODataRoute("({id})")]
         public ActionResult PartialUpdate(int id, JsonPatchDocument<JobOrderUpdateDto> patchDocument)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var commandItem = _repository.GetJobOrderById(id);
             if (commandItem == null)
             {
@@ -102,8 +126,13 @@ namespace Anthurium.API.Controllers
 
 
         [HttpDelete("{id}")]
+        [ODataRoute("({id})")]
         public ActionResult RemoveJobOrder(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var commandItem = _repository.GetJobOrderById(id);
             if (commandItem == null)
             {
