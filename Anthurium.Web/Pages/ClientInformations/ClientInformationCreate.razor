@@ -2,6 +2,7 @@
 @inject Services.ClientInformationService clientInformationService
 @using System.Text.Json
 @using Anthurium.API.Dtos
+@inject NavigationManager NavManager
 
 <h3>New Client Information</h3>
 <div style="max-width: 400px;">
@@ -35,7 +36,9 @@
             if (response.IsSuccessStatusCode)
             {
                 isSuccess = true;
-                message = $"Success {response.Headers.Location}";
+                message = $"<a href='{response.Headers.Location}'>view</a>";
+
+                NavManager.NavigateTo("/");
             }
             else
                 message = $"Error: {response.StatusCode.ToString()}. Please try again.";

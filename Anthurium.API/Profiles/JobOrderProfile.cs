@@ -19,6 +19,7 @@ namespace Anthurium.API.Profiles
             CreateMap<JobOrderCreateDto, JobOrder>();
             CreateMap<JobOrderUpdateDto, JobOrder>();
             CreateMap<JobOrder, JobOrderUpdateDto>();
+            CreateMap<JobOrderReadDto, JobOrderUpdateDto>();
         }
     }
 }

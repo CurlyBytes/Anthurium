@@ -34,6 +34,10 @@ namespace Anthurium.API.Controllers
         [ODataRoute]
         public ActionResult<IEnumerable<ClientInformationReadDto>> GetAllCommands()
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var commandItems = _repository.GetClientInformation();
 
             return Ok(_mapper.Map<IEnumerable<ClientInformationReadDto>>(commandItems));

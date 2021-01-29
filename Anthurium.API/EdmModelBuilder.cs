@@ -33,8 +33,21 @@ namespace Anthurium.API
             var fnCreateClientInformation = builder.Function("CreateClientInformation");
             fnCreateClientInformation.ReturnsCollectionFromEntitySet<ClientInformationReadDto>("ClientInformation");
 
-           // var fnUpdateClientInformation = builder.Function("UpdateClientInformation");
-           // fnCreateClientInformation.ReturnsCollectionFromEntitySet<ClientInformationUpdateDto>("ClientInformation");
+
+            builder.EntitySet<JobOrderDescriptionOfWorkReadDto>("JobOrderDescriptionOfWork").EntityType.HasKey(x => x.Id);
+
+            var fnGetAllJobOrderDescriptionOfWork = builder.Function("GetAll");
+            fnGetAllJobOrderDescriptionOfWork.ReturnsCollectionFromEntitySet<JobOrderDescriptionOfWorkReadDto>("JobOrderDescriptionOfWork");
+
+            var fnGeByIdJobOrderDescriptionOfWork = builder.Function("GetById");
+            fnGeByIdJobOrderDescriptionOfWork.Parameter<int>("id");
+            fnGeByIdJobOrderDescriptionOfWork.ReturnsCollectionFromEntitySet<JobOrderDescriptionOfWorkReadDto>("JobOrderDescriptionOfWork");
+
+            var fnCreateJobOrderDescriptionOfWork = builder.Function("CreateClientInformation");
+            fnCreateJobOrderDescriptionOfWork.ReturnsCollectionFromEntitySet<JobOrderDescriptionOfWorkReadDto>("JobOrderDescriptionOfWork");
+
+            // var fnUpdateClientInformation = builder.Function("UpdateClientInformation");
+            // fnCreateClientInformation.ReturnsCollectionFromEntitySet<ClientInformationUpdateDto>("ClientInformation");
 
 
             return builder.GetEdmModel();
