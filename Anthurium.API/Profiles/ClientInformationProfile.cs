@@ -18,7 +18,7 @@ namespace Anthurium.API.Profiles
             CreateMap<ClientInformationCreateDto, ClientInformation>();
             CreateMap<ClientInformationUpdateDto, ClientInformation>();
             CreateMap<ClientInformation, ClientInformationUpdateDto>();
-          //  CreateMap<ClientInformationReadDto, ClientInformationUpdateDto>();
+            CreateMap<ClientInformationReadDto, ClientInformationUpdateDto>();
         }
     }
 }
