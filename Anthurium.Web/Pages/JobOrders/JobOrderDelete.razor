@@ -1,0 +1,52 @@
+﻿@page "/joborder/{Id:int}/delete"
+@inject Services.JobOrderService jobOrderReadDtoService
+@inject NavigationManager NavManager
+@using Anthurium.Web.Pages
+@using Anthurium.API.Dtos
+<h3>Are you sure you want to delete this?</h3>
+
+@if (jobOrderReadDto == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-sm-4" style="background-color:lightgrey; padding:4px;">
+            <h4>@jobOrderReadDto.CompanyName</h4>
+            <h4>@jobOrderReadDto.CompanyAddress</h4>
+            <h4>@jobOrderReadDto.ContactPerson</h4>
+            <h4>@jobOrderReadDto.ContactNumber</h4>
+            <h4>@jobOrderReadDto.TimeStarted</h4>
+            <h4>@jobOrderReadDto.TimeEnded</h4>
+            <h4>@jobOrderReadDto.TotalHours</h4>
+        </div>
+    </div>
+    <div class="row" style="margin-top:1rem;">
+        <div class="col-12">
+            <button @onclick="OnDeleteButtonClick" class="btn btn-danger">Delete</button> |
+            <a href="/joborder/@jobOrderReadDto.Id">Return to Job Order</a>
+        </div>
+    </div>
+}
+
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private JobOrderReadDto jobOrderReadDto;
+
+    protected override async Task OnInitializedAsync()
+    {
+        jobOrderReadDto = await jobOrderReadDtoService.GetJobOrderByIdAsync(Id);
+    }
+
+    private async void OnDeleteButtonClick()
+    {
+
+        await jobOrderReadDtoService.DeleteJobOrderByIdAsync(Id);
+        NavManager.NavigateTo("/");
+    }
+}

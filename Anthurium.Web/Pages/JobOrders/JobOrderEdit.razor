@@ -1,0 +1,105 @@
+﻿@page "/joborder/{Id:int}/edit"
+@inject Services.JobOrderService jobOrderService
+@using AutoMapper;
+@inject IMapper _mapper;
+@using System.Text.Json
+@using Anthurium.API.Dtos
+
+<h3>Edit Contact</h3>
+@if (jobOrderReadDto == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-sm-8 text-right">
+            <a href="/joborder/@jobOrderReadDto.Id/delete">delete</a>
+        </div>
+    </div>
+    <div style="max-width: 400px;">
+        <EditForm Model="@jobOrderUpdateDto" OnValidSubmit="@UpdateJobOrder">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group row">
+                <label for="contactName" class="col-sm-6 col-form-label">Company Name:</label>
+                <input id="contactName" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                       @bind="jobOrderUpdateDto.CompanyName" />
+            </div>
+            <div class="form-group row">
+                <label for="contactPhone" class="col-sm-6 col-form-label">Company Address:</label>
+                <input id="contactPhone" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                       @bind="jobOrderUpdateDto.CompanyAddress" />
+            </div>
+
+
+            <div class="form-group row">
+                <label for="jobOrderContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
+                <input id="jobOrderContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                       @bind="jobOrderUpdateDto.ContactPerson" />
+            </div>
+            <div class="form-group row">
+                <label for="jobOrderContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
+                <input id="jobOrderContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                       @bind="jobOrderUpdateDto.ContactNumber" />
+            </div>
+
+            <div class="form-group row">
+                <label for="jobOrderTimeStarted" class="col-sm-6 col-form-label">Contact Timestarted:</label>
+                <input id="jobOrderTimeStarted" class="form-control col-sm-6 input-lg" type="time" disabled="@isSuccess"
+                       @bind="jobOrderUpdateDto.TimeStarted" />
+            </div>
+
+            <div class="form-group row">
+                <label for="jobOrderTimeEnded" class="col-sm-6 col-form-label">Contact TimeEnded:</label>
+                <input id="jobOrderTimeEnded" class="form-control col-sm-6 input-lg" type="time" disabled="@isSuccess"
+                       @bind="jobOrderUpdateDto.TimeEnded" />
+            </div>
+
+            <div class="form-group row">
+                <label for="jobOrdeTotalHours" class="col-sm-6 col-form-label">Contact Number:</label>
+                <input id="jobOrderTotalHours" class="form-control col-sm-6 input-lg" type="number" disabled="@isSuccess"
+                       @bind="jobOrderUpdateDto.TotalHours" />
+            </div>
+            <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
+            <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
+                 hidden="@(message=="")">@message</div>
+            </EditForm>
+        </div>
+    }
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private bool isSuccess = false;
+    private string message = "";
+
+    private JobOrderUpdateDto jobOrderUpdateDto { get; set; } = new JobOrderUpdateDto();
+    private JobOrderReadDto jobOrderReadDto { get; set; } = new JobOrderReadDto();
+
+    protected override async Task OnInitializedAsync()
+    {
+        jobOrderReadDto = await jobOrderService.GetJobOrderByIdAsync(Id);
+        _mapper.Map(jobOrderReadDto, jobOrderUpdateDto);
+    }
+
+    public async void UpdateJobOrder()
+    {
+
+
+        //returns response message, so can check if success
+        var response = await jobOrderService.EditJobOrderAsync(Id, jobOrderUpdateDto);
+        if (response.IsSuccessStatusCode)
+        {
+            isSuccess = true;
+            message = $"Success";
+            //navigate to single page
+            //perhaps set flag (success) there that will display message if coming from this page
+        }
+        else
+            message = $"Error: {response.StatusCode.ToString()}. Please try again.";
+        this.StateHasChanged();
+    }
+}

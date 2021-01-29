@@ -31,12 +31,7 @@ namespace Anthurium.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpClient<ApiService>(client =>
-            {
-                client.BaseAddress = new Uri("http://localhost:5001");
-                
-            })
-                .AddClientAccessTokenHandler("web");
+           
 
             services.AddHttpClient<ClientInformationService>(client =>
             {
