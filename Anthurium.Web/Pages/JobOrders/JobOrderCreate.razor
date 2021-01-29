@@ -107,7 +107,7 @@
                 isSuccess = true;
                 message = $"<a href='{response.Headers.Location}'>view</a>";
 
-                NavManager.NavigateTo("/");
+                NavManager.NavigateTo("/joborder");
             }
             else
                 message = $"Error: {response.StatusCode.ToString()}. Please try again.";

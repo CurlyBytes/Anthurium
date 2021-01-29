@@ -22,8 +22,8 @@
                     <label for="sortBy" class="col-form-label col-form-label-sm col">Sort by:</label>
                     <select id="sortBy" class="form-control form-control-sm" style="width:auto;" @onchange="ChangeOrder">
                         <option value="Id" selected=@(ListPrefsProvider.listPrefs.OrderBy=="Id")>ID</option>
-                        <option value="CompanyName" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName")>Name (A - Z)</option>
-                        <option value="CompanyName desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName desc")>Name (Z - A)</option>
+                        <option value="CompanyName" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName")>CompanyName (A - Z)</option>
+                        <option value="ContactPerson" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactPerson")>ContactPerson (Z - A)</option>
                     </select>
                 </div>
             </div>
@@ -37,16 +37,24 @@
                         <th>Company Address</th>
                         <th>Person</th>
                         <th>Number</th>
+                        <th>Time Start</th>
+                        <th>Time End</th>
+                        <th>Total Hourse</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var jobOrderReadDtoItem in jobOrderReadDto)
                     {
-                        <tr>
-                            <td>@jobOrderReadDtoItem.Id</td>
-                            <td><a href="/joborder/@jobOrderReadDtoItem.Id">@jobOrderReadDtoItem.CompanyName</a></td>
-                            <td>@jobOrderReadDtoItem.CompanyAddress</td>
-                        </tr>
+                    <tr>
+                        <td>@jobOrderReadDtoItem.Id</td>
+                        <td><a href="/joborder/@jobOrderReadDtoItem.Id">@jobOrderReadDtoItem.CompanyName</a></td>
+                        <td>@jobOrderReadDtoItem.CompanyAddress</td>
+                        <td>@jobOrderReadDtoItem.ContactPerson</td>
+                        <td>@jobOrderReadDtoItem.ContactNumber</td>
+                        <td>@jobOrderReadDtoItem.TimeStarted</td>
+                        <td>@jobOrderReadDtoItem.TimeEnded</td>
+                        <td>@jobOrderReadDtoItem.TotalHours</td>
+                    </tr>
                     }
                 </tbody>
             </table>

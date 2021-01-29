@@ -38,7 +38,7 @@
                 isSuccess = true;
                 message = $"<a href='{response.Headers.Location}'>view</a>";
 
-                NavManager.NavigateTo("/");
+                NavManager.NavigateTo("/clientinformation");
             }
             else
                 message = $"Error: {response.StatusCode.ToString()}. Please try again.";
