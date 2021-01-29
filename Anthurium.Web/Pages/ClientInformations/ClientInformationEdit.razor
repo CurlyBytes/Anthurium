@@ -1,6 +1,7 @@
 ﻿@page "/clientinformation/{Id:int}/edit"
 @inject Services.ClientInformationService clientInformationtService
-@inject NavigationManager NavManager
+@using AutoMapper;
+@inject IMapper _mapper;
 @using System.Text.Json
 @using Anthurium.API.Dtos
 
@@ -44,19 +45,21 @@ else
 
     private bool isSuccess = false;
     private string message = "";
+    //private ClientInformationUpdateDto clientInformationUpdateDto;
+    //private ClientInformationReadDto clientInformationReadDto;
     private ClientInformationUpdateDto clientInformationUpdateDto { get; set; } = new ClientInformationUpdateDto();
     private ClientInformationReadDto clientInformationReadDto { get; set; } = new ClientInformationReadDto();
 
     protected override async Task OnInitializedAsync()
     {
         clientInformationReadDto = await clientInformationtService.GetClientInformationByIdAsync(Id);
-       
+        _mapper.Map(clientInformationReadDto, clientInformationUpdateDto);
     }
 
     public async void UpdateClientInformation()
     {
 
-       
+
         //returns response message, so can check if success
         var response = await clientInformationtService.EditClientInformationAsync(Id, clientInformationUpdateDto);
         if (response.IsSuccessStatusCode)

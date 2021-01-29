@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Anthurium.Shared\Anthurium.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\JobOrders\" />
+  </ItemGroup>
+
 </Project>

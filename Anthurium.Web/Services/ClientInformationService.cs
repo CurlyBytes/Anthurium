@@ -56,7 +56,7 @@ namespace Anthurium.Web.Services
             return await _httpClient.PostAsync($"api/clientinformation", stringContent);
         }
 
-        public async Task<HttpResponseMessage> EditClientInformationAsync(long id, ClientInformationUpdateDto clientinformation)
+        public async Task<HttpResponseMessage> EditClientInformationAsync(int id, ClientInformationUpdateDto clientinformation)
         {
             string jsonClientInformation = JsonSerializer.Serialize(clientinformation);
             var stringContent = new StringContent(jsonClientInformation, System.Text.Encoding.UTF8, "application/json");

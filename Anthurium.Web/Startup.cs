@@ -45,6 +45,21 @@ namespace Anthurium.Web
             })
                 .AddClientAccessTokenHandler("web");
 
+            services.AddHttpClient<JobOrderService>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:5001");
+
+            })
+                .AddClientAccessTokenHandler("web");
+
+
+            services.AddHttpClient<JobOrderDescriptionOfWorkService>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:5001");
+
+            })
+                .AddClientAccessTokenHandler("web");
+
             services.AddAccessTokenManagement(options =>
             {
                 options.Client.Clients.Add("web", new ClientCredentialsTokenRequest
