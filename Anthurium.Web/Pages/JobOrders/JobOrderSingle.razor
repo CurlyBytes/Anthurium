@@ -1,0 +1,46 @@
+﻿@page "/joborder/{Id:int}"
+@inject Services.JobOrderService jobOrderService
+@using Anthurium.API.Dtos
+
+<h3>Client Id: @Id.ToString()</h3>
+
+@if (jobOrderReadDto == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-sm-8 text-right">
+            <a href="/clientinformation/@Id/edit" class="btn btn-sm btn-secondary">Edit</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h4>@jobOrderReadDto.CompanyName</h4>
+            <h4>@jobOrderReadDto.CompanyAddress</h4>
+            <h4>@jobOrderReadDto.ContactPerson</h4>
+            <h4>@jobOrderReadDto.ContactNumber</h4>
+            <h4>@jobOrderReadDto.TimeStarted</h4>
+            <h4>@jobOrderReadDto.TimeEnded</h4>
+            <h4>@jobOrderReadDto.TotalHours</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a href="/">Return to List</a>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private JobOrderReadDto jobOrderReadDto;
+
+    protected override async Task OnInitializedAsync()
+    {
+        jobOrderReadDto = await jobOrderService.GetJobOrderByIdAsync(Id);
+    }
+}
