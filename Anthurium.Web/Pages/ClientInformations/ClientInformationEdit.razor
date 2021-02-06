@@ -4,8 +4,9 @@
 @inject IMapper _mapper;
 @using System.Text.Json
 @using Anthurium.API.Dtos
+@inject NavigationManager NavManager
 
-<h3>Edit Contact</h3>
+<h3>Edit Client Information</h3>
 @if (clientInformationReadDto == null)
 {
     <p><em>Loading...</em></p>
@@ -22,19 +23,24 @@ else
             <DataAnnotationsValidator />
             <ValidationSummary />
             <div class="form-group row">
-                <label for="contactName" class="col-sm-6 col-form-label">Company Name:</label>
-                <input id="contactName" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
+                <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
                        @bind="clientInformationUpdateDto.CompanyName" />
             </div>
             <div class="form-group row">
-                <label for="contactPhone" class="col-sm-6 col-form-label">Company Address:</label>
-                <input id="contactPhone" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
+                <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
                        @bind="clientInformationUpdateDto.CompanyAddress" />
             </div>
             <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
             <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
                  hidden="@(message=="")">@message</div>
             </EditForm>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <a href="/clientinformation">Return to List</a>
+            </div>
         </div>
     }
 
@@ -45,7 +51,7 @@ else
 
     private bool isSuccess = false;
     private string message = "";
-   
+
     private ClientInformationUpdateDto clientInformationUpdateDto { get; set; } = new ClientInformationUpdateDto();
     private ClientInformationReadDto clientInformationReadDto { get; set; } = new ClientInformationReadDto();
 
@@ -65,6 +71,7 @@ else
         {
             isSuccess = true;
             message = $"Success";
+            NavManager.NavigateTo("/clientinformation");
             //navigate to single page
             //perhaps set flag (success) there that will display message if coming from this page
         }

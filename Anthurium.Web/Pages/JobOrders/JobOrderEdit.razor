@@ -1,11 +1,12 @@
 ﻿@page "/joborder/{Id:int}/edit"
 @inject Services.JobOrderService jobOrderService
+@inject Services.ClientInformationService clientInformationService
 @using AutoMapper;
 @inject IMapper _mapper;
-@using System.Text.Json
+@using System.Text.Json;
 @using Anthurium.API.Dtos
 
-<h3>Edit Contact</h3>
+<h3>Edit Job Order</h3>
 @if (jobOrderReadDto == null)
 {
     <p><em>Loading...</em></p>
@@ -22,13 +23,24 @@ else
             <DataAnnotationsValidator />
             <ValidationSummary />
             <div class="form-group row">
-                <label for="contactName" class="col-sm-6 col-form-label">Company Name:</label>
-                <input id="contactName" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                <label for="contactName" class="col-sm-6 col-form-label">Client Info:</label>
+                <select class="form-control selectpicker" value="@jobOrderUpdateDto.ClientInformationId" @onchange="ChangeOrder">
+                    <option>--select--</option>
+                    @foreach (var item in clientInformationReadDto)
+                    {
+                        <option value="@item.ClientInformationId">@item.CompanyName</option>
+                        // Blazor needs to know what values it binds to!
+                    }
+                </select>
+            </div>
+            <div class="form-group row">
+                <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
+                <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled="disabled"
                        @bind="jobOrderUpdateDto.CompanyName" />
             </div>
             <div class="form-group row">
-                <label for="contactPhone" class="col-sm-6 col-form-label">Company Address:</label>
-                <input id="contactPhone" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
+                <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled="disabled"
                        @bind="jobOrderUpdateDto.CompanyAddress" />
             </div>
 
@@ -66,6 +78,11 @@ else
                  hidden="@(message=="")">@message</div>
             </EditForm>
         </div>
+        <div class="row">
+            <div class="col-12">
+                <a href="/joborder">Return to List</a>
+            </div>
+        </div>
     }
 
 
@@ -76,13 +93,20 @@ else
     private bool isSuccess = false;
     private string message = "";
 
+    private List<ClientInformationReadDto> clientInformationReadDto = new List<ClientInformationReadDto>();
     private JobOrderUpdateDto jobOrderUpdateDto { get; set; } = new JobOrderUpdateDto();
     private JobOrderReadDto jobOrderReadDto { get; set; } = new JobOrderReadDto();
+    private JobOrderChangeCreate jobOrderChangeCreate = new JobOrderChangeCreate();
+    private ClientInformationReadDto clientInformationReadDtoSingle { get; set; } = new ClientInformationReadDto();
 
     protected override async Task OnInitializedAsync()
     {
         jobOrderReadDto = await jobOrderService.GetJobOrderByIdAsync(Id);
         _mapper.Map(jobOrderReadDto, jobOrderUpdateDto);
+        var response = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
+        clientInformationReadDto = response.ClientInformation;
+
+
     }
 
     public async void UpdateJobOrder()
@@ -101,5 +125,14 @@ else
         else
             message = $"Error: {response.StatusCode.ToString()}. Please try again.";
         this.StateHasChanged();
+    }
+
+    private async Task ChangeOrder(ChangeEventArgs e)
+    {
+
+        clientInformationReadDtoSingle = await clientInformationService.GetClientInformationByIdAsync(Int32.Parse(e.Value.ToString()));
+        _mapper.Map(clientInformationReadDtoSingle, jobOrderChangeCreate);
+        _mapper.Map(jobOrderChangeCreate, jobOrderUpdateDto);
+        message = "";
     }
 }

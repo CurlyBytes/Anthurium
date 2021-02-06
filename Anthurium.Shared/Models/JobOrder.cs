@@ -48,8 +48,9 @@ namespace Anthurium.Shared.Models
 
         [Required]
         public bool IsActive { get; set; }
-
-
+        
+        [Required]
+        public int ClientInformationId { get; set; }
         public ClientInformation ClientInformation { get; set; }
         public ICollection<JobOrderDescriptionOfWork> JobOrderDescriptionOfWork { get; set; }
 

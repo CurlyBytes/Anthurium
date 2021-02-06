@@ -11,7 +11,7 @@ namespace Anthurium.Web.Repositories
 
         IEnumerable<ClientInformation> GetClientInformation();
         ClientInformation ClientInformationById(int Id);
-        IQueryable<ClientInformation> JobOrderPerClientId(int Id);
+        IEnumerable<ClientInformation> JobOrderPerClientId(int Id);
         void NewClientInformation(ClientInformation clientInformation);
 
         void UpdateClientInformation(ClientInformation clientInformation);

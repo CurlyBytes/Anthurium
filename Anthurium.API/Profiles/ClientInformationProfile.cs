@@ -28,7 +28,7 @@ namespace Anthurium.API.Profiles
              .ForMember(dest => dest.ClientInformationId, opt => opt.MapFrom(src => src.ClientInformationId)); 
 
             CreateMap<JobOrderChangeCreate, JobOrderCreateDto>();
-               
+            CreateMap<JobOrderChangeCreate, JobOrderUpdateDto>();
         }
     }
 }

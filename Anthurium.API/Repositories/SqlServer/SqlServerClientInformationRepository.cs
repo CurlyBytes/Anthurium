@@ -28,10 +28,11 @@ namespace Anthurium.Web.Repositories.SqlServer
 
         public IEnumerable<ClientInformation> GetClientInformation()
         {
-            return _context.ClientInformations.ToList();
+            return _context.ClientInformations
+                .Include(j => j.JobOrder); 
         }
 
-        public IQueryable<ClientInformation> JobOrderPerClientId(int Id)
+        public IEnumerable<ClientInformation> JobOrderPerClientId(int Id)
         {
             return _context.ClientInformations
               .Where(ci => ci.ClientInformationId == Id)
