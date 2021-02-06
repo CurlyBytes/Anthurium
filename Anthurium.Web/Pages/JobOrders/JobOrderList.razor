@@ -21,7 +21,7 @@
                 <div class="row form-group">
                     <label for="sortBy" class="col-form-label col-form-label-sm col">Sort by:</label>
                     <select id="sortBy" class="form-control form-control-sm" style="width:auto;" @onchange="ChangeOrder">
-                        <option value="Id" selected=@(ListPrefsProvider.listPrefs.OrderBy=="Id")>ID</option>
+                        <option value="JobOrderId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobOrderId")>ID</option>
                         <option value="CompanyName" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName")>CompanyName (A - Z)</option>
                         <option value="ContactPerson" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactPerson")>ContactPerson (Z - A)</option>
                     </select>
@@ -46,8 +46,8 @@
                     @foreach (var jobOrderReadDtoItem in jobOrderReadDto)
                     {
                     <tr>
-                        <td>@jobOrderReadDtoItem.Id</td>
-                        <td><a href="/joborder/@jobOrderReadDtoItem.Id">@jobOrderReadDtoItem.CompanyName</a></td>
+                        <td>@jobOrderReadDtoItem.JobOrderId</td>
+                        <td><a href="/joborder/@jobOrderReadDtoItem.JobOrderId">@jobOrderReadDtoItem.CompanyName</a></td>
                         <td>@jobOrderReadDtoItem.CompanyAddress</td>
                         <td>@jobOrderReadDtoItem.ContactPerson</td>
                         <td>@jobOrderReadDtoItem.ContactNumber</td>

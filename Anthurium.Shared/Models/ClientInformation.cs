@@ -9,7 +9,7 @@ namespace Anthurium.Shared.Models
     public class ClientInformation
     {
         [Key]
-        public int Id { get; set; }
+        public int ClientInformationId { get; set; }
 
         [Required]
         [MaxLength(250)]
@@ -19,8 +19,6 @@ namespace Anthurium.Shared.Models
         [MaxLength(450)]
         public string CompanyAddress { get; set; }
 
-        public List<JobOrder> JobOrders { get; set; } = new List<JobOrder>();
-
         [Required]
         public DateTime DateCreated { get; set; }
 
@@ -29,5 +27,7 @@ namespace Anthurium.Shared.Models
 
         [Required]
         public bool IsActive { get; set; }
+
+        public ICollection<JobOrder> JobOrder { get; set; }
     }
 }

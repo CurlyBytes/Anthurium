@@ -25,7 +25,7 @@ namespace Anthurium.API.Profiles
 
             //web razor comp on add joborder
             CreateMap<ClientInformationReadDto, JobOrderChangeCreate>()
-             .ForMember(dest => dest.ClientInformationId, opt => opt.MapFrom(src => src.Id)); 
+             .ForMember(dest => dest.ClientInformationId, opt => opt.MapFrom(src => src.ClientInformationId)); 
 
             CreateMap<JobOrderChangeCreate, JobOrderCreateDto>();
                

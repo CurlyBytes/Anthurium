@@ -24,7 +24,7 @@ namespace Anthurium.Web.Repositories.SqlServer
 
         public JobOrderDescriptionOfWork JobOrderDescriptionOfWorkById(int Id)
         {
-            return _context.JobOrderDescriptionOfWorks.FirstOrDefault(p => p.Id == Id);
+            return _context.JobOrderDescriptionOfWorks.FirstOrDefault(p => p.JobOrderDescriptionOfWorkId == Id);
         }
 
         public void NewJobOrderDescriptionOfWork(JobOrderDescriptionOfWork JobOrderDescriptionOfWork)

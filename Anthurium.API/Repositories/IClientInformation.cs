@@ -1,7 +1,7 @@
 ﻿using Anthurium.Shared.Models;
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace Anthurium.Web.Repositories
 {
@@ -11,7 +11,7 @@ namespace Anthurium.Web.Repositories
 
         IEnumerable<ClientInformation> GetClientInformation();
         ClientInformation ClientInformationById(int Id);
-
+        IQueryable<ClientInformation> JobOrderPerClientId(int Id);
         void NewClientInformation(ClientInformation clientInformation);
 
         void UpdateClientInformation(ClientInformation clientInformation);

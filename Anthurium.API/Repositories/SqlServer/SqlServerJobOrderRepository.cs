@@ -39,7 +39,7 @@ namespace Anthurium.Web.Repositories.SqlServer
 
         public JobOrder GetJobOrderById(int Id)
         {
-            return _context.JobOrders.FirstOrDefault(p => p.Id == Id);
+            return _context.JobOrders.FirstOrDefault(p => p.JobOrderId == Id);
         }
 
         public IEnumerable<JobOrder> GetJobOrders()

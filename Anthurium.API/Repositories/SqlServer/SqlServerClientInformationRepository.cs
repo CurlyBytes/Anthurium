@@ -1,5 +1,6 @@
 ﻿using Anthurium.API.Data;
 using Anthurium.Shared.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace Anthurium.Web.Repositories.SqlServer
 
         public ClientInformation ClientInformationById(int Id)
         {
-            return _context.ClientInformations.FirstOrDefault(p => p.Id == Id);
+            return _context.ClientInformations.FirstOrDefault(p => p.ClientInformationId == Id);
         }
          
    
@@ -28,6 +29,13 @@ namespace Anthurium.Web.Repositories.SqlServer
         public IEnumerable<ClientInformation> GetClientInformation()
         {
             return _context.ClientInformations.ToList();
+        }
+
+        public IQueryable<ClientInformation> JobOrderPerClientId(int Id)
+        {
+            return _context.ClientInformations
+              .Where(ci => ci.ClientInformationId == Id)
+              .Include(j => j.JobOrder);
         }
 
         public ClientInformation NewClientByDateWithin30Days()

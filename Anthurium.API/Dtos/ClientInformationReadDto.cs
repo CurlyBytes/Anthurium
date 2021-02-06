@@ -10,7 +10,7 @@ namespace Anthurium.API.Dtos
     public class ClientInformationReadDto
     {
         [Key]
-        public int Id { get; set; }
+        public int ClientInformationId { get; set; }
 
         [Required]
         [MaxLength(250)]
@@ -20,8 +20,8 @@ namespace Anthurium.API.Dtos
         [MaxLength(450)]
         public string CompanyAddress { get; set; }
 
-        
+        public ICollection<JobOrder> JobOrder { get; set; }
 
-        
+
     }
 }

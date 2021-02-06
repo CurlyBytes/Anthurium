@@ -8,7 +8,7 @@ namespace Anthurium.API.Dtos
 {
     public class JobOrderReadDto
     {
-        public int Id { get; set; }
+        public int JobOrderId { get; set; }
 
         [Required]
         public string CompanyName { get; set; }

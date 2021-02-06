@@ -16,12 +16,12 @@ namespace Anthurium.API
             // create OData builder instance
             var builder = new ODataConventionModelBuilder();
 
-            builder.EntitySet<Contact>("Contacts");
+         
             //builder.EntitySet<ClientInformationReadDto>("ClientInformation");
 
 
 
-            builder.EntitySet<ClientInformationReadDto>("ClientInformation").EntityType.HasKey(x => x.Id);
+            builder.EntitySet<ClientInformationReadDto>("ClientInformation").EntityType.HasKey(x => x.ClientInformationId);
 
             var fnGetAllClientINformation = builder.Function("GetAll");
             fnGetAllClientINformation.ReturnsCollectionFromEntitySet<ClientInformationReadDto>("ClientInformation");
@@ -47,7 +47,7 @@ namespace Anthurium.API
             fnCreateJobOrderDescriptionOfWork.ReturnsCollectionFromEntitySet<JobOrderDescriptionOfWorkReadDto>("JobOrderDescriptionOfWork");
 
 
-            builder.EntitySet<JobOrderReadDto>("JobOrder").EntityType.HasKey(x => x.Id);
+            builder.EntitySet<JobOrderReadDto>("JobOrder").EntityType.HasKey(x => x.JobOrderId);
 
             var fnGetAllJobOrder = builder.Function("GetAll");
             fnGetAllJobOrder.ReturnsCollectionFromEntitySet<JobOrderReadDto>("JobOrder");

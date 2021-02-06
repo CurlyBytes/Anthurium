@@ -9,27 +9,33 @@ namespace Anthurium.Shared.Models
     public class JobOrder
     {
         [Key]
-        public int Id { get; set; }
+        public int JobOrderId { get; set; }
 
         [Required]
+        [MaxLength(250)]
         public string CompanyName { get; set; }
 
         [Required]
+        [MaxLength(450)]
         public string CompanyAddress { get; set; }
 
+
         [Required]
+        [MaxLength(300)]
         public string ContactPerson { get; set; }
 
         [Required]
+        [MaxLength(20)]
+
         public string ContactNumber { get; set; }
 
         [Required]
-        public string TimeStarted { get; set; }
+        public DateTime TimeStarted { get; set; }
 
         [Required]
-        public string  TimeEnded { get; set; }
+        public DateTime TimeEnded { get; set; }
 
-        public List<JobOrderDescriptionOfWork> JobOrderDescriptionOfWork { get; set; } = new List<JobOrderDescriptionOfWork>();
+        // public List<JobOrderDescriptionOfWork> JobOrderDescriptionOfWork { get; set; } = new List<JobOrderDescriptionOfWork>();
 
         [Required]
         public int TotalHours { get; set; }
@@ -43,9 +49,9 @@ namespace Anthurium.Shared.Models
         [Required]
         public bool IsActive { get; set; }
 
-        [Required]
-        public int ClientInformationId { get; set; }
 
+        public ClientInformation ClientInformation { get; set; }
+        public ICollection<JobOrderDescriptionOfWork> JobOrderDescriptionOfWork { get; set; }
 
     }
 }

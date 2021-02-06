@@ -72,7 +72,7 @@ namespace Anthurium.API.Controllers
 
             ClientInformationReadDto ClientInformationReadDto = _mapper.Map<ClientInformationReadDto>(commandItem);
 
-            return CreatedAtRoute(nameof(ClientInformationById), new { Id = ClientInformationReadDto.Id }, ClientInformationReadDto);
+            return CreatedAtRoute(nameof(ClientInformationById), new { Id = ClientInformationReadDto.ClientInformationId }, ClientInformationReadDto);
         }
 
         [HttpPut("{id}")]

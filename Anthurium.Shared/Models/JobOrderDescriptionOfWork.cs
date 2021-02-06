@@ -10,7 +10,7 @@ namespace Anthurium.Shared.Models
     {
 
         [Key]
-        public int Id { get; set; }
+        public int JobOrderDescriptionOfWorkId { get; set; }
 
         [Required]
         public string JobOrderTypeOfWOrk { get; set; }
@@ -24,8 +24,8 @@ namespace Anthurium.Shared.Models
         [Required]
         public bool IsActive { get; set; }
 
-        [Required]
-        public int JobOrderId { get; set; }
+        public JobOrder JobOrder { get; set; }
+
 
     }
 }

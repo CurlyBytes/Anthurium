@@ -70,7 +70,7 @@ namespace Anthurium.API.Controllers
 
             JobOrderReadDto JobOrderReadDto = _mapper.Map<JobOrderReadDto>(commandItem);
 
-            return CreatedAtRoute(nameof(JobOrderById), new { Id = JobOrderReadDto.Id }, JobOrderReadDto);
+            return CreatedAtRoute(nameof(JobOrderById), new { Id = JobOrderReadDto.JobOrderId }, JobOrderReadDto);
         }
 
         [HttpPut("{id}")]

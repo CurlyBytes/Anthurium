@@ -19,7 +19,7 @@
                 <option>--select--</option>
                 @foreach (var item in clientInformationReadDto)
                 {
-                    <option value="@item.Id">@item.CompanyName</option>
+                    <option value="@item.ClientInformationId">@item.CompanyName</option>
                     // Blazor needs to know what values it binds to!
                 }
             </select>
