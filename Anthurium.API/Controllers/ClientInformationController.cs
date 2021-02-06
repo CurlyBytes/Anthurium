@@ -16,7 +16,7 @@ namespace Anthurium.API.Controllers
 {
     [ODataRoutePrefix("clientinformation")]
     [Route("api/clientinformation")]
-   
+    [ApiController]
     public class ClientInformationController : ODataController, IClientInformationController
     {
         private readonly IClientInformation _repository;
@@ -60,6 +60,26 @@ namespace Anthurium.API.Controllers
 
             return Ok(_mapper.Map<ClientInformationReadDto>(commandItem));
         }
+
+
+        [HttpGet("{id}/joborders", Name = "JobOrderPerClientId")]
+        [EnableQuery]
+        [ODataRoute("JobOrders(clientInformationId={clientInformationId},jobOrderClientInformationId={jobOrderClientInformationId})")]
+        public ActionResult<ClientInformationReadDto> JobOrderPerClientId([FromODataUri] int clientInformationId, [FromODataUri] int jobOrderClientInformationId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var commandItem = _repository.JobOrderPerClientId(clientInformationId);
+            if (commandItem == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<IEnumerable<ClientInformationReadDto>>(commandItem));
+        }
+
 
         [HttpPost]
         [ODataRoute]

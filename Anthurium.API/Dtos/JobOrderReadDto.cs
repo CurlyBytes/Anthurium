@@ -8,6 +8,7 @@ namespace Anthurium.API.Dtos
 {
     public class JobOrderReadDto
     {
+        [Key]
         public int JobOrderId { get; set; }
 
         [Required]

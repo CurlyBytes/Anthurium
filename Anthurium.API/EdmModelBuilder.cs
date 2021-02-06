@@ -34,6 +34,14 @@ namespace Anthurium.API
             fnCreateClientInformation.ReturnsCollectionFromEntitySet<ClientInformationReadDto>("ClientInformation");
 
 
+            var fnJobOrderPerClientId = builder.EntityType<ClientInformationReadDto>().Collection
+                .Function("JobOrders")
+                .ReturnsCollectionFromEntitySet<ClientInformationReadDto>("ClientInformation");
+            fnJobOrderPerClientId.Parameter<int>("clientInformationId").Required();
+            fnJobOrderPerClientId.Parameter<int>("jobOrderClientInformationId").Optional();
+
+
+
             builder.EntitySet<JobOrderDescriptionOfWorkReadDto>("JobOrderDescriptionOfWork").EntityType.HasKey(x => x.Id);
 
             var fnGetAllJobOrderDescriptionOfWork = builder.Function("GetAll");

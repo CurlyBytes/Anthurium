@@ -10,28 +10,96 @@ namespace Anthurium.API.Data
     {
         public static void Initialize(AnthuriumContext context)
         {
-            ////context.Database.EnsureCreated();
+            //context.Database.EnsureCreated();
 
-            //// Look for any Contacts.
-            //if (context.Contacts.Any())
-            //{
-            //    return;   // DB has been seeded
-            //}
+            // Look for any Contacts.
+            if (context.ClientInformations.Any())
+            {
+                return;   // DB has been seeded
+            }
 
-            //var contacts = new Contact[]
-            //{
-            //    new Contact { Name = "Person 1",  PhoneNumber = "+1 555 111 1111" },
-            //    new Contact { Name = "Person 2",  PhoneNumber = "+1 555 222 2222" },
-            //    new Contact { Name = "Person 3",  PhoneNumber = "+1 555 333 3333" },
-            //    new Contact { Name = "Person 4",  PhoneNumber = "+1 555 444 4444" },
-            //    new Contact { Name = "Person 5",  PhoneNumber = "+1 555 555 5555" },
-            //};
+            var clientInformations = new ClientInformation[]
+            {
+                new ClientInformation { CompanyName = "RAFI",  CompanyAddress = "eduardo aboitiz street" },
+                new ClientInformation { CompanyName = "CurlyBytes",  CompanyAddress = "107 v. raman st. calamba cc" },
+                new ClientInformation { CompanyName = "Microsoft",  CompanyAddress = "United States America" },
+            };
+            
+            var jobOrders = new JobOrder[]
+            {
+                new JobOrder { 
+                    CompanyName = "RAFI",  
+                    CompanyAddress = "eduardo aboitiz street",
+                    ClientInformationId = 1,
+                    ContactPerson = "Rafinian",
+                    ContactNumber = "+0639207082",
+                    TimeStarted = DateTime.UtcNow,
+                    TimeEnded = DateTime.UtcNow,
+                    TotalHours = 2
+                    },
+                new JobOrder {
+                    CompanyName = "RAFI",
+                    CompanyAddress = "eduardo aboitiz street",
+                    ClientInformationId = 1,
+                    ContactPerson = "Rafinian",
+                    ContactNumber = "+0639207082",
+                    TimeStarted = DateTime.UtcNow.AddHours(12),
+                    TimeEnded = DateTime.UtcNow.AddHours(35),
+                    TotalHours = 31
+                    },
+                new JobOrder {
+                    CompanyName = "RAFI",
+                    CompanyAddress = "eduardo aboitiz street",
+                    ClientInformationId = 1,
+                    ContactPerson = "Rafinian",
+                    ContactNumber = "+0639207082",
+                    TimeStarted = DateTime.UtcNow.AddHours(1),
+                    TimeEnded = DateTime.UtcNow.AddHours(2),
+                    TotalHours = 1
+                    },
+                new JobOrder {
+                    CompanyName = "CurlyBytes",
+                    CompanyAddress = "107 v. raman st. calamba cc",
+                    ClientInformationId = 2,
+                    ContactPerson = "Cocoy",
+                    ContactNumber = "4177214",
+                    TimeStarted = DateTime.UtcNow.AddHours(1),
+                    TimeEnded = DateTime.UtcNow.AddHours(2),
+                    TotalHours = 1
+                    },
+                new JobOrder {
+                    CompanyName = "CurlyBytes",
+                    CompanyAddress = "107 v. raman st. calamba cc",
+                    ClientInformationId = 2,
+                    ContactPerson = "Cacay",
+                    ContactNumber = "4177214",
+                    TimeStarted = DateTime.UtcNow.AddHours(11),
+                    TimeEnded = DateTime.UtcNow.AddHours(42),
+                    TotalHours = 3
+                    },
+                new JobOrder {
+                    CompanyName = "Microsoft",
+                    CompanyAddress = "United States America",
+                    ClientInformationId = 3,
+                    ContactPerson = "Trump",
+                    ContactNumber = "21141",
+                    TimeStarted = DateTime.UtcNow.AddHours(1),
+                    TimeEnded = DateTime.UtcNow.AddHours(12),
+                    TotalHours = 8
+                    }
 
-            //foreach (Contact c in contacts)
-            //{
-            //    context.Contacts.Add(c);
-            //}
-            //context.SaveChanges();
+            };
+           
+            foreach (ClientInformation record in clientInformations)
+            {
+                context.ClientInformations.Add(record);
+            }
+
+            foreach (JobOrder record in jobOrders)
+            {
+                context.JobOrders.Add(record);
+            }
+            context.SaveChanges();
         }
     }
 }

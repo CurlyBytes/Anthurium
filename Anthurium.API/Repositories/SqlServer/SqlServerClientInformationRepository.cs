@@ -34,9 +34,11 @@ namespace Anthurium.Web.Repositories.SqlServer
 
         public IEnumerable<ClientInformation> JobOrderPerClientId(int Id)
         {
-            return _context.ClientInformations
-              .Where(ci => ci.ClientInformationId == Id)
-              .Include(j => j.JobOrder);
+            var test = _context.ClientInformations
+                .Where(ci => ci.ClientInformationId == Id)
+                .Include(j => j.JobOrder)
+              ;
+            return test;
         }
 
         public ClientInformation NewClientByDateWithin30Days()

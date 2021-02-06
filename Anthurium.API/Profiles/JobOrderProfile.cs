@@ -23,9 +23,9 @@ namespace Anthurium.API.Profiles
             //web razor comp on edit clientinformation
             CreateMap<JobOrderReadDto, JobOrderUpdateDto>();
 
-            
            
-           
+
+
         }
     }
 }
