@@ -6,7 +6,7 @@
 @inject NavigationManager NavManager
 @using AutoMapper;
 @inject IMapper _mapper;
-
+@inject IToastService toastService
 
 <h3>New Job Order</h3>
 <div style="max-width: 400px;">
@@ -15,7 +15,7 @@
         <ValidationSummary />
         <div class="form-group row">
             <label for="contactName" class="col-sm-6 col-form-label">Client Info:</label>
-            <select class="form-control selectpicker" value="@jobOrdernCreateDto.ClientInformationId" @onchange="ChangeOrder" >
+            <select class="form-control selectpicker" value="@jobOrdernCreateDto.ClientInformationId" @onchange="ChangeOrder">
                 <option>--select--</option>
                 @foreach (var item in clientInformationReadDto)
                 {
@@ -106,7 +106,7 @@
             {
                 isSuccess = true;
                 message = $"Success";
-
+                toastService.ShowSuccess($" A job order from {jobOrdernCreateDto.CompanyName} is Created.");
                 NavManager.NavigateTo("/joborder");
             }
             else
@@ -120,6 +120,6 @@
             clientInformationReadDtoSingle = await clientInformationService.GetClientInformationByIdAsync(Int32.Parse(e.Value.ToString()));
             _mapper.Map(clientInformationReadDtoSingle, jobOrderChangeCreate);
             _mapper.Map(jobOrderChangeCreate, jobOrdernCreateDto);
-            message="";
+            message = "";
         }
     }

@@ -38,7 +38,7 @@
             if (response.IsSuccessStatusCode)
             {
                 isSuccess = true;
-                toastService.ShowSuccess("Successfully created new client");
+                toastService.ShowSuccess($" {clientInformationCreateDto.CompanyName} is Created.");
                 message = $"Success";
                 NavManager.NavigateTo("/clientinformation");
             }

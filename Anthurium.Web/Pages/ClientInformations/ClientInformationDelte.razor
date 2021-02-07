@@ -3,6 +3,8 @@
 @inject NavigationManager NavManager
 @using Anthurium.Web.Pages
 @using Anthurium.API.Dtos
+@inject IToastService toastService
+
 <h3>Are you sure you want to delete this?</h3>
 
 @if (clientInformation == null)
@@ -42,6 +44,7 @@ else
     {
 
         await clientInformationService.DeleteClientInformationByIdAsync(Id);
+        toastService.ShowWarning($" {clientInformation.CompanyName} is deleted.");
         NavManager.NavigateTo("/clientinformation");
     }
 }

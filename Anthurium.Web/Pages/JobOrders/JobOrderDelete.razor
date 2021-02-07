@@ -3,6 +3,8 @@
 @inject NavigationManager NavManager
 @using Anthurium.Web.Pages
 @using Anthurium.API.Dtos
+@inject IToastService toastService
+
 <h3>Are you sure you want to delete this?</h3>
 
 @if (jobOrderReadDto == null)
@@ -47,6 +49,7 @@ else
     {
 
         await jobOrderReadDtoService.DeleteJobOrderByIdAsync(Id);
+        toastService.ShowWarning($" A job order from {jobOrderReadDto.CompanyName} is Deleted.");
         NavManager.NavigateTo("/joborder");
     }
 }

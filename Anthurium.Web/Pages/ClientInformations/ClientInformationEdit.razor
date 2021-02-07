@@ -5,6 +5,7 @@
 @using System.Text.Json
 @using Anthurium.API.Dtos
 @inject NavigationManager NavManager
+@inject IToastService toastService
 
 <h3>Edit Client Information</h3>
 @if (clientInformationReadDto == null)
@@ -71,6 +72,7 @@ else
         {
             isSuccess = true;
             message = $"Success";
+            toastService.ShowInfo($" {clientInformationUpdateDto.CompanyName} is Updated.");
             NavManager.NavigateTo("/clientinformation");
             //navigate to single page
             //perhaps set flag (success) there that will display message if coming from this page
