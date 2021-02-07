@@ -1,4 +1,5 @@
 ﻿using Anthurium.API.Data;
+using Anthurium.API.Dtos;
 using Anthurium.Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -47,9 +48,27 @@ namespace Anthurium.Web.Repositories.SqlServer
             return _context.JobOrders.ToList();
         }
 
-        public JobOrder RunningTotalOfCompletedJobOrder(int Id)
+        public int NewClientByDateWithin30Days()
         {
-            throw new NotImplementedException();
+            var valueDate = DateTime.UtcNow;
+            return _context.JobOrders
+                .Where(ci => ci.IsActive == true
+                    && ci.DateCreated <= valueDate.AddDays(-30)
+                    && ci.DateCreated >= valueDate)
+                .Count();
+        }
+
+
+        public IQueryable<JobOrderPerClientReadDto> RunningTotalOfCompletedJobOrderPerClient()
+        {
+
+            var query = _context
+        .JobOrders.GroupBy(x => x.CompanyName)
+        .Select(x => new JobOrderPerClientReadDto { CompanyName = x.Key, NumberOfJobOrder = x.Count() });
+
+     
+            return query;
+
         }
 
         public bool SaveChanges()

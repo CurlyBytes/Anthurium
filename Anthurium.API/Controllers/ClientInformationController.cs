@@ -65,7 +65,7 @@ namespace Anthurium.API.Controllers
         [HttpGet("{id}/joborders", Name = "JobOrderPerClientId")]
         [EnableQuery]
         [ODataRoute("JobOrders(clientInformationId={clientInformationId},jobOrderClientInformationId={jobOrderClientInformationId})")]
-        public ActionResult<ClientInformationReadDto> JobOrderPerClientId([FromODataUri] int clientInformationId, [FromODataUri] int jobOrderClientInformationId)
+        public ActionResult<IEnumerable<JobOrderReadDto>> JobOrderPerClientId([FromODataUri] int clientInformationId, [FromODataUri] int jobOrderClientInformationId)
         {
             if (!ModelState.IsValid)
             {
@@ -77,7 +77,7 @@ namespace Anthurium.API.Controllers
                 return NotFound();
             }
 
-            return Ok(_mapper.Map<IEnumerable<ClientInformationReadDto>>(commandItem));
+            return Ok(_mapper.Map<IEnumerable<JobOrderReadDto>>(commandItem));
         }
 
 

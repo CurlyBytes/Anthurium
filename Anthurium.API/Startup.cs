@@ -41,23 +41,23 @@ namespace Anthurium.API
         {
             services.AddOData();
 
-            //services.AddAuthentication("Bearer")
-            //    .AddIdentityServerAuthentication("Bearer", options =>
-            //    {
-            //        options.Authority = "http://localhost:5000";
-            //        options.RequireHttpsMetadata = false;
-            //        options.ApiName = "anthurium-api";
-            //    });
+            services.AddAuthentication("Bearer")
+                .AddIdentityServerAuthentication("Bearer", options =>
+                {
+                    options.Authority = "http://localhost:5000";
+                    options.RequireHttpsMetadata = false;
+                    options.ApiName = "anthurium-api";
+                });
 
             services.AddAuthorization();
 
-           // services.AddDbContext<AnthuriumContext>(options =>
-            //    options.UseInMemoryDatabase("JobOrder"));
+            services.AddDbContext<AnthuriumContext>(options =>
+                options.UseInMemoryDatabase("JobOrder"));
 
-            services.AddDbContext<AnthuriumContext>(options => options
-                 .UseMySql("Server=localhost; Database=asp_mariadb_cfg;User=<username>;Password=<password>;",
-                     mysqlOptions =>
-                         mysqlOptions.ServerVersion(new ServerVersion(new Version(10, 4, 6), ServerType.MariaDb))));
+            //services.AddDbContext<AnthuriumContext>(options => options
+            //     .UseMySql("Server=localhost; Database=asp_mariadb_cfg;User=<username>;Password=<password>;",
+            //         mysqlOptions =>
+            //             mysqlOptions.ServerVersion(new ServerVersion(new Version(10, 4, 6), ServerType.MariaDb))));
             // services.AddDbContext<AnthuriumContext>(opt => opt.UseSqlServer
             //(Configuration.GetConnectionString("AnthuriumConnection")));
             services.AddScoped<IClientInformation, SqlServerClientInformationRepository>();

@@ -37,15 +37,7 @@ namespace Anthurium.Web.Repositories.SqlServer
             return result;
         }
 
-        public int NewClientByDateWithin30Days()
-        {
-            var valueDate = DateTime.UtcNow;
-            return _context.ClientInformations
-                .Where(ci =>  ci.IsActive == true 
-                    && ci.DateCreated <= valueDate.AddDays(-30) 
-                    && ci.DateCreated >= valueDate)
-                .Count();
-        }
+ 
 
         public void NewClientInformation(ClientInformation clientInformation)
         {
@@ -67,9 +59,11 @@ namespace Anthurium.Web.Repositories.SqlServer
             _context.ClientInformations.Remove(clientInformation);
         }
 
-        public ClientInformation RunningTotalOfClients(int Id)
+        public int RunningTotalOfClients()
         {
-            throw new NotImplementedException();
+            return _context.ClientInformations
+               .Where(ci => ci.IsActive == true)
+               .Count();
         }
 
         public bool SaveChanges()

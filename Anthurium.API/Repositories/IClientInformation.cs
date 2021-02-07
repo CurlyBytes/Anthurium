@@ -18,8 +18,7 @@ namespace Anthurium.Web.Repositories
 
         void RemoveClientInformation(ClientInformation clientInformation);
 
-        int NewClientByDateWithin30Days();
 
-        ClientInformation RunningTotalOfClients(int Id);
+        int RunningTotalOfClients();
     }
 }

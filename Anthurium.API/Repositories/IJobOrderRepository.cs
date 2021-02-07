@@ -1,4 +1,5 @@
-﻿using Anthurium.Shared.Models;
+﻿using Anthurium.API.Dtos;
+using Anthurium.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace Anthurium.Web.Repositories
 
         void DeleteJobOrder(JobOrder JobOrder);
 
-        JobOrder RunningTotalOfCompletedJobOrder(int Id);
+        int NewClientByDateWithin30Days();
+
+        IQueryable<JobOrderPerClientReadDto> RunningTotalOfCompletedJobOrderPerClient();
     }
 }

@@ -20,9 +20,18 @@ namespace Anthurium.API.Data
 
             var clientInformations = new ClientInformation[]
             {
-                new ClientInformation { CompanyName = "RAFI",  CompanyAddress = "eduardo aboitiz street" },
-                new ClientInformation { CompanyName = "CurlyBytes",  CompanyAddress = "107 v. raman st. calamba cc" },
-                new ClientInformation { CompanyName = "Microsoft",  CompanyAddress = "United States America" },
+                new ClientInformation { 
+                    CompanyName = "RAFI",  
+                    CompanyAddress = "eduardo aboitiz street"
+                },
+                new ClientInformation { 
+                    CompanyName = "CurlyBytes",  
+                    CompanyAddress = "107 v. raman st. calamba cc"
+                },
+                new ClientInformation { 
+                    CompanyName = "Microsoft",  
+                    CompanyAddress = "United States America"
+                }
             };
             
             var jobOrders = new JobOrder[]
