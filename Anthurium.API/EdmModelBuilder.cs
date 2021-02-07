@@ -67,6 +67,9 @@ namespace Anthurium.API
             var fnCreateJobOrder = builder.Function("CreateJobOrder");
             fnCreateJobOrder.ReturnsCollectionFromEntitySet<JobOrderReadDto>("JobOrder");
 
+
+
+
             return builder.GetEdmModel();
         }
     }

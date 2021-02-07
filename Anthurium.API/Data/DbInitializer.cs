@@ -22,16 +22,26 @@ namespace Anthurium.API.Data
             {
                 new ClientInformation { 
                     CompanyName = "RAFI",  
-                    CompanyAddress = "eduardo aboitiz street"
+                    CompanyAddress = "eduardo aboitiz street",
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
                 },
                 new ClientInformation { 
                     CompanyName = "CurlyBytes",  
-                    CompanyAddress = "107 v. raman st. calamba cc"
+                    CompanyAddress = "107 v. raman st. calamba cc",
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
                 },
-                new ClientInformation { 
-                    CompanyName = "Microsoft",  
-                    CompanyAddress = "United States America"
-                }
+                new ClientInformation {
+                    CompanyName = "Microsoft",
+                    CompanyAddress = "United States America",
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                    }
+
             };
             
             var jobOrders = new JobOrder[]
@@ -44,7 +54,10 @@ namespace Anthurium.API.Data
                     ContactNumber = "+0639207082",
                     TimeStarted = DateTime.UtcNow,
                     TimeEnded = DateTime.UtcNow,
-                    TotalHours = 2
+                    TotalHours = 2,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
                     },
                 new JobOrder {
                     CompanyName = "RAFI",
@@ -54,7 +67,10 @@ namespace Anthurium.API.Data
                     ContactNumber = "+0639207082",
                     TimeStarted = DateTime.UtcNow.AddHours(12),
                     TimeEnded = DateTime.UtcNow.AddHours(35),
-                    TotalHours = 31
+                    TotalHours = 31,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
                     },
                 new JobOrder {
                     CompanyName = "RAFI",
@@ -64,7 +80,10 @@ namespace Anthurium.API.Data
                     ContactNumber = "+0639207082",
                     TimeStarted = DateTime.UtcNow.AddHours(1),
                     TimeEnded = DateTime.UtcNow.AddHours(2),
-                    TotalHours = 1
+                    TotalHours = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
                     },
                 new JobOrder {
                     CompanyName = "CurlyBytes",
@@ -74,7 +93,10 @@ namespace Anthurium.API.Data
                     ContactNumber = "4177214",
                     TimeStarted = DateTime.UtcNow.AddHours(1),
                     TimeEnded = DateTime.UtcNow.AddHours(2),
-                    TotalHours = 1
+                    TotalHours = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
                     },
                 new JobOrder {
                     CompanyName = "CurlyBytes",
@@ -84,7 +106,10 @@ namespace Anthurium.API.Data
                     ContactNumber = "4177214",
                     TimeStarted = DateTime.UtcNow.AddHours(11),
                     TimeEnded = DateTime.UtcNow.AddHours(42),
-                    TotalHours = 3
+                    TotalHours = 3,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
                     },
                 new JobOrder {
                     CompanyName = "Microsoft",
@@ -94,7 +119,10 @@ namespace Anthurium.API.Data
                     ContactNumber = "21141",
                     TimeStarted = DateTime.UtcNow.AddHours(1),
                     TimeEnded = DateTime.UtcNow.AddHours(12),
-                    TotalHours = 8
+                    TotalHours = 8,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
                     }
 
             };

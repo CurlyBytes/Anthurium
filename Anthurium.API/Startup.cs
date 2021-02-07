@@ -65,7 +65,7 @@ namespace Anthurium.API
             services.AddScoped<IJobOrderRepository, SqlServerJobOrderRepository>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
+         
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -87,6 +87,7 @@ namespace Anthurium.API
             IEdmModel model = EdmModelBuilder.Build();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.EnableDependencyInjection();
                 endpoints.Select().Filter().OrderBy().Expand().Count().MaxTop(50);
                 endpoints.MapODataRoute("api", "api", model);
             });            

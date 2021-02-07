@@ -48,27 +48,28 @@ namespace Anthurium.Web.Repositories.SqlServer
             return _context.JobOrders.ToList();
         }
 
-        public int NewClientByDateWithin30Days()
+        public int NewJobOrderByDateWithin30Days()
         {
-            var valueDate = DateTime.UtcNow;
+            DateTime valueDate = DateTime.UtcNow;
+            const int PAST_NUMBER_OF_DAYS_WITHIN_A_MONTH = -30;
+
             return _context.JobOrders
                 .Where(ci => ci.IsActive == true
-                    && ci.DateCreated <= valueDate.AddDays(-30)
-                    && ci.DateCreated >= valueDate)
+                    && ci.DateCreated >= valueDate.AddDays(PAST_NUMBER_OF_DAYS_WITHIN_A_MONTH)
+                    && ci.DateCreated <= valueDate)
                 .Count();
         }
 
 
-        public IQueryable<JobOrderPerClientReadDto> RunningTotalOfCompletedJobOrderPerClient()
+        public IQueryable<JobOrderPerClientReadDto> JobOrderPerClient()
         {
 
-            var query = _context
-        .JobOrders.GroupBy(x => x.CompanyName)
-        .Select(x => new JobOrderPerClientReadDto { CompanyName = x.Key, NumberOfJobOrder = x.Count() });
-
-     
-            return query;
-
+            return _context.JobOrders.GroupBy(x => x.CompanyName)
+                        .Select(x => new JobOrderPerClientReadDto 
+                        { 
+                            CompanyName = x.Key, 
+                            NumberOfJobOrder = x.Count() 
+                        });
         }
 
         public bool SaveChanges()

@@ -19,8 +19,8 @@ namespace Anthurium.Web.Repositories
 
         void DeleteJobOrder(JobOrder JobOrder);
 
-        int NewClientByDateWithin30Days();
+        int NewJobOrderByDateWithin30Days();
 
-        IQueryable<JobOrderPerClientReadDto> RunningTotalOfCompletedJobOrderPerClient();
+        IQueryable<JobOrderPerClientReadDto> JobOrderPerClient();
     }
 }
