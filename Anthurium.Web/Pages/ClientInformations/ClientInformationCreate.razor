@@ -3,6 +3,8 @@
 @using System.Text.Json
 @using Anthurium.API.Dtos
 @inject NavigationManager NavManager
+@inject IToastService toastService
+
 
 <h3>New Client Information</h3>
 <div style="max-width: 400px;">
@@ -36,7 +38,7 @@
             if (response.IsSuccessStatusCode)
             {
                 isSuccess = true;
-
+                toastService.ShowSuccess("Successfully created new client");
                 message = $"Success";
                 NavManager.NavigateTo("/clientinformation");
             }

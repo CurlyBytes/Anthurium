@@ -15,6 +15,7 @@ using System.Reflection;
 using AutoMapper;
 using Anthurium.API.Profiles;
 using Anthurium.Web.Services;
+using Blazored.Toast;
 
 namespace Anthurium.Web
 {
@@ -31,8 +32,8 @@ namespace Anthurium.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-           
 
+            services.AddBlazoredToast();
             services.AddHttpClient<ClientInformationService>(client =>
             {
                 client.BaseAddress = new Uri("http://localhost:5001");
