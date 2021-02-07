@@ -126,16 +126,9 @@ namespace Anthurium.API.Data
                     }
 
             };
-           
-            foreach (ClientInformation record in clientInformations)
-            {
-                context.ClientInformations.Add(record);
-            }
 
-            foreach (JobOrder record in jobOrders)
-            {
-                context.JobOrders.Add(record);
-            }
+            context.ClientInformations.AddRange(clientInformations);
+            context.JobOrders.AddRange(jobOrders);
             context.SaveChanges();
         }
     }

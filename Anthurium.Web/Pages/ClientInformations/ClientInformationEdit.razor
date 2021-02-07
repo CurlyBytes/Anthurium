@@ -72,7 +72,7 @@ else
         {
             isSuccess = true;
             message = $"Success";
-            toastService.ShowInfo($" {clientInformationUpdateDto.CompanyName} is Updated.");
+            toastService.ShowInfo($" client information: {clientInformationUpdateDto.CompanyName} is Updated.");
             NavManager.NavigateTo("/clientinformation");
             //navigate to single page
             //perhaps set flag (success) there that will display message if coming from this page

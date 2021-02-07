@@ -44,7 +44,7 @@ else
     {
 
         await clientInformationService.DeleteClientInformationByIdAsync(Id);
-        toastService.ShowWarning($" {clientInformation.CompanyName} is deleted.");
+        toastService.ShowWarning($"client information: {clientInformation.CompanyName} is deleted.");
         NavManager.NavigateTo("/clientinformation");
     }
 }

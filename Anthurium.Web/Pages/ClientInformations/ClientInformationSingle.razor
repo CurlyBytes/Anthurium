@@ -11,21 +11,42 @@
 else
 {
     <div class="row">
+
+    </div>
+    <div class="row">
+        
+
+
+        <table class="table table-bordered success">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <td>@clientInformationReadDto.ClientInformationId</td>
+                </tr>
+                <tr>
+                    <th class="info">Company Name</th>
+                    <td>@clientInformationReadDto.CompanyName</td>
+                </tr>
+                <tr>
+                    <th class="info">Company Address</th>
+                    <td>@clientInformationReadDto.CompanyAddress</td>
+                </tr>
+
+            </thead>
+
+        </table>
+
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <a href="/clientinformation" class="btn btn-sm btn-secondary">Return to List</a>
+        </div>
         <div class="col-sm-8 text-right">
             <a href="/clientinformation/@Id/edit" class="btn btn-sm btn-secondary">Edit</a>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <h4>@clientInformationReadDto.CompanyName</h4>
-            <h4>@clientInformationReadDto.CompanyAddress</h4>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <a href="/clientinformation">Return to List</a>
-        </div>
-    </div>
+
+
 }
 
 @code {
