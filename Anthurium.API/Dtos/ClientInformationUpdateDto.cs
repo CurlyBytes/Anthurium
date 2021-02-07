@@ -15,5 +15,7 @@ namespace Anthurium.API.Dtos
         [Required]
         [MaxLength(450)]
         public string CompanyAddress { get; set; }
+
+        public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
     }
 }

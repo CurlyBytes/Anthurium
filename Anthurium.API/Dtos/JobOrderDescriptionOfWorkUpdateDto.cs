@@ -10,5 +10,9 @@ namespace Anthurium.API.Dtos
     {
         [Required]
         public string JobOrderTypeOfWOrk { get; set; }
+
+
+        public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
+
     }
 }

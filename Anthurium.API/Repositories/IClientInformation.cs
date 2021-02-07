@@ -11,14 +11,14 @@ namespace Anthurium.Web.Repositories
 
         IEnumerable<ClientInformation> GetClientInformation();
         ClientInformation ClientInformationById(int Id);
-        IEnumerable<ClientInformation> JobOrderPerClientId(int Id);
+        IEnumerable<JobOrder> JobOrderPerClientId(int Id);
         void NewClientInformation(ClientInformation clientInformation);
 
         void UpdateClientInformation(ClientInformation clientInformation);
 
         void RemoveClientInformation(ClientInformation clientInformation);
 
-        ClientInformation NewClientByDateWithin30Days();
+        int NewClientByDateWithin30Days();
 
         ClientInformation RunningTotalOfClients(int Id);
     }

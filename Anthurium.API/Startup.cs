@@ -22,6 +22,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OData.Edm;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Pomelo.EntityFrameworkCore.MySql.Storage;
 
 namespace Anthurium.API
 {
@@ -49,9 +51,13 @@ namespace Anthurium.API
 
             services.AddAuthorization();
 
-            services.AddDbContext<AnthuriumContext>(options =>
-                options.UseInMemoryDatabase("JobOrder"));
+           // services.AddDbContext<AnthuriumContext>(options =>
+            //    options.UseInMemoryDatabase("JobOrder"));
 
+            services.AddDbContext<AnthuriumContext>(options => options
+                 .UseMySql("Server=localhost; Database=asp_mariadb_cfg;User=<username>;Password=<password>;",
+                     mysqlOptions =>
+                         mysqlOptions.ServerVersion(new ServerVersion(new Version(10, 4, 6), ServerType.MariaDb))));
             // services.AddDbContext<AnthuriumContext>(opt => opt.UseSqlServer
             //(Configuration.GetConnectionString("AnthuriumConnection")));
             services.AddScoped<IClientInformation, SqlServerClientInformationRepository>();

@@ -28,22 +28,23 @@ namespace Anthurium.Web.Repositories.SqlServer
 
         public IEnumerable<ClientInformation> GetClientInformation()
         {
+            return _context.ClientInformations.ToList(); 
+        }
+
+        public IEnumerable<JobOrder> JobOrderPerClientId(int Id)
+        {
+            var result = _context.JobOrders.Where(j => j.ClientInformationId == Id);
+            return result;
+        }
+
+        public int NewClientByDateWithin30Days()
+        {
+            var valueDate = DateTime.UtcNow;
             return _context.ClientInformations
-                .Include(j => j.JobOrder); 
-        }
-
-        public IEnumerable<ClientInformation> JobOrderPerClientId(int Id)
-        {
-            var test = _context.ClientInformations
-                .Where(ci => ci.ClientInformationId == Id)
-                .Include(j => j.JobOrder)
-              ;
-            return test;
-        }
-
-        public ClientInformation NewClientByDateWithin30Days()
-        {
-            throw new NotImplementedException();
+                .Where(ci =>  ci.IsActive == true 
+                    && ci.DateCreated <= valueDate.AddDays(-30) 
+                    && ci.DateCreated >= valueDate)
+                .Count();
         }
 
         public void NewClientInformation(ClientInformation clientInformation)
