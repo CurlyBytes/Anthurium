@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anthurium.API", "Anthurium.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anthurium.Web", "Anthurium.Web\Anthurium.Web.csproj", "{A773B7DF-B9FB-435A-BC50-A02041881C18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestProject1", "..\Anthurium.UnitTest\XUnitTestProject1\XUnitTestProject1.csproj", "{595EEAB1-CFCD-4BC6-9285-B00A9B5E7646}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A773B7DF-B9FB-435A-BC50-A02041881C18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A773B7DF-B9FB-435A-BC50-A02041881C18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A773B7DF-B9FB-435A-BC50-A02041881C18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{595EEAB1-CFCD-4BC6-9285-B00A9B5E7646}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{595EEAB1-CFCD-4BC6-9285-B00A9B5E7646}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{595EEAB1-CFCD-4BC6-9285-B00A9B5E7646}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{595EEAB1-CFCD-4BC6-9285-B00A9B5E7646}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

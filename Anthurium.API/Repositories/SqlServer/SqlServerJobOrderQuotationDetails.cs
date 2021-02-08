@@ -30,10 +30,6 @@ namespace Anthurium.API.Repositories.SqlServer
             return _context.JobQuotationDetailss.Where(p => p.JobQuotationId == Id).ToList();
         }
 
-        public JobQuotationDetails JobQuotationDetailsById(int Id)
-        {
-            return _context.JobQuotationDetailss.FirstOrDefault(p => p.JobQuotationDetailsId == Id);
-        }
 
         public void NewJobQuotationDetails(JobQuotationDetails JobQuotationDetails)
         {

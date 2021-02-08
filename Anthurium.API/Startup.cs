@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Anthurium.API.Data;
+using Anthurium.API.Repositories;
+using Anthurium.API.Repositories.SqlServer;
 using Anthurium.Shared.Models;
 using Anthurium.Web.Repositories;
 using Anthurium.Web.Repositories.SqlServer;
@@ -63,6 +65,8 @@ namespace Anthurium.API
             services.AddScoped<IClientInformation, SqlServerClientInformationRepository>();
             services.AddScoped<IJobOrderDescriptionOfWork, SqlServerJobOrderDescriptionOfWorkRepository>();
             services.AddScoped<IJobOrderRepository, SqlServerJobOrderRepository>();
+            services.AddScoped<ISqlServerJobOrderQuotationDetails, SqlServerJobOrderQuotationDetails>();
+            services.AddScoped<ISqlServerJobQuotationRepository, SqlServerJobQuotationRepository>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
          

@@ -14,7 +14,7 @@ namespace Anthurium.API.Data
         {
         }
 
-        public DbSet<JobQuotation> JobQuotation { get; set; }
+        public DbSet<JobQuotation> JobQuotations { get; set; }
         public DbSet<JobQuotationDetails> JobQuotationDetailss { get; set; }
 
         public DbSet<ClientInformation> ClientInformations { get; set; }

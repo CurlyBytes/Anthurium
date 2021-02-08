@@ -22,6 +22,6 @@ namespace Anthurium.API.Dtos
 
         public ICollection<JobOrder> JobOrder { get; set; }
 
-
+        public ICollection<JobQuotation> JobQuotation { get; set; }
     }
 }
