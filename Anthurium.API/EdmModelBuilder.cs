@@ -68,6 +68,7 @@ namespace Anthurium.API
             fnCreateJobOrder.ReturnsCollectionFromEntitySet<JobOrderReadDto>("JobOrder");
 
 
+            //builder.EntitySet<ClientInformationReadDto>("ClientInformation").EntityType.HasKey(x => x.ClientInformationId);
 
 
             return builder.GetEdmModel();

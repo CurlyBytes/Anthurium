@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Anthurium.Shared.Models
+namespace Anthurium.API.Dtos
 {
-    public class JobQuotationDetails
+    public class JobQuotationDetailsUpdateDto
     {
         [Key]
         public int JobQuotationDetailsId { get; set; }
@@ -17,24 +20,17 @@ namespace Anthurium.Shared.Models
         public string Description { get; set; }
 
         [Required]
-        public int Cost { get; set; }
+        public double Cost { get; set; }
 
         [Required]
         public double TotalCost { get; set; }
 
-        [Required]
-        public DateTime DateCreated { get; set; }
-
-        [Required]
-        public DateTime DateUpdated { get; set; } 
-
-        [Required]
-        public bool IsActive { get; set; }
+        public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
 
         [Required]
         public int JobQuotationId { get; set; }
 
-        public JobQuotation JobQuotation { get; set; }
+        public JobQuotationUpdateDto JobQuotation { get; set; }
 
     }
 }

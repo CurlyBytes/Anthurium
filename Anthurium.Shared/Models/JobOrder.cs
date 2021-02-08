@@ -44,11 +44,11 @@ namespace Anthurium.Shared.Models
         public DateTime DateCreated { get; set; }
 
         [Required]
-        public DateTime DateUpdated { get; set; }
+        public DateTime DateUpdated { get; set; } 
 
         [Required]
-        public bool IsActive { get; set; }
-        
+        public bool IsActive { get; set; } 
+
         [Required]
         public int ClientInformationId { get; set; }
         public ClientInformation ClientInformation { get; set; }
