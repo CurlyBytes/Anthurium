@@ -42,7 +42,7 @@ namespace Anthurium.API
 
 
 
-            builder.EntitySet<JobOrderDescriptionOfWorkReadDto>("JobOrderDescriptionOfWork").EntityType.HasKey(x => x.Id);
+            builder.EntitySet<JobOrderDescriptionOfWorkReadDto>("JobOrderDescriptionOfWork").EntityType.HasKey(x => x.JobOrderDescriptionOfWorkId);
 
             var fnGetAllJobOrderDescriptionOfWork = builder.Function("GetAll");
             fnGetAllJobOrderDescriptionOfWork.ReturnsCollectionFromEntitySet<JobOrderDescriptionOfWorkReadDto>("JobOrderDescriptionOfWork");

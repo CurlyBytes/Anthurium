@@ -16,8 +16,15 @@ namespace Anthurium.API.Profiles
     
 
             CreateMap<JobOrder, JobOrderReadDto>();
-            CreateMap<JobOrderCreateDto, JobOrder>();
-            CreateMap<JobOrderUpdateDto, JobOrder>();
+            CreateMap<JobOrderCreateDto, JobOrder>()
+                .ForMember(destination => destination.JobOrderDescriptionOfWork, source => source.Ignore())
+                .ForMember(destination => destination.JobOrderId, source => source.Ignore())
+                .ForMember(destination => destination.ClientInformation, source => source.Ignore());
+
+            CreateMap<JobOrderUpdateDto, JobOrder>()
+                 .ForMember(destination => destination.JobOrderDescriptionOfWork, source => source.Ignore())
+                .ForMember(destination => destination.JobOrderId, source => source.Ignore())
+                .ForMember(destination => destination.ClientInformation, source => source.Ignore());
             CreateMap<JobOrder, JobOrderUpdateDto>();
 
             //web razor comp on edit clientinformation

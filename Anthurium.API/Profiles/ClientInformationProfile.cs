@@ -16,6 +16,7 @@ namespace Anthurium.API.Profiles
             //source->target
             //api get,post,update(delete)
             CreateMap<ClientInformation, ClientInformationReadDto>();
+
             CreateMap<ClientInformationCreateDto, ClientInformation>()
             .ForMember(destination => destination.ClientInformationId, source => source.Ignore())
             .ForMember(destination => destination.JobOrder, source => source.Ignore())
@@ -24,6 +25,8 @@ namespace Anthurium.API.Profiles
             CreateMap<ClientInformationUpdateDto, ClientInformation>()
                 .ForMember(destination => destination.ClientInformationId, source => source.Ignore())
                 .ForMember(destination => destination.JobOrder, source => source.Ignore())
+                .ForMember(destination => destination.DateCreated, source => source.Ignore())
+                .ForMember(destination => destination.IsActive, source => source.Ignore())
                 .ForMember(destination => destination.JobQuotation, source => source.Ignore());
 
             CreateMap<ClientInformation, ClientInformationUpdateDto>();
@@ -47,7 +50,9 @@ namespace Anthurium.API.Profiles
                 .ForMember(destination => destination.ContactNumber, source => source.Ignore())
                 .ForMember(destination => destination.TimeStarted, source => source.Ignore())
                 .ForMember(destination => destination.TimeEnded, source => source.Ignore())
-                .ForMember(destination => destination.TotalHours, source => source.Ignore());
+                .ForMember(destination => destination.TotalHours, source => source.Ignore())
+                .ForMember(destination => destination.ClientInformation, source => source.Ignore())
+                .ForMember(destination => destination.JobOrderDescriptionOfWork, source => source.Ignore());
 
             //CreateMap<Object, List<ClientInformationReadDto>>();
         }

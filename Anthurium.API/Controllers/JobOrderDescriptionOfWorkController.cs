@@ -75,7 +75,7 @@ namespace Anthurium.API.Controllers
 
             JobOrderDescriptionOfWorkReadDto JobOrderDescriptionOfWorkReadDto = _mapper.Map<JobOrderDescriptionOfWorkReadDto>(commandItem);
 
-            return CreatedAtRoute(nameof(JobOrderDescriptionOfWorkById), new { Id = JobOrderDescriptionOfWorkReadDto.Id }, JobOrderDescriptionOfWorkReadDto);
+            return CreatedAtRoute(nameof(JobOrderDescriptionOfWorkById), new { Id = JobOrderDescriptionOfWorkReadDto.JobOrderDescriptionOfWorkId }, JobOrderDescriptionOfWorkReadDto);
         }
 
         [HttpPut("{id}")]

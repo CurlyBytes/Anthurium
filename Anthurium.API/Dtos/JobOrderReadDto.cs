@@ -41,5 +41,10 @@ namespace Anthurium.API.Dtos
         public DateTime DateCreated { get; set; }
 
         public bool IsActive { get; set; }
+
+        public ClientInformationReadDto ClientInformation { get; set; }
+
+
+        public ICollection<JobOrderDescriptionOfWorkReadDto> JobOrderDescriptionOfWork { get; set; }
     }
 }

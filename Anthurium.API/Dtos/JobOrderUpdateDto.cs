@@ -34,7 +34,8 @@ namespace Anthurium.API.Dtos
         public int ClientInformationId { get; set; }
 
         public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
-
+        public ClientInformationUpdateDto ClientInformation { get; set; }
+        public ICollection<JobOrderDescriptionOfWorkReadDto> JobOrderDescriptionOfWork { get; set; }
 
 
         public DateTime DateCreated { get; set; }

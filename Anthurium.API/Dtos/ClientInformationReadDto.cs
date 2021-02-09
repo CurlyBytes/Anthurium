@@ -20,9 +20,9 @@ namespace Anthurium.API.Dtos
         [MaxLength(450)]
         public string CompanyAddress { get; set; }
 
-        public ICollection<JobOrder> JobOrder { get; set; }
+        public ICollection<JobOrderReadDto> JobOrder { get; set; }
 
-        public ICollection<JobQuotation> JobQuotation { get; set; }
+        public ICollection<JobQuotationReadDto> JobQuotation { get; set; }
 
         public DateTime DateCreated { get; set; }
 

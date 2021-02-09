@@ -9,16 +9,13 @@ namespace Anthurium.API.Dtos
     public class JobOrderDescriptionOfWorkReadDto
     {
         [Key]
-        public int Id { get; set; }
+        public int JobOrderDescriptionOfWorkId { get; set; }
 
         [Required]
         public string JobOrderTypeOfWOrk { get; set; }
 
+        public JobOrderReadDto JobOrder { get; set; }
 
-        public DateTime DateUpdated { get; set; }
-
-        public DateTime DateCreated { get; set; }
-
-        public bool IsActive { get; set; }
+        public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
     }
 }

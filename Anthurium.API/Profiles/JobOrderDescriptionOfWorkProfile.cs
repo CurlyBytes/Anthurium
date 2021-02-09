@@ -15,8 +15,17 @@ namespace Anthurium.API.Profiles
         {
             //source->target
             CreateMap<JobOrderDescriptionOfWork, JobOrderDescriptionOfWorkReadDto>();
-            CreateMap<JobOrderDescriptionOfWorkCreateDto, JobOrderDescriptionOfWork>();
-            CreateMap<JobOrderDescriptionOfWorkUpdateDto, JobOrderDescriptionOfWork>();
+            CreateMap<JobOrderDescriptionOfWorkCreateDto, JobOrderDescriptionOfWork>()
+                .ForMember(destination => destination.JobOrderDescriptionOfWorkId, source => source.Ignore())
+                .ForMember(destination => destination.JobOrder, source => source.Ignore());
+
+            CreateMap<JobOrderDescriptionOfWorkUpdateDto, JobOrderDescriptionOfWork>()
+                .ForMember(destination => destination.JobOrderDescriptionOfWorkId, source => source.Ignore())
+                .ForMember(destination => destination.JobOrder, source => source.Ignore())
+       
+                .ForMember(destination => destination.DateCreated, source => source.Ignore())
+                .ForMember(destination => destination.IsActive, source => source.Ignore());
+
             CreateMap<JobOrderDescriptionOfWork, JobOrderDescriptionOfWorkUpdateDto>();
             CreateMap<JobOrderDescriptionOfWorkReadDto, JobOrderDescriptionOfWorkUpdateDto>();
         }

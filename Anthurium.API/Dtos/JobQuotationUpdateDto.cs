@@ -9,35 +9,29 @@ namespace Anthurium.API.Dtos
         [Key]
         public int JobQuotationId { get; set; }
 
-        [MaxLength(250)]
-        public string CompanyName { get; set; }
 
         [Required]
-        [MaxLength(450)]
-        public string CompanyAddress { get; set; }
+        public int Quantity { get; set; }
 
 
         [Required]
-        [MaxLength(300)]
-        public string ContactPerson { get; set; }
+        [MaxLength(400)]
+        public string Description { get; set; }
 
         [Required]
-        [MaxLength(20)]
-        public string ContactNumber { get; set; }
+        public double Cost { get; set; }
 
-       public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
+        [Required]
+        public double TotalCost { get; set; }
 
+
+        public ICollection<JobQuotationDetailsUpdateDto> JobQuotationDetails { get; set; }
 
         [Required]
         public int ClientInformationId { get; set; }
 
-        public ClientInformationReadDto ClientInformation { get; set; }
+        public ClientInformationUpdateDto ClientInformation { get; set; }
+        public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
 
-        public ICollection<JobQuotationDetailsReadDto> JobQuotationDetails { get; set; }
-
-
-        public DateTime DateCreated { get; set; }
-
-        public bool IsActive { get; set; }
     }
 }

@@ -35,7 +35,7 @@ namespace Anthurium.Shared.Models
         [Required]
         public DateTime TimeEnded { get; set; }
 
-        // public List<JobOrderDescriptionOfWork> JobOrderDescriptionOfWork { get; set; } = new List<JobOrderDescriptionOfWork>();
+      
 
         [Required]
         public int TotalHours { get; set; }

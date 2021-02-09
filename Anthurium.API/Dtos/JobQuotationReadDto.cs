@@ -25,7 +25,7 @@ namespace Anthurium.API.Dtos
 
 
         [Required]
-        public int ClientInformationReadDto { get; set; }
+        public int ClientInformationId { get; set; }
 
         public ICollection<JobQuotationDetailsReadDto> JobQuotationDetails { get; set; }
 

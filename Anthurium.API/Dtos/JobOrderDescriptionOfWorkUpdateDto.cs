@@ -8,15 +8,17 @@ namespace Anthurium.API.Dtos
 {
     public class JobOrderDescriptionOfWorkUpdateDto
     {
-        [Required]
+        [Required] 
         public string JobOrderTypeOfWOrk { get; set; }
 
 
         public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
 
-        public DateTime DateCreated { get; set; }
+      
 
-        public bool IsActive { get; set; }
 
+
+
+        public JobOrderUpdateDto JobOrder { get; set; }
     }
 }
