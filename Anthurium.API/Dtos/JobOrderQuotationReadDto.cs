@@ -7,5 +7,12 @@ namespace Anthurium.API.Dtos
 {
     public class JobOrderQuotationReadDto
     {
+
+
+        public DateTime DateUpdated { get; set; }
+
+        public DateTime DateCreated { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

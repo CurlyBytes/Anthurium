@@ -35,5 +35,9 @@ namespace Anthurium.API.Dtos
 
         public ICollection<JobQuotationDetailsReadDto> JobQuotationDetails { get; set; }
 
+
+        public DateTime DateCreated { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

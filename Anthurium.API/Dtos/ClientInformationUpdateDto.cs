@@ -17,5 +17,11 @@ namespace Anthurium.API.Dtos
         public string CompanyAddress { get; set; }
 
         public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
+
+        public DateTime DateCreated { get; set; }
+
+
+
+        public bool IsActive { get; set; }
     }
 }

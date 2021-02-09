@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Anthurium.API.Dtos
@@ -29,5 +30,11 @@ namespace Anthurium.API.Dtos
         public ICollection<JobQuotationDetailsReadDto> JobQuotationDetails { get; set; }
 
         public ClientInformationReadDto ClientInformation { get; set; }
+
+        public DateTime DateUpdated { get; set; }
+
+        public DateTime DateCreated { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

@@ -34,5 +34,12 @@ namespace Anthurium.API.Dtos
 
         [Required]
         public int ClientInformationId { get; set; }
+
+
+        public DateTime DateUpdated { get; set; }
+
+        public DateTime DateCreated { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

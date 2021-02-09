@@ -22,5 +22,7 @@ namespace Anthurium.API.Dtos
         public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
 
         public bool IsActive { get; set; } = true;
+
+
     }
 }

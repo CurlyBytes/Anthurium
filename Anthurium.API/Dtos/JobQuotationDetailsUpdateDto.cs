@@ -32,5 +32,11 @@ namespace Anthurium.API.Dtos
 
         public JobQuotationUpdateDto JobQuotation { get; set; }
 
+
+
+        public DateTime DateCreated { get; set; }
+
+        public bool IsActive { get; set; }
+
     }
 }
