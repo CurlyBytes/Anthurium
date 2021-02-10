@@ -38,7 +38,13 @@ namespace Anthurium.API.Profiles
             CreateMap<ClientInformationReadDto, JobOrderChangeCreate>()
              .ForMember(dest => dest.ClientInformationId, opt => opt.MapFrom(src => src.ClientInformationId)); 
 
-       
+            CreateMap<JobOrderChangeCreate, JobOrderCreateDto>()
+                .ForMember(destination => destination.ContactPerson, source => source.Ignore())
+                .ForMember(destination => destination.ContactNumber, source => source.Ignore())
+                .ForMember(destination => destination.TimeStarted, source => source.Ignore())
+                .ForMember(destination => destination.TimeEnded, source => source.Ignore())
+                .ForMember(destination => destination.TotalHours, source => source.Ignore());
+
             CreateMap<JobOrderChangeCreate, JobOrderUpdateDto>()
                 .ForMember(destination => destination.ContactPerson, source => source.Ignore())
                 .ForMember(destination => destination.ContactNumber, source => source.Ignore())

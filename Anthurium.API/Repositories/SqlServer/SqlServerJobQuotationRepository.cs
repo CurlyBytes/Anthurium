@@ -66,7 +66,7 @@ namespace Anthurium.API.Repositories.SqlServer
             return (_context.SaveChanges()) >= 0;
         }
 
-        public void UpdateClientInformation(ClientInformation clientInformation)
+        public void UpdateClientInformation(JobQuotation clientInformation)
         {
             //nothing
         }

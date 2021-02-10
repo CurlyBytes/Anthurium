@@ -22,12 +22,18 @@ namespace Anthurium.API.Repositories.SqlServer
 
         public IEnumerable<JobQuotationDetails> GetJobQuotationDetails()
         {
-            return _context.JobQuotationDetailss.ToList();
+            return _context.JobQuotationDetailss;
         }
 
         public IEnumerable<JobQuotationDetails> GetJobQuotationDetailsByJobQuotation(int Id)
         {
-            return _context.JobQuotationDetailss.Where(p => p.JobQuotationId == Id).ToList();
+            var test = _context.JobQuotationDetailss.Where(p => p.JobQuotationId == Id);
+            return test;
+        }
+
+        public JobQuotationDetails GetJobQuotationDetailsById(int Id)
+        {
+            return _context.JobQuotationDetailss.FirstOrDefault(p => p.JobQuotationDetailsId == Id);
         }
 
 
@@ -60,5 +66,6 @@ namespace Anthurium.API.Repositories.SqlServer
         {
             //nothing
         }
+
     }
 }

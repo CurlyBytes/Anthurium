@@ -15,7 +15,6 @@ namespace Anthurium.Api.Test.Profiles
 
         private IMapper _mapper;
         private MapperConfiguration _mapperConfiguration;
-        private ClientInformation[] _clientInformation;
  
         public ClientInformationMappingTests()
         {

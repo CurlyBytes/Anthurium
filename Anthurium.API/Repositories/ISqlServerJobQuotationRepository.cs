@@ -14,7 +14,7 @@ namespace Anthurium.API.Repositories
         void NewJobQuotation(JobQuotation jobQuotation);
         void RemoveClientInformation(JobQuotation jobQuotation);
         bool SaveChanges();
-        void UpdateClientInformation(ClientInformation clientInformation);
+        void UpdateClientInformation(JobQuotation clientInformation);
     }
 
 }

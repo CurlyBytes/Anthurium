@@ -10,7 +10,7 @@ namespace Anthurium.API.Repositories
     {
         IEnumerable<JobQuotationDetails> GetJobQuotationDetails();
         IEnumerable<JobQuotationDetails> GetJobQuotationDetailsByJobQuotation(int Id);
-
+        JobQuotationDetails GetJobQuotationDetailsById(int Id);
         void NewJobQuotationDetails(JobQuotationDetails JobQuotationDetails);
         void RemoveJobQuotationDetails(JobQuotationDetails JobQuotationDetails);
         bool SaveChanges();

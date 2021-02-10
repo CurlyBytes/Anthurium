@@ -67,8 +67,13 @@ namespace Anthurium.API
             var fnCreateJobOrder = builder.Function("CreateJobOrder");
             fnCreateJobOrder.ReturnsCollectionFromEntitySet<JobOrderReadDto>("JobOrder");
 
+            builder.EntitySet<JobQuotationDetailsReadDto>("JobQuotationDetails").EntityType.HasKey(x => x.JobQuotationDetailsId);
+            builder.EntitySet<JobQuotationDetailsReadDto>("JobQuotationDetailsPerJobQuotation").EntityType.HasKey(x => x.JobQuotationDetailsId);
 
-            //builder.EntitySet<ClientInformationReadDto>("ClientInformation").EntityType.HasKey(x => x.ClientInformationId);
+            var fnGetJobQuotationDetailsByJobQuotation = builder.EntityType<JobQuotationDetailsReadDto>().Collection
+              .Function("JobQuotation")
+              .ReturnsCollectionFromEntitySet<JobQuotationDetailsReadDto>("JobQuotationDetailsPerJobQuotation");
+            fnGetJobQuotationDetailsByJobQuotation.Parameter<int>("JobQuotationId").Required();
 
 
             return builder.GetEdmModel();
