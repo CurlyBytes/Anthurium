@@ -19,6 +19,7 @@ namespace Anthurium.API.Controllers
     public class JobQuotationController : ODataController
     {
         private readonly ISqlServerJobQuotationRepository _repository;
+        
         private readonly IMapper _mapper;
 
         public JobQuotationController(ISqlServerJobQuotationRepository repository, IMapper mapper)
@@ -46,7 +47,7 @@ namespace Anthurium.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var jobOrderItem = _repository.JobOrderQuotationById(id);
+            var jobOrderItem = _repository.JobOrderQuotationByIdOnly(id);
             if (jobOrderItem == null)
             {
                 return NotFound();
@@ -58,7 +59,7 @@ namespace Anthurium.API.Controllers
         [HttpGet("clientinformation/{id}", Name = "JobOrderQuotationByClient")]
         [EnableQuery]
         [ODataRoute("ClientInformation(ClientInformationId={id})")]
-        public ActionResult<IEnumerable<JobQuotationReadDto>> JobOrderQuotationByClient([FromODataUri] int id)
+        public ActionResult<IEnumerable<ClientInformationReadDto>> JobOrderQuotationByClient([FromODataUri] int id)
         {
             if (!ModelState.IsValid)
             {
@@ -69,9 +70,10 @@ namespace Anthurium.API.Controllers
             {
                 return NotFound();
             }
-            return Ok(_mapper.Map<IEnumerable<JobQuotationReadDto>>(jobQuotationItem));
+            return Ok(_mapper.Map<IEnumerable<ClientInformationReadDto>>(jobQuotationItem));
 
         }
+
 
         [HttpPost]
         [ODataRoute]
@@ -80,6 +82,12 @@ namespace Anthurium.API.Controllers
             JobQuotation jobQuotationItem = _mapper.Map<JobQuotation>(jobQuotationCreate);
 
             _repository.NewJobQuotation(jobQuotationItem);
+            // begin
+
+
+           //end
+
+
             _repository.SaveChanges();
 
             JobQuotationReadDto jobQuotationsReadDto = _mapper.Map<JobQuotationReadDto>(jobQuotationItem);
@@ -90,7 +98,7 @@ namespace Anthurium.API.Controllers
 
         [HttpPut("{id}")]
         [ODataRoute("({id})")]
-        public ActionResult UpdateJobQuotation([FromODataUri] int id, [FromBody] IEnumerable<JobQuotationUpdateDto> jobQuotationDetailsUpdateDto)
+        public ActionResult UpdateJobQuotation([FromODataUri] int id, [FromBody] JobQuotationUpdateDto jobQuotationDetailsUpdateDto)
         {
             if (!ModelState.IsValid)
             {

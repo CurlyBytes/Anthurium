@@ -6,11 +6,7 @@ namespace Anthurium.API.Dtos
 {
     public class JobQuotationUpdateDto
     {
-        [Key]
-        public int JobQuotationId { get; set; }
-
-
-
+  
         [Required]
         [MaxLength(400)]
         public string Description { get; set; }
