@@ -2,6 +2,7 @@
 using AutoMapper;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Routing;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Anthurium.API.Controllers
     [ODataRoutePrefix("dashboard")]
     [Route("api/dashboard")]
     [ApiController]
+    [Authorize]
     public class DashBoardController : Controller
     {
         private readonly IClientInformation _iClientInformation;

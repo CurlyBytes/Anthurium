@@ -4,6 +4,7 @@ using Anthurium.Web.Repositories;
 using AutoMapper;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Routing;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -16,6 +17,7 @@ namespace Anthurium.API.Controllers
     [Route("api/joborder")]
     [ApiController]
     [ODataRoutePrefix("joborder")]
+    [Authorize]
     public class JobOrderController : ODataController
     {
         private readonly IJobOrderRepository _repository;

@@ -54,7 +54,7 @@ namespace Anthurium.API
             services.AddAuthorization();
 
             services.AddDbContext<AnthuriumContext>(options =>
-                options.UseInMemoryDatabase("JobOrder"));
+                options.UseInMemoryDatabase("JobQuotation"));
 
             //services.AddDbContext<AnthuriumContext>(options => options
             //     .UseMySql("Server=localhost; Database=asp_mariadb_cfg;User=<username>;Password=<password>;",
