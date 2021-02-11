@@ -63,17 +63,6 @@ namespace Anthurium.API.Controllers
             return Ok(count.NewJobOrderByDateWithin30DaysCount);
         }
 
-        [HttpGet("joborderperclient", Name = "JobOrderPerClient")]
-        [EnableQuery]
-        [ODataRoute("joborderperclient")]
-        public ActionResult<JobOrderPerClientReadDto> JobOrderPerClient()
-        {
-
-            var returnResult = _iJobOrderRepository.JobOrderPerClient();
-
-
-
-            return Ok(returnResult);
-        }
+  
     }
 }

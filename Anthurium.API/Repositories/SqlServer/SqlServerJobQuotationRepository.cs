@@ -43,7 +43,7 @@ namespace Anthurium.API.Repositories.SqlServer
         {
             var result = _context.ClientInformations
                 .Where(j => j.ClientInformationId == clientInformationId)
-                .Include(jq => jq.JobQuotation.Where(jqd => jqd.ClientInformationId == clientInformationId));
+                .Include(jq => jq.JobQuotation);
             return result;
         }
 
