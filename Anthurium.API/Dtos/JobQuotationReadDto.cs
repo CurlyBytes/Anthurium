@@ -9,19 +9,16 @@ namespace Anthurium.API.Dtos
         [Key]
         public int JobQuotationId { get; set; }
 
-        [Required]
-        public int Quantity { get; set; }
+    
 
 
         [Required]
         [MaxLength(400)]
         public string Description { get; set; }
 
-        [Required]
-        public double Cost { get; set; }
 
         [Required]
-        public double TotalCost { get; set; }
+        public double OverallCost { get; set; }
 
 
         [Required]

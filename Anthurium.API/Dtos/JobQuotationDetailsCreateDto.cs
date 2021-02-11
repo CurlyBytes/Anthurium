@@ -34,7 +34,7 @@ namespace Anthurium.API.Dtos
         [Required]
         public int JobQuotationId { get; set; }
 
-        public JobQuotationReadDto JobQuotation { get; set; }
+        public JobQuotationCreateDto JobQuotation { get; set; }
         [Required]
         public bool IsActive { get; set; } = true;
     }

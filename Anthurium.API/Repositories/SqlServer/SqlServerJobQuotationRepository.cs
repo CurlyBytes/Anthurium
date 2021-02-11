@@ -19,7 +19,7 @@ namespace Anthurium.API.Repositories.SqlServer
             _context = context;
         }
 
-        public IEnumerable<JobQuotation> GetClientInformation()
+        public IEnumerable<JobQuotation> GetJobQuotations()
         {
             return _context.JobQuotations.ToList();
         }
@@ -32,8 +32,14 @@ namespace Anthurium.API.Repositories.SqlServer
             return result;
         }
 
+        public JobQuotation JobOrderQuotationByIdOnly(int jobQuotationId)
+        {
+            var result = _context.JobQuotations.FirstOrDefault(p => p.JobQuotationId == jobQuotationId);
+            return result;
+        }
 
-        public IEnumerable<ClientInformation> JobOrderQuotationByClient(int clientInformationId)
+
+        public IEnumerable<ClientInformation> JobQuotationByClient(int clientInformationId)
         {
             var result = _context.ClientInformations
                 .Where(j => j.ClientInformationId == clientInformationId)
@@ -51,7 +57,7 @@ namespace Anthurium.API.Repositories.SqlServer
             _context.JobQuotations.Add(jobQuotation);
         }
 
-        public void RemoveClientInformation(JobQuotation jobQuotation)
+        public void RemoveJobQuotation(JobQuotation jobQuotation)
         {
             if (jobQuotation == null)
             {
@@ -66,7 +72,7 @@ namespace Anthurium.API.Repositories.SqlServer
             return (_context.SaveChanges()) >= 0;
         }
 
-        public void UpdateClientInformation(JobQuotation clientInformation)
+        public void UpdateJobQuotation(JobQuotation jobQuotation)
         {
             //nothing
         }

@@ -14,7 +14,8 @@ namespace Anthurium.API.Profiles
 
         public JobQuotationProfile()
         {
-            CreateMap<JobQuotation, JobQuotationReadDto>();
+            CreateMap<JobQuotation, JobQuotationReadDto>()
+                .ForMember(dest => dest.JobQuotationDetails, opt => opt.MapFrom(src => src.JobQuotationDetails));
             CreateMap<JobQuotationCreateDto, JobQuotation>()
                  .ForMember(destination => destination.JobQuotationId, source => source.Ignore());
             CreateMap<JobQuotationUpdateDto, JobQuotation>()

@@ -8,8 +8,7 @@ namespace Anthurium.API.Dtos
 {
     public class JobQuotationDetailsUpdateDto
     {
-        [Key]
-        public int JobQuotationDetailsId { get; set; }
+   
 
         [Required]
         public int Quantity { get; set; }

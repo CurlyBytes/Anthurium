@@ -39,7 +39,7 @@ namespace Anthurium.API
                 .ReturnsCollectionFromEntitySet<ClientInformationReadDto>("ClientInformation");
             fnJobOrderPerClientId.Parameter<int>("clientInformationId").Required();
             fnJobOrderPerClientId.Parameter<int>("jobOrderClientInformationId").Optional();
-
+            //-------------------------------
 
 
             builder.EntitySet<JobOrderDescriptionOfWorkReadDto>("JobOrderDescriptionOfWork").EntityType.HasKey(x => x.JobOrderDescriptionOfWorkId);
@@ -53,7 +53,7 @@ namespace Anthurium.API
 
             var fnCreateJobOrderDescriptionOfWork = builder.Function("CreateJobOrderDescriptionOfWork");
             fnCreateJobOrderDescriptionOfWork.ReturnsCollectionFromEntitySet<JobOrderDescriptionOfWorkReadDto>("JobOrderDescriptionOfWork");
-
+            //-----------------------------
 
             builder.EntitySet<JobOrderReadDto>("JobOrder").EntityType.HasKey(x => x.JobOrderId);
 
@@ -67,6 +67,8 @@ namespace Anthurium.API
             var fnCreateJobOrder = builder.Function("CreateJobOrder");
             fnCreateJobOrder.ReturnsCollectionFromEntitySet<JobOrderReadDto>("JobOrder");
 
+            //------------------------------
+
             builder.EntitySet<JobQuotationDetailsReadDto>("JobQuotationDetails").EntityType.HasKey(x => x.JobQuotationDetailsId);
             builder.EntitySet<JobQuotationDetailsReadDto>("JobQuotationDetailsPerJobQuotation").EntityType.HasKey(x => x.JobQuotationDetailsId);
 
@@ -74,6 +76,14 @@ namespace Anthurium.API
               .Function("JobQuotation")
               .ReturnsCollectionFromEntitySet<JobQuotationDetailsReadDto>("JobQuotationDetailsPerJobQuotation");
             fnGetJobQuotationDetailsByJobQuotation.Parameter<int>("JobQuotationId").Required();
+            //-----------------------------------
+
+            builder.EntitySet<JobQuotationReadDto>("JobQuotation").EntityType.HasKey(x => x.JobQuotationId);
+       
+            var fnJobOrderQuotationByClient = builder.EntityType<JobQuotationReadDto>().Collection
+               .Function("ClientInformation")
+               .ReturnsCollectionFromEntitySet<JobQuotationReadDto>("JobQuotation");
+            fnJobOrderQuotationByClient.Parameter<int>("ClientInformationId").Required();
 
 
             return builder.GetEdmModel();

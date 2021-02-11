@@ -8,19 +8,16 @@ namespace Anthurium.API.Dtos
 {
     public class JobQuotationCreateDto
     {
-        [Required]
-        public int Quantity { get; set; }
+       
 
 
         [Required]
         [MaxLength(400)]
         public string Description { get; set; }
 
+    
         [Required]
-        public double Cost { get; set; }
-
-        [Required]
-        public double TotalCost { get; set; }
+        public double OverallCost { get; set; }
 
         [Required]
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;

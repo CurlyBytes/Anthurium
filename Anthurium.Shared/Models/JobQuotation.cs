@@ -9,8 +9,7 @@ namespace Anthurium.Shared.Models
     {
         [Key]
         public int JobQuotationId { get; set; }
-        [Required]
-        public int Quantity { get; set; }
+
 
 
         [Required]
@@ -18,10 +17,7 @@ namespace Anthurium.Shared.Models
         public string Description { get; set; }
 
         [Required]
-        public double Cost { get; set; }
-
-        [Required]
-        public double TotalCost { get; set; }
+        public double OverallCost { get; set; }
 
         [Required]
         public DateTime DateCreated { get; set; }

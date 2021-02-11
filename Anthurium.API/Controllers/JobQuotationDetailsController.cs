@@ -38,7 +38,7 @@ namespace Anthurium.API.Controllers
                 return BadRequest(ModelState);
             }
             var jobQuotationDetailItems = _repository.GetJobQuotationDetails();
-            if (jobQuotationDetailItems?.Any(p => p.Description == null) == true)
+            if (jobQuotationDetailItems?.Any() == false)
             {
                 return NotFound();
             }

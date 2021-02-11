@@ -17,7 +17,7 @@ namespace Anthurium.Shared.Models
         public string Description { get; set; }
 
         [Required]
-        public int Cost { get; set; }
+        public double Cost { get; set; }
 
         [Required]
         public double TotalCost { get; set; }

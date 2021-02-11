@@ -126,9 +126,110 @@ namespace Anthurium.API.Data
                     }
 
             };
+            var jobQuotation = new JobQuotation[] { 
+                new JobQuotation {
+                    OverallCost = 100.0,
+                    Description = "Sample Job Quotation From RAFI",
+                    ClientInformationId = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new JobQuotation {
+                    OverallCost = 200.0,
+                    Description = "Sample Job Quotation From RAFI",
+                    ClientInformationId = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new JobQuotation {
+                    OverallCost = 300.0,
+                    Description = "CurlyBytes JobQuote",
+                    ClientInformationId = 2,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                }
+            };
+
+            var jobQuotationDetails = new JobQuotationDetails[] {
+                 new JobQuotationDetails{ 
+                    Quantity = 2,
+                    Cost = 12.5,
+                    Description = "cable",
+                    TotalCost = 25,
+                    JobQuotationId = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                 },
+                 new JobQuotationDetails{
+                    Quantity = 1,
+                    Cost = 75,
+                    Description = "wire",
+                    TotalCost = 75,
+                    JobQuotationId = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                 },
+                  new JobQuotationDetails{
+                    Quantity = 3,
+                    Cost = 50,
+                    Description = "mouse",
+                    TotalCost = 150,
+                    JobQuotationId = 2,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                 },
+                 new JobQuotationDetails{
+                    Quantity = 2,
+                    Cost = 12.5,
+                    Description = "cable",
+                    TotalCost = 25,
+                    JobQuotationId = 2,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                 },
+                 new JobQuotationDetails{
+                    Quantity = 2,
+                    Cost = 12.5,
+                    Description = "cable",
+                    TotalCost = 25,
+                    JobQuotationId = 3,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                 },
+                 new JobQuotationDetails{
+                    Quantity = 3,
+                    Cost = 50,
+                    Description = "mouse",
+                    TotalCost = 150,
+                    JobQuotationId = 3,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                 },
+                 new JobQuotationDetails{
+                    Quantity = 1,
+                    Cost = 100,
+                    Description = "monitor",
+                    TotalCost = 100,
+                    JobQuotationId = 3,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                 },
+            };
 
             context.ClientInformations.AddRange(clientInformations);
             context.JobOrders.AddRange(jobOrders);
+            context.JobQuotations.AddRange(jobQuotation);
+            context.JobQuotationDetailss.AddRange(jobQuotationDetails);
             context.SaveChanges();
         }
     }
