@@ -1,4 +1,5 @@
-﻿using Anthurium.Web.Repositories;
+﻿using Anthurium.API.Dtos;
+using Anthurium.Web.Repositories;
 using AutoMapper;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Routing;
@@ -35,34 +36,41 @@ namespace Anthurium.API.Controllers
         [HttpGet("totalclients", Name = "RunningTotalOfClients")]
         [EnableQuery]
         [ODataRoute("totalclients", RouteName = "RunningTotalOfClients")]
-        public ActionResult RunningTotalOfClients()
+        public ActionResult<RunningTotalOfClientsReadDto> RunningTotalOfClients()
         {
    
-            var returnResult = _iClientInformation.RunningTotalOfClients();
-     
+            var RunningTotalOfClientsReadDto = _iClientInformation.RunningTotalOfClients();
 
-            return Ok(returnResult);
+            RunningTotalOfClientsReadDto count = new RunningTotalOfClientsReadDto();
+
+            count.RunningTotalOfClientsCount = RunningTotalOfClientsReadDto;
+
+            return Ok(count.RunningTotalOfClientsCount);
         }
 
         [HttpGet("joborderwithinmonth", Name = "NewJobOrderByDateWithin30Days")]
         [EnableQuery]
         [ODataRoute("joborderwithinmonth")]
-        public ActionResult NewJobOrderByDateWithin30Days()
+        public ActionResult<NewJobOrderByDateWithin30DaysReadDto> NewJobOrderByDateWithin30Days()
         {
 
             var returnResult = _iJobOrderRepository.NewJobOrderByDateWithin30Days();
 
+            NewJobOrderByDateWithin30DaysReadDto count = new NewJobOrderByDateWithin30DaysReadDto();
 
-            return Ok(returnResult);
+            count.NewJobOrderByDateWithin30DaysCount = returnResult;
+
+            return Ok(count.NewJobOrderByDateWithin30DaysCount);
         }
 
         [HttpGet("joborderperclient", Name = "JobOrderPerClient")]
         [EnableQuery]
         [ODataRoute("joborderperclient")]
-        public ActionResult JobOrderPerClient()
+        public ActionResult<JobOrderPerClientReadDto> JobOrderPerClient()
         {
 
             var returnResult = _iJobOrderRepository.JobOrderPerClient();
+
 
 
             return Ok(returnResult);
