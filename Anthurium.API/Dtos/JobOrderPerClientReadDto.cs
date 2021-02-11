@@ -11,11 +11,5 @@ namespace Anthurium.API.Dtos
 
         public int NumberOfJobOrder { get; set; }
 
-
-        public DateTime DateUpdated { get; set; }
-
-        public DateTime DateCreated { get; set; }
-
-        public bool IsActive { get; set; }
     }
 }

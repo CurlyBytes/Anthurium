@@ -29,18 +29,7 @@ namespace Anthurium.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("joborderperclient", Name = "JobOrderPerClient")]
-        [EnableQuery]
-        [ODataRoute("joborderperclient")]
-        public ActionResult<JobOrderPerClientReadDto> JobOrderPerClient()
-        {
 
-            var returnResult = _repository.JobOrderPerClient();
-
-
-
-            return Ok(returnResult);
-        }
 
         [EnableQuery(PageSize = 50)]
         [HttpGet]

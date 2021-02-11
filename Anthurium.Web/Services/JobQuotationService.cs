@@ -31,9 +31,9 @@ namespace Anthurium.Web.Services
             return new JobQuotationApiResponse();
         }
 
-        public async Task<JobQuotationApiResponse> GetJobQuotationsAsync(string orderBy, int skip)
+        public async Task<JobQuotationApiResponse> JobOrderQuotationByClient(string orderBy, int skip, int top, int clientinformationId)
         {
-            var response = await _httpClient.GetAsync($"api/jobquotation?$count=true&$orderby={orderBy}&$skip={skip}");
+            var response = await _httpClient.GetAsync($"api/jobquotation/ClientInformation(ClientInformationId={clientinformationId})?$expand=JobQuotation($count=true&$orderby={orderBy}&$skip={skip}&$top={top}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -44,19 +44,7 @@ namespace Anthurium.Web.Services
             return new JobQuotationApiResponse();
         }
 
-        public async Task<JobQuotationApiResponse> JobOrderQuotationByClient(string orderBy, int skip, int clientInformationId)
-        {
-            var response = await _httpClient.GetAsync($"api/jobquotation?$count=true&$orderby={orderBy}&$skip={skip}");
-
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<JobQuotationApiResponse>(responseContent);
-            }
-
-            return new JobQuotationApiResponse();
-        }
-
+     
         public async Task<JobQuotationReadDto> GetJobQuotationByIdAsync(int id)
         {
             var response = await _httpClient.GetAsync($"api/jobquotation/{id}");
