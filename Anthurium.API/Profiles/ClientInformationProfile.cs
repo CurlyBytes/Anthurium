@@ -54,9 +54,15 @@ namespace Anthurium.API.Profiles
                 .ForMember(destination => destination.ClientInformation, source => source.Ignore())
                 .ForMember(destination => destination.JobOrderDescriptionOfWork, source => source.Ignore());
 
+            //web razor from job quotation
+            CreateMap<JobQuotationChangeCreate, JobQuotationCreateDto>();
+            CreateMap<JobQuotationChangeCreate, JobQuotationUpdateDto>();
+            CreateMap<ClientInformationReadDto, JobQuotationChangeCreate>()
+              .ForMember(dest => dest.ClientInformationId, opt => opt.MapFrom(src => src.ClientInformationId));
+
             //CreateMap<Object, List<ClientInformationReadDto>>();
         }
 
-       
+
     }
 }

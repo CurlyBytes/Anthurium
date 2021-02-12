@@ -10,7 +10,13 @@ namespace Anthurium.API.Dtos
         [Required]
         [MaxLength(400)]
         public string Description { get; set; }
+        [Required]
+        [MaxLength(250)]
+        public string CompanyName { get; set; }
 
+        [Required]
+        [MaxLength(450)]
+        public string CompanyAddress { get; set; }
 
 
         [Required]

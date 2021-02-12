@@ -16,6 +16,7 @@ using AutoMapper;
 using Anthurium.API.Profiles;
 using Anthurium.Web.Services;
 using Blazored.Toast;
+using Blazored.Modal;
 
 namespace Anthurium.Web
 {
@@ -63,6 +64,15 @@ namespace Anthurium.Web
             })
                 .AddClientAccessTokenHandler("web");
 
+            services.AddHttpClient<JobQuotationService>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:5001");
+
+            })
+                .AddClientAccessTokenHandler("web");
+
+
+
             services.AddAccessTokenManagement(options =>
             {
                 options.Client.Clients.Add("web", new ClientCredentialsTokenRequest
@@ -80,12 +90,15 @@ namespace Anthurium.Web
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddBlazoredModal();
 
             var mapperConfiguration = new MapperConfiguration(configuration =>
             {
                 configuration.AddProfile(new ClientInformationProfile());
                 configuration.AddProfile(new JobOrderDescriptionOfWorkProfile());
                 configuration.AddProfile(new JobOrderProfile());
+                configuration.AddProfile(new JobQuotationDetailsProfile());
+                configuration.AddProfile(new JobQuotationProfile());
             });
 
             var mapper = mapperConfiguration.CreateMapper();

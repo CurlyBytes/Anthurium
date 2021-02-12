@@ -8,8 +8,14 @@ namespace Anthurium.API.Dtos
     {
         [Key]
         public int JobQuotationId { get; set; }
+        [Required]
+        [MaxLength(250)]
+        public string CompanyName { get; set; }
 
-    
+        [Required]
+        [MaxLength(450)]
+        public string CompanyAddress { get; set; }
+
 
 
         [Required]

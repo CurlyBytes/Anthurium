@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anthurium.API", "Anthurium.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anthurium.Web", "Anthurium.Web\Anthurium.Web.csproj", "{A773B7DF-B9FB-435A-BC50-A02041881C18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anthurium.Api.Test", "Anthurium.Api.Test\Anthurium.Api.Test.csproj", "{E500CBCB-3BD3-46CA-84AF-B615CC16B983}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anthurium.Api.Test", "Anthurium.Api.Test\Anthurium.Api.Test.csproj", "{E500CBCB-3BD3-46CA-84AF-B615CC16B983}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -17,30 +17,30 @@ namespace Anthurium.Web.Services
             _httpClient = client;
         }
 
-        public async Task<RunningTotalOfClientsReadDto> RunningTotalOfClients()
+        public async Task<int> RunningTotalOfClients()
         {
             var response = await _httpClient.GetAsync($"api/dashboard/totalclients");
 
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<RunningTotalOfClientsReadDto>(responseContent);
+                return JsonSerializer.Deserialize<int>(responseContent);
             }
 
-            return new RunningTotalOfClientsReadDto();
+            return new int();
         }
 
-        public async Task<DashboardJobOrderPerClientReadDto> DashboardJobOrderPerClient()
+        public async Task<int> DashboardJobOrderPerClient()
         {
             var response = await _httpClient.GetAsync($"api/dashboard/joborderwithinmonth");
 
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<DashboardJobOrderPerClientReadDto>(responseContent);
+                return JsonSerializer.Deserialize<int>(responseContent);
             }
 
-            return new DashboardJobOrderPerClientReadDto();
+            return new int();
         }
 
         public async Task<JobOrderPerClientReadDto> JobOrderPerClient()

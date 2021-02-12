@@ -1,0 +1,134 @@
+﻿@page "/jobquotation/create"
+@inject Services.JobQuotationService jobOrderService
+@inject Services.ClientInformationService clientInformationService
+@using System.Text.Json
+@using Anthurium.API.Dtos
+@inject NavigationManager NavManager
+@using AutoMapper;
+@inject IMapper _mapper;
+@inject IToastService toastService
+
+<h3>New Job Order</h3>
+<div style="max-width: 400px;">
+    <EditForm Model="@jobQuotationCreateDto" OnValidSubmit="@PostJobQuotation">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group row">
+            <label for="contactName" class="col-sm-6 col-form-label">Client Info:</label>
+            <select class="form-control selectpicker" value="@jobQuotationCreateDto.ClientInformationId" @onchange="ChangeOrder">
+                <option>--select--</option>
+                @foreach (var item in clientInformationReadDto)
+                {
+                    <option value="@item.ClientInformationId">@item.CompanyName</option>
+                    // Blazor needs to know what values it binds to!
+                }
+            </select>
+        </div>
+        <div class="form-group row">
+            <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
+            <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled
+                   @bind="jobQuotationCreateDto.ClientInformationId" />
+        </div>
+        <div class="form-group row">
+            <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
+            <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled
+                   @bind="jobQuotationCreateDto.CompanyName" />
+        </div>
+        <div class="form-group row">
+            <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
+            <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled
+                   @bind="jobQuotationCreateDto.CompanyAddress" />
+        </div>
+
+        <div class="form-group row">
+            <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
+            <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled
+                   @bind="jobQuotationCreateDto.CompanyAddress" />
+        </div>
+        @for (int i = 0; i < jobQuotationDetailsCreateDtoList.Count; i++)
+        {
+            int j = i;  // copy i to be safe
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Description" @bind="@jobQuotationDetailsCreateDtoList[j].Description">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="First name" @bind="@jobQuotationDetailsCreateDtoList[j].Quantity">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Last name" @bind="@jobQuotationDetailsCreateDtoList[j].Cost">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Last name" @bind="@jobQuotationDetailsCreateDtoList[j].Cost">
+            </div>
+        }
+        <button @onclick="AddField">Add JobQuotation Details</button>
+
+        <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
+        <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
+             hidden="@(message=="")">@message</div>
+        </EditForm>
+    </div>
+    @code {
+        private List<ClientInformationReadDto> clientInformationReadDto = new List<ClientInformationReadDto>();
+        private List<JobQuotationDetailsCreateDto> jobQuotationDetailsCreateDtoList = new List<JobQuotationDetailsCreateDto>();
+        private JobQuotationCreateDto jobQuotationCreateDto = new JobQuotationCreateDto();
+        private JobQuotationChangeCreate jobOrderChangeCreate = new JobQuotationChangeCreate();
+        private ClientInformationReadDto clientInformationReadDtoSingle { get; set; } = new ClientInformationReadDto();
+
+        private bool isSuccess = false;
+        private string message = "";
+        private int matchingCount;
+
+
+        void AddField()
+        {
+            JobQuotationDetailsCreateDto jobQUotationDetailsCreateDto = new JobQuotationDetailsCreateDto
+            {
+                Quantity = 0,
+                Cost = 0,
+                Description = "",
+                TotalCost = 0,
+            };
+
+            jobQuotationDetailsCreateDtoList.Add(jobQUotationDetailsCreateDto);
+        }
+
+        private async Task FetchListAsync()
+        {
+            var response = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
+            clientInformationReadDto = response.ClientInformation;
+            matchingCount = response.Count; clientInformationReadDto = response.ClientInformation;
+
+
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+            await FetchListAsync();
+        }
+
+        public async void PostJobQuotation()
+        {
+            //returns response message, so can check if success
+            var response = await jobOrderService.CreateJobQuotationAsync(jobQuotationCreateDto);
+            if (response.IsSuccessStatusCode)
+            {
+                isSuccess = true;
+                message = $"Success";
+                toastService.ShowSuccess($" A job order from {jobQuotationCreateDto.ClientInformation.CompanyName} is Created.");
+                NavManager.NavigateTo("/jobquotation");
+            }
+            else
+                message = $"Error: {response.StatusCode.ToString()}. Please try again.";
+            this.StateHasChanged();
+        }
+
+        private async Task ChangeOrder(ChangeEventArgs e)
+        {
+
+            clientInformationReadDtoSingle = await clientInformationService.GetClientInformationByIdAsync(Int32.Parse(e.Value.ToString()));
+            _mapper.Map(clientInformationReadDtoSingle, jobOrderChangeCreate);
+            _mapper.Map(jobOrderChangeCreate, jobQuotationCreateDto);
+            message = "";
+        }
+    }

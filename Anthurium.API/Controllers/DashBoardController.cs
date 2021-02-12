@@ -36,16 +36,13 @@ namespace Anthurium.API.Controllers
         [HttpGet("totalclients", Name = "RunningTotalOfClients")]
         [EnableQuery]
         [ODataRoute("totalclients", RouteName = "RunningTotalOfClients")]
-        public ActionResult<RunningTotalOfClientsReadDto> RunningTotalOfClients()
+        public ActionResult<int> RunningTotalOfClients()
         {
    
             var RunningTotalOfClientsReadDto = _iClientInformation.RunningTotalOfClients();
 
-            RunningTotalOfClientsReadDto count = new RunningTotalOfClientsReadDto();
 
-            count.RunningTotalOfClientsCount = RunningTotalOfClientsReadDto;
-
-            return Ok(count.RunningTotalOfClientsCount);
+            return Ok(RunningTotalOfClientsReadDto);
         }
 
         [HttpGet("joborderwithinmonth", Name = "NewJobOrderByDateWithin30Days")]
