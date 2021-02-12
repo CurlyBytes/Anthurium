@@ -2,7 +2,7 @@
 @inject Services.JobOrderService jobOrderService
 @using Anthurium.API.Dtos
 
-<h3>Client Id: @Id.ToString()</h3>
+<h4>Client Information Id: @Id.ToString()</h4>
 
 @if (jobOrderReadDto == null)
 {
@@ -26,9 +26,10 @@ else
             <h4>@jobOrderReadDto.TotalHours</h4>
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="margin-top:1rem;">
         <div class="col-12">
-            <a href="/joborder">Return to Job Order</a>
+    
+            <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/clientinformation">Return to List</a>
         </div>
     </div>
 }

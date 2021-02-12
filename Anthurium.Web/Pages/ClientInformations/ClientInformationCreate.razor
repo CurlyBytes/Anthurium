@@ -6,8 +6,8 @@
 @inject IToastService toastService
 
 
-<h3>New Client Information</h3>
-<div class="row">
+<h4>New Client Information</h4>
+<div class="row m-2">
     <EditForm Model="@clientInformationCreateDto" OnValidSubmit="@PostClientInformation" >
         <DataAnnotationsValidator />
         <ValidationSummary />
