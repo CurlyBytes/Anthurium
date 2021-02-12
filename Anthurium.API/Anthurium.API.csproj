@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Anthurium.Shared\Anthurium.Shared.csproj" />
+    <Watch Include="..\Anthurium.Web\**\*.razor" />
   </ItemGroup>
 
 </Project>

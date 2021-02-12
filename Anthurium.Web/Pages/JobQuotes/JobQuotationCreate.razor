@@ -9,7 +9,7 @@
 @inject IToastService toastService
 
 <h3>New Job Order</h3>
-<div style="max-width: 400px;">
+<div style="max-width: 1200px;">
     <EditForm Model="@jobQuotationCreateDto" OnValidSubmit="@PostJobQuotation">
         <DataAnnotationsValidator />
         <ValidationSummary />
@@ -24,11 +24,7 @@
                 }
             </select>
         </div>
-        <div class="form-group row">
-            <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
-            <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled
-                   @bind="jobQuotationCreateDto.ClientInformationId" />
-        </div>
+
         <div class="form-group row">
             <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
             <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled
@@ -41,32 +37,51 @@
         </div>
 
         <div class="form-group row">
-            <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
-            <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled
-                   @bind="jobQuotationCreateDto.CompanyAddress" />
+            <label for="companyAddress" class="col-sm-6 col-form-label">Description</label>
+            <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text"
+                   @bind="jobQuotationCreateDto.Description" />
         </div>
-        @for (int i = 0; i < jobQuotationDetailsCreateDtoList.Count; i++)
+        <div class="row">
+            <button class="btn btn-primary" type="button" @onclick="AddField" disabled="@isSuccess"> Add JobQuotation Details</button>
+
+        </div>
+        @foreach (var item in jobQuotationDetailsCreateDtoList)
         {
-            int j = i;  // copy i to be safe
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Description" @bind="@jobQuotationDetailsCreateDtoList[j].Description">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" placeholder="First name" @bind="@jobQuotationDetailsCreateDtoList[j].Quantity">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Last name" @bind="@jobQuotationDetailsCreateDtoList[j].Cost">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Last name" @bind="@jobQuotationDetailsCreateDtoList[j].Cost">
+            <div class="form-row">
+                <div class="col-sm-4 ">
+                    <label for="@item.Description" class="col-sm-6 col-form-label">Description:</label>
+                    <input id="@item.Description" type="text" class="form-control" placeholder="Description" @bind="@item.Description">
+                </div>
+                <div class="col-sm-2">
+                    <label for="@item.Cost" class="col-sm-2 col-form-label">Cost:</label>
+                    <input id="@item.Cost" type="text" class="form-control" placeholder="Cost" @bind="@item.Cost">
+                </div>
+                <div class="col-sm-2">
+                    <label for="@item.Quantity" class="col-sm-2 col-form-label">Quantity:</label>
+                    <input id="@item.Quantity" type="text" class="form-control" placeholder="Quantity" @bind="@item.Quantity">
+                </div>
+                <div class="col-sm-2">
+                    <label for="@item.TotalCost" class="col-sm-2 col-form-label">TotalCost:</label>
+                    <input id="@item.TotalCost" type="text" class="form-control" placeholder="TotalCost" @bind="@item.TotalCost">
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-danger" type="button" @onclick="() => RemoveField(item)">X</button>
+                </div>
+
             </div>
         }
-        <button @onclick="AddField">Add JobQuotation Details</button>
 
-        <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
-        <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
-             hidden="@(message=="")">@message</div>
+
+
+
+        <div class="row">
+            <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
+            <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
+                 hidden="@(message=="")">@message</div>
+            </div>
+
         </EditForm>
+
     </div>
     @code {
         private List<ClientInformationReadDto> clientInformationReadDto = new List<ClientInformationReadDto>();
@@ -82,15 +97,14 @@
 
         void AddField()
         {
-            JobQuotationDetailsCreateDto jobQUotationDetailsCreateDto = new JobQuotationDetailsCreateDto
-            {
-                Quantity = 0,
-                Cost = 0,
-                Description = "",
-                TotalCost = 0,
-            };
+            jobQuotationDetailsCreateDtoList.Add(new JobQuotationDetailsCreateDto());
+        }
 
-            jobQuotationDetailsCreateDtoList.Add(jobQUotationDetailsCreateDto);
+        void RemoveField(JobQuotationDetailsCreateDto removeJobQuotation)
+        {
+        
+
+            jobQuotationDetailsCreateDtoList.Remove(removeJobQuotation);
         }
 
         private async Task FetchListAsync()
@@ -110,12 +124,13 @@
         public async void PostJobQuotation()
         {
             //returns response message, so can check if success
+            jobQuotationCreateDto.JobQuotationDetails = jobQuotationDetailsCreateDtoList;
             var response = await jobOrderService.CreateJobQuotationAsync(jobQuotationCreateDto);
             if (response.IsSuccessStatusCode)
             {
                 isSuccess = true;
                 message = $"Success";
-                toastService.ShowSuccess($" A job order from {jobQuotationCreateDto.ClientInformation.CompanyName} is Created.");
+                toastService.ShowSuccess($" A job quotation from {jobQuotationCreateDto.CompanyName} is Created.");
                 NavManager.NavigateTo("/jobquotation");
             }
             else

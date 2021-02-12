@@ -1,0 +1,130 @@
+﻿@page "/jobquotation/{Id:int}/edit"
+@inject Services.JobQuotationService jobQuotationService
+@inject Services.ClientInformationService clientInformationService
+@using AutoMapper;
+@inject IMapper _mapper;
+@using System.Text.Json;
+@using Anthurium.API.Dtos
+@inject IToastService toastService
+@inject NavigationManager NavManager
+
+<h3>Edit Job Order</h3>
+@if (jobQuotationReadDto == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-sm-8 text-right">
+            <a href="/jobquotation/@jobQuotationReadDto.JobQuotationId/delete">delete</a>
+        </div>
+    </div>
+    <div style="max-width: 400px;">
+        <EditForm Model="@jobQuotationUpdateDto" OnValidSubmit="@UpdateJobQuotation">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group row">
+                <label for="contactName" class="col-sm-6 col-form-label">Client Info:</label>
+                <select class="form-control selectpicker" value="@jobQuotationUpdateDto.ClientInformationId" @onchange="ChangeOrder">
+                    <option>--select--</option>
+                    @foreach (var item in clientInformationReadDto)
+                    {
+                        <option value="@item.ClientInformationId">@item.CompanyName</option>
+                        // Blazor needs to know what values it binds to!
+                    }
+                </select>
+            </div>
+            <div class="form-group row">
+                <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
+                <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled="disabled"
+                       @bind="jobQuotationUpdateDto.CompanyName" />
+            </div>
+            <div class="form-group row">
+                <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
+                <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled="disabled"
+                       @bind="jobQuotationUpdateDto.CompanyAddress" />
+            </div>
+
+            <div class="form-group row">
+                <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
+                <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled
+                       @bind="jobQuotationReadDto.CompanyName" />
+            </div>
+            <div class="form-group row">
+                <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
+                <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled
+                       @bind="jobQuotationReadDto.CompanyAddress" />
+            </div>
+
+            <div class="form-group row">
+                <label for="companyAddress" class="col-sm-6 col-form-label">Description</label>
+                <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text"
+                       @bind="jobQuotationReadDto.Description" />
+            </div>
+
+            <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
+            <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
+                 hidden="@(message=="")">@message</div>
+            </EditForm>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <a href="/jobquotation">Return to List</a>
+            </div>
+        </div>
+    }
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private bool isSuccess = false;
+    private string message = "";
+
+    private List<ClientInformationReadDto> clientInformationReadDto = new List<ClientInformationReadDto>();
+    private JobQuotationUpdateDto jobQuotationUpdateDto { get; set; } = new JobQuotationUpdateDto();
+    private JobQuotationReadDto jobQuotationReadDto { get; set; } = new JobQuotationReadDto();
+    private JobQuotationChangeCreate jobQuotationChangeCreate = new JobQuotationChangeCreate();
+    private ClientInformationReadDto clientInformationReadDtoSingle { get; set; } = new ClientInformationReadDto();
+
+    protected override async Task OnInitializedAsync()
+    {
+        jobQuotationReadDto = await jobQuotationService.GetJobQuotationByIdAsync(Id);
+        _mapper.Map(jobQuotationReadDto, jobQuotationUpdateDto);
+        var response = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
+        clientInformationReadDto = response.ClientInformation;
+
+
+    }
+
+    public async void UpdateJobQuotation()
+    {
+
+
+        //returns response message, so can check if success
+        var response = await jobQuotationService.EditJobQuotationAsync(Id, jobQuotationUpdateDto);
+        if (response.IsSuccessStatusCode)
+        {
+            isSuccess = true;
+            message = $"Success";
+            toastService.ShowSuccess($" A job quotation from {jobQuotationUpdateDto.CompanyName} is Edited.");
+            //navigate to single page
+            //perhaps set flag (success) there that will display message if coming from this page
+            NavManager.NavigateTo("/jobquotation");
+        }
+        else
+            message = $"Error: {response.StatusCode.ToString()}. Please try again.";
+        this.StateHasChanged();
+    }
+
+    private async Task ChangeOrder(ChangeEventArgs e)
+    {
+
+        clientInformationReadDtoSingle = await clientInformationService.GetClientInformationByIdAsync(Int32.Parse(e.Value.ToString()));
+        _mapper.Map(clientInformationReadDtoSingle, jobQuotationChangeCreate);
+        _mapper.Map(jobQuotationChangeCreate, jobQuotationUpdateDto);
+        message = "";
+    }
+}

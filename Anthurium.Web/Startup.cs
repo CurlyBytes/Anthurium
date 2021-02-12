@@ -17,6 +17,7 @@ using Anthurium.API.Profiles;
 using Anthurium.Web.Services;
 using Blazored.Toast;
 using Blazored.Modal;
+using Westwind.AspNetCore.LiveReload;
 
 namespace Anthurium.Web
 {
@@ -104,7 +105,12 @@ namespace Anthurium.Web
             var mapper = mapperConfiguration.CreateMapper();
 
             services.AddSingleton(mapper);
-
+            services.AddLiveReload(config =>
+            {
+                config.LiveReloadEnabled = true;
+                config.ClientFileExtensions = ".css,.js,.htm,.html";
+                config.FolderToMonitor = "~/../";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -113,6 +119,7 @@ namespace Anthurium.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseLiveReload();
             }
             else
             {

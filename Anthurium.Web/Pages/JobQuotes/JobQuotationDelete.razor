@@ -1,0 +1,53 @@
+﻿@page "/jobquotation/{Id:int}/delete"
+@inject Services.JobQuotationService jobQuotationReadDtoService
+@inject NavigationManager NavManager
+@using Anthurium.Web.Pages
+@using Anthurium.API.Dtos
+@inject IToastService toastService
+
+<h3>Are you sure you want to delete this?</h3>
+
+@if (jobQuotationReadDto == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-sm-4" style="background-color:lightgrey; padding:4px;">
+            <h4>@jobQuotationReadDto.CompanyName</h4>
+            <h4>@jobQuotationReadDto.CompanyAddress</h4>
+            <h4>@jobQuotationReadDto.Description</h4>
+            <h4>@jobQuotationReadDto.OverallCost</h4>
+            <h4>@jobQuotationReadDto.DateCreated</h4>
+        </div>
+    </div>
+    <div class="row" style="margin-top:1rem;">
+        <div class="col-12">
+            <button @onclick="OnDeleteButtonClick" class="btn btn-danger">Delete</button> |
+            <a href="/jobquotation/@jobQuotationReadDto.JobQuotationId">Return to Job Quotation</a>
+        </div>
+    </div>
+}
+
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private JobQuotationReadDto jobQuotationReadDto;
+
+    protected override async Task OnInitializedAsync()
+    {
+        jobQuotationReadDto = await jobQuotationReadDtoService.GetJobQuotationByIdAsync(Id);
+    }
+
+    private async void OnDeleteButtonClick()
+    {
+
+        await jobQuotationReadDtoService.DeleteJobQuotationByIdAsync(Id);
+        toastService.ShowWarning($" A job quotation from {jobQuotationReadDto.CompanyName} is Deleted.");
+        NavManager.NavigateTo("/jobquotation");
+    }
+}
