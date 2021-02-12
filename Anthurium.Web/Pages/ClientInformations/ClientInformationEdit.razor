@@ -14,36 +14,33 @@
 }
 else
 {
-    <div class="row">
-        <div class="col-sm-8 text-right">
-            <a href="/clientinformation/@clientInformationReadDto.ClientInformationId/delete">delete</a>
-        </div>
+    <div class="row m-2">
+
+        <div class="offset-sm-9 col-sm-3 text-right"> <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/clientinformation">Return to List</a></div>
     </div>
-    <div style="max-width: 400px;">
+    <div class="row">
+
         <EditForm Model="@clientInformationUpdateDto" OnValidSubmit="@UpdateClientInformation">
             <DataAnnotationsValidator />
             <ValidationSummary />
             <div class="form-group row">
                 <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
                 <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                       @bind="clientInformationUpdateDto.CompanyName" />
+                        @bind="clientInformationUpdateDto.CompanyName" />
             </div>
             <div class="form-group row">
                 <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
                 <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                       @bind="clientInformationUpdateDto.CompanyAddress" />
+                        @bind="clientInformationUpdateDto.CompanyAddress" />
             </div>
             <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
             <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
-                 hidden="@(message=="")">@message</div>
+                    hidden="@(message=="")">@message</div>
             </EditForm>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <a href="/clientinformation">Return to List</a>
-            </div>
-        </div>
-    }
+
+      
+    </div>
+}
 
 
 @code {

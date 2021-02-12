@@ -3,9 +3,9 @@
 @using Models
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-8"></div>
-        <div class="col-sm-4 text-right"><a href="/clientinformation/create" class="btn btn-primary">New Client</a></div>
+    <div class="row m-2">
+        <div class="col"><h3>Client Informations:</h3></div>
+        <div class=" col-sm-3 text-right"><a href="/clientinformation/create" class="btn btn-primary">New Client</a></div>
     </div>
     @if (clientInformationReadDto == null)
     {
@@ -13,7 +13,7 @@
     }
     else
     {
-        <div class="row">
+        <div class="row m-2">
             <div class="col-sm-8">
                 <h4>Showing @(skip + 1) - @(Math.Min(skip + ListPrefsProvider.listPrefs.NumResults, matchingCount)) of @matchingCount</h4>
             </div>
@@ -21,35 +21,43 @@
                 <div class="row form-group">
                     <label for="sortBy" class="col-form-label col-form-label-sm col">Sort by:</label>
                     <select id="sortBy" class="form-control form-control-sm" style="width:auto;" @onchange="ChangeOrder">
-                        <option value="ClientInformationId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ClientInformationId")>ID</option>
-                        <option value="CompanyName" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName")>Name (A - Z)</option>
-                        <option value="CompanyName desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName desc")>Name (Z - A)</option>
+                        <option value="ClientInformationId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ClientInformationId")>ID (Asc)</option>
+                        <option value="ClientInformationId desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ClientInformationId Desc")>ID (Desc)</option>
+                        <option value="CompanyName" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName")>Company Name (A - Z)</option>
+                        <option value="CompanyName desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName desc")>Company Name (Z - A)</option>
+                        <option value="CompanyAddress" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName")>Company Address (A - Z)</option>
+                        <option value="CompanyAddress desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName desc")>Company Address (Z - A)</option>
                     </select>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <table class="col-12 table">
+        <div class="row  m-2">
+            <table class="col-12 table table-hover table-responsive table-striped">
+                <caption>List of Client Informations</caption>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Company Name</th>
-                        <th>Company Address</th>
+                        <th scope="col">Id</th>
+                        <th scope="col">Company Name</th>
+                        <th scope="col">Company Address</th>
+                        <th scope="col" colspan="3">Operations</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var clientInformationReadDtoItem in clientInformationReadDto)
                     {
-                        <tr>
-                            <td>@clientInformationReadDtoItem.ClientInformationId</td>
-                            <td><a href="/clientinformation/@clientInformationReadDtoItem.ClientInformationId">@clientInformationReadDtoItem.CompanyName</a></td>
-                            <td>@clientInformationReadDtoItem.CompanyAddress</td>
-                        </tr>
+                    <tr>
+                        <td scope="row">@clientInformationReadDtoItem.ClientInformationId</td>
+                        <td>@clientInformationReadDtoItem.CompanyName</td>
+                        <td>@clientInformationReadDtoItem.CompanyAddress</td>
+                        <td><a class="btn btn-info btn-sm" href="/clientinformation/@clientInformationReadDtoItem.ClientInformationId">View</a></td>
+                        <td><a class="btn btn-secondary btn-sm" href="/clientinformation/@clientInformationReadDtoItem.ClientInformationId/edit">Edit</a></td>
+                        <td><a class="btn btn-danger btn-sm" href="/clientinformation/@clientInformationReadDtoItem.ClientInformationId/delete">Delete</a></td>
+                    </tr>
                     }
                 </tbody>
             </table>
         </div>
-        <div class="row">
+        <div class="row m-2">
             <div class="col-sm-8">
                 <button @onclick=PreviousPage class="btn btn-sm btn-outline-secondary" disabled=@(skip == 0)>
                     <span class="oi oi-chevron-left" aria-hidden="true"></span> Prev

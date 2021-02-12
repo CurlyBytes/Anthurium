@@ -3,9 +3,8 @@
 @using Models
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-8"></div>
-        <div class="col-sm-4 text-right"><a href="/joborder/create" class="btn btn-primary">New Job Order</a></div>
+    <div class="row m-2">
+        <div class="offset-md-9 col-sm-3 text-right"><a href="/joborder/create" class="btn btn-primary">New Job Order</a></div>
     </div>
     @if (jobOrderReadDto == null)
     {
@@ -13,7 +12,7 @@
     }
     else
     {
-        <div class="row">
+        <div class="row m-2">
             <div class="col-sm-8">
                 <h4>Showing @(skip + 1) - @(Math.Min(skip + ListPrefsProvider.listPrefs.NumResults, matchingCount)) of @matchingCount</h4>
             </div>
@@ -22,14 +21,14 @@
                     <label for="sortBy" class="col-form-label col-form-label-sm col">Sort by:</label>
                     <select id="sortBy" class="form-control form-control-sm" style="width:auto;" @onchange="ChangeOrder">
                         <option value="JobOrderId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobOrderId")>ID</option>
-                        <option value="CompanyName" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName")>CompanyName (A - Z)</option>
-                        <option value="ContactPerson" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactPerson")>ContactPerson (Z - A)</option>
+                        <option value="CompanyName" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName")>Company Name (A - Z)</option>
+                        <option value="ContactPerson" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactPerson")>Contact Person (A - A)</option>
                     </select>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <table class="col-12 table">
+        <div class="row m-2">
+            <table class="col-12 table table-hover table-responsive">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -39,7 +38,7 @@
                         <th>Number</th>
                         <th>Time Start</th>
                         <th>Time End</th>
-                        <th>Total Hourse</th>
+                        <th>Total Hours</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,7 +58,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="row">
+        <div class="row m-2">
             <div class="col-sm-8">
                 <button @onclick=PreviousPage class="btn btn-sm btn-outline-secondary" disabled=@(skip == 0)>
                     <span class="oi oi-chevron-left" aria-hidden="true"></span> Prev

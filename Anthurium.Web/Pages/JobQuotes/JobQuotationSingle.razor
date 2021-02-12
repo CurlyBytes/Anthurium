@@ -1,5 +1,5 @@
-﻿@page "/joborder/{Id:int}"
-@inject Services.JobOrderService jobOrderService
+﻿@page "/jobquotation/{Id:int}"
+@inject Services.JobQuotationService jobQuotation
 @using Anthurium.API.Dtos
 
 <h3>Client Id: @Id.ToString()</h3>
@@ -12,23 +12,21 @@ else
 {
     <div class="row">
         <div class="col-sm-8 text-right">
-            <a href="/joborder/@Id/edit" class="btn btn-sm btn-secondary">Edit</a>
+            <a href="/jobquotation/@Id/edit" class="btn btn-sm btn-secondary">Edit</a>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
             <h4>@jobOrderReadDto.CompanyName</h4>
             <h4>@jobOrderReadDto.CompanyAddress</h4>
-            <h4>@jobOrderReadDto.ContactPerson</h4>
-            <h4>@jobOrderReadDto.ContactNumber</h4>
-            <h4>@jobOrderReadDto.TimeStarted</h4>
-            <h4>@jobOrderReadDto.TimeEnded</h4>
-            <h4>@jobOrderReadDto.TotalHours</h4>
+            <h4>@jobOrderReadDto.Description</h4>
+            <h4>@jobOrderReadDto.OverallCost</h4>
+            <h4>@jobOrderReadDto.DateCreated</h4>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
-            <a href="/joborder">Return to Job Order</a>
+            <a href="/jobquotation">Return to List</a>
         </div>
     </div>
 }
@@ -37,10 +35,10 @@ else
     [Parameter]
     public int Id { get; set; }
 
-    private JobOrderReadDto jobOrderReadDto;
+    private JobQuotationReadDto jobOrderReadDto;
 
     protected override async Task OnInitializedAsync()
     {
-        jobOrderReadDto = await jobOrderService.GetJobOrderByIdAsync(Id);
+        jobOrderReadDto = await jobQuotation.GetJobQuotationByIdAsync(Id);
     }
 }

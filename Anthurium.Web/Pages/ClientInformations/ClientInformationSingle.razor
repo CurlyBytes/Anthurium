@@ -17,10 +17,19 @@ else
         
 
 
-        <table class="table table-bordered success">
+        <table class="col-12 table table-hover table-responsive table-striped">
             <thead>
+
                 <tr>
-                    <th>Id</th>
+                    <th scope="col">Record Type</th>
+                    <th scope="col">Record Info</th>
+                </tr>
+
+
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Id</th>
                     <td>@clientInformationReadDto.ClientInformationId</td>
                 </tr>
                 <tr>
@@ -31,19 +40,22 @@ else
                     <th class="info">Company Address</th>
                     <td>@clientInformationReadDto.CompanyAddress</td>
                 </tr>
+                <tr>
+                    <th class="info">Date Updated</th>
+                    <td>@clientInformationReadDto.DateCreated</td>
+                </tr>
+                <tr>
+                    <th class="info">Date Created</th>
+                    <td>@clientInformationReadDto.DateUpdated</td>
+                </tr>
+            </tbody>
 
-            </thead>
 
         </table>
 
     </div>
     <div class="row">
-        <div class="col-4">
-            <a href="/clientinformation" class="btn btn-sm btn-secondary">Return to List</a>
-        </div>
-        <div class="col-sm-8 text-right">
-            <a href="/clientinformation/@Id/edit" class="btn btn-sm btn-secondary">Edit</a>
-        </div>
+      <!--TODO: add job quotation and job order records of the client-->
     </div>
 
 
