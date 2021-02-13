@@ -131,6 +131,8 @@ namespace Anthurium.API.Data
                     OverallCost = 100.0,
                     Description = "Sample Job Quotation From RAFI",
                     ClientInformationId = 1,
+                    ContactPerson = "Rafinian",
+                    ContactNumber = "+0639207082",
                     CompanyName = "RAFI",
                     CompanyAddress = "eduardo aboitiz street",
                     IsActive = true,
@@ -143,6 +145,8 @@ namespace Anthurium.API.Data
                     ClientInformationId = 1,
                     CompanyName = "RAFI",
                     CompanyAddress = "eduardo aboitiz street",
+                    ContactPerson = "Rafinian",
+                    ContactNumber = "+0639207082",
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
@@ -153,6 +157,8 @@ namespace Anthurium.API.Data
                     ClientInformationId = 2,
                     CompanyName = "CurlyBytes",
                     CompanyAddress = "107 v. raman st. calamba cc",
+                    ContactPerson = "Cocoy",
+                    ContactNumber = "4177214",
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow

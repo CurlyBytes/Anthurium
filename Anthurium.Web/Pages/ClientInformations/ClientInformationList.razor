@@ -28,6 +28,11 @@
                         <option value="CompanyName desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName desc")>Company Name (Z - A)</option>
                         <option value="CompanyAddress" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName")>Company Address (A - Z)</option>
                         <option value="CompanyAddress desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName desc")>Company Address (Z - A)</option>
+                        <option value="TotalHours Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TotalHours Desc")>Total Hours (Desc)</option>
+                        <option value="DateCreated" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated")>Date Created (Asc)</option>
+                        <option value="DateCreated Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated Desc")>Date Created (Desc)</option>
+                        <option value="DateUpdated" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateUpdated")>Date Updated (Asc)</option>
+                        <option value="DateUpdated Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateUpdated Desc")>Date Updated (Desc)</option>
                     </select>
                 </div>
             </div>

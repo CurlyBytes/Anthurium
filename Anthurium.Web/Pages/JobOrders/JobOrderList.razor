@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="row m-2">
-        <div class="col"><h3>Client Informations:</h3></div>
+        <div class="col"><h3>Job Orders:</h3></div>
         <div class=" col-sm-3 text-right"><a href="/joborder/create" class="btn btn-primary">New Job Order</a></div>
     </div>
     @if (jobOrderReadDto == null)
@@ -22,7 +22,8 @@
                 <div class="row form-group">
                     <label for="sortBy" class="col-form-label col-form-label-sm col">Sort by:</label>
                     <select id="sortBy" class="form-control form-control-sm" style="width:auto;" @onchange="ChangeOrder">
-                        <option value="JobOrderId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobOrderId")>ID</option>
+                        <option value="JobOrderId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobOrderId")>ID (Asc)</option>
+                        <option value="JobOrderId Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobOrderId Desc")>ID (Desc)</option>
                         <option value="CompanyName" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName")>Company Name (A - Z)</option>
                         <option value="CompanyName Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName Desc")>Company Name (Z - A)</option>
                         <option value="CompanyAddress" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyAddress")>Company Address (A - Z)</option>
@@ -37,6 +38,10 @@
                         <option value="TimeEnded Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeEnded Desc")>Time Ended (Desc)</option>
                         <option value="TotalHours" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TotalHours")>Total Hours (Asc)</option>
                         <option value="TotalHours Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TotalHours Desc")>Total Hours (Desc)</option>
+                        <option value="DateCreated" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated")>Date Created (Asc)</option>
+                        <option value="DateCreated Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated Desc")>Date Created (Desc)</option>
+                        <option value="DateUpdated" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateUpdated")>Date Updated (Asc)</option>
+                        <option value="DateUpdated Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateUpdated Desc")>Date Updated (Desc)</option>
 
                     </select>
                 </div>
