@@ -17,7 +17,7 @@ namespace Anthurium.API.Controllers
     [ODataRoutePrefix("jobquotationdetails")]
     [Route("api/jobquotationdetails")]
     [ApiController]
-    [Authorize]
+
     public class JobQuotationDetailsController : ODataController
     {
 

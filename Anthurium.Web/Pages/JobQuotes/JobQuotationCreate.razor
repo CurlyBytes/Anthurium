@@ -8,8 +8,8 @@
 @inject IMapper _mapper;
 @inject IToastService toastService
 
-<h3>New Job Order</h3>
-<div style="max-width: 1200px;">
+<h3>New Job Quotation</h3>
+<div class="row m-2">
     <EditForm Model="@jobQuotationCreateDto" OnValidSubmit="@PostJobQuotation">
         <DataAnnotationsValidator />
         <ValidationSummary />
@@ -45,34 +45,39 @@
             <button class="btn btn-primary" type="button" @onclick="AddField" disabled="@isSuccess"> Add JobQuotation Details</button>
 
         </div>
-        @foreach (var item in jobQuotationDetailsCreateDtoList)
+        @foreach (var item in jobQuotationDetailsCreateDtoList.Select((value, i) => (value, i)))
         {
             <div class="form-row">
                 <div class="col-sm-4 ">
-                    <label for="@item.Description" class="col-sm-6 col-form-label">Description:</label>
-                    <input id="@item.Description" type="text" class="form-control" placeholder="Description" @bind="@item.Description">
+                    <label for="@item.value.Description" class="col-sm-6 col-form-label">Description:</label>
+                    <input id="@item.value.Description" type="text" class="form-control" placeholder="Description" @bind="@item.value.Description">
                 </div>
                 <div class="col-sm-2">
-                    <label for="@item.Cost" class="col-sm-2 col-form-label">Cost:</label>
-                    <input id="@item.Cost" type="text" class="form-control" placeholder="Cost" @bind="@item.Cost">
+                    <label for="@item.value.Cost" class="col-sm-2 col-form-label">Cost:</label>
+                    <input id="@item.value.Cost" type="text" class="form-control" placeholder="Cost" @bind="@item.value.Cost"   @onblur="() => ComputeCost(item.i)" >
                 </div>
                 <div class="col-sm-2">
-                    <label for="@item.Quantity" class="col-sm-2 col-form-label">Quantity:</label>
-                    <input id="@item.Quantity" type="text" class="form-control" placeholder="Quantity" @bind="@item.Quantity">
+                    <label for="@item.value.Quantity" class="col-sm-2 col-form-label">Quantity:</label>
+                    <input id="@item.value.Quantity" type="number" class="form-control" placeholder="Quantity" @bind="@item.value.Quantity" @onblur="() => ComputeCost(item.i)" >
                 </div>
                 <div class="col-sm-2">
-                    <label for="@item.TotalCost" class="col-sm-2 col-form-label">TotalCost:</label>
-                    <input id="@item.TotalCost" type="text" class="form-control" placeholder="TotalCost" @bind="@item.TotalCost">
+
+                    <label for="@item.value.TotalCost" class="col-sm-2 col-form-label">TotalCost:</label>
+                    <input id="@item.value.TotalCost" type="text" class="form-control" placeholder="TotalCost" @bind="@item.value.TotalCost">
                 </div>
                 <div class="col-sm-2">
-                    <button class="btn btn-danger" type="button" @onclick="() => RemoveField(item)">X</button>
+                    <button class="btn btn-danger" type="button" @onclick="() => RemoveField(item.value)">X</button>
                 </div>
 
             </div>
         }
 
 
-
+        <div class="form-group row">
+            <label for="companyName" class="col-sm-6 col-form-label">Overall Cost:</label>
+            <input id="companyName" class="form-control col-sm-6 input-lg" type="text" placeholder="Company Name" disabled="@isSuccess"
+                   @bind="jobQuotationCreateDto.OverallCost" readonly />
+        </div>
 
         <div class="row">
             <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
@@ -102,7 +107,7 @@
 
         void RemoveField(JobQuotationDetailsCreateDto removeJobQuotation)
         {
-        
+
 
             jobQuotationDetailsCreateDtoList.Remove(removeJobQuotation);
         }
@@ -145,5 +150,12 @@
             _mapper.Map(clientInformationReadDtoSingle, jobOrderChangeCreate);
             _mapper.Map(jobOrderChangeCreate, jobQuotationCreateDto);
             message = "";
+        }
+
+        private void ComputeCost(int Id)
+        {
+
+            jobQuotationDetailsCreateDtoList[Id].TotalCost = jobQuotationDetailsCreateDtoList[Id].Quantity * jobQuotationDetailsCreateDtoList[Id].Cost;
+            jobQuotationCreateDto.OverallCost = jobQuotationDetailsCreateDtoList.Sum(x => x.TotalCost);
         }
     }
