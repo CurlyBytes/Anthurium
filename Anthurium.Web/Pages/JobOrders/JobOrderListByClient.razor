@@ -1,0 +1,166 @@
+﻿@inject Services.JobOrderService jobOrderService
+@using Anthurium.API.Dtos
+@using Models
+
+<div class="container">
+    <div class="row m-2">
+        <div class="col"><h3>Job Orders:</h3></div>
+        <div class=" col-sm-3 text-right"><a href="/joborder/create" class="btn btn-primary">New Job Order</a></div>
+    </div>
+    @if (jobOrderReadDto == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <!--Add search key words here-->
+        <div class="row m-2">
+            <div class="col-sm-8">
+                <h4>Showing @(skip + 1) - @(Math.Min(skip + ListPrefsProvider.listPrefs.NumResults, matchingCount)) of @matchingCount</h4>
+            </div>
+            <div class="col-sm-4 text-right">
+                <div class="row form-group">
+                    <label for="sortBy" class="col-form-label col-form-label-sm col">Sort by:</label>
+                    <select id="sortBy" class="form-control form-control-sm" style="width:auto;" @onchange="ChangeOrder">
+                        <option value="JobOrderId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobOrderId")>ID (Asc)</option>
+                        <option value="JobOrderId Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobOrderId Desc")>ID (Desc)</option>
+                        <option value="CompanyName" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName")>Company Name (A - Z)</option>
+                        <option value="CompanyName Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName Desc")>Company Name (Z - A)</option>
+                        <option value="CompanyAddress" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyAddress")>Company Address (A - Z)</option>
+                        <option value="CompanyAddress Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyAddress Desc")>Company Address (Z - A)</option>
+                        <option value="ContactPerson" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactPerson")>Contact Person (A - Z)</option>
+                        <option value="ContactPerson Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactPerson Desc")>Contact Person (Z - A)</option>
+                        <option value="ContactNumber" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactNumber")>Contact Number (A - Z)</option>
+                        <option value="ContactNumber Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactNumber Desc")>Contact Number (Z - A)</option>
+                        <option value="TimeStarted" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeStarted")>Time Started (Asc)</option>
+                        <option value="TimeStarted Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeStarted Desc")>Time Started (Desc)</option>
+                        <option value="TimeEnded" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeEnded")>Time Ended (Asc)</option>
+                        <option value="TimeEnded Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeEnded Desc")>Time Ended (Desc)</option>
+                        <option value="TotalHours" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TotalHours")>Total Hours (Asc)</option>
+                        <option value="TotalHours Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TotalHours Desc")>Total Hours (Desc)</option>
+                        <option value="DateCreated" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated")>Date Created (Asc)</option>
+                        <option value="DateCreated Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated Desc")>Date Created (Desc)</option>
+                        <option value="DateUpdated" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateUpdated")>Date Updated (Asc)</option>
+                        <option value="DateUpdated Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateUpdated Desc")>Date Updated (Desc)</option>
+
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row m-2">
+            <table class="col-12 table table-hover table-responsive table-striped">
+                <caption>List of Job Orders</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Company Name</th>
+                        <th scope="col">Company Address</th>
+                        <th scope="col">Person</th>
+                        <th scope="col">Number</th>
+                        <th scope="col">Time Start</th>
+                        <th scope="col">Time End</th>
+                        <th scope="col">Total Hours</th>
+                        <th scope="col" colspan="3">Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var jobOrderReadDtoItem in jobOrderReadDto)
+                    {
+                        <tr>
+                            <td scope="row">@jobOrderReadDtoItem.JobOrderId</td>
+                            <td><a href="/joborder/@jobOrderReadDtoItem.JobOrderId">@jobOrderReadDtoItem.CompanyName</a></td>
+                            <td>@jobOrderReadDtoItem.CompanyAddress</td>
+                            <td>@jobOrderReadDtoItem.ContactPerson</td>
+                            <td>@jobOrderReadDtoItem.ContactNumber</td>
+                            <td>@jobOrderReadDtoItem.TimeStarted</td>
+                            <td>@jobOrderReadDtoItem.TimeEnded</td>
+                            <td>@jobOrderReadDtoItem.TotalHours</td>
+                            <td><a class="btn btn-info btn-sm" href="/joborder/@jobOrderReadDtoItem.ClientInformationId">View</a></td>
+                            <td><a class="btn btn-secondary btn-sm" href="/joborder/@jobOrderReadDtoItem.ClientInformationId/edit">Edit</a></td>
+                            <td><a class="btn btn-danger btn-sm" href="/joborder/@jobOrderReadDtoItem.ClientInformationId/delete">Delete</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="row m-2">
+            <div class="col-sm-8">
+                <button @onclick=PreviousPage class="btn btn-sm btn-outline-secondary" disabled=@(skip == 0)>
+                    <span class="oi oi-chevron-left" aria-hidden="true"></span> Prev
+                </button>
+
+                <span class="btn">Page @((skip / ListPrefsProvider.listPrefs.NumResults) + 1)</span>
+
+                @if (ListPrefsProvider.listPrefs.NumResults + skip < matchingCount)
+                {
+                    <button @onclick=NextPage class="btn btn-sm btn-outline-secondary">
+                        Next <span class="oi oi-chevron-right" aria-hidden="true"></span>
+                    </button>
+                }
+            </div>
+            <div class="col-sm-4 text-right">
+                <div class="row form-group">
+                    <label for="numResults" class="col-form-label col-form-label-sm col">Show:</label>
+                    <select id="numResults" class="form-control form-control-sm" style="width:auto;" @onchange="ChangeTop">
+                        <option value="10" selected=@(ListPrefsProvider.listPrefs.NumResults==10)>10</option>
+                        <option value="25" selected=@(ListPrefsProvider.listPrefs.NumResults==25)>25</option>
+                        <option value="50" selected=@(ListPrefsProvider.listPrefs.NumResults==50)>50</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private List<JobOrderReadDto> jobOrderReadDto;
+    private int matchingCount;
+
+    [CascadingParameter]
+    private JobOrderListParent ListPrefsProvider { get; set; }
+
+    [Parameter] public int ClientInformationId { get; set; }
+
+    private int skip = 0;
+
+
+    private async Task FetchListAsync()
+    {
+        var response = await jobOrderService.GetJobOrdersByClientInfoAsync(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults, ClientInformationId);
+        jobOrderReadDto = response.JobOrder;
+        matchingCount = response.Count;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchListAsync();
+    }
+
+    private async Task ChangeOrder(ChangeEventArgs e)
+    {
+        ListPrefsProvider.listPrefs.OrderBy = e.Value.ToString();
+        await ListPrefsProvider.SavePrefsAsync();
+        skip = 0; //back to first page
+        await FetchListAsync();
+    }
+
+    private async Task ChangeTop(ChangeEventArgs e)
+    {
+        ListPrefsProvider.listPrefs.NumResults = int.Parse(e.Value.ToString());
+        await ListPrefsProvider.SavePrefsAsync();
+        skip = 0; //back to first page
+        await FetchListAsync();
+    }
+
+    private async Task PreviousPage()
+    {
+        skip -= ListPrefsProvider.listPrefs.NumResults;
+        await FetchListAsync();
+    }
+
+    private async Task NextPage()
+    {
+        skip += ListPrefsProvider.listPrefs.NumResults;
+        await FetchListAsync();
+    }
+}

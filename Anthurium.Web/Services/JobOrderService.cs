@@ -31,6 +31,19 @@ namespace Anthurium.Web.Services
             return new JobOrderApiResponse();
         }
 
+        public async Task<JobOrderApiResponse> GetJobOrdersByClientInfoAsync(string orderBy, int skip, int top, int clientInformationId)
+        {
+            var response = await _httpClient.GetAsync($"api/joborder?$filter=ClientInformationId{clientInformationId}&$count=true&$orderby={orderBy}&$skip={skip}&$top={top}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<JobOrderApiResponse>(responseContent);
+            }
+
+            return new JobOrderApiResponse();
+        }
+
         public async Task<JobOrderReadDto> GetJobOrderByIdAsync(int id)
         {
             var response = await _httpClient.GetAsync($"api/joborder/{id}");
