@@ -15,12 +15,11 @@
 }
 else
 {
-    <div class="row">
-        <div class="col-sm-8 text-right">
-            <a href="/joborder/@jobOrderReadDto.JobOrderId/delete">delete</a>
-        </div>
+    <div class="row m-2">
+
+        <div class="offset-sm-9 col-sm-3 text-right"> <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/joborder">Return to List</a></div>
     </div>
-    <div style="max-width: 400px;">
+    <div class="row m-2">
         <EditForm Model="@jobOrderUpdateDto" OnValidSubmit="@UpdateJobOrder">
             <DataAnnotationsValidator />
             <ValidationSummary />
@@ -50,12 +49,12 @@ else
             <div class="form-group row">
                 <label for="jobOrderContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
                 <input id="jobOrderContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                       @bind="jobOrderUpdateDto.ContactPerson" />
+                       @bind="jobOrderUpdateDto.ContactPerson" placeholder="Contact Person" />
             </div>
             <div class="form-group row">
                 <label for="jobOrderContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
                 <input id="jobOrderContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                       @bind="jobOrderUpdateDto.ContactNumber" />
+                       @bind="jobOrderUpdateDto.ContactNumber" placeholder="Contact Number" />
             </div>
 
             <div class="form-group row">
@@ -80,11 +79,7 @@ else
                  hidden="@(message=="")">@message</div>
             </EditForm>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <a href="/joborder">Return to List</a>
-            </div>
-        </div>
+
     }
 
 
@@ -126,9 +121,12 @@ else
             //perhaps set flag (success) there that will display message if coming from this page
             NavManager.NavigateTo("/joborder");
         }
-        else
+        else {
+            toastService.ShowError($" Error on editing {jobOrderUpdateDto.CompanyName} with ID {Id}.");
             message = $"Error: {response.StatusCode.ToString()}. Please try again.";
-        this.StateHasChanged();
+            this.StateHasChanged();
+        }
+
     }
 
     private async Task ChangeOrder(ChangeEventArgs e)

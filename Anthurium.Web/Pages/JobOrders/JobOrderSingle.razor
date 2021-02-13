@@ -2,7 +2,7 @@
 @inject Services.JobOrderService jobOrderService
 @using Anthurium.API.Dtos
 
-<h4>Client Information Id: @Id.ToString()</h4>
+<h4>Job Order Id: @Id.ToString()</h4>
 
 @if (jobOrderReadDto == null)
 {
@@ -10,25 +10,71 @@
 }
 else
 {
-    <div class="row">
-        <div class="col-sm-8 text-right">
-            <a href="/joborder/@Id/edit" class="btn btn-sm btn-secondary">Edit</a>
-        </div>
+    <div class="row m-2">
+
+        <div class="offset-md-9 col-sm-3 text-right"><a href="/clientinformation/@Id" class="btn btn-secondary">View Transactions</a></div>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <h4>@jobOrderReadDto.CompanyName</h4>
-            <h4>@jobOrderReadDto.CompanyAddress</h4>
-            <h4>@jobOrderReadDto.ContactPerson</h4>
-            <h4>@jobOrderReadDto.ContactNumber</h4>
-            <h4>@jobOrderReadDto.TimeStarted</h4>
-            <h4>@jobOrderReadDto.TimeEnded</h4>
-            <h4>@jobOrderReadDto.TotalHours</h4>
-        </div>
+    <div class="row m-2">
+        <table class="col-12 table table-hover table-responsive table-striped">
+            <caption>Client Id: @Id.ToString()</caption>
+            <thead>
+
+                <tr>
+                    <th scope="col">Record Type</th>
+                    <th scope="col">Record Info</th>
+                </tr>
+
+
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Id</th>
+                    <td>@jobOrderReadDto.ClientInformationId</td>
+                </tr>
+                <tr>
+                    <th class="info">Company Name</th>
+                    <td>@jobOrderReadDto.CompanyName</td>
+                </tr>
+                <tr>
+                    <th class="info">Company Address</th>
+                    <td>@jobOrderReadDto.CompanyAddress</td>
+                </tr>
+                <tr>
+                    <th class="info">Company Address</th>
+                    <td>@jobOrderReadDto.ContactPerson</td>
+                </tr>
+                <tr>
+                    <th class="info">Company Address</th>
+                    <td>@jobOrderReadDto.ContactNumber</td>
+                </tr>
+                <tr>
+                    <th class="info">Company Address</th>
+                    <td>@jobOrderReadDto.TimeStarted</td>
+                </tr>
+                <tr>
+                    <th class="info">Company Address</th>
+                    <td>@jobOrderReadDto.TimeEnded</td>
+                </tr>
+                <tr>
+                    <th class="info">Company Address</th>
+                    <td>@jobOrderReadDto.TotalHours</td>
+                </tr>
+                <tr>
+                    <th class="info">Date Updated</th>
+                    <td>@jobOrderReadDto.DateCreated</td>
+                </tr>
+                <tr>
+                    <th class="info">Date Created</th>
+                    <td>@jobOrderReadDto.DateUpdated</td>
+                </tr>
+            </tbody>
+
+
+        </table>
     </div>
-    <div class="row" style="margin-top:1rem;">
+    <div class="row m-2" style="margin-top:1rem;">
         <div class="col-12">
-    
+
             <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/clientinformation">Return to List</a>
         </div>
     </div>

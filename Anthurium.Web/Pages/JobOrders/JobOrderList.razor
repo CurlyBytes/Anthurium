@@ -4,7 +4,8 @@
 
 <div class="container">
     <div class="row m-2">
-        <div class="offset-md-9 col-sm-3 text-right"><a href="/joborder/create" class="btn btn-primary">New Job Order</a></div>
+        <div class="col"><h3>Client Informations:</h3></div>
+        <div class=" col-sm-3 text-right"><a href="/joborder/create" class="btn btn-primary">New Job Order</a></div>
     </div>
     @if (jobOrderReadDto == null)
     {
@@ -12,6 +13,7 @@
     }
     else
     {
+        <!--Add search key words here-->
         <div class="row m-2">
             <div class="col-sm-8">
                 <h4>Showing @(skip + 1) - @(Math.Min(skip + ListPrefsProvider.listPrefs.NumResults, matchingCount)) of @matchingCount</h4>
@@ -22,30 +24,45 @@
                     <select id="sortBy" class="form-control form-control-sm" style="width:auto;" @onchange="ChangeOrder">
                         <option value="JobOrderId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobOrderId")>ID</option>
                         <option value="CompanyName" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName")>Company Name (A - Z)</option>
-                        <option value="ContactPerson" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactPerson")>Contact Person (A - A)</option>
+                        <option value="CompanyName Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName Desc")>Company Name (Z - A)</option>
+                        <option value="CompanyAddress" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyAddress")>Company Address (A - Z)</option>
+                        <option value="CompanyAddress Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyAddress Desc")>Company Address (Z - A)</option>
+                        <option value="ContactPerson" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactPerson")>Contact Person (A - Z)</option>
+                        <option value="ContactPerson Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactPerson Desc")>Contact Person (Z - A)</option>
+                        <option value="ContactNumber" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactNumber")>Contact Number (A - Z)</option>
+                        <option value="ContactNumber Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactNumber Desc")>Contact Number (Z - A)</option>
+                        <option value="TimeStarted" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeStarted")>Time Started (Asc)</option>
+                        <option value="TimeStarted Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeStarted Desc")>Time Started (Desc)</option>
+                        <option value="TimeEnded" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeEnded")>Time Ended (Asc)</option>
+                        <option value="TimeEnded Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeEnded Desc")>Time Ended (Desc)</option>
+                        <option value="TotalHours" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TotalHours")>Total Hours (Asc)</option>
+                        <option value="TotalHours Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TotalHours Desc")>Total Hours (Desc)</option>
+
                     </select>
                 </div>
             </div>
         </div>
         <div class="row m-2">
-            <table class="col-12 table table-hover table-responsive">
+            <table class="col-12 table table-hover table-responsive table-striped">
+                <caption>List of Job Orders</caption>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Company Name</th>
-                        <th>Company Address</th>
-                        <th>Person</th>
-                        <th>Number</th>
-                        <th>Time Start</th>
-                        <th>Time End</th>
-                        <th>Total Hours</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Company Name</th>
+                        <th scope="col">Company Address</th>
+                        <th scope="col">Person</th>
+                        <th scope="col">Number</th>
+                        <th scope="col">Time Start</th>
+                        <th scope="col">Time End</th>
+                        <th scope="col">Total Hours</th>
+                        <th scope="col" colspan="3">Operations</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var jobOrderReadDtoItem in jobOrderReadDto)
                     {
                     <tr>
-                        <td>@jobOrderReadDtoItem.JobOrderId</td>
+                        <td scope="row">@jobOrderReadDtoItem.JobOrderId</td>
                         <td><a href="/joborder/@jobOrderReadDtoItem.JobOrderId">@jobOrderReadDtoItem.CompanyName</a></td>
                         <td>@jobOrderReadDtoItem.CompanyAddress</td>
                         <td>@jobOrderReadDtoItem.ContactPerson</td>
@@ -53,6 +70,9 @@
                         <td>@jobOrderReadDtoItem.TimeStarted</td>
                         <td>@jobOrderReadDtoItem.TimeEnded</td>
                         <td>@jobOrderReadDtoItem.TotalHours</td>
+                        <td><a class="btn btn-info btn-sm" href="/joborder/@jobOrderReadDtoItem.ClientInformationId">View</a></td>
+                        <td><a class="btn btn-secondary btn-sm" href="/joborder/@jobOrderReadDtoItem.ClientInformationId/edit">Edit</a></td>
+                        <td><a class="btn btn-danger btn-sm" href="/joborder/@jobOrderReadDtoItem.ClientInformationId/delete">Delete</a></td>
                     </tr>
                     }
                 </tbody>

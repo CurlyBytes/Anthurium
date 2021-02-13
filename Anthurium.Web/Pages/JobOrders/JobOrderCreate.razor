@@ -9,36 +9,35 @@
 @inject IToastService toastService
 
 <h3>New Job Order</h3>
-<div style="max-width: 400px;">
+<div class="row m-2">
     <EditForm Model="@jobOrdernCreateDto" OnValidSubmit="@PostJobOrder">
         <DataAnnotationsValidator />
         <ValidationSummary />
         <div class="form-group row">
-            <label for="contactName" class="col-sm-6 col-form-label">Client Info:</label>
-            <select class="form-control selectpicker" value="@jobOrdernCreateDto.ClientInformationId" @onchange="ChangeOrder">
+            <label for="clientInformationId" class="col-sm-6 col-form-label">Client Info:</label>
+            <select id="ClientInformationId" class="form-control selectpicker" value="@jobOrdernCreateDto.ClientInformationId" @onchange="ChangeOrder">
                 <option>--select--</option>
                 @foreach (var item in clientInformationReadDto)
                 {
                     <option value="@item.ClientInformationId">@item.CompanyName</option>
-                    // Blazor needs to know what values it binds to!
                 }
             </select>
         </div>
         <div class="form-group row">
             <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
             <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled
-                   @bind="jobOrdernCreateDto.CompanyName" />
+                   @bind="jobOrdernCreateDto.CompanyName" placeholder="CompanyName" />
         </div>
         <div class="form-group row">
             <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
             <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled
-                   @bind="jobOrdernCreateDto.CompanyAddress" />
+                   @bind="jobOrdernCreateDto.CompanyAddress" placeholder="Company Address" />
         </div>
 
         <div class="form-group row">
             <label for="jobOrderContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
             <input id="jobOrderContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                   @bind="jobOrdernCreateDto.ContactPerson" />
+                   @bind="jobOrdernCreateDto.ContactPerson" placeholder="Contact Person"/>
         </div>
         <div class="form-group row">
             <label for="jobOrderContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
@@ -106,12 +105,17 @@
             {
                 isSuccess = true;
                 message = $"Success";
-                toastService.ShowSuccess($" A job order from {jobOrdernCreateDto.CompanyName} is Created.");
+                toastService.ShowSuccess($" A job order from {jobOrdernCreateDto.CompanyName} is created.");
                 NavManager.NavigateTo("/joborder");
             }
-            else
+            else {
+                toastService.ShowError($" Error while creating job order from {jobOrdernCreateDto.CompanyName}. Kindly retry.");
                 message = $"Error: {response.StatusCode.ToString()}. Please try again.";
-            this.StateHasChanged();
+
+                this.StateHasChanged();
+
+            }
+
         }
 
         private async Task ChangeOrder(ChangeEventArgs e)
