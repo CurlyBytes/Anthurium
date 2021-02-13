@@ -75,7 +75,11 @@ else
             //perhaps set flag (success) there that will display message if coming from this page
         }
         else
+        {
             message = $"Error: {response.StatusCode.ToString()}. Please try again.";
+            toastService.ShowError($" Cannot edit {clientInformationUpdateDto.CompanyName}. Please try again.");
+        }
+
         this.StateHasChanged();
     }
 }

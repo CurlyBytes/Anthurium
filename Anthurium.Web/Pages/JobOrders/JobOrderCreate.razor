@@ -112,9 +112,8 @@
                 toastService.ShowError($" Error while creating job order from {jobOrdernCreateDto.CompanyName}. Kindly retry.");
                 message = $"Error: {response.StatusCode.ToString()}. Please try again.";
 
-                this.StateHasChanged();
-
             }
+            this.StateHasChanged();
 
         }
 

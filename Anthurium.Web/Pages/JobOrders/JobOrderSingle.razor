@@ -12,11 +12,11 @@ else
 {
     <div class="row m-2">
 
-        <div class="offset-md-9 col-sm-3 text-right"><a href="/clientinformation/@Id" class="btn btn-secondary">View Transactions</a></div>
+        <div class="offset-md-9 col-sm-3 text-right"><a href="/joborder/@Id" class="btn btn-secondary">View Transactions</a></div>
     </div>
     <div class="row m-2">
         <table class="col-12 table table-hover table-responsive table-striped">
-            <caption>Client Id: @Id.ToString()</caption>
+            <caption>Job OrdersId: @Id.ToString()</caption>
             <thead>
 
                 <tr>
@@ -40,23 +40,23 @@ else
                     <td>@jobOrderReadDto.CompanyAddress</td>
                 </tr>
                 <tr>
-                    <th class="info">Company Address</th>
+                    <th class="info">Contact Person</th>
                     <td>@jobOrderReadDto.ContactPerson</td>
                 </tr>
                 <tr>
-                    <th class="info">Company Address</th>
+                    <th class="info">Contact Number</th>
                     <td>@jobOrderReadDto.ContactNumber</td>
                 </tr>
                 <tr>
-                    <th class="info">Company Address</th>
+                    <th class="info">Time Started</th>
                     <td>@jobOrderReadDto.TimeStarted</td>
                 </tr>
                 <tr>
-                    <th class="info">Company Address</th>
+                    <th class="info">Time Ended</th>
                     <td>@jobOrderReadDto.TimeEnded</td>
                 </tr>
                 <tr>
-                    <th class="info">Company Address</th>
+                    <th class="info">Total Hours</th>
                     <td>@jobOrderReadDto.TotalHours</td>
                 </tr>
                 <tr>

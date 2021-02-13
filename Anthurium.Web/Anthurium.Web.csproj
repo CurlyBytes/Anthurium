@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Anthurium.Shared\Anthurium.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
+
 </Project>

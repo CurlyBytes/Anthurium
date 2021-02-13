@@ -46,8 +46,10 @@
 
                 message = $"Error: {response.StatusCode.ToString()}. Please try again.";
                 toastService.ShowError($" Error while adding {clientInformationCreateDto.CompanyName}. Kindly retry.");
-                this.StateHasChanged();
+
             }
+
+            this.StateHasChanged();
 
         }
     }

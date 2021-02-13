@@ -27,7 +27,7 @@ else
             <tbody>
                 <tr>
                     <th scope="row">Id</th>
-                    <td>@jobOrder.JobOrderId</td>
+                    <td>@jobOrder.ClientInformationId</td>
                 </tr>
                 <tr>
                     <th class="info">Company Name</th>
@@ -37,10 +37,38 @@ else
                     <th class="info">Company Address</th>
                     <td>@jobOrder.CompanyAddress</td>
                 </tr>
+                <tr>
+                    <th class="info">Contact Person</th>
+                    <td>@jobOrder.ContactPerson</td>
+                </tr>
+                <tr>
+                    <th class="info">Contact Number</th>
+                    <td>@jobOrder.ContactNumber</td>
+                </tr>
+                <tr>
+                    <th class="info">Time Started</th>
+                    <td>@jobOrder.TimeStarted</td>
+                </tr>
+                <tr>
+                    <th class="info">Time Ended</th>
+                    <td>@jobOrder.TimeEnded</td>
+                </tr>
+                <tr>
+                    <th class="info">Total Hours</th>
+                    <td>@jobOrder.TotalHours</td>
+                </tr>
+                <tr>
+                    <th class="info">Date Updated</th>
+                    <td>@jobOrder.DateCreated</td>
+                </tr>
+                <tr>
+                    <th class="info">Date Created</th>
+                    <td>@jobOrder.DateUpdated</td>
+                </tr>
             </tbody>
 
         </table>
-        <!--TODO Add warning on how many job order and  job quotations here-->
+
     </div>
     <div class="row m-2">
         <div class="col-12">

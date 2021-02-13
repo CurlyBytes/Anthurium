@@ -24,8 +24,8 @@ else
             <DataAnnotationsValidator />
             <ValidationSummary />
             <div class="form-group row">
-                <label for="contactName" class="col-sm-6 col-form-label">Client Info:</label>
-                <select class="form-control selectpicker" value="@jobOrderUpdateDto.ClientInformationId" @onchange="ChangeOrder">
+                <label for="clientInfomrationId" class="col-sm-6 col-form-label">Client Info:</label>
+                <select id=""clientInfomrationId" class="form-control selectpicker" value="@jobOrderUpdateDto.ClientInformationId" @onchange="ChangeOrder">
                     <option>--select--</option>
                     @foreach (var item in clientInformationReadDto)
                     {
@@ -124,8 +124,10 @@ else
         else {
             toastService.ShowError($" Error on editing {jobOrderUpdateDto.CompanyName} with ID {Id}.");
             message = $"Error: {response.StatusCode.ToString()}. Please try again.";
-            this.StateHasChanged();
+
         }
+
+        this.StateHasChanged();
 
     }
 
