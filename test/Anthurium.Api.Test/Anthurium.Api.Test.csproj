@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Anthurium.Shared\Anthurium.Shared.csproj" />
-    <ProjectReference Include="..\Anthurium.Web\Anthurium.Web.csproj" />
+    <ProjectReference Include="..\..\src\Anthurium.API\Anthurium.API.csproj" />
+    <ProjectReference Include="..\..\src\Anthurium.Shared\Anthurium.Shared.csproj" />
   </ItemGroup>
 
 </Project>

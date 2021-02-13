@@ -3,15 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anthurium.Auth", "Anthurium.Auth\Anthurium.Auth.csproj", "{1F416ED7-B7C5-4FB7-8ED6-48069B967618}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{71F6579E-F33F-4A32-AC15-901F1EDDD756}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anthurium.Shared", "Anthurium.Shared\Anthurium.Shared.csproj", "{AB5B7672-0EE5-4D0A-81C6-666FC27EF085}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{5B7D9256-6C3C-4627-BDB8-6AD2C51C722B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anthurium.API", "Anthurium.API\Anthurium.API.csproj", "{C65E2EA5-943C-476C-883A-9968E015C02D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{D6A16676-3301-45FE-BA46-9AAE6738A1F1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anthurium.Web", "Anthurium.Web\Anthurium.Web.csproj", "{A773B7DF-B9FB-435A-BC50-A02041881C18}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{EF68F768-67C4-4866-B766-3C9A297A9141}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anthurium.Api.Test", "Anthurium.Api.Test\Anthurium.Api.Test.csproj", "{E500CBCB-3BD3-46CA-84AF-B615CC16B983}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anthurium.Shared", "src\Anthurium.Shared\Anthurium.Shared.csproj", "{2E4411AA-C595-48BE-A079-E238CFA93E50}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anthurium.Auth", "src\Anthurium.Auth\Anthurium.Auth.csproj", "{3F141F4C-053C-43D5-AFBD-879674135DFF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anthurium.Web", "src\Anthurium.Web\Anthurium.Web.csproj", "{E818F011-29AC-43D6-BD7E-C89E1B289940}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anthurium.API", "src\Anthurium.API\Anthurium.API.csproj", "{F527AED9-0BFC-460A-B6B3-AA33C00CAC31}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anthurium.Api.Test", "test\Anthurium.Api.Test\Anthurium.Api.Test.csproj", "{6708EDB3-6B46-408C-9F58-744B7D31C884}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,29 +27,36 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1F416ED7-B7C5-4FB7-8ED6-48069B967618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F416ED7-B7C5-4FB7-8ED6-48069B967618}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F416ED7-B7C5-4FB7-8ED6-48069B967618}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F416ED7-B7C5-4FB7-8ED6-48069B967618}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AB5B7672-0EE5-4D0A-81C6-666FC27EF085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AB5B7672-0EE5-4D0A-81C6-666FC27EF085}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AB5B7672-0EE5-4D0A-81C6-666FC27EF085}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AB5B7672-0EE5-4D0A-81C6-666FC27EF085}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C65E2EA5-943C-476C-883A-9968E015C02D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C65E2EA5-943C-476C-883A-9968E015C02D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C65E2EA5-943C-476C-883A-9968E015C02D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C65E2EA5-943C-476C-883A-9968E015C02D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A773B7DF-B9FB-435A-BC50-A02041881C18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A773B7DF-B9FB-435A-BC50-A02041881C18}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A773B7DF-B9FB-435A-BC50-A02041881C18}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A773B7DF-B9FB-435A-BC50-A02041881C18}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E500CBCB-3BD3-46CA-84AF-B615CC16B983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E500CBCB-3BD3-46CA-84AF-B615CC16B983}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E500CBCB-3BD3-46CA-84AF-B615CC16B983}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E500CBCB-3BD3-46CA-84AF-B615CC16B983}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E4411AA-C595-48BE-A079-E238CFA93E50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E4411AA-C595-48BE-A079-E238CFA93E50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E4411AA-C595-48BE-A079-E238CFA93E50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E4411AA-C595-48BE-A079-E238CFA93E50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F141F4C-053C-43D5-AFBD-879674135DFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F141F4C-053C-43D5-AFBD-879674135DFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F141F4C-053C-43D5-AFBD-879674135DFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F141F4C-053C-43D5-AFBD-879674135DFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E818F011-29AC-43D6-BD7E-C89E1B289940}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E818F011-29AC-43D6-BD7E-C89E1B289940}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E818F011-29AC-43D6-BD7E-C89E1B289940}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E818F011-29AC-43D6-BD7E-C89E1B289940}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F527AED9-0BFC-460A-B6B3-AA33C00CAC31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F527AED9-0BFC-460A-B6B3-AA33C00CAC31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F527AED9-0BFC-460A-B6B3-AA33C00CAC31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F527AED9-0BFC-460A-B6B3-AA33C00CAC31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6708EDB3-6B46-408C-9F58-744B7D31C884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6708EDB3-6B46-408C-9F58-744B7D31C884}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6708EDB3-6B46-408C-9F58-744B7D31C884}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6708EDB3-6B46-408C-9F58-744B7D31C884}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2E4411AA-C595-48BE-A079-E238CFA93E50} = {71F6579E-F33F-4A32-AC15-901F1EDDD756}
+		{3F141F4C-053C-43D5-AFBD-879674135DFF} = {71F6579E-F33F-4A32-AC15-901F1EDDD756}
+		{E818F011-29AC-43D6-BD7E-C89E1B289940} = {71F6579E-F33F-4A32-AC15-901F1EDDD756}
+		{F527AED9-0BFC-460A-B6B3-AA33C00CAC31} = {71F6579E-F33F-4A32-AC15-901F1EDDD756}
+		{6708EDB3-6B46-408C-9F58-744B7D31C884} = {EF68F768-67C4-4866-B766-3C9A297A9141}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2731DED6-9CB4-485C-850E-FDC66ECF08DC}
