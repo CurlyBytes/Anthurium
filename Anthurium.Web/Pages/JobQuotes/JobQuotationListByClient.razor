@@ -1,19 +1,19 @@
-﻿@inject Services.JobOrderService jobOrderService
+﻿@inject Services.JobQuotationService jobQuotationService
 @using Anthurium.API.Dtos
 @using Models
 
 <div class="container">
     <div class="row m-2">
-        <div class="col"><h3>Job Orders:</h3></div>
-        <div class=" col-sm-3 text-right"><a href="/joborder/create" class="btn btn-primary">New Job Order</a></div>
+        <div class="col"><h3>Client Quotation:</h3></div>
+        <div class=" col-sm-3 text-right"><a href="/jobquotation/create" class="btn btn-primary">New JobQuotation</a></div>
     </div>
-    @if (jobOrderReadDto == null)
+    @if (jobQuotationReadDto == null)
     {
         <p><em>Loading...</em></p>
     }
     else
     {
-        <!--Add search key words here-->
+        <!--Todo Add search keywords here-->
         <div class="row m-2">
             <div class="col-sm-8">
                 <h4>Showing @(skip + 1) - @(Math.Min(skip + ListPrefsProvider.listPrefs.NumResults, matchingCount)) of @matchingCount</h4>
@@ -22,8 +22,8 @@
                 <div class="row form-group">
                     <label for="sortBy" class="col-form-label col-form-label-sm col">Sort by:</label>
                     <select id="sortBy" class="form-control form-control-sm" style="width:auto;" @onchange="ChangeOrder">
-                        <option value="JobOrderId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobOrderId")>ID (Asc)</option>
-                        <option value="JobOrderId Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobOrderId Desc")>ID (Desc)</option>
+                        <option value="JobQuotationId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobQuotationId")>ID</option>
+                        <option value="JobQuotationId Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobQuotationId Desc")>ID</option>
                         <option value="CompanyName" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName")>Company Name (A - Z)</option>
                         <option value="CompanyName Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName Desc")>Company Name (Z - A)</option>
                         <option value="CompanyAddress" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyAddress")>Company Address (A - Z)</option>
@@ -32,52 +32,46 @@
                         <option value="ContactPerson Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactPerson Desc")>Contact Person (Z - A)</option>
                         <option value="ContactNumber" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactNumber")>Contact Number (A - Z)</option>
                         <option value="ContactNumber Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactNumber Desc")>Contact Number (Z - A)</option>
-                        <option value="TimeStarted" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeStarted")>Time Started (Asc)</option>
-                        <option value="TimeStarted Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeStarted Desc")>Time Started (Desc)</option>
-                        <option value="TimeEnded" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeEnded")>Time Ended (Asc)</option>
-                        <option value="TimeEnded Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeEnded Desc")>Time Ended (Desc)</option>
-                        <option value="TotalHours" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TotalHours")>Total Hours (Asc)</option>
-                        <option value="TotalHours Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TotalHours Desc")>Total Hours (Desc)</option>
+                        <option value="OverallCost" selected=@(ListPrefsProvider.listPrefs.OrderBy=="OverallCost")>OverallCost (Asc)</option>
+                        <option value="OverallCost Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="OverallCost Desc")>OverallCost (Desc)</option>
+                        <option value="Description" selected=@(ListPrefsProvider.listPrefs.OrderBy=="Description")>Description (A - Z)</option>
+                        <option value="Description Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="Description Desc")>Description (Z - A)</option>
                         <option value="DateCreated" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated")>Date Created (Asc)</option>
                         <option value="DateCreated Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated Desc")>Date Created (Desc)</option>
                         <option value="DateUpdated" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateUpdated")>Date Updated (Asc)</option>
                         <option value="DateUpdated Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateUpdated Desc")>Date Updated (Desc)</option>
-
                     </select>
                 </div>
             </div>
         </div>
-        <div class="row m-2">
+        <div class="row  m-2">
             <table class="col-12 table table-hover table-responsive table-striped">
-                <caption>List of Job Orders</caption>
+                <caption>List of Job Quotations</caption>
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Company Name</th>
                         <th scope="col">Company Address</th>
-                        <th scope="col">Person</th>
-                        <th scope="col">Number</th>
-                        <th scope="col">Time Start</th>
-                        <th scope="col">Time End</th>
-                        <th scope="col">Total Hours</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Overall Cost</th>
+                        <th scope="col">DateCreated</th>
                         <th scope="col" colspan="3">Operations</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var jobOrderReadDtoItem in jobOrderReadDto)
+                    @foreach (var jobQuotationReadDtoItem in jobQuotationReadDto)
                     {
                         <tr>
-                            <td scope="row">@jobOrderReadDtoItem.JobOrderId</td>
-                            <td><a href="/joborder/@jobOrderReadDtoItem.JobOrderId">@jobOrderReadDtoItem.CompanyName</a></td>
-                            <td>@jobOrderReadDtoItem.CompanyAddress</td>
-                            <td>@jobOrderReadDtoItem.ContactPerson</td>
-                            <td>@jobOrderReadDtoItem.ContactNumber</td>
-                            <td>@jobOrderReadDtoItem.TimeStarted</td>
-                            <td>@jobOrderReadDtoItem.TimeEnded</td>
-                            <td>@jobOrderReadDtoItem.TotalHours</td>
-                            <td><a class="btn btn-info btn-sm" href="/joborder/@jobOrderReadDtoItem.ClientInformationId">View</a></td>
-                            <td><a class="btn btn-secondary btn-sm" href="/joborder/@jobOrderReadDtoItem.ClientInformationId/edit">Edit</a></td>
-                            <td><a class="btn btn-danger btn-sm" href="/joborder/@jobOrderReadDtoItem.ClientInformationId/delete">Delete</a></td>
+                            <td scope="row">@jobQuotationReadDtoItem.JobQuotationId</td>
+                            <td>@jobQuotationReadDtoItem.CompanyName</td>
+                            <td>@jobQuotationReadDtoItem.CompanyAddress</td>
+                            <td>@jobQuotationReadDtoItem.Description</td>
+                            <td>@jobQuotationReadDtoItem.OverallCost</td>
+                            <td>@jobQuotationReadDtoItem.DateCreated</td>
+                            <td><a class="btn btn-info btn-sm" href="/jobquotation/@jobQuotationReadDtoItem.ClientInformationId">View</a></td>
+                            <td><a class="btn btn-secondary btn-sm" href="/jobquotation/@jobQuotationReadDtoItem.ClientInformationId/edit">Edit</a></td>
+                            <td><a class="btn btn-danger btn-sm" href="/jobquotation/@jobQuotationReadDtoItem.ClientInformationId/delete">Delete</a></td>
+
                         </tr>
                     }
                 </tbody>
@@ -113,12 +107,11 @@
 </div>
 
 @code {
-    private List<JobOrderReadDto> jobOrderReadDto;
+    private List<JobQuotationReadDto> jobQuotationReadDto;
     private int matchingCount;
 
     [CascadingParameter]
-    private JobOrderListParent ListPrefsProvider { get; set; }
-
+    private JobQuotationListParent ListPrefsProvider { get; set; }
 
     [Parameter] public int ClientInformationId { get; set; }
     private int skip = 0;
@@ -126,8 +119,8 @@
 
     private async Task FetchListAsync()
     {
-        var response = await jobOrderService.GetJobOrdersByClientInfoAsync(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults, ClientInformationId);
-        jobOrderReadDto = response.JobOrder;
+        var response = await jobQuotationService.JobOrderQuotationByClient(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults, ClientInformationId);
+        jobQuotationReadDto = response.JobQuotationApi;
         matchingCount = response.Count;
     }
 

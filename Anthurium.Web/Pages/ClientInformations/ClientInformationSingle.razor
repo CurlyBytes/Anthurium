@@ -62,14 +62,13 @@ else
         </div>
     </div>
     <div class="row m-2">
-        <!--TODO: add job quotation and job order records of the client-->
         <JobOrderListParent>
-            <JobOrderList />
+            <JobOrderListByClient ClientInformationId="Id" />
         </JobOrderListParent>
     </div>
     <div class="row m-2">
         <JobQuotationListParent>
-            <JobOrderListByClient ClientInformationId="Id" />
+            <jobQ ClientInformationId="Id" />
         </JobQuotationListParent>
     </div>
 
