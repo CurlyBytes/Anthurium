@@ -1,4 +1,4 @@
-﻿@inject Services.JobQuotationDetailsDetails  jobQuotationDetailsService
+﻿@inject Services.JobQuotationDetailsDetails jobQuotationDetails
 @using Anthurium.API.Dtos
 @using Models
 
@@ -10,7 +10,7 @@
     }
     else
     {
-        <!-- Todo Add search keywords for job quotation here-->
+        <!--Todo Add search keywords here-->
         <div class="row m-2">
             <div class="col-sm-8">
                 <h4>Showing @(skip + 1) - @(Math.Min(skip + ListPrefsProvider.listPrefs.NumResults, matchingCount)) of @matchingCount</h4>
@@ -19,8 +19,8 @@
                 <div class="row form-group">
                     <label for="sortBy" class="col-form-label col-form-label-sm col">Sort by:</label>
                     <select id="sortBy" class="form-control form-control-sm" style="width:auto;" @onchange="ChangeOrder">
-                        <option value="JobQuotationId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobQuotationId")>ID</option>
-                        <option value="JobQuotationId Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobQuotationId Desc")>ID</option>
+                        <option value="JobQuotationDetailsId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobQuotationDetailsId")>ID (Asc)</option>
+                        <option value="JobQuotationDetailsId desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobQuotationDetailsId Desc")>ID (Desc)</option>
                         <option value="Quantity" selected=@(ListPrefsProvider.listPrefs.OrderBy=="Quantity")>Quantity (Asc)</option>
                         <option value="Quantity Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="Quantity Desc")>Quantity (Desc)</option>
                         <option value="Description" selected=@(ListPrefsProvider.listPrefs.OrderBy=="Description")>Description (A - Z)</option>
@@ -37,8 +37,9 @@
                 </div>
             </div>
         </div>
-        <div class="row m-2">
+        <div class="row  m-2">
             <table class="col-12 table table-hover table-responsive table-striped">
+                <caption>List of Client Informations</caption>
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -61,7 +62,6 @@
                         <td>@jobQuotationDetailsReadDtoItem.TotalCost</td>
                         <td>@jobQuotationDetailsReadDtoItem.DateCreated</td>
                         <td>@jobQuotationDetailsReadDtoItem.DateUpdated</td>
-                   
                     </tr>
                     }
                 </tbody>
@@ -97,9 +97,6 @@
 </div>
 
 @code {
-
-
-
     private List<JobQuotationDetailsReadDto> jobQuotationDetailsReadDto;
     private int matchingCount;
 
@@ -113,7 +110,7 @@
 
     private async Task FetchListAsync()
     {
-        var response = await jobQuotationDetailsService.JobQuotationDetailsByJobOrder(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults, JobQuotationDetailsId);
+        var response = await jobQuotationDetails.JobQuotationDetailsByJobOrder(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults,1);
         jobQuotationDetailsReadDto = response.JobQuotationDetailsApi;
         matchingCount = response.Count;
     }

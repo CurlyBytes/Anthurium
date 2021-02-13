@@ -1,5 +1,6 @@
 ﻿@page "/jobquotation/{Id:int}/edit"
 @inject Services.JobQuotationService jobQuotationService
+@inject Services.JobQuotationDetailsDetails  jobQuotationDetailsService
 @inject Services.ClientInformationService clientInformationService
 @using AutoMapper;
 @inject IMapper _mapper;
@@ -64,7 +65,7 @@ else
                 <button class="btn btn-primary" type="button" @onclick="AddField" disabled="@isSuccess"> Add JobQuotation Details</button>
 
             </div>
-            @foreach (var item in jobQuotationDetailsUpdateDtoList.Select((value, i) => (value, i)))
+            @foreach (var item in jobQuotationDetailsUpdateDto.Select((value, i) => (value, i)))
             {
                 <div class="form-row">
                     <div class="col-sm-4 ">
@@ -116,34 +117,48 @@ else
     private string message = "";
     private int matchingCount;
 
-    private List<ClientInformationReadDto> clientInformationReadDto = new List<ClientInformationReadDto>();
-    private List<JobQuotationDetailsUpdateDto> jobQuotationDetailsUpdateDtoList = new List<JobQuotationDetailsUpdateDto>();
+
     private JobQuotationUpdateDto jobQuotationUpdateDto { get; set; } = new JobQuotationUpdateDto();
     private JobQuotationReadDto jobQuotationReadDto { get; set; } = new JobQuotationReadDto();
+
+
+    private List<ClientInformationReadDto> clientInformationReadDto = new List<ClientInformationReadDto>();
     private JobQuotationChangeCreate jobQuotationChangeCreate = new JobQuotationChangeCreate();
     private ClientInformationReadDto clientInformationReadDtoSingle { get; set; } = new ClientInformationReadDto();
+
+
+    private List<JobQuotationDetailsUpdateDto> jobQuotationDetailsUpdateDto = new List<JobQuotationDetailsUpdateDto>();
+    private JobQuotationDetailsReadDto jobQuotationDetailsReadDto { get; set; } = new JobQuotationDetailsReadDto();
 
     protected override async Task OnInitializedAsync()
     {
         await FetchListAsync();
-        jobQuotationReadDto = await jobQuotationService.GetJobQuotationByIdAsync(Id);
+        var jobquoteread = await jobQuotationService.GetJobQuotationByIdAsync(Id);
+        var jobquotedetailsread = await jobQuotationDetailsService.JobQuotationDetailsByJobOrder("Description", 0,0,Id);
+
         _mapper.Map(jobQuotationReadDto, jobQuotationUpdateDto);
+
         var response = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
         clientInformationReadDto = response.ClientInformation;
 
+
+        foreach (var item in jobQuotationDetailsUpdateDto)
+        {
+            jobQuotationDetailsUpdateDto.Add(item);
+        }
 
     }
 
     void AddField()
     {
-        jobQuotationDetailsUpdateDtoList.Add(new JobQuotationDetailsUpdateDto());
+        jobQuotationDetailsUpdateDto.Add(new JobQuotationDetailsUpdateDto());
     }
 
     void RemoveField(JobQuotationDetailsUpdateDto removeJobQuotation)
     {
 
 
-        jobQuotationDetailsUpdateDtoList.Remove(removeJobQuotation);
+        jobQuotationDetailsUpdateDto.Remove(removeJobQuotation);
     }
 
     private async Task FetchListAsync()
@@ -171,7 +186,8 @@ else
             //perhaps set flag (success) there that will display message if coming from this page
             NavManager.NavigateTo("/jobquotation");
         }
-        else {
+        else
+        {
             message = $"Error: {response.StatusCode.ToString()}. Please try again.";
             toastService.ShowError($" Erro on editing jobquotation Id {jobQuotationUpdateDto.CompanyName}. Please try again.");
         }
@@ -191,7 +207,7 @@ else
     private void ComputeCost(int Id)
     {
 
-        jobQuotationDetailsUpdateDtoList[Id].TotalCost = jobQuotationDetailsUpdateDtoList[Id].Quantity * jobQuotationDetailsUpdateDtoList[Id].Cost;
-        jobQuotationUpdateDto.OverallCost = jobQuotationDetailsUpdateDtoList.Sum(x => x.TotalCost);
+        jobQuotationDetailsUpdateDto[Id].TotalCost = jobQuotationDetailsUpdateDto[Id].Quantity * jobQuotationDetailsUpdateDto[Id].Cost;
+        jobQuotationUpdateDto.OverallCost = jobQuotationDetailsUpdateDto.Sum(x => x.TotalCost);
     }
 }
