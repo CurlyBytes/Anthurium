@@ -110,7 +110,7 @@
 
     private async Task FetchListAsync()
     {
-        var response = await jobQuotationDetails.JobQuotationDetailsByJobOrder(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults,1);
+        var response = await jobQuotationDetails.JobQuotationDetailsByJobOrder(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults, JobQuotationDetailsId);
         jobQuotationDetailsReadDto = response.JobQuotationDetailsApi;
         matchingCount = response.Count;
     }

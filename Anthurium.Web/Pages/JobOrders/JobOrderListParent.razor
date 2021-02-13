@@ -28,7 +28,7 @@
     {
         if (firstRender)
         {
-            var prefs = await sessionStorage.GetItemAsync<ListPrefs>("listPrefs");
+            var prefs = await sessionStorage.GetItemAsync<ListPrefs>("listPrefsJobOrderList");
             if (prefs != null)
                 listPrefs = prefs;
         }
@@ -38,6 +38,6 @@
 
     public async Task SavePrefsAsync()
     {
-        await sessionStorage.SetItemAsync("listPrefs", listPrefs);
+        await sessionStorage.SetItemAsync("listPrefsJobOrderList", listPrefs);
     }
 }

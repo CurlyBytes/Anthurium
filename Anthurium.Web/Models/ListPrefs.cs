@@ -7,7 +7,7 @@ namespace Anthurium.Web.Models
 {
     public class ListPrefs
     {
-        public string OrderBy { get; set; } = "ClientInformationId";
+        public string OrderBy { get; set; } = "DateCreated";
         public int NumResults { get; set; } = 10; //results per page
     }
 }
