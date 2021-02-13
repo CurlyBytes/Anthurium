@@ -37,7 +37,10 @@ namespace Anthurium.API.Controllers
         public ActionResult<IEnumerable<JobOrderReadDto>> GetJobOrders()
         {
             var commandItems = _repository.GetJobOrders();
-
+            if (commandItems?.Any() == false)
+            {
+                return NotFound();
+            }
             return Ok(_mapper.Map<IEnumerable<JobOrderReadDto>>(commandItems));
         }
 

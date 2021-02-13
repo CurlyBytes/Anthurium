@@ -40,7 +40,10 @@ namespace Anthurium.API.Controllers
                 return BadRequest(ModelState);
             }
             var commandItems = _repository.GetClientInformation();
-
+            if (commandItems?.Any() == false)
+            {
+                return NotFound();
+            }
             return Ok(_mapper.Map<IEnumerable<ClientInformationReadDto>>(commandItems));
         }
 

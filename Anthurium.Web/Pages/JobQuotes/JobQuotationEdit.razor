@@ -60,6 +60,10 @@ else
                 <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text"
                        @bind="jobQuotationReadDto.Description" />
             </div>
+            <div class="row">
+                <button class="btn btn-primary" type="button" @onclick="AddField" disabled="@isSuccess"> Add JobQuotation Details</button>
+
+            </div>
             @foreach (var item in jobQuotationDetailsUpdateDtoList.Select((value, i) => (value, i)))
             {
                 <div class="form-row">
