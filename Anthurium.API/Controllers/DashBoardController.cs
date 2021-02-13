@@ -15,7 +15,7 @@ namespace Anthurium.API.Controllers
     [ODataRoutePrefix("dashboard")]
     [Route("api/dashboard")]
     [ApiController]
-    [Authorize]
+
     public class DashBoardController : Controller
     {
         private readonly IClientInformation _iClientInformation;

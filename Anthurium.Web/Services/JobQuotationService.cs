@@ -31,9 +31,9 @@ namespace Anthurium.Web.Services
             return new JobQuotationApiResponse();
         }
 
-        public async Task<JobQuotationApiResponse> JobOrderQuotationByClient(string orderBy, int skip, int top, int clientinformationId)
+        public async Task<JobQuotationApiResponse> JobOrderQuotationByClient(string orderBy, int skip, int top, int clientInformationId)
         {
-            var response = await _httpClient.GetAsync($"api/jobquotation/ClientInformation(ClientInformationId={clientinformationId})?$expand=JobQuotation($count=true&$orderby={orderBy}&$skip={skip}&$top={top}");
+            var response = await _httpClient.GetAsync($"api/jobquotation?$count=true&$filter=ClientInformationId eq {clientInformationId}&$orderby={orderBy}&$skip={skip}&$top={top}");
 
             if (response.IsSuccessStatusCode)
             {
