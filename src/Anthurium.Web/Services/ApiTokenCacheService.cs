@@ -74,7 +74,7 @@ namespace Anthurium.Web.Services
             try
             {
                 var discovery = await HttpClientDiscoveryExtensions.GetDiscoveryDocumentAsync(
-                    _httpClient, "http://localhost:5000");
+                    _httpClient, "http://anthuriumauth");
 
                 if (discovery.IsError)
                 {

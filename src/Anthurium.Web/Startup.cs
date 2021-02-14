@@ -38,14 +38,14 @@ namespace Anthurium.Web
             services.AddBlazoredToast();
             services.AddHttpClient<ClientInformationService>(client =>
             {
-                client.BaseAddress = new Uri("http://localhost:5001");
+                client.BaseAddress = new Uri("http://anthuriumapi");
 
             })
                 .AddClientAccessTokenHandler("web");
 
             services.AddHttpClient<JobOrderService>(client =>
             {
-                client.BaseAddress = new Uri("http://localhost:5001");
+                client.BaseAddress = new Uri("http://anthuriumapi");
 
             })
                 .AddClientAccessTokenHandler("web");
@@ -53,28 +53,28 @@ namespace Anthurium.Web
 
             services.AddHttpClient<JobOrderDescriptionOfWorkService>(client =>
             {
-                client.BaseAddress = new Uri("http://localhost:5001");
+                client.BaseAddress = new Uri("http://anthuriumapi");
 
             })
                 .AddClientAccessTokenHandler("web");
 
             services.AddHttpClient<DashboardService>(client =>
             {
-                client.BaseAddress = new Uri("http://localhost:5001");
+                client.BaseAddress = new Uri("http://anthuriumapi");
 
             })
                 .AddClientAccessTokenHandler("web");
 
             services.AddHttpClient<JobQuotationService>(client =>
             {
-                client.BaseAddress = new Uri("http://localhost:5001");
+                client.BaseAddress = new Uri("http://anthuriumapi");
 
             })
                 .AddClientAccessTokenHandler("web");
 
             services.AddHttpClient<JobQuotationDetailsDetails>(client =>
             {
-                client.BaseAddress = new Uri("http://localhost:5001");
+                client.BaseAddress = new Uri("http://anthuriumapi");
 
             })
                 .AddClientAccessTokenHandler("web");
@@ -84,7 +84,7 @@ namespace Anthurium.Web
             {
                 options.Client.Clients.Add("web", new ClientCredentialsTokenRequest
                 {
-                    RequestUri = new Uri("http://localhost:5000/connect/token"),
+                    RequestUri = new Uri("http://anthuriumauth/connect/token"),
                     ClientId = "anthurium-web",
                     ClientSecret = "thisismyclientspecificsecret"
                 });

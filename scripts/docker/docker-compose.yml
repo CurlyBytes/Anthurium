@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  anthuriumweb:
+    image: ${DOCKER_REGISTRY-}anthuriumweb
+    container_name: anthuriumweb
+    build:
+      context: ../../
+      dockerfile: src/Anthurium.Web/Dockerfile
+    depends_on:
+      - anthuriumauth
+      - anthuriumapi
+    ports:
+      - "5002:80"
+    networks:
+      - anthurium-network
+    environment:
+      - API_URL=anthuriumapi:5001
+      - AUTH_URL=anthuriumauth:5000
+
+  anthuriumauth:
+    image: ${DOCKER_REGISTRY-}anthuriumauth
+    container_name: anthuriumauth
+    build:
+      context: ../../
+      dockerfile: src/Anthurium.Auth/Dockerfile
+    ports:
+      - "5000:80"
+    networks:
+      - anthurium-network
+
+  anthuriumapi:
+    image: ${DOCKER_REGISTRY-}anthuriumapi
+    container_name: anthuriumapi
+    build:
+      context: ../../
+      dockerfile: src/Anthurium.API/Dockerfile
+    depends_on:
+      - anthuriumauth
+    networks:
+      - anthurium-network
+    ports:
+      - "5001:80"
+
+networks:
+  anthurium-network:
+    driver: bridge
