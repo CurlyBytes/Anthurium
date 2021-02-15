@@ -96,8 +96,21 @@
 
         private bool isSuccess = false;
         private string message = "";
-     
+        private int matchingCount;
 
+        private async Task FetchListAsync()
+        {
+            var response = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
+            clientInformationReadDto = response.ClientInformation;
+            matchingCount = response.Count; clientInformationReadDto = response.ClientInformation;
+
+
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+            await FetchListAsync();
+        }
 
         void AddField()
         {
@@ -111,8 +124,8 @@
             jobQuotationDetailsCreateDtoList.Remove(removeJobQuotation);
         }
 
-   
-    
+
+
 
         public async void PostJobQuotation()
         {

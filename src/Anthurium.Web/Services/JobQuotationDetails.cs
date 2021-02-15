@@ -45,6 +45,19 @@ namespace Anthurium.Web.Services
             return new JobQuotationDetailsApiResponse();
         }
 
+        public async Task<JobQuotationDetailsApiResponse> JobQuotationDetailsByJobOrder(string orderBy,  int jobQuotationId)
+        {
+            var response = await _httpClient.GetAsync($"api/jobquotationdetails?$count=true&$filter=JobQuotationId eq {jobQuotationId}&$orderby={orderBy}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<JobQuotationDetailsApiResponse>(responseContent);
+            }
+
+            return new JobQuotationDetailsApiResponse();
+        }
+
         public async Task<JobQuotationDetailsReadDto> GetJobQuotationDetailsByIdAsync(int id)
         {
             var response = await _httpClient.GetAsync($"api/jobquotationdetails/{id}");

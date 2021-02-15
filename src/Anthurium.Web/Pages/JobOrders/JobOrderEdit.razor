@@ -25,7 +25,7 @@ else
             <ValidationSummary />
             <div class="form-group row">
                 <label for="clientInfomrationId" class="col-sm-6 col-form-label">Client Info:</label>
-                <select id=""clientInfomrationId" class="form-control selectpicker" value="@jobOrderUpdateDto.ClientInformationId" @onchange="ChangeOrder">
+                <select id="clientInfomrationId" class="form-control selectpicker" value="@jobOrderUpdateDto.ClientInformationId" @onchange="ChangeOrder">
                     <option>--select--</option>
                     @foreach (var item in clientInformationReadDto)
                     {

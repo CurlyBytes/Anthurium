@@ -1,6 +1,6 @@
 ﻿@page "/jobquotation/{Id:int}/edit"
 @inject Services.JobQuotationService jobQuotationService
-@inject Services.JobQuotationDetailsDetails  jobQuotationDetailsService
+@inject Services.JobQuotationDetailsDetails jobQuotationDetailsService
 @inject Services.ClientInformationService clientInformationService
 @using AutoMapper;
 @inject IMapper _mapper;
@@ -9,7 +9,7 @@
 @inject IToastService toastService
 @inject NavigationManager NavManager
 
-<h3>Edit Job Order</h3>
+<h3>Edit Job Quotation</h3>
 @if (jobQuotationReadDto == null)
 {
     <p><em>Loading...</em></p>
@@ -20,13 +20,13 @@ else
 
         <div class="offset-sm-9 col-sm-3 text-right"> <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/jobquotation">Return to List</a></div>
     </div>
-    <div class="row  m-2">
+    <div class="row m-2">
         <EditForm Model="@jobQuotationUpdateDto" OnValidSubmit="@UpdateJobQuotation">
             <DataAnnotationsValidator />
             <ValidationSummary />
             <div class="form-group row">
-                <label for="contactName" class="col-sm-6 col-form-label">Client Info:</label>
-                <select class="form-control selectpicker" value="@jobQuotationUpdateDto.ClientInformationId" @onchange="ChangeOrder">
+                <label for="clientInfomrationId" class="col-sm-6 col-form-label">Client Info:</label>
+                <select id="clientInfomrationId" class="form-control selectpicker" value="@jobQuotationUpdateDto.ClientInformationId" @onchange="ChangeOrder">
                     <option>--select--</option>
                     @foreach (var item in clientInformationReadDto)
                     {
@@ -46,6 +46,7 @@ else
                        @bind="jobQuotationUpdateDto.CompanyAddress" />
             </div>
 
+
             <div class="form-group row">
                 <label for="jobQuotationContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
                 <input id="jobQuotationContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
@@ -54,18 +55,19 @@ else
             <div class="form-group row">
                 <label for="jobQuotationContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
                 <input id="jobQuotationContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                       @bind="jobQuotationUpdateDto.ContactNumber" />
+                       @bind="jobQuotationUpdateDto.ContactNumber" placeholder="Contact Number" />
             </div>
+
             <div class="form-group row">
-                <label for="companyAddress" class="col-sm-6 col-form-label">Description</label>
-                <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text"
-                       @bind="jobQuotationReadDto.Description" />
+                <label for="jobQuotationTimeStarted" class="col-sm-6 col-form-label">Contact Timestarted:</label>
+                <input id="jobQuotationTimeStarted" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                       @bind="jobQuotationUpdateDto.Description" />
             </div>
             <div class="row">
                 <button class="btn btn-primary" type="button" @onclick="AddField" disabled="@isSuccess"> Add JobQuotation Details</button>
 
             </div>
-            @foreach (var item in jobQuotationDetailsUpdateDto.Select((value, i) => (value, i)))
+            @foreach (var item in jobQuotationDetailsUpdateDtoList.Select((value, i) => (value, i)))
             {
                 <div class="form-row">
                     <div class="col-sm-4 ">
@@ -92,20 +94,18 @@ else
                 </div>
             }
             <div class="form-group row">
-                <label for="companyName" class="col-sm-6 col-form-label">Overall Cost:</label>
-                <input id="companyName" class="form-control col-sm-6 input-lg" type="text" placeholder="Company Name" disabled="@isSuccess"
-                       @bind="jobQuotationUpdateDto.OverallCost" readonly />
+                <label for="jobQuotationTimeEnded" class="col-sm-6 col-form-label">Contact TimeEnded:</label>
+                <input id="jobQuotationTimeEnded" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                       @bind="jobQuotationUpdateDto.OverallCost" />
             </div>
+
+
             <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
             <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
                  hidden="@(message=="")">@message</div>
             </EditForm>
         </div>
-        <div class="row  m-2">
-            <div class="col-12">
-                <a href="/jobquotation">Return to List</a>
-            </div>
-        </div>
+
     }
 
 
@@ -115,59 +115,41 @@ else
 
     private bool isSuccess = false;
     private string message = "";
-    private int matchingCount;
+
+    private List<ClientInformationReadDto> clientInformationReadDto = new List<ClientInformationReadDto>();
+    private List<JobQuotationDetailsUpdateDto> jobQuotationDetailsUpdateDtoList = new List<JobQuotationDetailsUpdateDto>();
+    private List<JobQuotationDetailsReadDto> jobQuotationDetailsReadDtoList = new List<JobQuotationDetailsReadDto>();
+
 
 
     private JobQuotationUpdateDto jobQuotationUpdateDto { get; set; } = new JobQuotationUpdateDto();
     private JobQuotationReadDto jobQuotationReadDto { get; set; } = new JobQuotationReadDto();
-
-
-    private List<ClientInformationReadDto> clientInformationReadDto = new List<ClientInformationReadDto>();
     private JobQuotationChangeCreate jobQuotationChangeCreate = new JobQuotationChangeCreate();
     private ClientInformationReadDto clientInformationReadDtoSingle { get; set; } = new ClientInformationReadDto();
 
-
-    private List<JobQuotationDetailsUpdateDto> jobQuotationDetailsUpdateDto = new List<JobQuotationDetailsUpdateDto>();
-    private JobQuotationDetailsReadDto jobQuotationDetailsReadDto { get; set; } = new JobQuotationDetailsReadDto();
-
     protected override async Task OnInitializedAsync()
     {
-        await FetchListAsync();
-        var jobquoteread = await jobQuotationService.GetJobQuotationByIdAsync(Id);
-        var jobquotedetailsread = await jobQuotationDetailsService.JobQuotationDetailsByJobOrder("Description", 0,0,Id);
-
+        var currentJobQuotationDetailsList = await jobQuotationDetailsService.JobQuotationDetailsByJobOrder("JobQuotationDetailsId",Id);
+        jobQuotationDetailsReadDtoList = currentJobQuotationDetailsList.JobQuotationDetailsApi;
+        jobQuotationReadDto = await jobQuotationService.GetJobQuotationByIdAsync(Id);
         _mapper.Map(jobQuotationReadDto, jobQuotationUpdateDto);
-
+        _mapper.Map(jobQuotationDetailsReadDtoList, jobQuotationDetailsUpdateDtoList);
         var response = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
         clientInformationReadDto = response.ClientInformation;
 
-
-        foreach (var item in jobQuotationDetailsUpdateDto)
-        {
-            jobQuotationDetailsUpdateDto.Add(item);
-        }
 
     }
 
     void AddField()
     {
-        jobQuotationDetailsUpdateDto.Add(new JobQuotationDetailsUpdateDto());
+        jobQuotationDetailsUpdateDtoList.Add(new JobQuotationDetailsUpdateDto());
     }
 
     void RemoveField(JobQuotationDetailsUpdateDto removeJobQuotation)
     {
 
 
-        jobQuotationDetailsUpdateDto.Remove(removeJobQuotation);
-    }
-
-    private async Task FetchListAsync()
-    {
-        var response = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
-        clientInformationReadDto = response.ClientInformation;
-        matchingCount = response.Count; clientInformationReadDto = response.ClientInformation;
-
-
+        jobQuotationDetailsUpdateDtoList.Remove(removeJobQuotation);
     }
 
 
@@ -188,11 +170,13 @@ else
         }
         else
         {
+            toastService.ShowError($" Error on editing job quotation {jobQuotationUpdateDto.CompanyName} with ID {Id}.");
             message = $"Error: {response.StatusCode.ToString()}. Please try again.";
-            toastService.ShowError($" Erro on editing jobquotation Id {jobQuotationUpdateDto.CompanyName}. Please try again.");
+
         }
 
         this.StateHasChanged();
+
     }
 
     private async Task ChangeOrder(ChangeEventArgs e)
@@ -207,7 +191,7 @@ else
     private void ComputeCost(int Id)
     {
 
-        jobQuotationDetailsUpdateDto[Id].TotalCost = jobQuotationDetailsUpdateDto[Id].Quantity * jobQuotationDetailsUpdateDto[Id].Cost;
-        jobQuotationUpdateDto.OverallCost = jobQuotationDetailsUpdateDto.Sum(x => x.TotalCost);
+        jobQuotationDetailsUpdateDtoList[Id].TotalCost = jobQuotationDetailsUpdateDtoList[Id].Quantity * jobQuotationDetailsUpdateDtoList[Id].Cost;
+        jobQuotationUpdateDto.OverallCost = jobQuotationDetailsUpdateDtoList.Sum(x => x.TotalCost);
     }
 }
