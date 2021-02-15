@@ -13,6 +13,8 @@
       "commandName": "IISExpress",
       "launchUrl": "api/contacts",
       "environmentVariables": {
+        "Key": "Value",
+        "APP_URL": "http://localhost:5001",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
@@ -25,7 +27,7 @@
       "applicationUrl": "http://localhost:5001"
     },
     "Docker (1)": {
-      "commandName": "Docker",
+      "commandName": "IISExpress",
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/api/contacts",
       "publishAllPorts": true
     }

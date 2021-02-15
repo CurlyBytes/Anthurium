@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/Anthurium.Web",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:5002",
       "sslPort": 0
@@ -11,20 +15,22 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
+      "launchUrl": "http://localhost:5002",
       "environmentVariables": {
+        "APP_URL": "http://localhost:5002",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "Anthurium.Web": {
-      "commandName": "Project",
+      "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:5002"
     },
-    "Docker": {
-      "commandName": "Docker",
+    "Docker (1)": {
+      "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
       "publishAllPorts": true

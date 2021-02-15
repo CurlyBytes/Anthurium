@@ -46,7 +46,7 @@ namespace Anthurium.API
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication("Bearer", options =>
                 {
-                    options.Authority = "http://anthuriumauth";
+                    options.Authority = "http://localhost:5000";
                     options.RequireHttpsMetadata = false;
                     options.ApiName = "anthurium-api";
                 });

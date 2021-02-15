@@ -11,6 +11,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "environmentVariables": {
+        "APP_URL": "http://localhost:5000",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
@@ -22,7 +23,7 @@
       "applicationUrl": "http://localhost:5000"
     },
     "Docker": {
-      "commandName": "Docker",
+      "commandName": "IISExpress",
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
       "publishAllPorts": true
     }
