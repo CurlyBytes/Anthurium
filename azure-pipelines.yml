@@ -1,17 +1,229 @@
-# ASP.NET Core
-# Build and test ASP.NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
+#Run pipeline whenever a commit or tag is pushed
 trigger:
-- main
+  branches:
+    include:
+    - main
 
-pool:
-  vmImage: 'ubuntu-latest'
+# Run pipeline whenever a PR is raised
+pr:
+  branches:
+    include:
+    - main
 
+# Run pipeline everyday. Azure DevOps schedules follow UTC
+# We build main on daily
+schedules:
+- cron: "0 17 * * *" # 00:00 AEST is 3pmx 08:00 UTC
+  displayName: 'Daily Build'
+  always: 'true'
+  branches:
+    include:
+    - main
+  
+
+#Create a unique name for the build based on your project requirements
+#BuildID is the unique ID for the build
+#name: $(Year:yy).$(Month).$(DayOfMonth).$(BuildID)-$(SourceBranchName)
+
+#TODO global vairable from the existin variable just concatenate the values
 variables:
-  buildConfiguration: 'Release'
+  BuildConfiguration: 'Release'
+  BuildPlatform: 'any cpu' 
 
-steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+  #Setting debug to true will add extra output to the logs but can be useful while trying to determine full reason for failures
+  #todo add system debug base on pr container:
+  #add auto tagging base on version id, number etc on the code level
+
+stages:
+- stage: Builds
+  displayName: 'Enterprise Continous Integration for C# DotNet Core '
+  jobs:
+  - job: SoftwareCompositionAnalysis
+    displayName: 'Software Composiation Analysis'
+    pool:
+      vmImage: 'windows-latest'
+
+    steps:   
+    - task: dependency-check-build-task@5
+      inputs:
+        projectName: 'CurlyBytes.Anthurium'
+        scanPath: '$(Build.SourcesDirectory)'
+        format: 'HTML'
+        failOnCVSS: '10'
+        enableExperimental: true
+        enableRetired: true
+
+  - job: SemanticVersioning
+    displayName: 'Semantic Versioning'
+    pool:
+      vmImage: 'windows-latest'
+
+    steps:   
+    - task: gitversion/setup@0
+      displayName: 'Intall GitVersion 5.x'
+      inputs:
+        versionSpec: '5.0.0'
+        includePrerelease: false
+
+    - task: gitversion/execute@0
+      displayName: 'Execute GitVersion base on GitVersion.yml in the Root'
+      inputs:
+        useConfigFile: true
+        configFilePath: 'GitVersion.yml'
+
+  - job: Build
+    displayName: 'Build Anthurium'
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:   
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore all projects'
+
+  
+    - task: DotNetCoreCLI@2
+      displayName: 'Run test $(BuildConfiguration) all projects in $(imageName)'
+      inputs:
+        command: 'test'
+        projects: '**/*[Tt]ests/*.csproj'
+        arguments: '--configuration $(BuildConfiguration) --collect "Code coverage"'
+        nobuild: true
+
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet publish'
+      inputs:
+        command: 'publish'
+        publishWebProjects: true
+      
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish all $(BuildConfiguration) projects in $(imageName)'
+      inputs:
+        command: 'publish'
+        publishWebProjects: true
+        arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)  --no-build'
+        zipAfterPublish: true
+
+        
+    - task: PublishBuildArtifacts@1
+      displayName: 'Put all build projects to Azure Artifacts'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+        
+  - job: Schedule   
+    condition: |
+        and
+        (
+          always(),
+          eq(variables['Build.Reason'], 'Schedule')
+        )
+    strategy:
+      matrix:
+        linux:
+          imageName: 'ubuntu-latest'
+        mac:
+          imageName: 'macOS-latest'
+        windows:
+          imageName: 'vs2017-win2016'
+#crossplatform product, check this one https://github.com/nedrebo/parameterized-azure-jobs
+
+    pool:
+      vmImage: $(imageName)
+
+    steps:
+
+    - task: WhiteSource Bolt@20
+      inputs:
+        cwd: '$(Build.ArtifactStagingDirectory)/'
+      condition:  eq(variables['imageName'], 'vs2017-win2016')
+      displayName: 'WhiteSource Bolt Daily Build Report'
+
+
+- stage: Validation
+  displayName: 'Pull Request Validation'
+  dependsOn: Builds
+  condition: and(succeeded('Builds'), eq(variables['Build.Reason'], 'PullRequest'))
+  jobs:
+  - deployment: PullRequestDeployment
+    displayName: 'Pull Request'
+    environment: 'Validation'
+    pool: 
+      vmImage: 'aws-lightsails-joborder-prod-sea-1'
+    strategy:
+      runOnce:
+        deploy:
+
+          steps:
+          - task: IISWebAppDeploymentOnMachineGroup@0
+            inputs:
+              WebSiteName: 'Anthurium.Web'
+              VirtualApplication: 'AnthuriumWeb'
+              Package: '$(System.DefaultWorkingDirectory)\**\*.zip'
+              RemoveAdditionalFilesFlag: true
+              ExcludeFilesFromAppDataFlag: true
+
+
+
+- stage: Development
+  displayName: 'Developer Environment'
+  dependsOn: Builds
+  condition: |
+        and
+        (
+          succeeded('Builds'),
+          startsWith(variables['Build.SourceBranch'], 'refs/heads/main'),
+          ne(variables['Build.Reason'],  'PullRequest')
+        )  
+
+  jobs:
+  - deployment: Dev
+    displayName: 'Deploy to Development instance and do basic checking'
+    environment: 'Development'
+    pool: 
+      vmImage: 'aws-lightsails-joborder-prod-sea-1'
+    strategy:
+      runOnce:
+        deploy:
+
+          steps:
+          - task: IISWebAppDeploymentOnMachineGroup@0
+            inputs:
+              WebSiteName: 'Anthurium.Web'
+              VirtualApplication: 'AnthuriumWeb'
+              Package: '$(System.DefaultWorkingDirectory)\**\*.zip'
+              RemoveAdditionalFilesFlag: true
+              ExcludeFilesFromAppDataFlag: true
+
+
+
+- stage: Production
+  displayName: 'Production Environment'
+  dependsOn: Development
+  condition: |
+        and
+        (
+          succeeded('Development'),
+          startsWith(variables['Build.SourceBranch'], 'refs/heads/main'),
+          eq(variables['Build.Reason'],  'PullRequest')
+        )  
+
+  jobs:
+  - deployment: Prod
+    displayName: 'Deploy to Development instance and do basic checking'
+    environment: 'Production'
+    pool: 
+      vmImage: 'aws-lightsails-joborder-prod-sea-1'
+    strategy:
+      runOnce:
+        deploy:
+
+          steps:
+          - task: IISWebAppDeploymentOnMachineGroup@0
+            inputs:
+              WebSiteName: 'Anthurium.Web'
+              VirtualApplication: 'AnthuriumWeb'
+              Package: '$(System.DefaultWorkingDirectory)\**\*.zip'
+              RemoveAdditionalFilesFlag: true
+              ExcludeFilesFromAppDataFlag: true
