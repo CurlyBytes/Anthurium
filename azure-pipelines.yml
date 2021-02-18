@@ -133,12 +133,10 @@ stages:
       vmImage: $(imageName)
 
     steps:
-
-    - task: WhiteSource Bolt@20
+    - task: WhiteSource@21
       inputs:
-        cwd: '$(Build.ArtifactStagingDirectory)/'
-      condition:  eq(variables['imageName'], 'vs2017-win2016')
-      displayName: 'WhiteSource Bolt Daily Build Report'
+        cwd: '$(System.DefaultWorkingDirectory)'
+        projectName: 'CurlyBytes.Anthurium'
 
 
 - stage: Validation
