@@ -12,15 +12,6 @@
     }
   },
   "profiles": {
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "http://localhost:5002",
-      "environmentVariables": {
-        "APP_URL": "http://localhost:5002",
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
     "Anthurium.Web": {
       "commandName": "IISExpress",
       "launchBrowser": true,
@@ -29,11 +20,20 @@
       },
       "applicationUrl": "http://localhost:5002"
     },
-    "Docker (1)": {
+    "Docker": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/",
       "publishAllPorts": true
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "http://localhost:5002",
+      "environmentVariables": {
+        "APP_URL": "http://localhost:5002",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
   }
 }

@@ -42,62 +42,57 @@ namespace Anthurium.Web
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.Configure<UtilitySettings>(Configuration.GetSection("APP_URL"));
+            //services.Configure<UtilitySettings>(Configuration.GetSection("APP_URL"));
+            //ervices.Configure<UtilitySettings>("http://localhost:5001");
 
             services.AddBlazoredToast();
             services.AddHttpClient<ClientInformationService>(client =>
             {
                 client.BaseAddress = new Uri("http://localhost:5001");
 
-            })
-                .AddClientAccessTokenHandler("web");
+            });
 
             services.AddHttpClient<JobOrderService>(client =>
             {
                 client.BaseAddress = new Uri("http://localhost:5001");
 
-            })
-                .AddClientAccessTokenHandler("web");
+            });
 
 
             services.AddHttpClient<JobOrderDescriptionOfWorkService>(client =>
             {
                 client.BaseAddress = new Uri("http://localhost:5001");
 
-            })
-                .AddClientAccessTokenHandler("web");
+            });
 
             services.AddHttpClient<DashboardService>(client =>
             {
                 client.BaseAddress = new Uri("http://localhost:5001");
 
-            })
-                .AddClientAccessTokenHandler("web");
+            });
 
             services.AddHttpClient<JobQuotationService>(client =>
             {
                 client.BaseAddress = new Uri("http://localhost:5001");
 
-            })
-                .AddClientAccessTokenHandler("web");
+            });
 
             services.AddHttpClient<JobQuotationDetailsDetails>(client =>
             {
                 client.BaseAddress = new Uri("http://localhost:5001");
 
-            })
-                .AddClientAccessTokenHandler("web");
-
-
-            services.AddAccessTokenManagement(options =>
-            {
-                options.Client.Clients.Add("web", new ClientCredentialsTokenRequest
-                {
-                    RequestUri = new Uri("http://localhost:5000/connect/token"),
-                    ClientId = "anthurium-web",
-                    ClientSecret = "thisismyclientspecificsecret"
-                });
             });
+
+
+            //services.AddAccessTokenManagement(options =>
+            //{
+            //    options.Client.Clients.Add("web", new ClientCredentialsTokenRequest
+            //    {
+            //        RequestUri = new Uri("http://localhost:5000/connect/token"),
+            //        ClientId = "anthurium-web",
+            //        ClientSecret = "thisismyclientspecificsecret"
+            //    });
+            //});
 
             services.AddBlazoredSessionStorage();
 

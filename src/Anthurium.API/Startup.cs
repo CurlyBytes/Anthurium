@@ -43,13 +43,13 @@ namespace Anthurium.API
         {
             services.AddOData();
 
-            services.AddAuthentication("Bearer")
-                .AddIdentityServerAuthentication("Bearer", options =>
-                {
-                    options.Authority = "http://localhost:5000";
-                    options.RequireHttpsMetadata = false;
-                    options.ApiName = "anthurium-api";
-                });
+            //services.AddAuthentication("Bearer")
+            //    .AddIdentityServerAuthentication("Bearer", options =>
+            //    {
+            //        options.Authority = "http://localhost:5000";
+            //        options.RequireHttpsMetadata = false;
+            //        options.ApiName = "anthurium-api";
+            //    });
 
             services.AddAuthorization();
 

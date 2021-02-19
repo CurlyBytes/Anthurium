@@ -21,7 +21,7 @@ namespace Anthurium.API.Data
             var clientInformations = new ClientInformation[]
             {
                 new ClientInformation { 
-                    CompanyName = "RAFI",  
+                    CompanyName = "AMA",  
                     CompanyAddress = "eduardo aboitiz street",
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
@@ -47,10 +47,10 @@ namespace Anthurium.API.Data
             var jobOrders = new JobOrder[]
             {
                 new JobOrder { 
-                    CompanyName = "RAFI",  
+                    CompanyName = "AMA",  
                     CompanyAddress = "eduardo aboitiz street",
                     ClientInformationId = 1,
-                    ContactPerson = "Rafinian",
+                    ContactPerson = "amaers",
                     ContactNumber = "+0639207082",
                     TimeStarted = DateTime.UtcNow,
                     TimeEnded = DateTime.UtcNow,
@@ -60,10 +60,10 @@ namespace Anthurium.API.Data
                     DateUpdated = DateTime.UtcNow
                     },
                 new JobOrder {
-                    CompanyName = "RAFI",
+                    CompanyName = "AMA",
                     CompanyAddress = "eduardo aboitiz street",
                     ClientInformationId = 1,
-                    ContactPerson = "Rafinian",
+                    ContactPerson = "amaers",
                     ContactNumber = "+0639207082",
                     TimeStarted = DateTime.UtcNow.AddHours(12),
                     TimeEnded = DateTime.UtcNow.AddHours(35),
@@ -73,10 +73,10 @@ namespace Anthurium.API.Data
                     DateUpdated = DateTime.UtcNow
                     },
                 new JobOrder {
-                    CompanyName = "RAFI",
+                    CompanyName = "AMA",
                     CompanyAddress = "eduardo aboitiz street",
                     ClientInformationId = 1,
-                    ContactPerson = "Rafinian",
+                    ContactPerson = "amaers",
                     ContactNumber = "+0639207082",
                     TimeStarted = DateTime.UtcNow.AddHours(1),
                     TimeEnded = DateTime.UtcNow.AddHours(2),
@@ -129,11 +129,11 @@ namespace Anthurium.API.Data
             var jobQuotation = new JobQuotation[] { 
                 new JobQuotation {
                     OverallCost = 100.0,
-                    Description = "Sample Job Quotation From RAFI",
+                    Description = "Sample Job Quotation From AMA",
                     ClientInformationId = 1,
-                    ContactPerson = "Rafinian",
+                    ContactPerson = "amaers",
                     ContactNumber = "+0639207082",
-                    CompanyName = "RAFI",
+                    CompanyName = "AMA",
                     CompanyAddress = "eduardo aboitiz street",
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
@@ -141,11 +141,11 @@ namespace Anthurium.API.Data
                 },
                 new JobQuotation {
                     OverallCost = 200.0,
-                    Description = "Sample Job Quotation From RAFI",
+                    Description = "Sample Job Quotation From AMA",
                     ClientInformationId = 1,
-                    CompanyName = "RAFI",
+                    CompanyName = "AMA",
                     CompanyAddress = "eduardo aboitiz street",
-                    ContactPerson = "Rafinian",
+                    ContactPerson = "amaers",
                     ContactNumber = "+0639207082",
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
