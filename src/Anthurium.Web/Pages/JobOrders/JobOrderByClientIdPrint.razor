@@ -1,0 +1,47 @@
+﻿@page "/joborder/print"
+@layout PdfLayout
+@inherits LayoutComponentBase
+@inject NavigationManager NavManager
+
+
+<div class="row m-2">
+    <div class="offset-2 col-sm-4">
+        YOUR LOGO HERE
+    </div>
+    <div class="col-sm-6">
+        <p class="text-left">
+            <small>
+                Ground Floor, Building 4, JDN Square
+                <br />P.Remedio St, Mandaue City, 6014 Cebu
+                <br />Mobile: +63 915 1035 925 | Telephone: 032 319179
+                <br />Email: <u>sales@lightsailits.com</u> | <u>jzafra@lightsailits.com</u>
+            </small>
+        </p>
+    </div>
+</div>
+<div class="vh-100 justify-content-center align-items-center">
+    <div class="col">Job Order</div>
+</div>
+<div class="row m-2 text-center">
+    <div class="offset-8 col-sm-4 text-left">
+        <span class="border border-primary">J.O. Id</span><span class="border border-primary">ls-01</span>
+    </div>
+
+</div>
+
+<button @onclick="OnPrintClickPdf" class="btn btn-danger btn-sm">print</button>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    //ivate ClientInformationReadDto clientInformation;
+
+
+
+    private async void OnPrintClickPdf()
+    {
+
+    }
+}
