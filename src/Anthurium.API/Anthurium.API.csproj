@@ -38,4 +38,8 @@
     <Watch Include="..\Anthurium.Web\**\*.razor" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>
