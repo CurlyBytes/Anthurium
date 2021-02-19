@@ -20,12 +20,6 @@
       },
       "applicationUrl": "http://localhost:5002"
     },
-    "Docker": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/",
-      "publishAllPorts": true
-    },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
