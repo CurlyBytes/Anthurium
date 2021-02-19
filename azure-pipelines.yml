@@ -74,6 +74,11 @@ stages:
             displayName: "Restore all projects"
 
           - task: DotNetCoreCLI@2
+            inputs:
+              command: 'build'
+              projects: 'src/**/*.csproj'
+
+          - task: DotNetCoreCLI@2
             displayName: "Run test $(BuildConfiguration) all projects in $(imageName)"
             inputs:
               command: "test"
