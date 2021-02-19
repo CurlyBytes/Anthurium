@@ -69,11 +69,13 @@ stages:
   - job: Build
     displayName: 'Build Anthurium'
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-18.04'
 
     steps:   
+
     - task: DotNetCoreCLI@2
       displayName: 'Restore all projects'
+
 
   
     - task: DotNetCoreCLI@2
