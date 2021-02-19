@@ -92,14 +92,6 @@ stages:
               command: "publish"
               publishWebProjects: true
 
-          - task: DotNetCoreCLI@2
-            displayName: "Publish all $(BuildConfiguration) projects in $(imageName)"
-            inputs:
-              command: "publish"
-              publishWebProjects: true
-              arguments: "--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)  --no-build"
-              zipAfterPublish: true
-
           - task: PublishBuildArtifacts@1
             displayName: "Put all build projects to Azure Artifacts"
             inputs:
