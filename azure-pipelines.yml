@@ -41,7 +41,7 @@ stages:
   - job: SoftwareCompositionAnalysis
     displayName: 'Software Composiation Analysis'
     pool:
-      vmImage: 'windows-latest'
+      vmImage: 'vs2017-win2016'
 
     steps:   
     - task: dependency-check-build-task@5
@@ -56,7 +56,7 @@ stages:
   - job: SemanticVersioning
     displayName: 'Semantic Versioning'
     pool:
-      vmImage: 'windows-latest'
+      vmImage: 'vs2017-win2016'
 
     steps:   
     - task: gitversion/setup@0
@@ -65,11 +65,6 @@ stages:
         versionSpec: '5.0.0'
         includePrerelease: false
 
-    - task: gitversion/execute@0
-      displayName: 'Execute GitVersion base on GitVersion.yml in the Root'
-      inputs:
-        useConfigFile: true
-        configFilePath: 'GitVersion.yml'
 
   - job: Build
     displayName: 'Build Anthurium'
@@ -133,10 +128,12 @@ stages:
       vmImage: $(imageName)
 
     steps:
-    - task: WhiteSource@21
+
+    - task: WhiteSource Bolt@20
       inputs:
-        cwd: '$(System.DefaultWorkingDirectory)'
-        projectName: 'CurlyBytes.Anthurium'
+        cwd: '$(Build.ArtifactStagingDirectory)/'
+      condition:  eq(variables['imageName'], 'vs2017-win2016')
+      displayName: 'WhiteSource Bolt Daily Build Report'
 
 
 - stage: Validation
