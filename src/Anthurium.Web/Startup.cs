@@ -20,6 +20,7 @@ using Blazored.Modal;
 using Westwind.AspNetCore.LiveReload;
 using Anthurium.Web.Models;
 using Microsoft.Extensions.Options;
+using BlazorDownloadFile;
 
 namespace Anthurium.Web
 {
@@ -51,7 +52,7 @@ namespace Anthurium.Web
                 client.BaseAddress = new Uri("http://localhost:5001");
 
             });
-
+            services.AddBlazorDownloadFile();
             services.AddHttpClient<JobOrderService>(client =>
             {
                 client.BaseAddress = new Uri("http://localhost:5001");

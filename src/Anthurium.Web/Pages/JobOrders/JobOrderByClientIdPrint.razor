@@ -1,7 +1,8 @@
 ﻿@page "/joborder/print"
 @layout PdfLayout
-@inherits LayoutComponentBase
+@inherits JobOrderByClientIdPrintComponent
 @inject NavigationManager NavManager
+
 
 
 <div class="row m-2">
@@ -29,19 +30,5 @@
 
 </div>
 
-<button @onclick="OnPrintClickPdf" class="btn btn-danger btn-sm">print</button>
+<button @onclick="OnPrintClickPdffff" class="btn btn-danger btn-sm">print</button>
 
-
-@code {
-    [Parameter]
-    public int Id { get; set; }
-
-    //ivate ClientInformationReadDto clientInformation;
-
-
-
-    private async void OnPrintClickPdf()
-    {
-
-    }
-}
