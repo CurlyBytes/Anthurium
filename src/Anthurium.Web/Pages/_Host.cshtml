@@ -1,7 +1,6 @@
 ﻿@page "/"
 @namespace Anthurium.Web.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,10 +8,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LightSails - Job Order</title>
     <base href="~/" />
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
-    <link href="_content/Blazored.Toast/blazored-toast.min.css" rel="stylesheet" />
-    <link href="css/site.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+
+    @{
+
+        string test = HttpContext.Request.Path;
+
+        if (test == "/joborder/print")
+        {
+
+            <link rel="stylesheet" href="css/pages/joborderprint.css" />
+        }
+        else
+        {
+            <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+            <link href="_content/Blazored.Toast/blazored-toast.min.css" rel="stylesheet" />
+            <link href="css/site.css" rel="stylesheet" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+        }
+
+
+    }
+
 </head>
 <body>
     <app>

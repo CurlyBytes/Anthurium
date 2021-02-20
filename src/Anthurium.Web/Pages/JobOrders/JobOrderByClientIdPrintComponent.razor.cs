@@ -16,10 +16,15 @@ namespace Anthurium.Web.Pages.JobOrders
         [Inject]
         protected IJSRuntime _iJSRuntime { get; set; }
 
+        [Inject]
+        protected NavigationManager NavigationManager { get; set; }
+
+
         [Parameter]
         public int Id { get; set; }
 
        
+
         protected async void OnPrintClickPdf()
         {
             // ins
@@ -35,7 +40,7 @@ namespace Anthurium.Web.Pages.JobOrders
 
         protected async void OnPrintClickPdffff()
         {
-            int BufferSize = 32768;
+           
             await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision);
 
             byte[] pdfBytes;
@@ -51,8 +56,8 @@ namespace Anthurium.Web.Pages.JobOrders
 
                 await page.SetViewportAsync(new ViewPortOptions()
                 {
-                    Height = 1000,
-                    Width = 1400
+                    Height = 600,
+                    Width = 800
                 });
 
                 await page.GoToAsync("http://localhost:5002/joborder/print");
@@ -62,11 +67,11 @@ namespace Anthurium.Web.Pages.JobOrders
                 pdfBytes = await page.PdfDataAsync(new PdfOptions
                 {
                     PrintBackground = true,
-                    Width = 1400.ToString() + "px",
-                    Height = 1000.ToString() + "px"
+                    Width = 600.ToString() + "px",
+                    Height = 790.ToString() + "px"
                 });
 
-                await _iJSRuntime.InvokeVoidAsync("BlazorDownloadFile", "joborder.pdf", "application/pdf", pdfBytes);
+                await _iJSRuntime.InvokeVoidAsync("BlazorDownloadFile", $"{DateTime.UtcNow}-joborder.pdf", "application/pdf", pdfBytes);
                 // var bytes = await HttpClient.GetByteArrayAsync("api/pictures/1");
                 // await BlazorDownloadFileService.DownloadFile("joborder.pdf", pdfBytes, BufferSize, "application/octet-stream");
             }
@@ -89,13 +94,7 @@ namespace Anthurium.Web.Pages.JobOrders
         }
 
 
-       public async Task DownloadText()
-        {
-  
-            // Generate a text file
-            byte[] file = System.Text.Encoding.UTF8.GetBytes("Hello world!");
-         
-        }
+     
     }
 
 
