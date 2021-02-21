@@ -32,6 +32,13 @@
                         <option value="ContactPerson Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactPerson Desc")>Contact Person (Z - A)</option>
                         <option value="ContactNumber" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactNumber")>Contact Number (A - Z)</option>
                         <option value="ContactNumber Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactNumber Desc")>Contact Number (Z - A)</option>
+
+                        <option value="TotalHours" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TotalHours")>Total Hours (Asc)</option>
+                        <option value="TotalHours Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TotalHours Desc")>Total Hours (Desc)</option>
+                        <option value="DateSchedule" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateSchedule")>DateScheduled (Asc)</option>
+                        <option value="DateSchedule Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateSchedule Desc")>DateScheduled (Desc)</option>
+                        <option value="JoboRderDescription" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JoboRderDescription")>Description (A-Z)</option>
+                        <option value="JoboRderDescription Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JoboRderDescription Desc")>Description (A-Z)</option>
                         <option value="TimeStarted" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeStarted")>Time Started (Asc)</option>
                         <option value="TimeStarted Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeStarted Desc")>Time Started (Desc)</option>
                         <option value="TimeEnded" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeEnded")>Time Ended (Asc)</option>
@@ -57,6 +64,10 @@
                         <th scope="col">Company Address</th>
                         <th scope="col">Person</th>
                         <th scope="col">Number</th>
+                        <th scope="col">RemainingHours</th>
+                        <th scope="col">DateSchedule</th>
+                        <th scope="col">Description</th>
+
                         <th scope="col">Time Start</th>
                         <th scope="col">Time End</th>
                         <th scope="col">Total Hours</th>
@@ -66,19 +77,22 @@
                 <tbody>
                     @foreach (var jobOrderReadDtoItem in jobOrderReadDto)
                     {
-                        <tr>
-                            <td scope="row">@jobOrderReadDtoItem.JobOrderId</td>
-                            <td><a href="/joborder/@jobOrderReadDtoItem.JobOrderId">@jobOrderReadDtoItem.CompanyName</a></td>
-                            <td>@jobOrderReadDtoItem.CompanyAddress</td>
-                            <td>@jobOrderReadDtoItem.ContactPerson</td>
-                            <td>@jobOrderReadDtoItem.ContactNumber</td>
-                            <td>@jobOrderReadDtoItem.TimeStarted</td>
-                            <td>@jobOrderReadDtoItem.TimeEnded</td>
-                            <td>@jobOrderReadDtoItem.TotalHours</td>
-                            <td><a class="btn btn-info btn-sm" href="/joborder/@jobOrderReadDtoItem.ClientInformationId">View</a></td>
-                            <td><a class="btn btn-secondary btn-sm" href="/joborder/@jobOrderReadDtoItem.ClientInformationId/edit">Edit</a></td>
-                            <td><a class="btn btn-danger btn-sm" href="/joborder/@jobOrderReadDtoItem.ClientInformationId/delete">Delete</a></td>
-                        </tr>
+                    <tr>
+                        <td scope="row">@jobOrderReadDtoItem.JobOrderId</td>
+                        <td><a href="/joborder/@jobOrderReadDtoItem.JobOrderId">@jobOrderReadDtoItem.CompanyName</a></td>
+                        <td>@jobOrderReadDtoItem.CompanyAddress</td>
+                        <td>@jobOrderReadDtoItem.ContactPerson</td>
+                        <td>@jobOrderReadDtoItem.ContactNumber</td>
+                        <td>@jobOrderReadDtoItem.RemainingHours</td>
+                        <td>@jobOrderReadDtoItem.DateSchedule</td>
+                        <td>@jobOrderReadDtoItem.JoboRderDescription</td>
+                        <td>@jobOrderReadDtoItem.TimeStarted</td>
+                        <td>@jobOrderReadDtoItem.TimeEnded</td>
+                        <td>@jobOrderReadDtoItem.TotalHours</td>
+                        <td><a class="btn btn-info btn-sm" href="/joborder/@jobOrderReadDtoItem.JobOrderId">View</a></td>
+                        <td><a class="btn btn-secondary btn-sm" href="/joborder/@jobOrderReadDtoItem.JobOrderId/edit">Edit</a></td>
+                        <td><a class="btn btn-danger btn-sm" href="/joborder/@jobOrderReadDtoItem.JobOrderId/delete">Delete</a></td>
+                    </tr>
                     }
                 </tbody>
             </table>

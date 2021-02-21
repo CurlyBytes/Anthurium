@@ -41,6 +41,16 @@ namespace Anthurium.Shared.Models
         public int TotalHours { get; set; }
 
         [Required]
+        public DateTime DateSchedule { get; set; }
+
+        [Required]
+        [MaxLength(500)]
+        public string JoboRderDescription { get; set; }
+        [Required]
+        public int RemainingHours { get; set; }
+
+
+        [Required]
         public DateTime DateCreated { get; set; }
 
         [Required]

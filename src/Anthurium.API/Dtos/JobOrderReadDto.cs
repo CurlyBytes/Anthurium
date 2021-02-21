@@ -35,7 +35,14 @@ namespace Anthurium.API.Dtos
         [Required]
         public int ClientInformationId { get; set; }
 
+        [Required]
+        public DateTime DateSchedule { get; set; }
 
+        [Required]
+        public int RemainingHours { get; set; }
+        [Required]
+        [MaxLength(500)]
+        public string JoboRderDescription { get; set; }
         public DateTime DateUpdated { get; set; }
 
         public DateTime DateCreated { get; set; }
