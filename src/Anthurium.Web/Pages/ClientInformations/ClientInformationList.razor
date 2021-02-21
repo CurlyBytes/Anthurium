@@ -28,6 +28,12 @@
                         <option value="CompanyName desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName desc")>Company Name (Z - A)</option>
                         <option value="CompanyAddress" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName")>Company Address (A - Z)</option>
                         <option value="CompanyAddress desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName desc")>Company Address (Z - A)</option>
+
+                        <option value="ContactPerson" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactPerson")>Contact Person (A - Z)</option>
+                        <option value="ContactPerson Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactPerson Desc")>Contact Person (Z - A)</option>
+                        <option value="ContactNumber" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactNumber")>Contact Number (A - Z)</option>
+                        <option value="ContactNumber Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactNumber Desc")>Contact Number (Z - A)</option>
+
                         <option value="DateCreated" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated")>Date Created (Asc)</option>
                         <option value="DateCreated Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated Desc")>Date Created (Desc)</option>
                         <option value="DateUpdated" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateUpdated")>Date Updated (Asc)</option>
@@ -54,6 +60,8 @@
                         <td scope="row">@clientInformationReadDtoItem.ClientInformationId</td>
                         <td>@clientInformationReadDtoItem.CompanyName</td>
                         <td>@clientInformationReadDtoItem.CompanyAddress</td>
+                        <td>@clientInformationReadDtoItem.ContactPerson</td>
+                        <td>@clientInformationReadDtoItem.ContactNumber</td>
                         <td><a class="btn btn-info btn-sm" href="/clientinformation/@clientInformationReadDtoItem.ClientInformationId">View</a></td>
                         <td><a class="btn btn-secondary btn-sm" href="/clientinformation/@clientInformationReadDtoItem.ClientInformationId/edit">Edit</a></td>
                         <td><a class="btn btn-danger btn-sm" href="/clientinformation/@clientInformationReadDtoItem.ClientInformationId/delete">Delete</a></td>

@@ -16,6 +16,14 @@ namespace Anthurium.API.Dtos
         [MaxLength(450)]
         public string CompanyAddress { get; set; }
 
+        [Required]
+        [MaxLength(300)]
+        public string ContactPerson { get; set; }
+
+        [Required]
+        [MaxLength(20)]
+
+        public string ContactNumber { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;
 
 

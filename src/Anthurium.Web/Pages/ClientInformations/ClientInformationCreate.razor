@@ -8,7 +8,7 @@
 
 <h4>New Client Information</h4>
 <div class="row m-2">
-    <EditForm Model="@clientInformationCreateDto" OnValidSubmit="@PostClientInformation" >
+    <EditForm Model="@clientInformationCreateDto" OnValidSubmit="@PostClientInformation">
         <DataAnnotationsValidator />
         <ValidationSummary />
         <div class="form-group row">
@@ -20,6 +20,16 @@
             <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
             <input id="companyAddress" class="form-control col-sm-6 input-lg" placeholder="Company Address" type="text" disabled="@isSuccess"
                    @bind="clientInformationCreateDto.CompanyAddress" />
+        </div>
+        <div class="form-group row">
+            <label for="clientInformationContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
+            <input id="clientInformationContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                   @bind="clientInformationCreateDto.ContactPerson" placeholder="Contact Person" />
+        </div>
+        <div class="form-group row">
+            <label for="clientInformationContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
+            <input id="clientInformationContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                   @bind="clientInformationCreateDto.ContactNumber" />
         </div>
         <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
         <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"

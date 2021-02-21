@@ -20,6 +20,14 @@ namespace Anthurium.Shared.Models
         public string CompanyAddress { get; set; }
 
         [Required]
+        [MaxLength(300)]
+        public string ContactPerson { get; set; }
+
+        [Required]
+        [MaxLength(20)]
+
+        public string ContactNumber { get; set; }
+        [Required]
         public DateTime DateCreated { get; set; }
 
         [Required]

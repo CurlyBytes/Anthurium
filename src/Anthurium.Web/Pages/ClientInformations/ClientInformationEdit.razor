@@ -26,16 +26,26 @@ else
             <div class="form-group row">
                 <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
                 <input id="companyName" class="form-control col-sm-6 input-lg" placeholder="Company Name" disabled="@isSuccess"
-                        @bind="clientInformationUpdateDto.CompanyName" />
+                       @bind="clientInformationUpdateDto.CompanyName" />
             </div>
             <div class="form-group row">
                 <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
                 <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" placeholder="Company Address" disabled="@isSuccess"
-                        @bind="clientInformationUpdateDto.CompanyAddress" />
+                       @bind="clientInformationUpdateDto.CompanyAddress" />
+            </div>
+            <div class="form-group row">
+                <label for="clientInformationContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
+                <input id="clientInformationContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                       @bind="clientInformationUpdateDto.ContactPerson" placeholder="Contact Person" />
+            </div>
+            <div class="form-group row">
+                <label for="clientInformationContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
+                <input id="clientInformationContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                       @bind="clientInformationUpdateDto.ContactNumber" />
             </div>
             <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
             <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
-                    hidden="@(message=="")">@message</div>
+                 hidden="@(message=="")">@message</div>
             </EditForm>
 
       

@@ -19,7 +19,14 @@ namespace Anthurium.API.Dtos
         [Required]
         [MaxLength(450)]
         public string CompanyAddress { get; set; }
+        [Required]
+        [MaxLength(300)]
+        public string ContactPerson { get; set; }
 
+        [Required]
+        [MaxLength(20)]
+
+        public string ContactNumber { get; set; }
         public ICollection<JobOrderReadDto> JobOrder { get; set; }
 
         public ICollection<JobQuotationReadDto> JobQuotation { get; set; }
