@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Anthurium.API.Dtos;
 using BlazorDownloadFile;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -19,82 +20,22 @@ namespace Anthurium.Web.Pages.JobOrders
         [Inject]
         protected NavigationManager NavigationManager { get; set; }
 
+        [Inject]
+        protected Services.JobOrderService jobOrderService { get; set; }
 
         [Parameter]
         public int Id { get; set; }
 
        
+       
 
-        protected async void OnPrintClickPdf()
+        protected JobOrderReadDto jobOrderReadDto;
+
+        protected override async Task OnInitializedAsync()
         {
-            // ins
-            await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision);
-            var browser = await Puppeteer.LaunchAsync(new LaunchOptions
-            {
-                Headless = true
-            });
-            var page = await browser.NewPageAsync();
-            await page.GoToAsync("http://localhost:5002");
-            await page.PdfAsync("joborder.pdf");
+            jobOrderReadDto = await jobOrderService.GetJobOrderByIdAsync(Id);
         }
 
-        protected async void OnPrintClickPdffff()
-        {
-           
-            await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision);
-
-            byte[] pdfBytes;
-
-            PuppeteerSharp.Browser browser = null;
-            Page page = null;
-
-            try
-            {
-                browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true });
-
-                page = await browser.NewPageAsync();
-
-                await page.SetViewportAsync(new ViewPortOptions()
-                {
-                    Height = 600,
-                    Width = 800
-                });
-
-                await page.GoToAsync("http://localhost:5002/joborder/print");
-
-
-
-                pdfBytes = await page.PdfDataAsync(new PdfOptions
-                {
-                    PrintBackground = true,
-                    Width = 600.ToString() + "px",
-                    Height = 790.ToString() + "px"
-                });
-
-                await _iJSRuntime.InvokeVoidAsync("BlazorDownloadFile", $"{DateTime.UtcNow}-joborder.pdf", "application/pdf", pdfBytes);
-                // var bytes = await HttpClient.GetByteArrayAsync("api/pictures/1");
-                // await BlazorDownloadFileService.DownloadFile("joborder.pdf", pdfBytes, BufferSize, "application/octet-stream");
-            }
-            finally
-            {
-                if (!page?.IsClosed ?? false)
-                {
-                    await page?.CloseAsync();
-                }
-
-                page?.Dispose();
-
-                if (!browser?.IsClosed ?? false)
-                {
-                    await browser?.CloseAsync();
-                }
-
-                browser?.Dispose();
-            }
-        }
-
-
-     
     }
 
 

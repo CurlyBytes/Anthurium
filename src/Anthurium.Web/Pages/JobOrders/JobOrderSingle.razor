@@ -1,6 +1,9 @@
 ﻿@page "/joborder/{Id:int}"
 @inject Services.JobOrderService jobOrderService
 @using Anthurium.API.Dtos
+@using Microsoft.JSInterop;
+@using PuppeteerSharp;
+@inject IJSRuntime _iJSRuntime
 
 <h4>Job Order Id: @Id.ToString()</h4>
 
@@ -71,8 +74,8 @@ else
     </div>
     <div class="row m-2">
         <div class="col-12">
-
-            <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/jobquotation">Return to List</a>
+            <button @onclick="OnPrintClickPdf" class="btn btn-info btn-sm">print</button>
+            <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/joborder">Return to List</a>
         </div>
     </div>
 }
@@ -86,5 +89,61 @@ else
     protected override async Task OnInitializedAsync()
     {
         jobOrderReadDto = await jobOrderService.GetJobOrderByIdAsync(Id);
+    }
+
+
+    protected async void OnPrintClickPdf()
+    {
+
+        await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision);
+
+        byte[] pdfBytes;
+
+        PuppeteerSharp.Browser browser = null;
+        Page page = null;
+
+        try
+        {
+            browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true });
+
+            page = await browser.NewPageAsync();
+
+            await page.SetViewportAsync(new ViewPortOptions()
+            {
+                Height = 600,
+                Width = 800
+            });
+
+            await page.GoToAsync($"http://localhost:5002/joborder/print/{Id}");
+
+
+
+            pdfBytes = await page.PdfDataAsync(new PdfOptions
+            {
+                PrintBackground = true,
+                Width = 600.ToString() + "px",
+                Height = 790.ToString() + "px"
+            });
+
+            await _iJSRuntime.InvokeVoidAsync("BlazorDownloadFile", $"{DateTime.UtcNow}-joborder.pdf", "application/pdf", pdfBytes);
+            // var bytes = await HttpClient.GetByteArrayAsync("api/pictures/1");
+            // await BlazorDownloadFileService.DownloadFile("joborder.pdf", pdfBytes, BufferSize, "application/octet-stream");
+        }
+        finally
+        {
+            if (!page?.IsClosed ?? false)
+            {
+                await page?.CloseAsync();
+            }
+
+            page?.Dispose();
+
+            if (!browser?.IsClosed ?? false)
+            {
+                await browser?.CloseAsync();
+            }
+
+            browser?.Dispose();
+        }
     }
 }
