@@ -36,6 +36,7 @@ namespace Anthurium.API.Dtos
 
         public bool IsActive { get; set; } = true;
 
+        public ICollection<DeliveryReceiptCreateDto> DeliveryReciept { get; set; }
         public ICollection<JobOrderCreateDto> JobOrder { get; set; }
 
         public ICollection<JobQuotationCreateDto> JobQuotation { get; set; }

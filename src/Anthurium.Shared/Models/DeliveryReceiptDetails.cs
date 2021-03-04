@@ -5,13 +5,13 @@ using System.Text;
 
 namespace Anthurium.Shared.Models
 {
-    public class DeliveryRecieptDetails
+    public class DeliveryReceiptDetails
     {
         [Key]
-        public int DeliveryRecieptDetailsId { get; set; }
+        public int DeliveryReceiptDetailsId { get; set; }
 
 
-        public int DeliveryRecieptId { get; set; }
+        public int DeliveryReceiptId { get; set; }
 
         public DeliveryReceipt DeliveryReceipt { get; set; }
 

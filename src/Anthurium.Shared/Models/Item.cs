@@ -48,7 +48,7 @@ namespace Anthurium.Shared.Models
         public DateTime WarrantyDate { get; set; }
 
 
-        public ICollection<DeliveryRecieptDetails> DeliveryRecieptDetails { get; set; }
+        public ICollection<DeliveryReceiptDetails> DeliveryRecieptDetails { get; set; }
         public ICollection<JobQuotationDetails> JobQuotationDetails { get; set; }
         [Required]
         public DateTime DateCreated { get; set; }

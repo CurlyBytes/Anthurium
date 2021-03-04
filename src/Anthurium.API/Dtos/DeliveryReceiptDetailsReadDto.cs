@@ -1,6 +1,6 @@
 ﻿namespace Anthurium.API.Dtos
 {
-    public class DeliveryRecieptDetailsReadDto
+    public class DeliveryReceiptDetailsReadDto
     {
     }
 }

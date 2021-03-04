@@ -23,6 +23,7 @@ namespace Anthurium.API.Data
 
 
         public DbSet<Asset> Assets { get; set; }
+        public DbSet<DeliveryReceipt> DeliveryReceipts { get; set; }
         public DbSet<ClientInformation> ClientInformations { get; set; }
         public DbSet<JobOrder> JobOrders { get; set; }
         public DbSet<JobOrderDescriptionOfWork> JobOrderDescriptionOfWorks { get; set; }

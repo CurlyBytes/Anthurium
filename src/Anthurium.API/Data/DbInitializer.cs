@@ -37,6 +37,38 @@ namespace Anthurium.API.Data
 
             };
 
+            var deliveryReceipts = new DeliveryReceipt[]
+            {
+                new DeliveryReceipt {
+                    ClientInformationId = 1,
+                    JobQuotationId = 1,
+                    Remarks ="All mouse",
+                    DateRecieve = DateTime.UtcNow.AddDays(-25),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new DeliveryReceipt {
+                    ClientInformationId = 1,
+                    JobQuotationId = 1,
+                    Remarks ="All keyboard",
+                    DateRecieve = DateTime.UtcNow.AddDays(-15),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new DeliveryReceipt {
+                    ClientInformationId = 2,
+                    JobQuotationId = 12,
+                    Remarks ="All mouse",
+                    DateRecieve = DateTime.UtcNow.AddDays(-15),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                }
+
+            };
+
             var vendors = new Vendor[]
             {
                 new Vendor {
@@ -657,6 +689,7 @@ namespace Anthurium.API.Data
             context.Vendors.AddRange(vendors);
             context.Items.AddRange(items);
             context.Assets.AddRange(assets);
+            context.DeliveryReceipts.AddRange(deliveryReceipts);
             context.ClientInformations.AddRange(clientInformations);
             context.JobOrders.AddRange(jobOrders);
             context.JobQuotations.AddRange(jobQuotation);

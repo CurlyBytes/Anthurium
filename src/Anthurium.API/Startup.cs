@@ -71,7 +71,9 @@ namespace Anthurium.API
             services.AddScoped<ISqlServerVendorRepository, SqlServerVendorRepository>();
             services.AddScoped<ISqlServerItemRepository, SqlServerItemRepository>();
             services.AddScoped<ISqlServerAssetRepository, SqlServerAssetRepository>();
+            services.AddScoped<ISqlServerDeliveryReceiptRepository, SqlServerDeliveryReceiptRepository>();
 
+            
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
          
         }

@@ -141,6 +141,19 @@ namespace Anthurium.API
             var fnCreateAsset = builder.Function("CreateAsset");
             fnCreateAsset.ReturnsCollectionFromEntitySet<AssetReadDto>("Asset");
 
+            //==============
+            builder.EntitySet<DeliveryReceiptReadDto>("DeliveryReceipt").EntityType.HasKey(x => x.DeliveryReceiptId);
+
+            var fnGetAllDeliveryReceipt = builder.Function("GetAll");
+            fnGetAllDeliveryReceipt.ReturnsCollectionFromEntitySet<DeliveryReceiptReadDto>("DeliveryReceipt");
+
+            var fnGeByIdDeliveryReceipt = builder.Function("GetById");
+            fnGeByIdDeliveryReceipt.Parameter<int>("id");
+            fnGeByIdDeliveryReceipt.ReturnsCollectionFromEntitySet<DeliveryReceiptReadDto>("DeliveryReceipt");
+
+            var fnCreateDeliveryReceipt = builder.Function("CreateDeliveryReceipt");
+            fnCreateDeliveryReceipt.ReturnsCollectionFromEntitySet<DeliveryReceiptReadDto>("DeliveryReceipt");
+
             return builder.GetEdmModel();
         }
     }

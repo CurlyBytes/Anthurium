@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Anthurium.Shared.Models
+namespace Anthurium.API.Dtos
 {
-    public class DeliveryReceipt
+    public class DeliveryReceiptUpdateDto
     {
         [Key]
         public int DeliveryReceiptId { get; set; }
@@ -13,12 +14,12 @@ namespace Anthurium.Shared.Models
         [Required]
         public int ClientInformationId { get; set; }
 
-        public ClientInformation ClientInformation { get; set; }
+        public ClientInformationUpdateDto ClientInformation { get; set; }
 
         [Required]
         public int JobQuotationId { get; set; }
 
-        public JobQuotation JobQuotation { get; set; }
+        public JobQuotationUpdateDto JobQuotation { get; set; }
 
         [Required]
         [MaxLength(250)]
@@ -35,7 +36,6 @@ namespace Anthurium.Shared.Models
 
         [Required]
         public bool IsActive { get; set; }
-
-        public ICollection<DeliveryReceiptDetails> DeliveryRecieptDetails { get; set; }
+        public ICollection<JobQuotationUpdateDto> JobQuotationDetails { get; set; }
     }
 }
