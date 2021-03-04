@@ -53,5 +53,7 @@ namespace Anthurium.Shared.Models
         public ClientInformation ClientInformation { get; set; }
 
         public ICollection<JobQuotationDetails> JobQuotationDetails { get; set; }
+
+        public ICollection<DeliveryReceipt> DeliveryReceipt { get; set; }
     }
 }

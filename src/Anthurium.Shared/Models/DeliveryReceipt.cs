@@ -10,11 +10,12 @@ namespace Anthurium.Shared.Models
         [Key]
         public int DeliveryReceiptId { get; set; }
 
-    
+        [Required]
         public int ClientInformationId { get; set; }
 
         public ClientInformation ClientInformation { get; set; }
 
+        [Required]
         public int JobQuotationId { get; set; }
 
         public JobQuotation JobQuotation { get; set; }
@@ -34,5 +35,7 @@ namespace Anthurium.Shared.Models
 
         [Required]
         public bool IsActive { get; set; }
+
+        public ICollection<DeliveryRecieptDetails> DeliveryRecieptDetails { get; set; }
     }
 }

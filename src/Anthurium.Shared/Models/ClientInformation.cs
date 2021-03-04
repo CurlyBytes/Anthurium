@@ -39,5 +39,9 @@ namespace Anthurium.Shared.Models
         public ICollection<JobOrder> JobOrder { get; set; }
 
         public ICollection<JobQuotation> JobQuotation { get; set; }
+
+        public ICollection<Asset> Asset { get; set; }
+
+        public ICollection<DeliveryReceipt> DeliveryReceipt { get; set; }
     }
 }

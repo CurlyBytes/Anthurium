@@ -31,8 +31,15 @@ namespace Anthurium.Shared.Models
         [Required]
         public double Price { get; set; }
 
+        [Required]
+        public int VendorId { get; set; }
 
-        public Vendor VendorId { get; set; }
+        public Vendor Vendor { get; set; }
+
+        [Required]
+        public int WarehouseId { get; set; }
+
+        public Warehouse Warehouse { get; set; }
 
         [Required]
         public bool IsLocalMaterial { get; set; }
@@ -40,6 +47,9 @@ namespace Anthurium.Shared.Models
         [Required]
         public DateTime WarrantyDate { get; set; }
 
+
+        public ICollection<DeliveryRecieptDetails> DeliveryRecieptDetails { get; set; }
+        public ICollection<JobQuotationDetails> JobQuotationDetails { get; set; }
         [Required]
         public DateTime DateCreated { get; set; }
 
