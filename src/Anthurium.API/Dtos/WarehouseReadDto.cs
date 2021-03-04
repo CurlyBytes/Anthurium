@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Anthurium.API.Dtos
 {
-    public class WarehouseReadDto
+    public class WarehouseReadDto 
     {
         [Key]
         public int WarehouseId { get; set; }
@@ -20,7 +20,8 @@ namespace Anthurium.API.Dtos
         [MaxLength(50)]
         public string WarehouseCode { get; set; }
 
-        public ICollection<Item> Item { get; set; }
+        public ICollection<ItemReadDto> Item { get; set; }
+
         [Required]
         public DateTime DateCreated { get; set; }
 

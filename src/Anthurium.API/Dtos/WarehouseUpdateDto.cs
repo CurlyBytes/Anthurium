@@ -19,7 +19,7 @@ namespace Anthurium.API.Dtos
         [MaxLength(50)]
         public string WarehouseCode { get; set; }
 
- 
+        public ICollection<ItemUpdateDto> Item { get; set; }
 
 
         public DateTime DateUpdated { get; set; } = DateTime.UtcNow;

@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace Anthurium.API.Dtos
 {
-    public class WarehouseCreateDto
+    public class VendorUpdateDto
     {
+        [Key]
+        public int VendorId { get; set; }
+
         [Required]
         [MaxLength(100)]
-        public string WarehouseName { get; set; }
+        public string VendorName { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public string WarehouseCode { get; set; }
-
-        public ICollection<ItemCreateDto> Item { get; set; }
-
-        public DateTime DateCreated { get; set; } = DateTime.UtcNow;
+        public string VendorCode { get; set; }
 
 
+        public ICollection<ItemUpdateDto> Item { get; set; }
         public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
 
         public bool IsActive { get; set; } = true;

@@ -37,6 +37,24 @@ namespace Anthurium.API.Data
 
             };
 
+            var vendors = new Vendor[]
+  {
+                new Vendor {
+                    VendorName = "Microsoft",
+                    VendorCode = "MS",
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new Vendor {
+                    VendorName = "Dell",
+                    VendorCode = "DL1",
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                }
+
+  };
 
             var clientInformations = new ClientInformation[]
             {
@@ -276,6 +294,7 @@ namespace Anthurium.API.Data
                  },
             };
             context.Warehouses.AddRange(warehouses);
+            context.Vendors.AddRange(vendors);
             context.ClientInformations.AddRange(clientInformations);
             context.JobOrders.AddRange(jobOrders);
             context.JobQuotations.AddRange(jobQuotation);
