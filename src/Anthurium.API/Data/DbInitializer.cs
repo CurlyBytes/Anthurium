@@ -56,6 +56,226 @@ namespace Anthurium.API.Data
 
             };
 
+            var assets = new Asset[]
+              {
+                new Asset {
+                    ClientInformationId = 1,
+                    ItemId = 1,
+                    SerialNumber = "333-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new Asset {
+                    ClientInformationId = 1,
+                    ItemId = 1,
+                    SerialNumber = "111-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+               new Asset {
+                    ClientInformationId = 1,
+                    ItemId = 1,
+                    SerialNumber = "444-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new Asset {
+                    ClientInformationId = 1,
+                    ItemId = 1,
+                    SerialNumber = "555-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },  new Asset {
+                    ClientInformationId = 1,
+                    ItemId = 1,
+                    SerialNumber = "666-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new Asset {
+                    ClientInformationId = 1,
+                    ItemId = 1,
+                    SerialNumber = "777-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+               new Asset {
+                    ClientInformationId = 1,
+                    ItemId = 1,
+                    SerialNumber = "888-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new Asset {
+                    ClientInformationId = 1,
+                    ItemId = 1,
+                    SerialNumber = "999-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                       new Asset {
+                    ClientInformationId = 1,
+                    ItemId = 2,
+                    SerialNumber = "1212-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new Asset {
+                    ClientInformationId = 1,
+                    ItemId = 2,
+                    SerialNumber = "1111-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+               new Asset {
+                    ClientInformationId = 1,
+                    ItemId = 2,
+                    SerialNumber = "1313-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new Asset {
+                    ClientInformationId = 1,
+                    ItemId = 2,
+                    SerialNumber = "1414-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                     new Asset {
+                    ClientInformationId = 2,
+                    ItemId = 1,
+                    SerialNumber = "1515-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new Asset {
+                    ClientInformationId = 2,
+                    ItemId = 1,
+                    SerialNumber = "1616-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+               new Asset {
+                    ClientInformationId = 2,
+                    ItemId = 1,
+                    SerialNumber = "1717-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new Asset {
+                    ClientInformationId = 2,
+                    ItemId = 1,
+                    SerialNumber = "1818-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },  new Asset {
+                    ClientInformationId = 2,
+                    ItemId = 1,
+                    SerialNumber = "1919-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new Asset {
+                    ClientInformationId = 2,
+                    ItemId = 1,
+                    SerialNumber = "2020-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+               new Asset {
+                    ClientInformationId = 2,
+                    ItemId = 1,
+                    SerialNumber = "2121-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new Asset {
+                    ClientInformationId = 2,
+                    ItemId = 1,
+                    SerialNumber = "2222-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                       new Asset {
+                    ClientInformationId = 2,
+                    ItemId = 2,
+                    SerialNumber = "2323-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new Asset {
+                    ClientInformationId = 2,
+                    ItemId = 2,
+                    SerialNumber = "2424-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+               new Asset {
+                    ClientInformationId = 2,
+                    ItemId = 2,
+                    SerialNumber = "2525-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new Asset {
+                    ClientInformationId = 2,
+                    ItemId = 2,
+                    SerialNumber = "2626-222-3333-xxx-11",
+                    DateRecieve = DateTime.UtcNow.AddDays(-20),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                }
+
+              };
+
+
             var items = new Item[]
             {
                 new Item {
@@ -186,6 +406,7 @@ namespace Anthurium.API.Data
                 new ClientInformation { 
                     CompanyName = "AMA",  
                     CompanyAddress = "eduardo aboitiz street",
+                    ContactEmailAddress = "test@rrr.com",
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
@@ -193,6 +414,7 @@ namespace Anthurium.API.Data
                 new ClientInformation { 
                     CompanyName = "CurlyBytes",  
                     CompanyAddress = "107 v. raman st. calamba cc",
+                    ContactEmailAddress = "bbb@bb.com",
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
@@ -200,6 +422,7 @@ namespace Anthurium.API.Data
                 new ClientInformation {
                     CompanyName = "Microsoft",
                     CompanyAddress = "United States America",
+                    ContactEmailAddress = "CC@cc.com",
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
@@ -317,6 +540,7 @@ namespace Anthurium.API.Data
                     CompanyName = "AMA",
                     CompanyAddress = "eduardo aboitiz street",
                     IsActive = true,
+                    HasCustomerAlreadyAgreed = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
                 },
@@ -329,6 +553,7 @@ namespace Anthurium.API.Data
                     ContactPerson = "amaers",
                     ContactNumber = "+0639207082",
                     IsActive = true,
+                    HasCustomerAlreadyAgreed = false,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
                 },
@@ -341,6 +566,7 @@ namespace Anthurium.API.Data
                     ContactPerson = "Cocoy",
                     ContactNumber = "4177214",
                     IsActive = true,
+                    HasCustomerAlreadyAgreed = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
                 }
@@ -348,79 +574,89 @@ namespace Anthurium.API.Data
 
             var jobQuotationDetails = new JobQuotationDetails[] {
                  new JobQuotationDetails{ 
+                    ItemId = 1,
                     Quantity = 2,
-                    Cost = 12.5,
-                    ItemName = "cable",
-                    TotalCost = 25,
+                    Price = 20,
+                    Margin = 100,
+                    Cost = 120,
+                    ItemName = "Razer x123",
+                    TotalCost = 240,
                     JobQuotationId = 1,
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
                  },
                  new JobQuotationDetails{
+                    ItemId = 2,
                     Quantity = 1,
-                    Cost = 75,
-                    ItemName = "wire",
-                    TotalCost = 75,
+                    Price = 200,
+                    Margin = 30,
+                    Cost = 230,
+                    ItemName = "Jedel z31",
+                    TotalCost = 230,
                     JobQuotationId = 1,
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
                  },
                   new JobQuotationDetails{
+                    ItemId = 3,
                     Quantity = 3,
-                    Cost = 50,
-                    ItemName = "mouse",
-                    TotalCost = 150,
+                    Price = 100,
+                    Margin = 20,
+                    Cost = 120,
+                    ItemName = "Razer x33",
+                    TotalCost = 360,
+                    JobQuotationId = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                 },
+                 new JobQuotationDetails{
+                    ItemId = 4,
+                    Quantity = 3,
+                    Price = 200,
+                    Margin = 30,
+                    Cost = 230,
+                    ItemName = "Jedel z524",
+                    TotalCost = 390,
                     JobQuotationId = 2,
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
                  },
                  new JobQuotationDetails{
+                    ItemId = 5,
                     Quantity = 2,
-                    Cost = 12.5,
-                    ItemName = "cable",
-                    TotalCost = 25,
+                    Price = 200,
+                    Margin = 30,
+                    Cost = 230,
+                    ItemName = "Razer x123",
+                    TotalCost = 460,
                     JobQuotationId = 2,
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
                  },
                  new JobQuotationDetails{
-                    Quantity = 2,
-                    Cost = 12.5,
-                    ItemName = "cable",
-                    TotalCost = 25,
-                    JobQuotationId = 3,
-                    IsActive = true,
-                    DateCreated = DateTime.UtcNow,
-                    DateUpdated = DateTime.UtcNow
-                 },
-                 new JobQuotationDetails{
-                    Quantity = 3,
-                    Cost = 50,
-                    ItemName = "mouse",
-                    TotalCost = 150,
-                    JobQuotationId = 3,
-                    IsActive = true,
-                    DateCreated = DateTime.UtcNow,
-                    DateUpdated = DateTime.UtcNow
-                 },
-                 new JobQuotationDetails{
+                    ItemId = 6,
                     Quantity = 1,
-                    Cost = 100,
-                    ItemName = "monitor",
-                    TotalCost = 100,
+                    Price = 100,
+                    Margin = 20,
+                    Cost = 120,
+                    ItemName = "Razer x33",
+                    TotalCost = 120,
                     JobQuotationId = 3,
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
-                 },
+                 }
+    
             };
             context.Warehouses.AddRange(warehouses);
             context.Vendors.AddRange(vendors);
             context.Items.AddRange(items);
+            context.Assets.AddRange(assets);
             context.ClientInformations.AddRange(clientInformations);
             context.JobOrders.AddRange(jobOrders);
             context.JobQuotations.AddRange(jobQuotation);

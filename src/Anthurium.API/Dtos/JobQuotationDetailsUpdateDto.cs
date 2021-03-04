@@ -39,7 +39,7 @@ namespace Anthurium.API.Dtos
         [Required]
         public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
         [Required]
-        public bool IsActive { get; set; } ;
+        public bool IsActive { get; set; } 
 
         [Required]
         public int JobQuotationId { get; set; }

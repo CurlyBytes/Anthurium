@@ -127,6 +127,20 @@ namespace Anthurium.API
 
             var fnCreateItem = builder.Function("CreateItem");
             fnCreateItem.ReturnsCollectionFromEntitySet<ItemReadDto>("Item");
+
+            //==============
+            builder.EntitySet<AssetReadDto>("Asset").EntityType.HasKey(x => x.AssetId);
+
+            var fnGetAllAsset = builder.Function("GetAll");
+            fnGetAllAsset.ReturnsCollectionFromEntitySet<AssetReadDto>("Asset");
+
+            var fnGeByIdAsset = builder.Function("GetById");
+            fnGeByIdAsset.Parameter<int>("id");
+            fnGeByIdAsset.ReturnsCollectionFromEntitySet<AssetReadDto>("Asset");
+
+            var fnCreateAsset = builder.Function("CreateAsset");
+            fnCreateAsset.ReturnsCollectionFromEntitySet<AssetReadDto>("Asset");
+
             return builder.GetEdmModel();
         }
     }

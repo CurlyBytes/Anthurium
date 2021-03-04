@@ -51,8 +51,7 @@ namespace Anthurium.Shared.Models
         [Required]
         public int ClientInformationId { get; set; }
 
-        [Required]
-        public bool HasCustomerAgreed { get; set; }
+
 
         public ClientInformation ClientInformation { get; set; }
 

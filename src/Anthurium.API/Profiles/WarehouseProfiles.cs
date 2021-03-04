@@ -14,17 +14,17 @@ namespace Anthurium.API.Profiles
         {
             //source->target
             //api get,post,update(delete)
-            CreateMap<Warehouse, WarehouseReadDto>();
+            CreateMap<Asset, AssetReadDto>();
 
-            CreateMap<WarehouseCreateDto, Warehouse>()
-            .ForMember(destination => destination.WarehouseId, source => source.Ignore());
+            CreateMap<AssetCreateDto, Asset>()
+            .ForMember(destination => destination.AssetId, source => source.Ignore());
 
-            CreateMap<WarehouseUpdateDto, Warehouse>()
-                .ForMember(destination => destination.WarehouseId, source => source.Ignore())
+            CreateMap<AssetUpdateDto, Asset>()
+                .ForMember(destination => destination.AssetId, source => source.Ignore())
                 .ForMember(destination => destination.DateCreated, source => source.Ignore())
                 .ForMember(destination => destination.IsActive, source => source.Ignore());
 
-            CreateMap<Warehouse, WarehouseUpdateDto>();
+            CreateMap<Asset, AssetUpdateDto>();
 
         }
 
