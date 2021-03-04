@@ -22,14 +22,14 @@ namespace Anthurium.Shared.Models
         public string ItemCode { get; set; }
 
         [Required]
-        public DateTime ItemName { get; set; }
+        [MaxLength(150)]
+        public string ItemName { get; set; }
 
         [Required]
-        public decimal Margin { get; set; }
+        public double Margin { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public decimal Price { get; set; }
+        public double Price { get; set; }
 
 
         public Vendor VendorId { get; set; }

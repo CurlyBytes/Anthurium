@@ -11,11 +11,19 @@ namespace Anthurium.Shared.Models
         [Required]
         public int Quantity { get; set; }
 
+        public Item Item { get; set; }
 
         [Required]
-        [MaxLength(400)]
-        public string Description { get; set; }
+        public int ItemId { get; set; }
 
+        [Required]
+        [MaxLength(150)]
+        public string ItemName { get; set; }
+        [Required]
+        public double Margin { get; set; }
+
+        [Required]
+        public double Price { get; set; }
         [Required]
         public double Cost { get; set; }
 
@@ -35,6 +43,9 @@ namespace Anthurium.Shared.Models
         public int JobQuotationId { get; set; }
 
         public JobQuotation JobQuotation { get; set; }
+
+        [Required]
+        public bool IsAlreadyPurchaseOrder   { get; set; }
 
     }
 }

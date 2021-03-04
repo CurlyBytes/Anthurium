@@ -53,7 +53,8 @@ margin
 price 
 vendorid
 islocalmaterial
-
+remainingquantity
+warrantyenddate
 
 vendorid 
 vendor name 
@@ -67,16 +68,18 @@ email
 contact number 
 
 
-jobquotation 
+quotation 
+quotationid
 clientid 
 hascustomeragreed
 
-jobquotationdetails 
-jobquotationdetailsid 
+quotationdetails 
+quotationdetailsid 
 itemid 
 price 
 margin 
-jobquotationid
+quantity
+quotationid
 isalreadypurchaseordered
 
 
@@ -88,9 +91,16 @@ itemid
 serialnumber
 daterecieved
 isitemalreadyreceivebyclient
-deliveryreceiptid
+
 
 deliveryreciept 
-receiptid
+clientid
+deliveryreceiptid
+quotationid
 remarks  
 datecieve
+
+deliveryrecieptdetails 
+deliveryreceiptid
+itemid
+quantity
