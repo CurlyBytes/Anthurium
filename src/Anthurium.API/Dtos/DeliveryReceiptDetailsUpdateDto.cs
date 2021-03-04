@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Anthurium.API.Dtos
 {
-    public class DeliveryReceiptDetailsReadDto
+    public class DeliveryReceiptDetailsUpdateDto
     {
         [Key]
         public int DeliveryReceiptDetailsId { get; set; }
@@ -11,23 +11,22 @@ namespace Anthurium.API.Dtos
 
         public int DeliveryReceiptId { get; set; }
 
-        public DeliveryReceiptReadDto DeliveryReceipt { get; set; }
+        public DeliveryReceiptUpdateDto DeliveryReceipt { get; set; }
 
         [Required]
         public int Quantity { get; set; }
 
-        public ItemReadDto Item { get; set; }
+        public ItemUpdateDto Item { get; set; }
 
         [Required]
         public int ItemId { get; set; }
 
 
-        [Required]
-        public DateTime DateCreated { get; set; }
-        [Required]
-        public DateTime DateUpdated { get; set; } 
 
         [Required]
-        public bool IsActive { get; set; }
+        public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
+
+        [Required]
+        public bool IsActive { get; set; } = true;
     }
 }

@@ -37,6 +37,43 @@ namespace Anthurium.API.Data
 
             };
 
+            var deliveryReceiptDetails = new DeliveryReceiptDetails[]
+            {
+                new DeliveryReceiptDetails {
+                    DeliveryReceiptId = 1,
+                    ItemId = 1,
+                    Quantity = 2,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new DeliveryReceiptDetails {
+                    DeliveryReceiptId = 1,
+                    ItemId = 2,
+                    Quantity = 2,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                      new DeliveryReceiptDetails {
+                    DeliveryReceiptId = 2,
+                    ItemId = 1,
+                    Quantity = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new DeliveryReceiptDetails {
+                    DeliveryReceiptId = 2,
+                    ItemId = 2,
+                    Quantity = 1,
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                }
+
+            };
+
             var deliveryReceipts = new DeliveryReceipt[]
             {
                 new DeliveryReceipt {
@@ -690,6 +727,7 @@ namespace Anthurium.API.Data
             context.Items.AddRange(items);
             context.Assets.AddRange(assets);
             context.DeliveryReceipts.AddRange(deliveryReceipts);
+            context.DeliveryReceiptDetailss.AddRange(deliveryReceiptDetails);
             context.ClientInformations.AddRange(clientInformations);
             context.JobOrders.AddRange(jobOrders);
             context.JobQuotations.AddRange(jobQuotation);
