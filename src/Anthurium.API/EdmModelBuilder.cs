@@ -115,6 +115,18 @@ namespace Anthurium.API
             var fnCreateVendor = builder.Function("CreateVendor");
             fnCreateVendor.ReturnsCollectionFromEntitySet<VendorReadDto>("Vendor");
 
+            //==============
+            builder.EntitySet<ItemReadDto>("Item").EntityType.HasKey(x => x.ItemId);
+
+            var fnGetAllItem = builder.Function("GetAll");
+            fnGetAllItem.ReturnsCollectionFromEntitySet<ItemReadDto>("Item");
+
+            var fnGeByIdItem = builder.Function("GetById");
+            fnGeByIdItem.Parameter<int>("id");
+            fnGeByIdItem.ReturnsCollectionFromEntitySet<ItemReadDto>("Item");
+
+            var fnCreateItem = builder.Function("CreateItem");
+            fnCreateItem.ReturnsCollectionFromEntitySet<ItemReadDto>("Item");
             return builder.GetEdmModel();
         }
     }

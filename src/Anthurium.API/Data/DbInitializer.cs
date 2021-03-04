@@ -38,7 +38,7 @@ namespace Anthurium.API.Data
             };
 
             var vendors = new Vendor[]
-  {
+            {
                 new Vendor {
                     VendorName = "Microsoft",
                     VendorCode = "MS",
@@ -54,7 +54,132 @@ namespace Anthurium.API.Data
                     DateUpdated = DateTime.UtcNow
                 }
 
-  };
+            };
+
+            var items = new Item[]
+            {
+                new Item {
+                    ItemType = "Mouse",
+                    ItemGroup = "Computer Set",
+                    ItemCode = "m-cs-1",
+                    ItemName = "Razer x123",
+                    Margin = 20,
+                    Price = 100,
+                    VendorId = 1,
+                    WarehouseId = 1,
+                    IsLocalMaterial = false,
+                    WarrantyDate = DateTime.UtcNow.AddYears(2),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new Item {
+                    ItemType = "Mouse",
+                    ItemGroup = "Computer Set",
+                    ItemCode = "m-cs-1",
+                    ItemName = "Jedel z31",
+                    Margin = 30,
+                    Price = 200,
+                    VendorId = 2,
+                    WarehouseId = 1,
+                    IsLocalMaterial = true,
+                    WarrantyDate = DateTime.UtcNow.AddYears(2),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                            new Item {
+                    ItemType = "Mouse",
+                    ItemGroup = "Computer Set",
+                    ItemCode = "m-cs-1",
+                    ItemName = "Razer x33",
+                    Margin = 20,
+                    Price = 100,
+                    VendorId = 1,
+                    WarehouseId = 1,
+                    IsLocalMaterial = false,
+                    WarrantyDate = DateTime.UtcNow.AddYears(2),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new Item {
+                    ItemType = "Mouse",
+                    ItemGroup = "Computer Set",
+                    ItemCode = "m-cs-1",
+                    ItemName = "Jedel z524",
+                    Margin = 30,
+                    Price = 200,
+                    VendorId = 2,
+                    WarehouseId = 1,
+                    IsLocalMaterial = true,
+                    WarrantyDate = DateTime.UtcNow.AddYears(2),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                     new Item {
+                    ItemType = "Mouse",
+                    ItemGroup = "Computer Set",
+                    ItemCode = "m-cs-1",
+                    ItemName = "Razer x123",
+                    Margin = 20,
+                    Price = 100,
+                    VendorId = 1,
+                    WarehouseId = 2,
+                    IsLocalMaterial = false,
+                    WarrantyDate = DateTime.UtcNow.AddYears(2),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new Item {
+                    ItemType = "Mouse",
+                    ItemGroup = "Computer Set",
+                    ItemCode = "m-cs-1",
+                    ItemName = "Jedel z31",
+                    Margin = 30,
+                    Price = 200,
+                    VendorId = 2,
+                    WarehouseId = 2,
+                    IsLocalMaterial = true,
+                    WarrantyDate = DateTime.UtcNow.AddYears(2),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                            new Item {
+                    ItemType = "Mouse",
+                    ItemGroup = "Computer Set",
+                    ItemCode = "m-cs-1",
+                    ItemName = "Razer x33",
+                    Margin = 20,
+                    Price = 100,
+                    VendorId = 1,
+                    WarehouseId = 2,
+                    IsLocalMaterial = false,
+                    WarrantyDate = DateTime.UtcNow.AddYears(2),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new Item {
+                    ItemType = "Mouse",
+                    ItemGroup = "Computer Set",
+                    ItemCode = "m-cs-1",
+                    ItemName = "Jedel z524",
+                    Margin = 30,
+                    Price = 200,
+                    VendorId = 2,
+                    WarehouseId = 2,
+                    IsLocalMaterial = true,
+                    WarrantyDate = DateTime.UtcNow.AddYears(2),
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                }
+
+            };
 
             var clientInformations = new ClientInformation[]
             {
@@ -295,6 +420,7 @@ namespace Anthurium.API.Data
             };
             context.Warehouses.AddRange(warehouses);
             context.Vendors.AddRange(vendors);
+            context.Items.AddRange(items);
             context.ClientInformations.AddRange(clientInformations);
             context.JobOrders.AddRange(jobOrders);
             context.JobQuotations.AddRange(jobQuotation);
