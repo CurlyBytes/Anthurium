@@ -35,6 +35,10 @@ namespace Anthurium.Shared.Models
         [Required]
         public double OverallCost { get; set; }
 
+
+        [Required]
+        public bool IsActive { get; set; }
+
         [Required]
         public DateTime DateCreated { get; set; }
 
@@ -42,7 +46,7 @@ namespace Anthurium.Shared.Models
         public DateTime DateUpdated { get; set; }
 
         [Required]
-        public bool IsActive { get; set; }
+        public bool HasCustomerAlreadyAgreed { get; set; }
 
         [Required]
         public int ClientInformationId { get; set; }

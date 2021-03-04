@@ -35,6 +35,9 @@ namespace Anthurium.API.Dtos
         [Required]
         public double OverallCost { get; set; }
 
+        [Required]
+        public bool HasCustomerAlreadyAgreed { get; set; }
+
 
         [Required]
         public int ClientInformationId { get; set; }

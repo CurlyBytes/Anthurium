@@ -36,6 +36,9 @@ namespace Anthurium.API.Dtos
         public double OverallCost { get; set; }
 
         [Required]
+        public bool HasCustomerAlreadyAgreed { get; set; }
+
+        [Required]
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;
 
         [Required]
@@ -43,6 +46,8 @@ namespace Anthurium.API.Dtos
 
         [Required]
         public bool IsActive { get; set; } = true;
+
+
 
         [Required]
         public int ClientInformationId { get; set; }

@@ -32,7 +32,8 @@ namespace Anthurium.API.Dtos
         [Required]
         public double OverallCost { get; set; }
 
-
+        [Required]
+        public bool HasCustomerAlreadyAgreed { get; set; }
         public ICollection<JobQuotationDetailsUpdateDto> JobQuotationDetails { get; set; }
 
         [Required]
