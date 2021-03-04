@@ -27,6 +27,11 @@ namespace Anthurium.Shared.Models
         [MaxLength(20)]
 
         public string ContactNumber { get; set; }
+
+        [Required]
+        [MaxLength(200)]
+        [EmailAddress]
+        public string ContactEmailAddress { get; set; }
         [Required]
         public DateTime DateCreated { get; set; }
 

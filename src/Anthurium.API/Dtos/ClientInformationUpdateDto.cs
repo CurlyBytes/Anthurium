@@ -23,6 +23,11 @@ namespace Anthurium.API.Dtos
         [MaxLength(20)]
 
         public string ContactNumber { get; set; }
+
+        [Required]
+        [MaxLength(200)]
+        [EmailAddress]
+        public string ContactEmailAddress { get; set; }
         public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
 
         public DateTime DateCreated { get; set; }
