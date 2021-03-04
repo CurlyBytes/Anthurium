@@ -2,7 +2,7 @@
 
 namespace SharedKernel.Models
 {
-    public interface IAggregateRoot
+    public interface IHaveAggregateRoot
     {
 
     }

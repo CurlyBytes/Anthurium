@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SharedKernel.Events
 {
-    public interface IHasDomainEvent
+    public interface IHaveDomainEvent
     {
         public List<DomainEvent> DomainEvents { get; set; }
     }

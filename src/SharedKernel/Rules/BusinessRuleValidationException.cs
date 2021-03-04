@@ -6,11 +6,11 @@ namespace SharedKernel.Rules
 {
     public class BusinessRuleValidationException : Exception
     {
-        public IBusinessRule BrokenRule { get; }
+        public IHaveBusinessRule BrokenRule { get; }
 
         public string Details { get; }
 
-        public BusinessRuleValidationException(IBusinessRule brokenRule) : base(brokenRule.Message)
+        public BusinessRuleValidationException(IHaveBusinessRule brokenRule) : base(brokenRule.Message)
         {
             BrokenRule = brokenRule;
             this.Details = brokenRule.Message;

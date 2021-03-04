@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SharedKernel.Rules
 {
-    public interface IBusinessRule
+    public interface IHaveBusinessRule
     {
         bool IsBroken();
 
