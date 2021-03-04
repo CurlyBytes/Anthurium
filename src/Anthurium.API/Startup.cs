@@ -67,7 +67,7 @@ namespace Anthurium.API
             services.AddScoped<IJobOrderRepository, SqlServerJobOrderRepository>();
             services.AddScoped<ISqlServerJobOrderQuotationDetails, SqlServerJobOrderQuotationDetails>();
             services.AddScoped<ISqlServerJobQuotationRepository, SqlServerJobQuotationRepository>();
-
+            services.AddScoped<ISqlServerWarehouseRepository, SqlServerWarehouseRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
          
         }

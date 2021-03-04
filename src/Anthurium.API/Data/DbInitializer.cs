@@ -18,6 +18,26 @@ namespace Anthurium.API.Data
                 return;   // DB has been seeded
             }
 
+            var warehouses = new Warehouse[]
+            {
+                new Warehouse {
+                    WarehouseName = "The warehouse 1",
+                    WarehouseCode = "t-w-1",
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                },
+                new Warehouse {
+                    WarehouseName = "The warehouse 2",
+                    WarehouseCode = "t-w-2",
+                    IsActive = true,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                }
+
+            };
+
+
             var clientInformations = new ClientInformation[]
             {
                 new ClientInformation { 
@@ -187,7 +207,7 @@ namespace Anthurium.API.Data
                  new JobQuotationDetails{ 
                     Quantity = 2,
                     Cost = 12.5,
-                    Description = "cable",
+                    ItemName = "cable",
                     TotalCost = 25,
                     JobQuotationId = 1,
                     IsActive = true,
@@ -197,7 +217,7 @@ namespace Anthurium.API.Data
                  new JobQuotationDetails{
                     Quantity = 1,
                     Cost = 75,
-                    Description = "wire",
+                    ItemName = "wire",
                     TotalCost = 75,
                     JobQuotationId = 1,
                     IsActive = true,
@@ -207,7 +227,7 @@ namespace Anthurium.API.Data
                   new JobQuotationDetails{
                     Quantity = 3,
                     Cost = 50,
-                    Description = "mouse",
+                    ItemName = "mouse",
                     TotalCost = 150,
                     JobQuotationId = 2,
                     IsActive = true,
@@ -217,7 +237,7 @@ namespace Anthurium.API.Data
                  new JobQuotationDetails{
                     Quantity = 2,
                     Cost = 12.5,
-                    Description = "cable",
+                    ItemName = "cable",
                     TotalCost = 25,
                     JobQuotationId = 2,
                     IsActive = true,
@@ -227,7 +247,7 @@ namespace Anthurium.API.Data
                  new JobQuotationDetails{
                     Quantity = 2,
                     Cost = 12.5,
-                    Description = "cable",
+                    ItemName = "cable",
                     TotalCost = 25,
                     JobQuotationId = 3,
                     IsActive = true,
@@ -237,7 +257,7 @@ namespace Anthurium.API.Data
                  new JobQuotationDetails{
                     Quantity = 3,
                     Cost = 50,
-                    Description = "mouse",
+                    ItemName = "mouse",
                     TotalCost = 150,
                     JobQuotationId = 3,
                     IsActive = true,
@@ -247,7 +267,7 @@ namespace Anthurium.API.Data
                  new JobQuotationDetails{
                     Quantity = 1,
                     Cost = 100,
-                    Description = "monitor",
+                    ItemName = "monitor",
                     TotalCost = 100,
                     JobQuotationId = 3,
                     IsActive = true,
@@ -255,7 +275,7 @@ namespace Anthurium.API.Data
                     DateUpdated = DateTime.UtcNow
                  },
             };
-
+            context.Warehouses.AddRange(warehouses);
             context.ClientInformations.AddRange(clientInformations);
             context.JobOrders.AddRange(jobOrders);
             context.JobQuotations.AddRange(jobQuotation);

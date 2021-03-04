@@ -13,7 +13,7 @@ namespace Anthurium.API.Data
         public AnthuriumContext(DbContextOptions<AnthuriumContext> options) : base(options)
         {
         }
-
+        public DbSet<Warehouse> Warehouses { get; set; }
         public DbSet<JobQuotation> JobQuotations { get; set; }
         public DbSet<JobQuotationDetails> JobQuotationDetailss { get; set; }
 

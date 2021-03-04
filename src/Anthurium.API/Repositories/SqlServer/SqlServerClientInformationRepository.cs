@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace Anthurium.Web.Repositories.SqlServer
+namespace Anthurium.Web.Repositories
 {
     public class SqlServerClientInformationRepository : IClientInformation
     {

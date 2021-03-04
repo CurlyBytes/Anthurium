@@ -89,6 +89,19 @@ namespace Anthurium.API
                .ReturnsCollectionFromEntitySet<JobQuotationReadDto>("JobQuotation");
             fnJobOrderQuotationByClient.Parameter<int>("ClientInformationId").Required();
 
+            //==============
+            builder.EntitySet<WarehouseReadDto>("Warehouse").EntityType.HasKey(x => x.WarehouseId);
+
+            var fnGetAllWarehouse = builder.Function("GetAll");
+            fnGetAllWarehouse.ReturnsCollectionFromEntitySet<WarehouseReadDto>("Warehouse");
+
+            var fnGeByIdWarehouse = builder.Function("GetById");
+            fnGeByIdWarehouse.Parameter<int>("id");
+            fnGeByIdWarehouse.ReturnsCollectionFromEntitySet<WarehouseReadDto>("Warehouse");
+
+            var fnCreateWarehouse = builder.Function("CreateWarehouse");
+            fnCreateWarehouse.ReturnsCollectionFromEntitySet<WarehouseReadDto>("Warehouse");
+
 
             return builder.GetEdmModel();
         }
