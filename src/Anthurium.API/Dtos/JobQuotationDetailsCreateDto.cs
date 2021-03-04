@@ -9,16 +9,24 @@ namespace Anthurium.API.Dtos
     public class JobQuotationDetailsCreateDto
     {
 
- 
+     
 
         [Required]
         public int Quantity { get; set; }
 
+        public ItemCreateDto Item { get; set; }
 
         [Required]
-        [MaxLength(400)]
-        public string Description { get; set; }
+        public int ItemId { get; set; }
 
+        [Required]
+        [MaxLength(150)]
+        public string ItemName { get; set; }
+        [Required]
+        public double Margin { get; set; }
+
+        [Required]
+        public double Price { get; set; }
         [Required]
         public double Cost { get; set; }
 
@@ -30,12 +38,15 @@ namespace Anthurium.API.Dtos
 
         [Required]
         public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
+        [Required]
+        public bool IsActive { get; set; } = true;
 
         [Required]
         public int JobQuotationId { get; set; }
 
         public JobQuotationCreateDto JobQuotation { get; set; }
+
         [Required]
-        public bool IsActive { get; set; } = true;
+        public bool IsAlreadyPurchaseOrder { get; set; }
     }
 }
