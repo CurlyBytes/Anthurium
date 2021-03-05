@@ -130,6 +130,7 @@ namespace Anthurium.API.Data
                 new Asset {
                     ClientInformationId = 1,
                     ItemId = 1,
+                    VendorId = 1,
                     SerialNumber = "333-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -139,6 +140,7 @@ namespace Anthurium.API.Data
                 new Asset {
                     ClientInformationId = 1,
                     ItemId = 1,
+                    VendorId = 2,
                     SerialNumber = "111-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -157,6 +159,7 @@ namespace Anthurium.API.Data
                 new Asset {
                     ClientInformationId = 1,
                     ItemId = 1,
+                    VendorId = 1,
                     SerialNumber = "555-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -165,6 +168,7 @@ namespace Anthurium.API.Data
                 },  new Asset {
                     ClientInformationId = 1,
                     ItemId = 1,
+                    VendorId = 2,
                     SerialNumber = "666-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -174,6 +178,7 @@ namespace Anthurium.API.Data
                 new Asset {
                     ClientInformationId = 1,
                     ItemId = 1,
+                    VendorId = 1,
                     SerialNumber = "777-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -183,6 +188,7 @@ namespace Anthurium.API.Data
                new Asset {
                     ClientInformationId = 1,
                     ItemId = 1,
+                    VendorId = 2,
                     SerialNumber = "888-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -192,6 +198,7 @@ namespace Anthurium.API.Data
                 new Asset {
                     ClientInformationId = 1,
                     ItemId = 1,
+                    VendorId = 1,
                     SerialNumber = "999-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -201,6 +208,7 @@ namespace Anthurium.API.Data
                        new Asset {
                     ClientInformationId = 1,
                     ItemId = 2,
+                    VendorId = 2,
                     SerialNumber = "1212-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -210,6 +218,7 @@ namespace Anthurium.API.Data
                 new Asset {
                     ClientInformationId = 1,
                     ItemId = 2,
+                    VendorId = 1,
                     SerialNumber = "1111-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -219,6 +228,7 @@ namespace Anthurium.API.Data
                new Asset {
                     ClientInformationId = 1,
                     ItemId = 2,
+                    VendorId = 2,
                     SerialNumber = "1313-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -228,6 +238,7 @@ namespace Anthurium.API.Data
                 new Asset {
                     ClientInformationId = 1,
                     ItemId = 2,
+                    VendorId = 1,
                     SerialNumber = "1414-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -237,6 +248,7 @@ namespace Anthurium.API.Data
                      new Asset {
                     ClientInformationId = 2,
                     ItemId = 1,
+                    VendorId = 2,
                     SerialNumber = "1515-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -246,6 +258,7 @@ namespace Anthurium.API.Data
                 new Asset {
                     ClientInformationId = 2,
                     ItemId = 1,
+                    VendorId = 1,
                     SerialNumber = "1616-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -255,6 +268,7 @@ namespace Anthurium.API.Data
                new Asset {
                     ClientInformationId = 2,
                     ItemId = 1,
+                    VendorId = 2,
                     SerialNumber = "1717-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -264,6 +278,7 @@ namespace Anthurium.API.Data
                 new Asset {
                     ClientInformationId = 2,
                     ItemId = 1,
+                    VendorId = 1,
                     SerialNumber = "1818-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -281,6 +296,7 @@ namespace Anthurium.API.Data
                 new Asset {
                     ClientInformationId = 2,
                     ItemId = 1,
+                    VendorId = 2,
                     SerialNumber = "2020-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -290,6 +306,7 @@ namespace Anthurium.API.Data
                new Asset {
                     ClientInformationId = 2,
                     ItemId = 1,
+                    VendorId = 2,
                     SerialNumber = "2121-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -299,6 +316,7 @@ namespace Anthurium.API.Data
                 new Asset {
                     ClientInformationId = 2,
                     ItemId = 1,
+                    VendorId = 1,
                     SerialNumber = "2222-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -308,6 +326,7 @@ namespace Anthurium.API.Data
                        new Asset {
                     ClientInformationId = 2,
                     ItemId = 2,
+                    VendorId = 2,
                     SerialNumber = "2323-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -317,6 +336,7 @@ namespace Anthurium.API.Data
                 new Asset {
                     ClientInformationId = 2,
                     ItemId = 2,
+                    VendorId = 1,
                     SerialNumber = "2424-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -326,6 +346,7 @@ namespace Anthurium.API.Data
                new Asset {
                     ClientInformationId = 2,
                     ItemId = 2,
+                    VendorId = 2,
                     SerialNumber = "2525-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -335,6 +356,7 @@ namespace Anthurium.API.Data
                 new Asset {
                     ClientInformationId = 2,
                     ItemId = 2,
+                    VendorId = 1,
                     SerialNumber = "2626-222-3333-xxx-11",
                     DateRecieve = DateTime.UtcNow.AddDays(-20),
                     IsActive = true,
@@ -352,9 +374,6 @@ namespace Anthurium.API.Data
                     ItemGroup = "Computer Set",
                     ItemCode = "m-cs-1",
                     ItemName = "Razer x123",
-                    Margin = 20,
-                    Price = 100,
-                    VendorId = 1,
                     WarehouseId = 1,
                     IsLocalMaterial = false,
                     WarrantyDate = DateTime.UtcNow.AddYears(2),
@@ -367,9 +386,6 @@ namespace Anthurium.API.Data
                     ItemGroup = "Computer Set",
                     ItemCode = "m-cs-1",
                     ItemName = "Jedel z31",
-                    Margin = 30,
-                    Price = 200,
-                    VendorId = 2,
                     WarehouseId = 1,
                     IsLocalMaterial = true,
                     WarrantyDate = DateTime.UtcNow.AddYears(2),
@@ -382,9 +398,7 @@ namespace Anthurium.API.Data
                     ItemGroup = "Computer Set",
                     ItemCode = "m-cs-1",
                     ItemName = "Razer x33",
-                    Margin = 20,
-                    Price = 100,
-                    VendorId = 1,
+  
                     WarehouseId = 1,
                     IsLocalMaterial = false,
                     WarrantyDate = DateTime.UtcNow.AddYears(2),
@@ -397,9 +411,6 @@ namespace Anthurium.API.Data
                     ItemGroup = "Computer Set",
                     ItemCode = "m-cs-1",
                     ItemName = "Jedel z524",
-                    Margin = 30,
-                    Price = 200,
-                    VendorId = 2,
                     WarehouseId = 1,
                     IsLocalMaterial = true,
                     WarrantyDate = DateTime.UtcNow.AddYears(2),
@@ -412,9 +423,7 @@ namespace Anthurium.API.Data
                     ItemGroup = "Computer Set",
                     ItemCode = "m-cs-1",
                     ItemName = "Razer x123",
-                    Margin = 20,
-                    Price = 100,
-                    VendorId = 1,
+
                     WarehouseId = 2,
                     IsLocalMaterial = false,
                     WarrantyDate = DateTime.UtcNow.AddYears(2),
@@ -427,9 +436,6 @@ namespace Anthurium.API.Data
                     ItemGroup = "Computer Set",
                     ItemCode = "m-cs-1",
                     ItemName = "Jedel z31",
-                    Margin = 30,
-                    Price = 200,
-                    VendorId = 2,
                     WarehouseId = 2,
                     IsLocalMaterial = true,
                     WarrantyDate = DateTime.UtcNow.AddYears(2),
@@ -442,9 +448,7 @@ namespace Anthurium.API.Data
                     ItemGroup = "Computer Set",
                     ItemCode = "m-cs-1",
                     ItemName = "Razer x33",
-                    Margin = 20,
-                    Price = 100,
-                    VendorId = 1,
+ 
                     WarehouseId = 2,
                     IsLocalMaterial = false,
                     WarrantyDate = DateTime.UtcNow.AddYears(2),
@@ -457,9 +461,7 @@ namespace Anthurium.API.Data
                     ItemGroup = "Computer Set",
                     ItemCode = "m-cs-1",
                     ItemName = "Jedel z524",
-                    Margin = 30,
-                    Price = 200,
-                    VendorId = 2,
+
                     WarehouseId = 2,
                     IsLocalMaterial = true,
                     WarrantyDate = DateTime.UtcNow.AddYears(2),
