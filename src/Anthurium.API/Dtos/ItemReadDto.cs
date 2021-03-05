@@ -24,16 +24,7 @@ namespace Anthurium.API.Dtos
         [MaxLength(150)]
         public string ItemName { get; set; }
 
-        [Required]
-        public double Margin { get; set; }
 
-        [Required]
-        public double Price { get; set; }
-
-        [Required]
-        public int VendorId { get; set; }
-
-        public VendorReadDto Vendor { get; set; }
 
         [Required]
         public int WarehouseId { get; set; }

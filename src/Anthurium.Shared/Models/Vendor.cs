@@ -18,7 +18,7 @@ namespace Anthurium.Shared.Models
         [MaxLength(50)]
         public string VendorCode { get; set; }
 
-        public ICollection<Item> Item { get; set; }
+
 
         [Required]
         public DateTime DateCreated { get; set; }

@@ -20,7 +20,6 @@ namespace Anthurium.API.Dtos
         public string VendorCode { get; set; }
 
 
-        public ICollection<ItemUpdateDto> Item { get; set; }
         public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
 
         public bool IsActive { get; set; } = true;

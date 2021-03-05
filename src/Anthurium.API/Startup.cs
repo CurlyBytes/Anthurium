@@ -26,6 +26,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OData.Edm;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Pomelo.EntityFrameworkCore.MySql.Storage;
+using Microsoft.OpenApi.Models;
+using Microsoft.AspNet.OData.Formatter;
+using Microsoft.Net.Http.Headers;
+using OData.Swagger.Services;
 
 namespace Anthurium.API
 {
@@ -41,8 +45,12 @@ namespace Anthurium.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers().AddNewtonsoftJson();
             services.AddOData();
-
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            });
             //services.AddAuthentication("Bearer")
             //    .AddIdentityServerAuthentication("Bearer", options =>
             //    {
@@ -79,7 +87,9 @@ namespace Anthurium.API
 
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-         
+            //services.AddOdataSwaggerSupport();
+            SetOutputFormatters(services);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,7 +99,12 @@ namespace Anthurium.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSwagger();
 
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Foo API V1");
+            });
             //app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -101,12 +116,27 @@ namespace Anthurium.API
             IEdmModel model = EdmModelBuilder.Build();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.EnableDependencyInjection();
                 endpoints.Select().Filter().OrderBy().Expand().Count().MaxTop(50);
                 endpoints.MapODataRoute("api", "api", model);
+                
             });            
         }
 
-     
+        private static void SetOutputFormatters(IServiceCollection services)
+        {
+            services.AddMvcCore(options =>
+            {
+                IEnumerable<ODataOutputFormatter> outputFormatters =
+                    options.OutputFormatters.OfType<ODataOutputFormatter>()
+                        .Where(foramtter => foramtter.SupportedMediaTypes.Count == 0);
+
+                foreach (var outputFormatter in outputFormatters)
+                {
+                    outputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/odata"));
+                }
+            });
+        }
     }
 }

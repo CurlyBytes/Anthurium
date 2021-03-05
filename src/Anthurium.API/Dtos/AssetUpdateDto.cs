@@ -14,9 +14,12 @@ namespace Anthurium.API.Dtos
         [Required]
         public int ClientInformationId { get; set; }
 
-        [Required]
-        public ClientInformationUpdateDto ClientInformation { get; set; }
 
+        public ClientInformationUpdateDto ClientInformation { get; set; }
+        [Required]
+        public int VendorId { get; set; }
+
+        public VendorUpdateDto Vendor { get; set; }
         [Required]
         public int ItemId { get; set; }
 

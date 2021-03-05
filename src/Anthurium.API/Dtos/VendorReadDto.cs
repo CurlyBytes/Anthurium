@@ -25,6 +25,5 @@ namespace Anthurium.API.Dtos
 
         public bool IsActive { get; set; } = true;
 
-        public ICollection<ItemReadDto> Item { get; set; }
     }
 }

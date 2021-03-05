@@ -13,8 +13,12 @@ namespace Anthurium.Shared.Models
         [Required]
         public int ClientInformationId { get; set; }
 
-        [Required]
+
         public ClientInformation ClientInformation { get; set; }
+        [Required]
+        public int VendorId { get; set; }
+
+        public Vendor Vendor { get; set; }
 
         [Required]
         public int ItemId { get; set; }

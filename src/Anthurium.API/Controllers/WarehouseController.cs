@@ -14,7 +14,7 @@ namespace Anthurium.API.Controllers
 {
     [ODataRoutePrefix("warehouse")]
     [Route("api/warehouse")]
-    [ApiController]
+
     public class WarehouseController : ODataController
     {
         private readonly ISqlServerWarehouseRepository _repository;

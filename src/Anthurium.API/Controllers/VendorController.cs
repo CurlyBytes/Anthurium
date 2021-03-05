@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Anthurium.API.Controllers
 {
+ 
     [ODataRoutePrefix("vendor")]
     [Route("api/vendor")]
     [ApiController]
