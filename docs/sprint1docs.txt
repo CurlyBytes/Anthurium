@@ -49,9 +49,6 @@ itemtype
 itemgroup
 item name 
 item code 
-margin 
-price 
-vendorid
 islocalmaterial
 remainingquantity
 warrantyenddate
@@ -91,7 +88,7 @@ itemid
 serialnumber
 daterecieved
 isitemalreadyreceivebyclient
-
+vendorId
 
 deliveryreciept 
 clientid
