@@ -2,6 +2,7 @@
 @inject Services.JobQuotationService jobQuotationService
 @inject Services.JobQuotationDetailsDetails jobQuotationDetailsService
 @inject Services.ClientInformationService clientInformationService
+@inject Services.ItemService itemService
 @using AutoMapper;
 @inject IMapper _mapper;
 @using System.Text.Json;
@@ -9,7 +10,7 @@
 @inject IToastService toastService
 @inject NavigationManager NavManager
 
-<h3>Edit Job Quotation</h3>
+<h3>Edit  Quotation</h3>
 @if (jobQuotationReadDto == null)
 {
     <p><em>Loading...</em></p>
@@ -37,31 +38,34 @@ else
             </div>
             <div class="form-group row">
                 <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
-                <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled="disabled"
-                       @bind="jobQuotationUpdateDto.CompanyName" />
+                <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled
+                       @bind="jobQuotationUpdateDto.CompanyName" placeholder="CompanyName" />
             </div>
             <div class="form-group row">
                 <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
-                <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled="disabled"
-                       @bind="jobQuotationUpdateDto.CompanyAddress" />
+                <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled
+                       @bind="jobQuotationUpdateDto.CompanyAddress" placeholder="Company Address" />
             </div>
-
 
             <div class="form-group row">
                 <label for="jobQuotationContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
-                <input id="jobQuotationContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                <input id="jobQuotationContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled
                        @bind="jobQuotationUpdateDto.ContactPerson" placeholder="Contact Person" />
             </div>
             <div class="form-group row">
                 <label for="jobQuotationContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
-                <input id="jobQuotationContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                <input id="jobQuotationContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled
                        @bind="jobQuotationUpdateDto.ContactNumber" placeholder="Contact Number" />
             </div>
-
             <div class="form-group row">
-                <label for="jobQuotationTimeStarted" class="col-sm-6 col-form-label">Description:</label>
-                <input id="jobQuotationTimeStarted" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                       @bind="jobQuotationUpdateDto.Description" />
+                <label for="jobQuotationContactNumber" class="col-sm-6 col-form-label">Email Address:</label>
+                <input id="jobQuotationContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled
+                       @bind="jobQuotationUpdateDto.ContactEmailAddress" placeholder="Email Address" />
+            </div>
+            <div class="form-group row">
+                <label for="companyAddress" class="col-sm-6 col-form-label">Description</label>
+                <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text"
+                       @bind="jobQuotationUpdateDto.Description" placeholder="Description" />
             </div>
             <div class="row m-2">
                 <button class="btn btn-primary" type="button" @onclick="AddField" disabled="@isSuccess"> Add JobQuotation Details</button>
@@ -69,26 +73,48 @@ else
             </div>
             @foreach (var item in jobQuotationDetailsUpdateDtoList.Select((value, i) => (value, i)))
             {
+                <div class="form-group row">
+                    <label for="ItemId" class="col-sm-6 col-form-label">Item:</label>
+                    <select id="ItemId" class="form-control selectpicker" value="@item.value.ItemId" @onchange="() => ChangeItem(item.value.ItemName, item.i)" >
+                        <option>--select--</option>
+                        @foreach (var itemsingle in itemReadDto)
+                        {
+                           // item.value.ItemName = itemsingle.ItemName;
+                            <option value="@itemsingle.ItemId">@itemsingle.ItemName</option>
+                        }
+                    </select>
+                </div>
                 <div class="form-row">
-                    <div class="col-sm-4 ">
-                        <label for="@item.value.ItemName" class="col-sm-6 col-form-label">Description:</label>
-                        <input id="@item.value.ItemName" type="text" class="form-control" placeholder="Description" @bind="@item.value.ItemName">
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="@item.value.MarginPrice" class="col-sm-2 col-form-label">Cost:</label>
-                        <input id="@item.value.MarginPrice" type="text" class="form-control" placeholder="Cost"  @bind="@item.value.MarginPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="@item.value.Quantity" class="col-sm-2 col-form-label">Quantity:</label>
-                        <input id="@item.value.Quantity" type="number" class="form-control" placeholder="Quantity" @bind="@item.value.Quantity" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
-                    </div>
-                    <div class="col-sm-2">
+                    <div class="row form-group">
+                        <div class="col-sm-4 ">
+                            <label for="@item.value.ItemName" class="col-sm-6 col-form-label">Item Name:</label>
+                            <input id="@item.value.ItemName" type="text" class="form-control" placeholder="Item Name" @bind="@item.value.ItemName" disabled>
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="@item.value.MarginPrice" class="col-sm-2 col-form-label">Margin Price:</label>
+                            <input id="@item.value.MarginPrice" type="text" class="form-control" placeholder="Margin Price" @bind="@item.value.MarginPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="@item.value.OriginalPrice" class="col-sm-2 col-form-label">Original Price:</label>
+                            <input id="@item.value.OriginalPrice" type="text" class="form-control" placeholder="Original Price" @bind="@item.value.OriginalPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="@item.value.SellingPrice" class="col-sm-2 col-form-label">Selling Price:</label>
+                            <input id="@item.value.SellingPrice" type="text" class="form-control" placeholder="Selling Price" @bind="@item.value.SellingPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="@item.value.Quantity" class="col-sm-2 col-form-label">Quantity:</label>
+                            <input id="@item.value.Quantity" type="number" class="form-control" placeholder="Quantity" @bind="@item.value.Quantity" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
+                        </div>
+                        <div class="col-sm-2">
 
-                        <label for="@item.value.TotalCost" class="col-sm-2 col-form-label">TotalCost:</label>
-                        <input id="@item.value.TotalCost" type="text" class="form-control" placeholder="TotalCost" @bind="@item.value.TotalCost" readonly disabled>
-                    </div>
-                    <div class="col-sm-2">
-                        <button class="btn btn-danger" type="button" @onclick="() => RemoveField(item.value)">X</button>
+                            <label for="@item.value.TotalCost" class="col-sm-2 col-form-label">TotalCost:</label>
+                            <input id="@item.value.TotalCost" type="text" class="form-control" placeholder="TotalCost" @bind="@item.value.TotalCost" readonly disabled>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-danger" type="button" @onclick="() => RemoveField(item.value)">X</button>
+                        </div>
+
                     </div>
 
                 </div>
@@ -115,6 +141,8 @@ else
 
     private bool isSuccess = false;
     private string message = "";
+    private int matchingCount;
+    private int matchingCountItem;
 
     private List<ClientInformationReadDto> clientInformationReadDto = new List<ClientInformationReadDto>();
     private List<JobQuotationDetailsUpdateDto> jobQuotationDetailsUpdateDtoList = new List<JobQuotationDetailsUpdateDto>();
@@ -126,18 +154,33 @@ else
     private JobQuotationReadDto jobQuotationReadDto { get; set; } = new JobQuotationReadDto();
     private JobQuotationChangeCreate jobQuotationChangeCreate = new JobQuotationChangeCreate();
     private ClientInformationReadDto clientInformationReadDtoSingle { get; set; } = new ClientInformationReadDto();
+    private List<ItemReadDto> itemReadDto = new List<ItemReadDto>();
+    private ItemReadDto itemReadDtoSingle { get; set; } = new ItemReadDto();
 
-    protected override async Task OnInitializedAsync()
+    private async Task FetchListAsync()
     {
-        var currentJobQuotationDetailsList = await jobQuotationDetailsService.JobQuotationDetailsByJobOrder("JobQuotationDetailsId",Id);
+        var currentJobQuotationDetailsList = await jobQuotationDetailsService.JobQuotationDetailsByJobOrder("JobQuotationDetailsId", Id);
         jobQuotationDetailsReadDtoList = currentJobQuotationDetailsList.JobQuotationDetailsApi;
         jobQuotationReadDto = await jobQuotationService.GetJobQuotationByIdAsync(Id);
         _mapper.Map(jobQuotationReadDto, jobQuotationUpdateDto);
         _mapper.Map(jobQuotationDetailsReadDtoList, jobQuotationDetailsUpdateDtoList);
+
+
+
         var response = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
         clientInformationReadDto = response.ClientInformation;
+        matchingCount = response.Count;
+
+        var responseItem = await itemService.GetItemsAsync("ItemName", 0);
+        itemReadDto = responseItem.Item;
+        matchingCountItem = responseItem.Count;
+    }
 
 
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchListAsync();
     }
 
     void AddField()
@@ -191,11 +234,17 @@ else
         message = "";
     }
 
+    private void ChangeItem(string itemname,int index)
+    {
 
-        private void ComputeCost(int Id)
-        {
-            jobQuotationDetailsUpdateDtoList[Id].SellingPrice = jobQuotationDetailsUpdateDtoList[Id].MarginPrice + jobQuotationDetailsUpdateDtoList[Id].OriginalPrice;
-            jobQuotationDetailsUpdateDtoList[Id].TotalCost = jobQuotationDetailsUpdateDtoList[Id].Quantity * jobQuotationDetailsUpdateDtoList[Id].SellingPrice;
-            jobQuotationUpdateDto.OverallCost = jobQuotationDetailsUpdateDtoList.Sum(x => x.TotalCost);
-        }
+        jobQuotationDetailsUpdateDtoList[index].ItemName = itemname;
+    }
+
+
+    private void ComputeCost(int Id)
+    {
+        jobQuotationDetailsUpdateDtoList[Id].SellingPrice = jobQuotationDetailsUpdateDtoList[Id].MarginPrice + jobQuotationDetailsUpdateDtoList[Id].OriginalPrice;
+        jobQuotationDetailsUpdateDtoList[Id].TotalCost = jobQuotationDetailsUpdateDtoList[Id].Quantity * jobQuotationDetailsUpdateDtoList[Id].SellingPrice;
+        jobQuotationUpdateDto.OverallCost = jobQuotationDetailsUpdateDtoList.Sum(x => x.TotalCost);
+    }
 }

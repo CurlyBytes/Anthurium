@@ -64,7 +64,7 @@
         {
             <div class="form-group row">
                 <label for="ItemId" class="col-sm-6 col-form-label">Item:</label>
-                <select id="ItemId" class="form-control selectpicker" value="@item.value.ItemId" @onchange="ChangeOrder">
+                <select id="ItemId" class="form-control selectpicker" value="@item.value.ItemId"  @onchange="() => ChangeItem(item.value.ItemName, item.i)">
                     <option>--select--</option>
                     @foreach (var itemsingle in itemReadDto)
                     {
@@ -186,6 +186,12 @@
 
         }
 
+        private void ChangeItem(string itemname, int index)
+        {
+
+            jobQuotationDetailsCreateDtoList[index].ItemName = itemname;
+        }
+
         private async Task ChangeOrder(ChangeEventArgs e)
         {
 
@@ -194,9 +200,6 @@
             _mapper.Map(jobQuotationChangeCreate, jobQuotationnCreateDto);
             message = "";
         }
-
-   
-
         private void ComputeCost(int Id)
         {
             jobQuotationDetailsCreateDtoList[Id].SellingPrice = jobQuotationDetailsCreateDtoList[Id].MarginPrice + jobQuotationDetailsCreateDtoList[Id].OriginalPrice;
@@ -204,6 +207,6 @@
             jobQuotationnCreateDto.OverallCost = jobQuotationDetailsCreateDtoList.Sum(x => x.TotalCost);
         }
 
-      
+
 
     }

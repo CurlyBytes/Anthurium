@@ -32,6 +32,9 @@
                         <option value="ContactPerson Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactPerson Desc")>Contact Person (Z - A)</option>
                         <option value="ContactNumber" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactNumber")>Contact Number (A - Z)</option>
                         <option value="ContactNumber Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactNumber Desc")>Contact Number (Z - A)</option>
+                        <option value="ContactEmailAddress" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactEmailAddress")>EmailAddress (A - Z)</option>
+                        <option value="ContactEmailAddress Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactEmailAddress Desc")>Email Address (Z - A)</option>
+
                         <option value="OverallCost" selected=@(ListPrefsProvider.listPrefs.OrderBy=="OverallCost")>OverallCost (Asc)</option>
                         <option value="OverallCost Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="OverallCost Desc")>OverallCost (Desc)</option>
                         <option value="Description" selected=@(ListPrefsProvider.listPrefs.OrderBy=="Description")>Description (A - Z)</option>
@@ -52,8 +55,11 @@
                         <th scope="col">ID</th>
                         <th scope="col">Company Name</th>
                         <th scope="col">Company Address</th>
+                        <th scope="col">Contact Person</th>
+                        <th scope="col">Contact Number</th>
+                        <th scope="col">Email Address</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Overall Cost</th>
+                        <th scope="col">OverallCost</th>
                         <th scope="col">DateCreated</th>
                         <th scope="col" colspan="3">Operations</th>
                     </tr>
@@ -61,18 +67,21 @@
                 <tbody>
                     @foreach (var jobQuotationReadDtoItem in jobQuotationReadDto)
                     {
-                        <tr>
-                            <td scope="row">@jobQuotationReadDtoItem.JobQuotationId</td>
-                            <td>@jobQuotationReadDtoItem.CompanyName</td>
-                            <td>@jobQuotationReadDtoItem.CompanyAddress</td>
-                            <td>@jobQuotationReadDtoItem.Description</td>
-                            <td>@jobQuotationReadDtoItem.OverallCost</td>
-                            <td>@jobQuotationReadDtoItem.DateCreated</td>
-                            <td><a class="btn btn-info btn-sm" href="/jobquotation/@jobQuotationReadDtoItem.JobQuotationId">View</a></td>
-                            <td><a class="btn btn-secondary btn-sm" href="/jobquotation/@jobQuotationReadDtoItem.JobQuotationId/edit">Edit</a></td>
-                            <td><a class="btn btn-danger btn-sm" href="/jobquotation/@jobQuotationReadDtoItem.JobQuotationId/delete">Delete</a></td>
+                    <tr>
+                        <td scope="row">@jobQuotationReadDtoItem.JobQuotationId</td>
+                        <td>@jobQuotationReadDtoItem.CompanyName</td>
+                        <td>@jobQuotationReadDtoItem.CompanyAddress</td>
+                        <td>@jobQuotationReadDtoItem.ContactPerson</td>
+                        <td>@jobQuotationReadDtoItem.ContactNumber</td>
+                        <td>@jobQuotationReadDtoItem.ContactEmailAddress</td>
+                        <td>@jobQuotationReadDtoItem.Description</td>
+                        <td>@jobQuotationReadDtoItem.OverallCost</td>
+                        <td>@jobQuotationReadDtoItem.DateCreated</td>
+                        <td><a class="btn btn-info btn-sm" href="/jobquotation/@jobQuotationReadDtoItem.JobQuotationId">View</a></td>
+                        <td><a class="btn btn-secondary btn-sm" href="/jobquotation/@jobQuotationReadDtoItem.JobQuotationId/edit">Edit</a></td>
+                        <td><a class="btn btn-danger btn-sm" href="/jobquotation/@jobQuotationReadDtoItem.JobQuotationId/delete">Delete</a></td>
 
-                        </tr>
+                    </tr>
                     }
                 </tbody>
             </table>
