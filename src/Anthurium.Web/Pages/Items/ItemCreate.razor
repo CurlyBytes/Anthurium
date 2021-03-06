@@ -14,8 +14,8 @@
         <DataAnnotationsValidator />
         <ValidationSummary />
         <div class="form-group row">
-            <label for="warehouseId" class="col-sm-6 col-form-label">Client Info:</label>
-            <select id="warehouseId" class="form-control selectpicker" value="@itemCreateDto.WarehouseId" @onchange="ChangeWarehouseName">
+            <label for="WarehouseId" class="col-sm-6 col-form-label">Warehouse Info:</label>
+            <select id="WarehouseId" class="form-control selectpicker" value="@itemCreateDto.WarehouseId" @onchange="ChangeWarehouseName">
                 <option>--select--</option>
                 @foreach (var item in warehouseReadDto)
                 {
@@ -40,7 +40,11 @@
                    @bind="itemCreateDto.ItemType" />
         </div>
 
-     
+        <div class="form-group row">
+            <label for="ItemType" class="col-sm-6 col-form-label">Item Group:</label>
+            <input id="ItemType" class="form-control col-sm-6 input-lg" placeholder="Item Group" type="text" disabled="@isSuccess"
+                   @bind="itemCreateDto.ItemGroup" />
+        </div>
         <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
         <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
              hidden="@(message=="")">@message</div>
@@ -49,7 +53,7 @@
     @code {
         private List<WarehouseReadDto> warehouseReadDto = new List<WarehouseReadDto>();
         private WarehouseReadDto warehouseSingleReadDto { get; set; } = new WarehouseReadDto();
-        private WarehouseCreateDto warehouseCreateDto { get; set; } = new WarehouseCreateDto();
+       
 
         private ItemCreateDto itemCreateDto = new ItemCreateDto();
         private bool isSuccess = false;
@@ -98,7 +102,7 @@
         {
 
             warehouseSingleReadDto = await warehouseService.GetWarehouseByIdAsync(Int32.Parse(e.Value.ToString()));
-            _mapper.Map(warehouseSingleReadDto, warehouseCreateDto);
+            _mapper.Map(warehouseSingleReadDto, itemCreateDto);
             message = "";
         }
     }

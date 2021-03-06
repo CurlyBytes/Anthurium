@@ -32,7 +32,7 @@ namespace Anthurium.Web.Services
 
         public async Task<ItemReadDto> GetItemByIdAsync(int id)
         {
-            var response = await _httpClient.GetAsync($"api/item/{id}");
+            var response = await _httpClient.GetAsync($"api/item/{id}?$expand=Warehouse");
 
             //Handle more gracefully
             response.EnsureSuccessStatusCode();

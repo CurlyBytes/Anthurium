@@ -23,7 +23,7 @@ namespace Anthurium.API.Repositories.SqlServer
 
 
             return _context.Items.Include(s => s.Warehouse)
-                     .Where(s => s.WarehouseId == Id)
+                     .Where(s => s.ItemId == Id)
                      .FirstOrDefault<Item>();
         }
 
@@ -35,13 +35,7 @@ namespace Anthurium.API.Repositories.SqlServer
                          .Include(x => x.Warehouse).ToList();
         }
 
-        public IEnumerable<Item> GetItem(int warehouseId)
-        {
-          return _context.Items.Where(x => x.WarehouseId == warehouseId)
-                .Include(x => x.Warehouse).ToList();
-           
-         
-        }
+  
 
 
 

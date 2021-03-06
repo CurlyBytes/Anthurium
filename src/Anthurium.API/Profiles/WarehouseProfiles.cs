@@ -27,6 +27,12 @@ namespace Anthurium.API.Profiles
 
             CreateMap<Warehouse, WarehouseUpdateDto>();
 
+            //dropdown
+            CreateMap<WarehouseReadDto, ItemCreateDto>()
+                           .ForMember(dest => dest.WarehouseId, opt => opt.MapFrom(src => src.WarehouseId));
+            CreateMap<WarehouseReadDto, ItemUpdateDto>()
+                       .ForMember(dest => dest.WarehouseId, opt => opt.MapFrom(src => src.WarehouseId));
+
         }
 
     }
