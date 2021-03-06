@@ -375,8 +375,6 @@ namespace Anthurium.API.Data
                     ItemCode = "m-cs-1",
                     ItemName = "Razer x123",
                     WarehouseId = 1,
-                    IsLocalMaterial = false,
-                    WarrantyDate = DateTime.UtcNow.AddYears(2),
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
@@ -387,8 +385,6 @@ namespace Anthurium.API.Data
                     ItemCode = "m-cs-1",
                     ItemName = "Jedel z31",
                     WarehouseId = 1,
-                    IsLocalMaterial = true,
-                    WarrantyDate = DateTime.UtcNow.AddYears(2),
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
@@ -400,9 +396,7 @@ namespace Anthurium.API.Data
                     ItemName = "Razer x33",
   
                     WarehouseId = 1,
-                    IsLocalMaterial = false,
-                    WarrantyDate = DateTime.UtcNow.AddYears(2),
-                    IsActive = true,
+             
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
                 },
@@ -412,8 +406,7 @@ namespace Anthurium.API.Data
                     ItemCode = "m-cs-1",
                     ItemName = "Jedel z524",
                     WarehouseId = 1,
-                    IsLocalMaterial = true,
-                    WarrantyDate = DateTime.UtcNow.AddYears(2),
+                
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
@@ -425,8 +418,7 @@ namespace Anthurium.API.Data
                     ItemName = "Razer x123",
 
                     WarehouseId = 2,
-                    IsLocalMaterial = false,
-                    WarrantyDate = DateTime.UtcNow.AddYears(2),
+           
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
@@ -437,8 +429,7 @@ namespace Anthurium.API.Data
                     ItemCode = "m-cs-1",
                     ItemName = "Jedel z31",
                     WarehouseId = 2,
-                    IsLocalMaterial = true,
-                    WarrantyDate = DateTime.UtcNow.AddYears(2),
+           
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
@@ -450,8 +441,6 @@ namespace Anthurium.API.Data
                     ItemName = "Razer x33",
  
                     WarehouseId = 2,
-                    IsLocalMaterial = false,
-                    WarrantyDate = DateTime.UtcNow.AddYears(2),
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
@@ -463,8 +452,6 @@ namespace Anthurium.API.Data
                     ItemName = "Jedel z524",
 
                     WarehouseId = 2,
-                    IsLocalMaterial = true,
-                    WarrantyDate = DateTime.UtcNow.AddYears(2),
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow

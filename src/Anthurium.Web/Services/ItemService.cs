@@ -17,7 +17,7 @@ namespace Anthurium.Web.Services
 
         public async Task<ItemApiResponse> GetItemsAsync(string orderBy, int skip, int top)
         {
-            var response = await _httpClient.GetAsync($"api/item?$count=true&$orderby={orderBy}&$skip={skip}&$top={top}");
+            var response = await _httpClient.GetAsync($"api/item?$count=true&$expand=Warehouse&$orderby={orderBy}&$skip={skip}&$top={top}");
 
             if (response.IsSuccessStatusCode)
             {

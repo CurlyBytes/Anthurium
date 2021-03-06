@@ -26,6 +26,10 @@ namespace Anthurium.API.Dtos
         [Required]
         public ItemUpdateDto Item { get; set; }
 
+
+        [Required]
+        public DateTime WarrantyDate { get; set; }
+
         [Required]
         [MaxLength(200)]
         public string SerialNumber { get; set; }

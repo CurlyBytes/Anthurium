@@ -33,11 +33,7 @@
                         <option value="ItemGroup desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ItemGroup desc")>Item Group (Z - A)</option>
                         <option value="ItemType" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ItemType")>Item Type (A - Z)</option>
                         <option value="ItemType desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ItemType desc")>Item Type (Z - A)</option>
-                        <option value="IsLocalMaterial" selected=@(ListPrefsProvider.listPrefs.OrderBy=="IsLocalMaterial")>Local Material(Yes)</option>
-                        <option value="IsLocalMaterial desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="IsLocalMaterial desc")>Local Material(No)</option>
-                        <option value="WarehouseName" selected=@(ListPrefsProvider.listPrefs.OrderBy=="WarehouseName")>Warehouse Name (A - Z)</option>
-                        <option value="WarehouseName desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="WarehouseName  desc")>Warehouse Name (Z - A)</option>
-
+                  
                         <option value="DateCreated" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated")>Date Created (Asc)</option>
                         <option value="DateCreated Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated Desc")>Date Created (Desc)</option>
                         <option value="DateUpdated" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateUpdated")>Date Updated (Asc)</option>
@@ -71,8 +67,7 @@
                             <td>@itemReadDtoItem.ItemGroup</td>
                             <td>@itemReadDtoItem.ItemCode</td>
                             <td>@itemReadDtoItem.ItemName</td>
-                            <td>@itemReadDtoItem.IsLocalMaterial.ToString()</td>
-                            <td>@itemReadDtoItem.WarrantyDate</td>
+                   
                             <td>@itemReadDtoItem.Warehouse.WarehouseName</td>
 
                             <td><a class="btn btn-info btn-sm" href="/item/@itemReadDtoItem.ItemId">View</a></td>

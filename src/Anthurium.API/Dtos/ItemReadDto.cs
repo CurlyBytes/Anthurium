@@ -31,11 +31,7 @@ namespace Anthurium.API.Dtos
 
         public WarehouseReadDto Warehouse { get; set; }
 
-        [Required]
-        public bool IsLocalMaterial { get; set; }
 
-        [Required]
-        public DateTime WarrantyDate { get; set; }
 
 
         public ICollection<DeliveryReceiptDetailsReadDto> DeliveryRecieptDetails { get; set; }

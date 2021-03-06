@@ -1,5 +1,6 @@
 ﻿using Anthurium.API.Data;
 using Anthurium.Shared.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,18 +19,31 @@ namespace Anthurium.API.Repositories.SqlServer
 
         public Item ItemById(int Id)
         {
-            return _context.Items.FirstOrDefault(p => p.ItemId == Id);
+ 
+
+
+            return _context.Items.Include(s => s.Warehouse)
+                     .Where(s => s.WarehouseId == Id)
+                     .FirstOrDefault<Item>();
         }
 
 
 
         public IEnumerable<Item> GetItem()
         {
-            return _context.Items.ToList();
+            return _context.Items
+                         .Include(x => x.Warehouse).ToList();
+        }
+
+        public IEnumerable<Item> GetItem(int warehouseId)
+        {
+          return _context.Items.Where(x => x.WarehouseId == warehouseId)
+                .Include(x => x.Warehouse).ToList();
+           
+         
         }
 
 
-  
 
 
         public void NewItem(Item warehouse)
