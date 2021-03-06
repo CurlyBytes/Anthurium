@@ -9,9 +9,7 @@ namespace Anthurium.Shared.Models
         public int JobQuotationDetailsId { get; set; }
 
         [Required]
-        public int Quantity { get; set; }
-
-        public Item Item { get; set; }
+        public int JobQuotationId { get; set; }
 
         [Required]
         public int ItemId { get; set; }
@@ -20,15 +18,25 @@ namespace Anthurium.Shared.Models
         [MaxLength(150)]
         public string ItemName { get; set; }
         [Required]
-        public double Margin { get; set; }
+        public double MarginPrice { get; set; }
 
         [Required]
-        public double Price { get; set; }
+        public double OriginalPrice { get; set; }
+
         [Required]
-        public double Cost { get; set; }
+        public double SellingPrice { get; set; }
+
+        [Required]
+        public int Quantity { get; set; }
 
         [Required]
         public double TotalCost { get; set; }
+        [Required]
+        public bool IsAlreadyPurchaseOrder { get; set; }
+
+
+        [MaxLength(75)]
+        public string PurchaseOrderCode { get; set; }
 
         [Required]
         public DateTime DateCreated { get; set; }
@@ -39,13 +47,14 @@ namespace Anthurium.Shared.Models
         [Required]
         public bool IsActive { get; set; }
 
-        [Required]
-        public int JobQuotationId { get; set; }
 
+
+
+
+        public Item Item { get; set; }
         public JobQuotation JobQuotation { get; set; }
 
-        [Required]
-        public bool IsAlreadyPurchaseOrder   { get; set; }
+ 
 
     }
 }

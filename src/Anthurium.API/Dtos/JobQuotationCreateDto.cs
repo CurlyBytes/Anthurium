@@ -33,6 +33,10 @@ namespace Anthurium.API.Dtos
         public string ContactNumber { get; set; }
 
         [Required]
+        [MaxLength(200)]
+        [EmailAddress]
+        public string ContactEmailAddress { get; set; }
+        [Required]
         public double OverallCost { get; set; }
 
         [Required]

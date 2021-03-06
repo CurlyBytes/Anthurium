@@ -75,8 +75,8 @@ else
                         <input id="@item.value.ItemName" type="text" class="form-control" placeholder="Description" @bind="@item.value.ItemName">
                     </div>
                     <div class="col-sm-2">
-                        <label for="@item.value.Cost" class="col-sm-2 col-form-label">Cost:</label>
-                        <input id="@item.value.Cost" type="text" class="form-control" placeholder="Cost"  @bind="@item.value.Cost" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
+                        <label for="@item.value.MarginPrice" class="col-sm-2 col-form-label">Cost:</label>
+                        <input id="@item.value.MarginPrice" type="text" class="form-control" placeholder="Cost"  @bind="@item.value.MarginPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
                     </div>
                     <div class="col-sm-2">
                         <label for="@item.value.Quantity" class="col-sm-2 col-form-label">Quantity:</label>
@@ -191,10 +191,11 @@ else
         message = "";
     }
 
-    private void ComputeCost(int Id)
-    {
 
-        jobQuotationDetailsUpdateDtoList[Id].TotalCost = jobQuotationDetailsUpdateDtoList[Id].Quantity * jobQuotationDetailsUpdateDtoList[Id].Cost;
-        jobQuotationUpdateDto.OverallCost = jobQuotationDetailsUpdateDtoList.Sum(x => x.TotalCost);
-    }
+        private void ComputeCost(int Id)
+        {
+            jobQuotationDetailsUpdateDtoList[Id].SellingPrice = jobQuotationDetailsUpdateDtoList[Id].MarginPrice + jobQuotationDetailsUpdateDtoList[Id].OriginalPrice;
+            jobQuotationDetailsUpdateDtoList[Id].TotalCost = jobQuotationDetailsUpdateDtoList[Id].Quantity * jobQuotationDetailsUpdateDtoList[Id].SellingPrice;
+            jobQuotationUpdateDto.OverallCost = jobQuotationDetailsUpdateDtoList.Sum(x => x.TotalCost);
+        }
 }

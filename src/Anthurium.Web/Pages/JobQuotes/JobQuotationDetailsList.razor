@@ -21,12 +21,17 @@
                     <select id="sortBy" class="form-control form-control-sm" style="width:auto;" @onchange="ChangeOrder">
                         <option value="JobQuotationDetailsId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobQuotationDetailsId")>ID (Asc)</option>
                         <option value="JobQuotationDetailsId desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobQuotationDetailsId Desc")>ID (Desc)</option>
-                        <option value="Quantity" selected=@(ListPrefsProvider.listPrefs.OrderBy=="Quantity")>Quantity (Asc)</option>
-                        <option value="Quantity Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="Quantity Desc")>Quantity (Desc)</option>
-                        <option value="Description" selected=@(ListPrefsProvider.listPrefs.OrderBy=="Description")>Description (A - Z)</option>
-                        <option value="Description Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="Description Desc")>Description (Z - A)</option>
-                        <option value="Cost" selected=@(ListPrefsProvider.listPrefs.OrderBy=="Cost")>Cost (Asc)</option>
-                        <option value="Cost Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="Cost Desc")>Cost (Desc)</option>
+                        <option value="ItemName" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ItemName")>Item Name (A - Z)</option>
+                        <option value="ItemName Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ItemName Desc")>Item Name (Z - A)</option>
+                        <option value="MarginPrice" selected=@(ListPrefsProvider.listPrefs.OrderBy=="MarginPrice")>Margin Price (Asc)</option>
+                        <option value="MarginPrice Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="MarginPrice Desc")>Margin Price (Desc)</option>
+                        <option value="OriginalPrice" selected=@(ListPrefsProvider.listPrefs.OrderBy=="OriginalPrice")>Original Price (Asc)</option>
+                        <option value="OriginalPrice Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="OriginalPrice Desc")>Original Price (Desc)</option>
+                        <option value="SellingPrice" selected=@(ListPrefsProvider.listPrefs.OrderBy=="SellingPrice")>Selling Price (Asc)</option>
+                        <option value="SellingPrice Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="SellingPrice Desc")>Selling Price (Desc)</option>
+
+                        <option value="Quantity" selected=@(ListPrefsProvider.listPrefs.OrderBy=="Cost")>Quantity (Asc)</option>
+                        <option value="Quantity Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="Cost Desc")>Quantity (Desc)</option>
                         <option value="TotalCost" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TotalCost")>TotalCost (Asc)</option>
                         <option value="TotalCost Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TotalCost Desc")>TotalCost (Desc)</option>
                         <option value="DateCreated" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated")>Date Created (Asc)</option>
@@ -43,9 +48,11 @@
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Description</th>
+                        <th scope="col">Item Name</th>
+                        <th scope="col">Margin Price</th>
+                        <th scope="col">Original Price</th>
+                        <th scope="col">Selling Price</th>
                         <th scope="col">Quantity</th>
-                        <th scope="col">Cost</th>
                         <th scope="col">Total Cost</th>
                         <th scope="col">Date Created</th>
                         <th scope="col">Date Updated</th>
@@ -57,8 +64,10 @@
                     <tr>
                         <td scope="row">@jobQuotationDetailsReadDtoItem.JobQuotationId</td>
                         <td>@jobQuotationDetailsReadDtoItem.ItemName</td>
+                        <td>@jobQuotationDetailsReadDtoItem.MarginPrice</td>
+                        <td>@jobQuotationDetailsReadDtoItem.OriginalPrice</td>
+                        <td>@jobQuotationDetailsReadDtoItem.SellingPrice</td>
                         <td>@jobQuotationDetailsReadDtoItem.Quantity</td>
-                        <td>@jobQuotationDetailsReadDtoItem.Cost</td>
                         <td>@jobQuotationDetailsReadDtoItem.TotalCost</td>
                         <td>@jobQuotationDetailsReadDtoItem.DateCreated</td>
                         <td>@jobQuotationDetailsReadDtoItem.DateUpdated</td>

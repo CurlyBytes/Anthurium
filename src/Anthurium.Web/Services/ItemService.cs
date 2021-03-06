@@ -28,6 +28,18 @@ namespace Anthurium.Web.Services
             return new ItemApiResponse();
         }
 
+        public async Task<ItemApiResponse> GetItemsAsync(string orderBy, int skip)
+        {
+            var response = await _httpClient.GetAsync($"api/item?$count=true&$expand=Warehouse&$orderby={orderBy}&$skip={skip}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<ItemApiResponse>(responseContent);
+            }
+
+            return new ItemApiResponse();
+        }
 
 
         public async Task<ItemReadDto> GetItemByIdAsync(int id)

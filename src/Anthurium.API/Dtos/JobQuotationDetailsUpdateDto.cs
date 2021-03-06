@@ -13,9 +13,7 @@ namespace Anthurium.API.Dtos
         public int JobQuotationDetailsId { get; set; }
 
         [Required]
-        public int Quantity { get; set; }
-
-        public ItemCreateDto Item { get; set; }
+        public int JobQuotationId { get; set; }
 
         [Required]
         public int ItemId { get; set; }
@@ -24,30 +22,35 @@ namespace Anthurium.API.Dtos
         [MaxLength(150)]
         public string ItemName { get; set; }
         [Required]
-        public double Margin { get; set; }
+        public double MarginPrice { get; set; }
 
         [Required]
-        public double Price { get; set; }
+        public double OriginalPrice { get; set; }
+
         [Required]
-        public double Cost { get; set; }
+        public double SellingPrice { get; set; }
+
+        [Required]
+        public int Quantity { get; set; }
 
         [Required]
         public double TotalCost { get; set; }
+        [Required]
+        public bool IsAlreadyPurchaseOrder { get; set; }
 
- 
+
+        [MaxLength(75)]
+        public string PurchaseOrderCode { get; set; }
+
 
         [Required]
         public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
+
         [Required]
         public bool IsActive { get; set; } 
 
-        [Required]
-        public int JobQuotationId { get; set; }
-
-        public JobQuotationCreateDto JobQuotation { get; set; }
-
-        [Required]
-        public bool IsAlreadyPurchaseOrder { get; set; }
+        public ItemUpdateDto Item { get; set; }
+        public JobQuotationUpdateDto JobQuotation { get; set; }
 
     }
 }

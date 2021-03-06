@@ -1,5 +1,6 @@
 ﻿@page "/jobquotation/create"
 @inject Services.JobQuotationService jobQuotationService
+@inject Services.ItemService itemService
 @inject Services.ClientInformationService clientInformationService
 @using System.Text.Json
 @using Anthurium.API.Dtos
@@ -8,7 +9,7 @@
 @inject IMapper _mapper;
 @inject IToastService toastService
 
-<h3>New Job Order</h3>
+<h3>New Quotaiton</h3>
 <div class="row m-2">
     <EditForm Model="@jobQuotationnCreateDto" OnValidSubmit="@PostJobQuotation">
         <DataAnnotationsValidator />
@@ -36,19 +37,23 @@
 
         <div class="form-group row">
             <label for="jobQuotationContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
-            <input id="jobQuotationContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+            <input id="jobQuotationContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled
                    @bind="jobQuotationnCreateDto.ContactPerson" placeholder="Contact Person" />
         </div>
         <div class="form-group row">
             <label for="jobQuotationContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
-            <input id="jobQuotationContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                   @bind="jobQuotationnCreateDto.ContactNumber" />
+            <input id="jobQuotationContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled
+                   @bind="jobQuotationnCreateDto.ContactNumber" placeholder="Contact Number"/>
         </div>
-
+        <div class="form-group row">
+            <label for="jobQuotationContactNumber" class="col-sm-6 col-form-label">Email Address:</label>
+            <input id="jobQuotationContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled
+                   @bind="jobQuotationnCreateDto.ContactEmailAddress" placeholder="Email Address" />
+        </div>
         <div class="form-group row">
             <label for="companyAddress" class="col-sm-6 col-form-label">Description</label>
             <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text"
-                   @bind="jobQuotationnCreateDto.Description" />
+                   @bind="jobQuotationnCreateDto.Description" placeholder="Description"/>
         </div>
         <div class="row m-2">
             <button class="btn btn-primary" type="button" @onclick="AddField" disabled="@isSuccess"> Add JobQuotation Details</button>
@@ -57,14 +62,34 @@
 
         @foreach (var item in jobQuotationDetailsCreateDtoList.Select((value, i) => (value, i)))
         {
+            <div class="form-group row">
+                <label for="ItemId" class="col-sm-6 col-form-label">Item:</label>
+                <select id="ItemId" class="form-control selectpicker" value="@item.value.ItemId" @onchange="ChangeOrder">
+                    <option>--select--</option>
+                    @foreach (var itemsingle in itemReadDto)
+                    {
+                        item.value.ItemName = itemsingle.ItemName;
+                        <option value="@itemsingle.ItemId">@itemsingle.ItemName</option>
+                    }
+                </select>
+            </div>
+
             <div class="row form-group">
                 <div class="col-sm-4 ">
-                    <label for="@item.value.ItemName" class="col-sm-6 col-form-label">Description:</label>
-                    <input id="@item.value.ItemName" type="text" class="form-control" placeholder="Description" @bind="@item.value.ItemName">
+                    <label for="@item.value.ItemName" class="col-sm-6 col-form-label">Item Name:</label>
+                    <input id="@item.value.ItemName" type="text" class="form-control" placeholder="Item Name" @bind="@item.value.ItemName" disabled>
                 </div>
                 <div class="col-sm-2">
-                    <label for="@item.value.Cost" class="col-sm-2 col-form-label">Cost:</label>
-                    <input id="@item.value.Cost" type="text" class="form-control" placeholder="Cost" @bind="@item.value.Cost" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
+                    <label for="@item.value.MarginPrice" class="col-sm-2 col-form-label">Margin Price:</label>
+                    <input id="@item.value.MarginPrice" type="text" class="form-control" placeholder="Margin Price" @bind="@item.value.MarginPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
+                </div>
+                <div class="col-sm-2">
+                    <label for="@item.value.OriginalPrice" class="col-sm-2 col-form-label">Original Price:</label>
+                    <input id="@item.value.OriginalPrice" type="text" class="form-control" placeholder="Original Price" @bind="@item.value.OriginalPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
+                </div>
+                <div class="col-sm-2">
+                    <label for="@item.value.SellingPrice" class="col-sm-2 col-form-label">Selling Price:</label>
+                    <input id="@item.value.SellingPrice" type="text" class="form-control" placeholder="Selling Price" @bind="@item.value.SellingPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
                 </div>
                 <div class="col-sm-2">
                     <label for="@item.value.Quantity" class="col-sm-2 col-form-label">Quantity:</label>
@@ -103,18 +128,23 @@
         private JobQuotationChangeCreate jobQuotationChangeCreate = new JobQuotationChangeCreate();
         private ClientInformationReadDto clientInformationReadDtoSingle { get; set; } = new ClientInformationReadDto();
 
+        private List<ItemReadDto> itemReadDto = new List<ItemReadDto>();
+        private ItemReadDto itemReadDtoSingle { get; set; } = new ItemReadDto();
+
         private bool isSuccess = false;
         private string message = "";
         private int matchingCount;
-
+        private int matchingCountItem;
 
         private async Task FetchListAsync()
         {
             var response = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
             clientInformationReadDto = response.ClientInformation;
-            matchingCount = response.Count; 
+            matchingCount = response.Count;
 
-
+            var responseItem = await itemService.GetItemsAsync("ItemName", 0);
+            itemReadDto = responseItem.Item;
+            matchingCountItem = responseItem.Count;
         }
 
 
@@ -165,13 +195,15 @@
             message = "";
         }
 
-
+   
 
         private void ComputeCost(int Id)
         {
-
-            jobQuotationDetailsCreateDtoList[Id].TotalCost = jobQuotationDetailsCreateDtoList[Id].Quantity * jobQuotationDetailsCreateDtoList[Id].Cost;
+            jobQuotationDetailsCreateDtoList[Id].SellingPrice = jobQuotationDetailsCreateDtoList[Id].MarginPrice + jobQuotationDetailsCreateDtoList[Id].OriginalPrice;
+            jobQuotationDetailsCreateDtoList[Id].TotalCost = jobQuotationDetailsCreateDtoList[Id].Quantity * jobQuotationDetailsCreateDtoList[Id].SellingPrice;
             jobQuotationnCreateDto.OverallCost = jobQuotationDetailsCreateDtoList.Sum(x => x.TotalCost);
         }
+
+      
 
     }
