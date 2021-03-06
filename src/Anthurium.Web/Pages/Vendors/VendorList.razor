@@ -1,13 +1,13 @@
-﻿@inject Services.WarehouseService warehouseService
+﻿@inject Services.VendorService vendorService
 @using Anthurium.API.Dtos
 @using Models
 
 <div class="container">
     <div class="row m-2">
-        <div class="col"><h3>Warehouse:</h3></div>
-        <div class=" col-sm-3 text-right"><a href="/warehouse/create" class="btn btn-primary">New Client</a></div>
+        <div class="col"><h3>Vendor:</h3></div>
+        <div class=" col-sm-3 text-right"><a href="/vendor/create" class="btn btn-primary">New Client</a></div>
     </div>
-    @if (warehouseReadDto == null)
+    @if (vendorReadDto == null)
     {
         <p><em>Loading...</em></p>
     }
@@ -22,12 +22,12 @@
                 <div class="row form-group">
                     <label for="sortBy" class="col-form-label col-form-label-sm col">Sort by:</label>
                     <select id="sortBy" class="form-control form-control-sm" style="width:auto;" @onchange="ChangeOrder">
-                        <option value="WarehouseId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="WarehouseId")>ID (Asc)</option>
-                        <option value="WarehouseId desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="WarehouseId Desc")>ID (Desc)</option>
-                        <option value="WarehouseName" selected=@(ListPrefsProvider.listPrefs.OrderBy=="WarehouseName")>Warehouse Name (A - Z)</option>
-                        <option value="WarehouseName desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="WarehouseName desc")>Warehouse Name (Z - A)</option>
-                        <option value="WarehouseCode" selected=@(ListPrefsProvider.listPrefs.OrderBy=="WarehouseCode")>Warehouse Code (A - Z)</option>
-                        <option value="WarehouseCode desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="WarehouseCode desc")>Warehouse Code (Z - A)</option>
+                        <option value="VendorId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="VendorId")>ID (Asc)</option>
+                        <option value="VendorId desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="VendorId Desc")>ID (Desc)</option>
+                        <option value="VendorName" selected=@(ListPrefsProvider.listPrefs.OrderBy=="VendorName")>Vendor Name (A - Z)</option>
+                        <option value="VendorName desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="VendorName desc")>Vendor Name (Z - A)</option>
+                        <option value="VendorCode" selected=@(ListPrefsProvider.listPrefs.OrderBy=="VendorCode")>Vendor Code (A - Z)</option>
+                        <option value="VendorCode desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="VendorCode desc")>Vendor Code (Z - A)</option>
 
                         <option value="DateCreated" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated")>Date Created (Asc)</option>
                         <option value="DateCreated Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated Desc")>Date Created (Desc)</option>
@@ -39,25 +39,25 @@
         </div>
         <div class="row  m-2">
             <table class="col-12 table table-hover table-responsive table-striped">
-                <caption>List of Warehouse</caption>
+                <caption>List of Vendor</caption>
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Warehouse Name</th>
-                        <th scope="col">Warehouse Code</th>
+                        <th scope="col">Vendor Name</th>
+                        <th scope="col">Vendor Code</th>
                         <th scope="col" colspan="3">Operations</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var warehouseReadDtoItem in warehouseReadDto)
+                    @foreach (var vendorReadDtoItem in vendorReadDto)
                     {
                         <tr>
-                            <td scope="row">@warehouseReadDtoItem.WarehouseId</td>
-                            <td>@warehouseReadDtoItem.WarehouseName</td>
-                            <td>@warehouseReadDtoItem.WarehouseCode</td>
-                            <td><a class="btn btn-info btn-sm" href="/warehouse/@warehouseReadDtoItem.WarehouseId">View</a></td>
-                            <td><a class="btn btn-secondary btn-sm" href="/warehouse/@warehouseReadDtoItem.WarehouseId/edit">Edit</a></td>
-                            <td><a class="btn btn-danger btn-sm" href="/warehouse/@warehouseReadDtoItem.WarehouseId/delete">Delete</a></td>
+                            <td scope="row">@vendorReadDtoItem.VendorId</td>
+                            <td>@vendorReadDtoItem.VendorName</td>
+                            <td>@vendorReadDtoItem.VendorCode</td>
+                            <td><a class="btn btn-info btn-sm" href="/vendor/@vendorReadDtoItem.VendorId">View</a></td>
+                            <td><a class="btn btn-secondary btn-sm" href="/vendor/@vendorReadDtoItem.VendorId/edit">Edit</a></td>
+                            <td><a class="btn btn-danger btn-sm" href="/vendor/@vendorReadDtoItem.VendorId/delete">Delete</a></td>
                         </tr>
                     }
                 </tbody>
@@ -93,19 +93,19 @@
 </div>
 
 @code {
-    private List<WarehouseReadDto> warehouseReadDto;
+    private List<VendorReadDto> vendorReadDto;
     private int matchingCount;
 
     [CascadingParameter]
-    private WarehouseListParent ListPrefsProvider { get; set; }
+    private VendorListParent ListPrefsProvider { get; set; }
 
     private int skip = 0;
 
 
     private async Task FetchListAsync()
     {
-        var response = await warehouseService.GetWarehousesAsync(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults);
-        warehouseReadDto = response.Warehouse;
+        var response = await vendorService.GetVendorsAsync(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults);
+        vendorReadDto = response.Vendor;
         matchingCount = response.Count;
     }
 
