@@ -1,0 +1,87 @@
+﻿@page "/warehouse/{Id:int}/edit"
+@inject Services.WarehouseService warehouseService
+@using AutoMapper;
+@inject IMapper _mapper;
+@using System.Text.Json
+@using Anthurium.API.Dtos
+@inject NavigationManager NavManager
+@inject IToastService toastService
+
+<h3>Edit Client Information</h3>
+@if (warehouseReadDto == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row m-2">
+
+        <div class="offset-sm-9 col-sm-3 text-right"> <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/warehouse">Return to List</a></div>
+    </div>
+    <div class="row m-2">
+
+        <EditForm Model="@warehouseUpdateDto" OnValidSubmit="@UpdateWarehouse">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group row">
+                <label for="companyName" class="col-sm-6 col-form-label">Warehouse Name:</label>
+                <input id="companyName" class="form-control col-sm-6 input-lg" placeholder="Company Name" disabled="@isSuccess"
+                       @bind="warehouseUpdateDto.WarehouseName" />
+            </div>
+            <div class="form-group row">
+                <label for="companyAddress" class="col-sm-6 col-form-label">Warehouse Code:</label>
+                <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" placeholder="Company Address" disabled="@isSuccess"
+                       @bind="warehouseUpdateDto.WarehouseCode" />
+            </div>
+   
+            
+            <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
+            <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
+                 hidden="@(message=="")">@message</div>
+            </EditForm>
+
+
+        </div>
+    }
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private bool isSuccess = false;
+    private string message = "";
+
+    private WarehouseUpdateDto warehouseUpdateDto { get; set; } = new WarehouseUpdateDto();
+    private WarehouseReadDto warehouseReadDto { get; set; } = new WarehouseReadDto();
+
+    protected override async Task OnInitializedAsync()
+    {
+        warehouseReadDto = await warehouseService.GetWarehouseByIdAsync(Id);
+        _mapper.Map(warehouseReadDto, warehouseUpdateDto);
+    }
+
+    public async void UpdateWarehouse()
+    {
+
+
+        //returns response message, so can check if success
+        var response = await warehouseService.EditWarehouseAsync(Id, warehouseUpdateDto);
+        if (response.IsSuccessStatusCode)
+        {
+            isSuccess = true;
+            message = $"Success";
+            toastService.ShowInfo($" warehouse information: {warehouseUpdateDto.WarehouseName} is Updated.");
+            NavManager.NavigateTo("/warehouse");
+            //navigate to single page
+            //perhaps set flag (success) there that will display message if coming from this page
+        }
+        else
+        {
+            message = $"Error: {response.StatusCode.ToString()}. Please try again.";
+            toastService.ShowError($" Cannot edit {warehouseUpdateDto.WarehouseName}. Please try again.");
+        }
+
+        this.StateHasChanged();
+    }
+}

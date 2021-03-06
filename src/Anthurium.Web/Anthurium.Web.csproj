@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="Helpers\" />
+    <Folder Include="Pages\Vendors\" />
   </ItemGroup>
 
 </Project>

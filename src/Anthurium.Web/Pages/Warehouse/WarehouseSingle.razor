@@ -1,0 +1,77 @@
+﻿@page "/warehouse/{Id:int}"
+@inject Services.WarehouseService warehouseService
+@using Anthurium.API.Dtos
+@using Microsoft.JSInterop;
+@using PuppeteerSharp;
+@inject IJSRuntime _iJSRuntime
+
+<h4>Warehouse Id: @Id.ToString()</h4>
+
+@if (warehouseReadDto == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+    <div class="row m-2">
+        <table class="col-12 table table-hover table-responsive table-striped">
+            <caption>Warehouse Id: @Id.ToString()</caption>
+            <thead>
+
+                <tr>
+                    <th scope="col">Record Type</th>
+                    <th scope="col">Record Info</th>
+                </tr>
+
+
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Id</th>
+                    <td>@warehouseReadDto.WarehouseId</td>
+                </tr>
+                <tr>
+                    <th class="info">Warehouse Name</th>
+                    <td>@warehouseReadDto.WarehouseName</td>
+                </tr>
+                <tr>
+                    <th class="info">Warehouse Code</th>
+                    <td>@warehouseReadDto.WarehouseCode</td>
+                </tr>
+   
+                <tr>
+                    <th class="info">Date Updated</th>
+                    <td>@warehouseReadDto.DateCreated</td>
+                </tr>
+                <tr>
+                    <th class="info">Date Created</th>
+                    <td>@warehouseReadDto.DateUpdated</td>
+                </tr>
+            </tbody>
+
+
+        </table>
+    </div>
+    <div class="row m-2">
+        <div class="col-12">
+            <!--TODO Add Items list per warehouse-->
+            <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/warehouse">Return to List</a>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private WarehouseReadDto warehouseReadDto;
+
+    protected override async Task OnInitializedAsync()
+    {
+        warehouseReadDto = await warehouseService.GetWarehouseByIdAsync(Id);
+    }
+
+
+   
+}

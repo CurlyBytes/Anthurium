@@ -84,7 +84,11 @@ namespace Anthurium.Web
 
             });
 
+            services.AddHttpClient<WarehouseService>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:5001");
 
+            });
             //services.AddAccessTokenManagement(options =>
             //{
             //    options.Client.Clients.Add("web", new ClientCredentialsTokenRequest
@@ -111,6 +115,12 @@ namespace Anthurium.Web
                 configuration.AddProfile(new JobOrderProfile());
                 configuration.AddProfile(new JobQuotationDetailsProfile());
                 configuration.AddProfile(new JobQuotationProfile());
+                configuration.AddProfile(new WarehouseProfiles());
+                configuration.AddProfile(new ItemProfile());
+                configuration.AddProfile(new AssetProfile());
+                configuration.AddProfile(new DeliveryReceiptDetailsProfiles());
+                configuration.AddProfile(new DeliveryRecieptProfile());
+                configuration.AddProfile(new VendorProfile());
             });
 
             var mapper = mapperConfiguration.CreateMapper();

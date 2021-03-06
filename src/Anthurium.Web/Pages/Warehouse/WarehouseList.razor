@@ -1,13 +1,13 @@
-﻿@inject Services.ClientInformationService clientInformationService
+﻿@inject Services.WarehouseService warehouseService
 @using Anthurium.API.Dtos
 @using Models
 
 <div class="container">
     <div class="row m-2">
-        <div class="col"><h3>Client Informations:</h3></div>
-        <div class=" col-sm-3 text-right"><a href="/clientinformation/create" class="btn btn-primary">New Client</a></div>
+        <div class="col"><h3>Warehouse:</h3></div>
+        <div class=" col-sm-3 text-right"><a href="/warehouse/create" class="btn btn-primary">New Client</a></div>
     </div>
-    @if (clientInformationReadDto == null)
+    @if (warehouseReadDto == null)
     {
         <p><em>Loading...</em></p>
     }
@@ -22,8 +22,8 @@
                 <div class="row form-group">
                     <label for="sortBy" class="col-form-label col-form-label-sm col">Sort by:</label>
                     <select id="sortBy" class="form-control form-control-sm" style="width:auto;" @onchange="ChangeOrder">
-                        <option value="ClientInformationId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ClientInformationId")>ID (Asc)</option>
-                        <option value="ClientInformationId desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ClientInformationId Desc")>ID (Desc)</option>
+                        <option value="WarehouseId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="WarehouseId")>ID (Asc)</option>
+                        <option value="WarehouseId desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="WarehouseId Desc")>ID (Desc)</option>
                         <option value="CompanyName" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName")>Company Name (A - Z)</option>
                         <option value="CompanyName desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName desc")>Company Name (Z - A)</option>
                         <option value="CompanyAddress" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName")>Company Address (A - Z)</option>
@@ -33,8 +33,6 @@
                         <option value="ContactPerson Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactPerson Desc")>Contact Person (Z - A)</option>
                         <option value="ContactNumber" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactNumber")>Contact Number (A - Z)</option>
                         <option value="ContactNumber Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactNumber Desc")>Contact Number (Z - A)</option>
-                        <option value="ContactEmailAddress" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactEmailAddress")>Contact Email Address (A - Z)</option>
-                        <option value="ContactEmailAddress Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ContactEmailAddress Desc")>Contact Email Address (Z - A)</option>
 
                         <option value="DateCreated" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated")>Date Created (Asc)</option>
                         <option value="DateCreated Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated Desc")>Date Created (Desc)</option>
@@ -46,29 +44,26 @@
         </div>
         <div class="row  m-2">
             <table class="col-12 table table-hover table-responsive table-striped">
-                <caption>List of Client Informations</caption>
+                <caption>List of Warehouse</caption>
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Company Name</th>
-                        <th scope="col">Company Address</th>
+                        <th scope="col">Warehouse Name</th>
+                        <th scope="col">Warehouse Code</th>
                         <th scope="col" colspan="3">Operations</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var clientInformationReadDtoItem in clientInformationReadDto)
+                    @foreach (var warehouseReadDtoItem in warehouseReadDto)
                     {
-                    <tr>
-                        <td scope="row">@clientInformationReadDtoItem.ClientInformationId</td>
-                        <td>@clientInformationReadDtoItem.CompanyName</td>
-                        <td>@clientInformationReadDtoItem.CompanyAddress</td>
-                        <td>@clientInformationReadDtoItem.ContactPerson</td>
-                        <td>@clientInformationReadDtoItem.ContactNumber</td>
-                        <td>@clientInformationReadDtoItem.ContactEmailAddress</td>
-                        <td><a class="btn btn-info btn-sm" href="/clientinformation/@clientInformationReadDtoItem.ClientInformationId">View</a></td>
-                        <td><a class="btn btn-secondary btn-sm" href="/clientinformation/@clientInformationReadDtoItem.ClientInformationId/edit">Edit</a></td>
-                        <td><a class="btn btn-danger btn-sm" href="/clientinformation/@clientInformationReadDtoItem.ClientInformationId/delete">Delete</a></td>
-                    </tr>
+                        <tr>
+                            <td scope="row">@warehouseReadDtoItem.WarehouseId</td>
+                            <td>@warehouseReadDtoItem.WarehouseName</td>
+                            <td>@warehouseReadDtoItem.WarehouseCode</td>
+                            <td><a class="btn btn-info btn-sm" href="/warehouse/@warehouseReadDtoItem.WarehouseId">View</a></td>
+                            <td><a class="btn btn-secondary btn-sm" href="/warehouse/@warehouseReadDtoItem.WarehouseId/edit">Edit</a></td>
+                            <td><a class="btn btn-danger btn-sm" href="/warehouse/@warehouseReadDtoItem.WarehouseId/delete">Delete</a></td>
+                        </tr>
                     }
                 </tbody>
             </table>
@@ -103,19 +98,19 @@
 </div>
 
 @code {
-    private List<ClientInformationReadDto> clientInformationReadDto;
+    private List<WarehouseReadDto> warehouseReadDto;
     private int matchingCount;
 
     [CascadingParameter]
-    private ClientInformationListParent ListPrefsProvider { get; set; }
+    private WarehouseListParent ListPrefsProvider { get; set; }
 
     private int skip = 0;
 
 
     private async Task FetchListAsync()
     {
-        var response = await clientInformationService.GetClientInformationsAsync(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults);
-        clientInformationReadDto = response.ClientInformation;
+        var response = await warehouseService.GetWarehousesAsync(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults);
+        warehouseReadDto = response.Warehouse;
         matchingCount = response.Count;
     }
 
