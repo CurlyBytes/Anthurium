@@ -43,6 +43,11 @@ else
                 <input id="clientInformationContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
                        @bind="clientInformationUpdateDto.ContactNumber" />
             </div>
+            <div class="form-group row">
+                <label for="clientInformationConttactEmailAddress" class="col-sm-6 col-form-label">Contact Email Address:</label>
+                <input id="clientInformationConttactEmailAddress" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                       @bind="clientInformationUpdateDto.ContactEmailAddress" />
+            </div>
             <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
             <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
                  hidden="@(message=="")">@message</div>

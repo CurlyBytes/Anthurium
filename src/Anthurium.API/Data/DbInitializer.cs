@@ -478,6 +478,8 @@ namespace Anthurium.API.Data
                     CompanyName = "AMA",  
                     CompanyAddress = "eduardo aboitiz street",
                     ContactEmailAddress = "test@rrr.com",
+                    ContactPerson = "Tao yang",
+                    ContactNumber = "1134455",
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
@@ -486,6 +488,8 @@ namespace Anthurium.API.Data
                     CompanyName = "CurlyBytes",  
                     CompanyAddress = "107 v. raman st. calamba cc",
                     ContactEmailAddress = "bbb@bb.com",
+                    ContactPerson = "bob uy",
+                    ContactNumber = "09866191",
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
@@ -494,6 +498,9 @@ namespace Anthurium.API.Data
                     CompanyName = "Microsoft",
                     CompanyAddress = "United States America",
                     ContactEmailAddress = "CC@cc.com",
+                    ContactPerson = "sicnarf noyag",
+                    ContactNumber = "1134455",
+
                     IsActive = true,
                     DateCreated = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
