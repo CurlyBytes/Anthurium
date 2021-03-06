@@ -15,7 +15,7 @@ namespace Anthurium.API.Profiles
             //source->target
             //api get,post,update(delete)
             CreateMap<Asset, AssetReadDto>();
-
+            CreateMap<AssetReadDto, AssetUpdateDto>();
             CreateMap<AssetCreateDto, Asset>()
             .ForMember(destination => destination.AssetId, source => source.Ignore());
 

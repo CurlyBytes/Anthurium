@@ -15,7 +15,7 @@ namespace Anthurium.API.Profiles
             //source->target
             //api get,post,update(delete)
             CreateMap<DeliveryReceipt, DeliveryReceiptReadDto>();
-
+            CreateMap<DeliveryReceiptReadDto, DeliveryReceiptUpdateDto>();
             CreateMap<DeliveryReceiptCreateDto, DeliveryReceipt>()
             .ForMember(destination => destination.DeliveryReceiptId, source => source.Ignore());
 

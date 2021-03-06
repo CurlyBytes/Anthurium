@@ -15,7 +15,7 @@ namespace Anthurium.API.Profiles
             //source->target
             //api get,post,update(delete)
             CreateMap<Vendor, VendorReadDto>();
-
+            CreateMap<VendorReadDto, VendorUpdateDto>();
             CreateMap<VendorCreateDto, Vendor>()
             .ForMember(destination => destination.VendorId, source => source.Ignore());
 
