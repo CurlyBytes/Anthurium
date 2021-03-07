@@ -23,6 +23,7 @@
         </div>
 
         <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
+        <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/warehouse">Return to List</a>
         <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
              hidden="@(message=="")">@message</div>
         </EditForm>
