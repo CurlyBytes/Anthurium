@@ -44,7 +44,7 @@
         </div>
         <div class="row  m-2">
             <table class="col-12 table table-hover table-responsive table-striped">
-                <caption>List of Client Informations</caption>
+                <caption>List of Quotation Details</caption>
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -62,7 +62,7 @@
                     @foreach (var jobQuotationDetailsReadDtoItem in jobQuotationDetailsReadDto)
                     {
                     <tr>
-                        <td scope="row">@jobQuotationDetailsReadDtoItem.JobQuotationId</td>
+                        <td scope="row">@jobQuotationDetailsReadDtoItem.JobQuotationDetailsId</td>
                         <td>@jobQuotationDetailsReadDtoItem.ItemName</td>
                         <td>@jobQuotationDetailsReadDtoItem.MarginPrice</td>
                         <td>@jobQuotationDetailsReadDtoItem.OriginalPrice</td>

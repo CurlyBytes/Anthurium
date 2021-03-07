@@ -64,38 +64,38 @@
         {
             <div class="form-group row">
                 <label for="ItemId" class="col-sm-6 col-form-label">Item:</label>
-                <select id="ItemId" class="form-control selectpicker" value="@item.value.ItemId"  @onchange="() => ChangeItem(item.value.ItemName, item.i)">
+                <select id="ItemId" class="form-control selectpicker" value="@item.value.ItemId"    @onchange="(e => ChangeSelectedItem(e, item.i))">
                     <option>--select--</option>
                     @foreach (var itemsingle in itemReadDto)
                     {
-                        item.value.ItemName = itemsingle.ItemName;
+                       
                         <option value="@itemsingle.ItemId">@itemsingle.ItemName</option>
                     }
                 </select>
             </div>
 
             <div class="row form-group">
-                <div class="col-sm-4 ">
+                <div class="col ">
                     <label for="@item.value.ItemName" class="col-sm-6 col-form-label">Item Name:</label>
                     <input id="@item.value.ItemName" type="text" class="form-control" placeholder="Item Name" @bind="@item.value.ItemName" disabled>
                 </div>
-                <div class="col-sm-2">
+                <div class="col">
                     <label for="@item.value.MarginPrice" class="col-sm-2 col-form-label">Margin Price:</label>
                     <input id="@item.value.MarginPrice" type="text" class="form-control" placeholder="Margin Price" @bind="@item.value.MarginPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
                 </div>
-                <div class="col-sm-2">
+                <div class="col">
                     <label for="@item.value.OriginalPrice" class="col-sm-2 col-form-label">Original Price:</label>
                     <input id="@item.value.OriginalPrice" type="text" class="form-control" placeholder="Original Price" @bind="@item.value.OriginalPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
                 </div>
-                <div class="col-sm-2">
+                <div class="col">
                     <label for="@item.value.SellingPrice" class="col-sm-2 col-form-label">Selling Price:</label>
                     <input id="@item.value.SellingPrice" type="text" class="form-control" placeholder="Selling Price" @bind="@item.value.SellingPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
                 </div>
-                <div class="col-sm-2">
+                <div class="col">
                     <label for="@item.value.Quantity" class="col-sm-2 col-form-label">Quantity:</label>
                     <input id="@item.value.Quantity" type="number" class="form-control" placeholder="Quantity" @bind="@item.value.Quantity" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
                 </div>
-                <div class="col-sm-2">
+                <div class="col">
 
                     <label for="@item.value.TotalCost" class="col-sm-2 col-form-label">TotalCost:</label>
                     <input id="@item.value.TotalCost" type="text" class="form-control" placeholder="TotalCost" @bind="@item.value.TotalCost" readonly disabled>
@@ -136,6 +136,8 @@
         private int matchingCount;
         private int matchingCountItem;
 
+        private string selectedItem { get; set; }
+
         private async Task FetchListAsync()
         {
             var response = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
@@ -168,6 +170,7 @@
         public async void PostJobQuotation()
         {
             //returns response message, so can check if success
+            jobQuotationnCreateDto.JobQuotationDetails = jobQuotationDetailsCreateDtoList;
             var response = await jobQuotationService.CreateJobQuotationAsync(jobQuotationnCreateDto);
             if (response.IsSuccessStatusCode)
             {
@@ -186,12 +189,16 @@
 
         }
 
-        private void ChangeItem(string itemname, int index)
+
+
+        private async Task ChangeSelectedItem(ChangeEventArgs e,int index)
         {
 
-            jobQuotationDetailsCreateDtoList[index].ItemName = itemname;
-        }
+            itemReadDtoSingle = await itemService.GetItemByIdAsync(Int32.Parse(e.Value.ToString()));
+            jobQuotationDetailsCreateDtoList[index].ItemName = itemReadDtoSingle.ItemName;
+            jobQuotationDetailsCreateDtoList[index].ItemId = itemReadDtoSingle.ItemId;
 
+        }
         private async Task ChangeOrder(ChangeEventArgs e)
         {
 

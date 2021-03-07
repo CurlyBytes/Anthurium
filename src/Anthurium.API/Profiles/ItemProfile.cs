@@ -25,7 +25,17 @@ namespace Anthurium.API.Profiles
                 .ForMember(destination => destination.IsActive, source => source.Ignore());
 
             CreateMap<Item, ItemUpdateDto>();
+            //CreateMap<ItemReadDto, JobQuotationDetailsCreateDto>()
+            //    .ForMember(destination => destination.MarginPrice, source => source.Ignore())
+            //    .ForMember(destination => destination.OriginalPrice, source => source.Ignore())
+            //    .ForMember(destination => destination.SellingPrice, source => source.Ignore())
+            //    .ForMember(destination => destination.Quantity, source => source.Ignore())
+            //    .ForMember(destination => destination.TotalCost, source => source.Ignore())
+            //    .ForMember(destination => destination.IsAlreadyPurchaseOrder, source => source.Ignore())
+            //    .ForMember(destination => destination.PurchaseOrderCode, source => source.Ignore())
+            //    .ForMember(destination => destination.IsActive, source => source.Ignore());
 
+            //CreateMap<ItemReadDto, JobQuotationDetailsUpdateDto>();
         }
     }
 }

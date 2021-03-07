@@ -75,7 +75,7 @@ else
             {
                 <div class="form-group row">
                     <label for="ItemId" class="col-sm-6 col-form-label">Item:</label>
-                    <select id="ItemId" class="form-control selectpicker" value="@item.value.ItemId" @onchange="() => ChangeItem(item.value.ItemName, item.i)" >
+                    <select id="ItemId" class="form-control selectpicker" value="@item.value.ItemId"   @onchange="(e => ChangeSelectedItem(e, item.i))" >
                         <option>--select--</option>
                         @foreach (var itemsingle in itemReadDto)
                         {
@@ -86,32 +86,32 @@ else
                 </div>
                 <div class="form-row">
                     <div class="row form-group">
-                        <div class="col-sm-4 ">
+                        <div class="col">
                             <label for="@item.value.ItemName" class="col-sm-6 col-form-label">Item Name:</label>
                             <input id="@item.value.ItemName" type="text" class="form-control" placeholder="Item Name" @bind="@item.value.ItemName" disabled>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col">
                             <label for="@item.value.MarginPrice" class="col-sm-2 col-form-label">Margin Price:</label>
                             <input id="@item.value.MarginPrice" type="text" class="form-control" placeholder="Margin Price" @bind="@item.value.MarginPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col">
                             <label for="@item.value.OriginalPrice" class="col-sm-2 col-form-label">Original Price:</label>
                             <input id="@item.value.OriginalPrice" type="text" class="form-control" placeholder="Original Price" @bind="@item.value.OriginalPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col">
                             <label for="@item.value.SellingPrice" class="col-sm-2 col-form-label">Selling Price:</label>
                             <input id="@item.value.SellingPrice" type="text" class="form-control" placeholder="Selling Price" @bind="@item.value.SellingPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col">
                             <label for="@item.value.Quantity" class="col-sm-2 col-form-label">Quantity:</label>
                             <input id="@item.value.Quantity" type="number" class="form-control" placeholder="Quantity" @bind="@item.value.Quantity" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col">
 
                             <label for="@item.value.TotalCost" class="col-sm-2 col-form-label">TotalCost:</label>
                             <input id="@item.value.TotalCost" type="text" class="form-control" placeholder="TotalCost" @bind="@item.value.TotalCost" readonly disabled>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col">
                             <button class="btn btn-danger" type="button" @onclick="() => RemoveField(item.value)">X</button>
                         </div>
 
@@ -163,6 +163,7 @@ else
         jobQuotationDetailsReadDtoList = currentJobQuotationDetailsList.JobQuotationDetailsApi;
         jobQuotationReadDto = await jobQuotationService.GetJobQuotationByIdAsync(Id);
         _mapper.Map(jobQuotationReadDto, jobQuotationUpdateDto);
+     //   jobQuotationUpdateDto.JobQuotationDetails = jobQuotationDetailsReadDtoList;
         _mapper.Map(jobQuotationDetailsReadDtoList, jobQuotationDetailsUpdateDtoList);
 
 
@@ -203,6 +204,7 @@ else
     {
 
 
+
         //returns response message, so can check if success
         var response = await jobQuotationService.EditJobQuotationAsync(Id, jobQuotationUpdateDto);
         if (response.IsSuccessStatusCode)
@@ -224,7 +226,14 @@ else
         this.StateHasChanged();
 
     }
+    private async Task ChangeSelectedItem(ChangeEventArgs e, int index)
+    {
 
+        itemReadDtoSingle = await itemService.GetItemByIdAsync(Int32.Parse(e.Value.ToString()));
+        jobQuotationDetailsUpdateDtoList[index].ItemName = itemReadDtoSingle.ItemName;
+        _mapper.Map(itemReadDtoSingle, jobQuotationUpdateDto);
+
+    }
     private async Task ChangeOrder(ChangeEventArgs e)
     {
 
@@ -234,11 +243,6 @@ else
         message = "";
     }
 
-    private void ChangeItem(string itemname,int index)
-    {
-
-        jobQuotationDetailsUpdateDtoList[index].ItemName = itemname;
-    }
 
 
     private void ComputeCost(int Id)
