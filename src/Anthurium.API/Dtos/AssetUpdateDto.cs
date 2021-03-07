@@ -23,7 +23,7 @@ namespace Anthurium.API.Dtos
         [Required]
         public int ItemId { get; set; }
 
-        [Required]
+       
         public ItemUpdateDto Item { get; set; }
 
 

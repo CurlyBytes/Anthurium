@@ -45,7 +45,7 @@ namespace Anthurium.Web.Services
 
         public async Task<AssetReadDto> GetAssetByIdAsync(int id)
         {
-            var response = await _httpClient.GetAsync($"api/asset/{id}");
+            var response = await _httpClient.GetAsync($"api/asset/{id}?$expand=Vendor,Item,ClientInformation");
 
             //Handle more gracefully
             response.EnsureSuccessStatusCode();

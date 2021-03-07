@@ -113,6 +113,11 @@
             message = "";
         }
 
+        protected override async Task OnInitializedAsync()
+        {
+            await FetchListAsync();
+        
+        }
 
         public async void PostAsset()
         {

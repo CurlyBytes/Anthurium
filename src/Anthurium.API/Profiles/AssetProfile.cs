@@ -26,6 +26,13 @@ namespace Anthurium.API.Profiles
 
             CreateMap<Asset, AssetUpdateDto>();
 
+            // asset module dropdown
+            CreateMap<ItemReadDto, AssetCreateDto>();
+            CreateMap<ItemReadDto, AssetUpdateDto>();
+            CreateMap<ClientInformationReadDto, AssetCreateDto>();
+            CreateMap<ClientInformationReadDto, AssetUpdateDto>();
+            CreateMap<VendorReadDto, AssetCreateDto>();
+            CreateMap<VendorReadDto, AssetUpdateDto>();
         }
     }
 }

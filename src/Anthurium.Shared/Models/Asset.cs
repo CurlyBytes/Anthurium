@@ -23,7 +23,7 @@ namespace Anthurium.Shared.Models
         [Required]
         public int ItemId { get; set; }
 
-        [Required]
+
         public Item Item { get; set; }
 
         [Required]
