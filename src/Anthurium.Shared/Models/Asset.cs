@@ -30,6 +30,7 @@ namespace Anthurium.Shared.Models
         [MaxLength(200)]
         public string SerialNumber { get; set; }
         [Required]
+        public DateTime WarrantyDate { get; set; }
         public DateTime DateRecieve { get; set; }
 
         [Required]

@@ -1,5 +1,6 @@
 ﻿using Anthurium.API.Data;
 using Anthurium.Shared.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +19,23 @@ namespace Anthurium.API.Repositories.SqlServer
 
         public Asset AssetById(int Id)
         {
-            return _context.Assets.FirstOrDefault(p => p.AssetId == Id);
+            return _context.Assets
+                      .Include(c => c.ClientInformation)
+                .Include(i => i.Item)
+                .Include(v => v.Vendor)
+                .FirstOrDefault(p => p.AssetId == Id);
         }
 
 
 
         public IEnumerable<Asset> GetAsset()
         {
-            return _context.Assets.ToList();
+            return _context.Assets
+
+                .Include(c => c.ClientInformation)
+                .Include(i => i.Item)
+                .Include(v => v.Vendor)
+                .ToList();
         }
 
 

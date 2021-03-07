@@ -1,0 +1,94 @@
+﻿@page "/asset/{Id:int}/delete"
+@inject Services.AssetService assetService
+@inject NavigationManager NavManager
+@using Anthurium.Web.Pages
+@using Anthurium.API.Dtos
+@inject IToastService toastService
+
+<h4>Are you sure you want to delete this?</h4>
+
+@if (asset == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row m-2">
+        <table class="table table-hover table-responsive table-striped">
+            <thead>
+
+                <tr>
+                    <th scope="col">Record Type</th>
+                    <th scope="col">Record Info</th>
+                </tr>
+
+
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Id</th>
+                    <td>@asset.AssetId</td>
+                </tr>
+                <tr>
+                    <th scope="row">Company Name</th>
+                    <td>@asset.Vendor.VendorName</td>
+                </tr>
+                <tr>
+                    <th scope="row">Company Name</th>
+                    <td>@asset.ClientInformation.CompanyName</td>
+                </tr>
+                <tr>
+                    <th scope="row">Item Name</th>
+                    <td>@asset.Item.ItemName</td>
+                </tr>
+                <tr>
+                    <th scope="row">Serial Number</th>
+                    <td>@asset.SerialNumber</td>
+                </tr>
+                <tr>
+                    <th scope="row">Warranty Date</th>
+                    <td>@asset.WarrantyDate</td>
+                </tr>
+
+                <tr>
+                    <th class="info">Date Updated</th>
+                    <td>@asset.DateCreated</td>
+                </tr>
+                <tr>
+                    <th class="info">Date Created</th>
+                    <td>@asset.DateUpdated</td>
+                </tr>
+            </tbody>
+
+        </table>
+        <!--TODO Add warning on how many job order and  job quotations here-->
+    </div>
+    <div class="row m-2">
+        <div class="col-12">
+            <button @onclick="OnDeleteButtonClick" class="btn btn-danger btn-sm">Yes</button>
+            <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/asset">Return to List</a>
+        </div>
+    </div>
+}
+
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private AssetReadDto asset;
+
+    protected override async Task OnInitializedAsync()
+    {
+        asset = await assetService.GetAssetByIdAsync(Id);
+    }
+
+    private async void OnDeleteButtonClick()
+    {
+
+        await assetService.DeleteAssetByIdAsync(Id);
+        toastService.ShowWarning($"asset : {asset.SerialNumber} is deleted.");
+        NavManager.NavigateTo("/asset");
+    }
+}

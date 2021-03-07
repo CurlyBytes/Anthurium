@@ -101,6 +101,12 @@ namespace Anthurium.Web
 
             });
 
+            services.AddHttpClient<AssetService>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:5001");
+
+            });
+
             //services.AddAccessTokenManagement(options =>
             //{
             //    options.Client.Clients.Add("web", new ClientCredentialsTokenRequest

@@ -29,6 +29,18 @@ namespace Anthurium.Web.Services
         }
 
 
+        public async Task<VendorApiResponse> GetVendorsAsync(string orderBy, int skip)
+        {
+            var response = await _httpClient.GetAsync($"api/vendor?$count=true&$orderby={orderBy}&$skip={skip}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<VendorApiResponse>(responseContent);
+            }
+
+            return new VendorApiResponse();
+        }
 
         public async Task<VendorReadDto> GetVendorByIdAsync(int id)
         {
