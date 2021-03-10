@@ -61,15 +61,15 @@ namespace Anthurium.API
 
             services.AddAuthorization();
 
-            services.AddDbContext<AnthuriumContext>(options =>
-                options.UseInMemoryDatabase("JobQuotation"));
+            //services.AddDbContext<AnthuriumContext>(options =>
+            //    options.UseInMemoryDatabase("LightSailsErp"));
 
-            //services.AddDbContext<AnthuriumContext>(options => options
-            //     .UseMySql("Server=localhost; Database=asp_mariadb_cfg;User=<username>;Password=<password>;",
-            //         mysqlOptions =>
-            //             mysqlOptions.ServerVersion(new ServerVersion(new Version(10, 4, 6), ServerType.MariaDb))));
-            // services.AddDbContext<AnthuriumContext>(opt => opt.UseSqlServer
-            //(Configuration.GetConnectionString("AnthuriumConnection")));
+            services.AddDbContext<AnthuriumContext>(options => options
+                 .UseMySql("Server=localhost; Database=LightSailsErp;User=root;Password=qwerty@123456;",
+                     mysqlOptions =>
+                         mysqlOptions.ServerVersion(new ServerVersion(new Version(10, 4, 6), ServerType.MariaDb))));
+            services.AddDbContext<AnthuriumContext>(opt => opt.UseSqlServer
+           (Configuration.GetConnectionString("AnthuriumConnection")));
             services.AddScoped<IClientInformation, SqlServerClientInformationRepository>();
             services.AddScoped<IJobOrderDescriptionOfWork, SqlServerJobOrderDescriptionOfWorkRepository>();
             services.AddScoped<IJobOrderRepository, SqlServerJobOrderRepository>();
