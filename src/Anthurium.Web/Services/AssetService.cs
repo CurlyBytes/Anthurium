@@ -27,6 +27,18 @@ namespace Anthurium.Web.Services
 
             return new AssetApiResponse();
         }
+        public async Task<AssetApiResponse> GetAssetsByClientIdAsync(string orderBy, int skip, int top,int clientInformationId)
+        {
+            var response = await _httpClient.GetAsync($"api/asset?$count=true&$filter=ClientInformationId eq {clientInformationId}&$expand=Vendor,Item,ClientInformation&$orderby={orderBy}&$skip={skip}&$top={top}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<AssetApiResponse>(responseContent);
+            }
+
+            return new AssetApiResponse();
+        }
 
 
         public async Task<AssetApiResponse> GetAssetsAsync(string orderBy, int skip)

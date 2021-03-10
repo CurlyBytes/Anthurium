@@ -100,7 +100,7 @@ else
                         </div>
                         <div class="col">
                             <label for="@item.value.SellingPrice" class="col-sm-2 col-form-label">Selling Price:</label>
-                            <input id="@item.value.SellingPrice" type="text" class="form-control" placeholder="Selling Price" @bind="@item.value.SellingPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
+                            <input id="@item.value.SellingPrice" type="text" class="form-control" disabled placeholder="Selling Price" @bind="@item.value.SellingPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
                         </div>
                         <div class="col">
                             <label for="@item.value.Quantity" class="col-sm-2 col-form-label">Quantity:</label>

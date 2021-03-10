@@ -3,6 +3,7 @@
 @using Anthurium.API.Dtos
 @using Anthurium.Web.Pages.JobOrders
 @using Anthurium.Web.Pages.JobQuotes
+@using Anthurium.Web.Pages.Assets
 
 <h3>Client Id: @Id.ToString()</h3>
 
@@ -73,14 +74,18 @@ else
         <JobOrderListParent>
             <JobOrderListByClient ClientInformationId="Id" />
         </JobOrderListParent>
-       
+
     </div>
     <div class="row m-2">
         <JobQuotationListParent>
             <JobQuotationListByClient ClientInformationId="Id" />
         </JobQuotationListParent>
     </div>
-
+    <div class="row m-2">
+        <AssetListParent>
+            <AssetListPerClient ClientInformationId="Id" />
+        </AssetListParent>
+    </div>
 }
 
 @code {
