@@ -28,6 +28,7 @@ namespace Anthurium.API.Profiles
             CreateMap<JobQuotationDetails, JobQuotationDetailsUpdateDto>();
             CreateMap<JobQuotationDetailsReadDto, JobQuotationDetailsUpdateDto>();
 
+            CreateMap<ItemReadDto, JobQuotationUpdateDto>();
         }
     }
 }
