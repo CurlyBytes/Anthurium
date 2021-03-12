@@ -30,13 +30,19 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNet.OData.Formatter;
 using Microsoft.Net.Http.Headers;
 using OData.Swagger.Services;
+using Anthurium.API.Helpers;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Anthurium.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment _env;
+        public Startup(IWebHostEnvironment env, IConfiguration configuration)
         {
+            _env = env;
             Configuration = configuration;
         }
 
@@ -60,16 +66,28 @@ namespace Anthurium.API
             //    });
 
             services.AddAuthorization();
+            services.AddCors();
 
-            //services.AddDbContext<AnthuriumContext>(options =>
-            //    options.UseInMemoryDatabase("LightSailsErp"));
 
-            services.AddDbContext<AnthuriumContext>(options => options
-                 .UseMySql("Server=localhost; Database=LightSailsErp;User=root;Password=qwerty@123456;",
-                     mysqlOptions =>
-                         mysqlOptions.ServerVersion(new ServerVersion(new Version(10, 4, 6), ServerType.MariaDb))));
-            services.AddDbContext<AnthuriumContext>(opt => opt.UseSqlServer
-           (Configuration.GetConnectionString("AnthuriumConnection")));
+            if (_env.IsProduction())
+            {
+                //services.AddDbContext<AnthuriumContext>(options => options
+                //     .UseMySql("Server=localhost; Database=LightSailsErp;User=root;Password=;",
+                //         mysqlOptions =>
+                //             mysqlOptions.ServerVersion(new ServerVersion(new Version(10, 4, 6), ServerType.MariaDb))));
+
+
+                services.AddDbContext<AnthuriumContext>(options =>
+                options.UseInMemoryDatabase("LightSailsErp"));
+            }
+
+            else
+            {
+
+                services.AddDbContext<AnthuriumContext>(options =>
+                   options.UseInMemoryDatabase("LightSailsErp"));
+            }
+          
             services.AddScoped<IClientInformation, SqlServerClientInformationRepository>();
             services.AddScoped<IJobOrderDescriptionOfWork, SqlServerJobOrderDescriptionOfWorkRepository>();
             services.AddScoped<IJobOrderRepository, SqlServerJobOrderRepository>();
@@ -82,13 +100,55 @@ namespace Anthurium.API
             services.AddScoped<ISqlServerDeliveryReceiptRepository, SqlServerDeliveryReceiptRepository>();
             services.AddScoped<ISqlServerDeliveryReceiptDetailsRepository, SqlServerDeliveryReceiptDetailsRepository>();
 
+            services.AddScoped<ISqlServerUserRepository, SqlServerUserRepository>();
 
-            
+
+
 
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             //services.AddOdataSwaggerSupport();
             SetOutputFormatters(services);
+
+            // configure strongly typed settings objects
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            // configure jwt authentication
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                    .AddJwtBearer(x =>
+                    {
+                        x.Events = new JwtBearerEvents
+                        {
+                            OnTokenValidated = context =>
+                            {
+                                var userService = context.HttpContext.RequestServices.GetRequiredService<ISqlServerUserRepository>();
+                                var userId = int.Parse(context.Principal.Identity.Name);
+                                var user = userService.GetById(userId); 
+                                if (user == null)
+                                {
+                                    // return unauthorized if user no longer exists
+                                    context.Fail("Unauthorized");
+                                }
+                                return Task.CompletedTask;
+                            }
+                        };
+                        x.RequireHttpsMetadata = false;
+                        x.SaveToken = true;
+                        x.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(key),
+                            ValidateIssuer = false,
+                            ValidateAudience = false
+                        };
+                    });
 
         }
 
@@ -108,6 +168,10 @@ namespace Anthurium.API
             //app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(x => x
+               .AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader());
 
             app.UseAuthentication();
             app.UseAuthorization();
