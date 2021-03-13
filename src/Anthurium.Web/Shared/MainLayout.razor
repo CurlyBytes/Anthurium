@@ -1,10 +1,20 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+@inject Services.IAccountService AccountService
 <BlazoredToasts />
-<div class="sidebar">
-    <NavMenu />
-</div>
 
-<div class="main">
+@if (LoggedIn)
+{
+    <!-- nav -->
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+}
+
+
+
+<div class="main app-container @(LoggedIn ? "bg-light" : "")">
+    <Alert />
     <div class="top-row px-4">
         <a href="https://lightsailits.com/" target="_blank">About</a>
     </div>
@@ -13,3 +23,10 @@
         @Body
     </div>
 </div>
+
+@code {
+    public bool LoggedIn
+    {
+        get { return AccountService.User != null; }
+    }
+}

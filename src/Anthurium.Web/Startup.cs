@@ -21,6 +21,7 @@ using Westwind.AspNetCore.LiveReload;
 using Anthurium.Web.Models;
 using Microsoft.Extensions.Options;
 using BlazorDownloadFile;
+using System.Net.Http;
 
 namespace Anthurium.Web
 {
@@ -106,7 +107,13 @@ namespace Anthurium.Web
                 client.BaseAddress = new Uri("http://localhost:5001");
 
             });
+            services.AddScoped(x => {
+                var apiUrl = new Uri("http://localhost:5001");
 
+                // use fake backend if "fakeBackend" is "true" in appsettings.json
+
+                return new HttpClient() { BaseAddress = apiUrl };
+            });
             //services.AddAccessTokenManagement(options =>
             //{
             //    options.Client.Clients.Add("web", new ClientCredentialsTokenRequest
@@ -120,8 +127,11 @@ namespace Anthurium.Web
             services.AddBlazoredSessionStorage();
 
             //services.AddSingleton<ApiTokenCacheService>();
-            
 
+            services.AddScoped<IAccountService, AccountService>()
+                .AddScoped<IAlertService, AlertService>()
+                .AddScoped<IHttpService, HttpService>()
+                .AddScoped<ILocalStorageService, LocalStorageService>();
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddBlazoredModal();
