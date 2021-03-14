@@ -23,8 +23,8 @@ namespace Anthurium.Web.Helpers
             var authorize = Attribute.GetCustomAttribute(RouteData.PageType, typeof(AuthorizeAttribute)) != null;
             if (authorize && AccountService.User == null)
             {
-                var returnUrl = WebUtility.UrlEncode(new Uri(NavigationManager.Uri).PathAndQuery);
-                NavigationManager.NavigateTo($"account/login?returnUrl={returnUrl}");
+                //var returnUrl = WebUtility.UrlEncode(new Uri(NavigationManager.Uri).PathAndQuery);
+                NavigationManager.NavigateTo("account/login");
             }
             else
             {
