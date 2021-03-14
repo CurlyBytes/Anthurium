@@ -1,7 +1,7 @@
 ﻿@page "/jobquotation/create"
-@inject Services.JobQuotationService jobQuotationService
-@inject Services.ItemService itemService
-@inject Services.ClientInformationService clientInformationService
+@inject Services.IJobQuotationService jobQuotationService
+@inject Services.IItemService itemService
+@inject Services.IClientInformationService clientInformationService
 @using System.Text.Json
 @using Anthurium.API.Dtos
 @inject NavigationManager NavManager

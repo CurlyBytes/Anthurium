@@ -1,8 +1,8 @@
 ﻿@page "/asset/create"
-@inject Services.AssetService assetService
-@inject Services.ItemService itemService
-@inject Services.VendorService vendorService
-@inject Services.ClientInformationService clientInformationService
+@inject Services.IAssetService assetService
+@inject Services.IItemService itemService
+@inject Services.IVendorService vendorService
+@inject Services.IClientInformationService clientInformationService
 @using System.Text.Json
 @using Anthurium.API.Dtos
 @inject NavigationManager NavManager

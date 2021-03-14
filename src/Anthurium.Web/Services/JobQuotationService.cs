@@ -11,9 +11,9 @@ namespace Anthurium.Web.Services
 {
     public class JobQuotationService : IJobQuotationService
     {
-        public HttpService _httpService;
+        public IHttpService _httpService;
 
-        public JobQuotationService(HttpService httpService)
+        public JobQuotationService(IHttpService httpService)
         {
             _httpService = httpService;
         }

@@ -1,8 +1,8 @@
 ﻿@page "/asset/{Id:int}/edit"
-@inject Services.AssetService assetService
-@inject Services.ItemService itemService
-@inject Services.VendorService vendorService
-@inject Services.ClientInformationService clientInformationService
+@inject Services.IAssetService assetService
+@inject Services.IItemService itemService
+@inject Services.IVendorService vendorService
+@inject Services.IClientInformationService clientInformationService
 @using AutoMapper;
 @inject IMapper _mapper;
 @using System.Text.Json

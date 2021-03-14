@@ -56,7 +56,7 @@ namespace Anthurium.Web
 
                 return new HttpClient() { BaseAddress = apiUrl };
             });
-
+            services.AddBlazorDownloadFile();
 
             //services.AddAccessTokenManagement(options =>
             //{
@@ -73,6 +73,7 @@ namespace Anthurium.Web
             //services.AddSingleton<ApiTokenCacheService>();
 
             services.AddScoped<IAccountService, AccountService>()
+                .AddScoped<IClientInformationService, ClientInformationService>()
                 .AddScoped<IJobOrderService, JobOrderService>()
                 .AddScoped<IJobOrderDescriptionOfWorkService, JobOrderDescriptionOfWorkService>()
                 .AddScoped<IDashboardService, DashboardService>()

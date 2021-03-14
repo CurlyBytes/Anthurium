@@ -1,6 +1,6 @@
 ﻿@page "/item/{Id:int}/edit"
-@inject Services.ItemService itemService
-@inject Services.WarehouseService warehouseService
+@inject Services.IItemService itemService
+@inject Services.IWarehouseService warehouseService
 @using AutoMapper;
 @inject IMapper _mapper;
 @using System.Text.Json

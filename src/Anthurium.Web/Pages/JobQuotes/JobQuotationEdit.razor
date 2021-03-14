@@ -1,8 +1,8 @@
 ﻿@page "/jobquotation/{Id:int}/edit"
-@inject Services.JobQuotationService jobQuotationService
-@inject Services.JobQuotationDetailsDetails jobQuotationDetailsService
-@inject Services.ClientInformationService clientInformationService
-@inject Services.ItemService itemService
+@inject Services.IJobQuotationService jobQuotationService
+@inject Services.IJobQuotationDetailsDetails jobQuotationDetailsService
+@inject Services.IClientInformationService clientInformationService
+@inject Services.IItemService itemService
 @using AutoMapper;
 @inject IMapper _mapper;
 @using System.Text.Json;

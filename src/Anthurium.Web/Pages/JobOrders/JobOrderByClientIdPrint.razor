@@ -1,6 +1,6 @@
 ﻿@page "/joborder/print/{Id:int}"
 @layout PdfLayout
-@inject Services.JobOrderService jobOrderService
+@inject Services.IJobOrderService jobOrderService
 @using Anthurium.API.Dtos
 
 @if (jobOrderReadDto == null)
