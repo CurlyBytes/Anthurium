@@ -6,86 +6,58 @@ using System.Threading.Tasks;
 
 namespace Anthurium.Web.Services
 {
-    public class AssetService
+    public class AssetService : IAssetService
     {
-        public HttpClient _httpClient;
+        private IHttpService _httpService;
 
-        public AssetService(HttpClient client)
+        public AssetService(IHttpService httpService)
         {
-            _httpClient = client;
+            _httpService = httpService;
         }
 
         public async Task<AssetApiResponse> GetAssetsAsync(string orderBy, int skip, int top)
         {
-            var response = await _httpClient.GetAsync($"api/asset?$count=true&$expand=Vendor,Item,ClientInformation&$orderby={orderBy}&$skip={skip}&$top={top}");
+            return await _httpService.Get<AssetApiResponse>($"api/asset?$count=true&$expand=Vendor,Item,ClientInformation&$orderby={orderBy}&$skip={skip}&$top={top}");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<AssetApiResponse>(responseContent);
-            }
 
-            return new AssetApiResponse();
         }
-        public async Task<AssetApiResponse> GetAssetsByClientIdAsync(string orderBy, int skip, int top,int clientInformationId)
+        public async Task<AssetApiResponse> GetAssetsByClientIdAsync(string orderBy, int skip, int top, int clientInformationId)
         {
-            var response = await _httpClient.GetAsync($"api/asset?$count=true&$filter=ClientInformationId eq {clientInformationId}&$expand=Vendor,Item,ClientInformation&$orderby={orderBy}&$skip={skip}&$top={top}");
+            return await _httpService.Get<AssetApiResponse>($"api/asset?$count=true&$filter=ClientInformationId eq {clientInformationId}&$expand=Vendor,Item,ClientInformation&$orderby={orderBy}&$skip={skip}&$top={top}");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<AssetApiResponse>(responseContent);
-            }
-
-            return new AssetApiResponse();
         }
 
 
         public async Task<AssetApiResponse> GetAssetsAsync(string orderBy, int skip)
         {
-            var response = await _httpClient.GetAsync($"api/asset?$count=true&$expand=Vendor,Item,ClientInformation&$orderby={orderBy}&$skip={skip}");
+            return await _httpService.Get<AssetApiResponse>($"api/asset?$count=true&$expand=Vendor,Item,ClientInformation&$orderby={orderBy}&$skip={skip}");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<AssetApiResponse>(responseContent);
-            }
 
-            return new AssetApiResponse();
         }
 
 
         public async Task<AssetReadDto> GetAssetByIdAsync(int id)
         {
-            var response = await _httpClient.GetAsync($"api/asset/{id}?$expand=Vendor,Item,ClientInformation");
+            return await _httpService.Get<AssetReadDto>($"api/asset/{id}?$expand=Vendor,Item,ClientInformation");
 
-            //Handle more gracefully
-            response.EnsureSuccessStatusCode();
-
-            using var responseContent = await response.Content.ReadAsStreamAsync();
-            return await JsonSerializer.DeserializeAsync<AssetReadDto>(responseContent);
         }
 
         public async Task<HttpResponseMessage> DeleteAssetByIdAsync(int id)
         {
             //consider impact vs returning just status code
-            return await _httpClient.DeleteAsync($"api/asset/{id}");
+            return await _httpService.Delete<HttpResponseMessage>($"api/asset/{id}");
         }
 
         public async Task<HttpResponseMessage> CreateAssetAsync(AssetCreateDto asset)
         {
-            string jsonAsset = JsonSerializer.Serialize(asset);
-            var stringContent = new StringContent(jsonAsset, System.Text.Encoding.UTF8, "application/json");
 
-            return await _httpClient.PostAsync($"api/asset", stringContent);
+            return await _httpService.Post<HttpResponseMessage>($"api/asset", asset);
         }
 
         public async Task<HttpResponseMessage> EditAssetAsync(int id, AssetUpdateDto asset)
         {
-            string jsonAsset = JsonSerializer.Serialize(asset);
-            var stringContent = new StringContent(jsonAsset, System.Text.Encoding.UTF8, "application/json");
 
-            return await _httpClient.PutAsync($"api/asset/{id}", stringContent);
+            return await _httpService.Put<HttpResponseMessage>($"api/asset/{id}", asset);
         }
     }
 }

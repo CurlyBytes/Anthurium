@@ -17,7 +17,7 @@ namespace Anthurium.API.Controllers
     [Route("api/joborder")]
     [ApiController]
     [ODataRoutePrefix("joborder")]
-
+    [Authorize]
     public class JobOrderController : ODataController
     {
         private readonly IJobOrderRepository _repository;

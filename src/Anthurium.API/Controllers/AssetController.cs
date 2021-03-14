@@ -4,6 +4,7 @@ using Anthurium.Shared.Models;
 using AutoMapper;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Routing;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace Anthurium.API.Controllers
     [ODataRoutePrefix("asset")]
     [Route("api/asset")]
     [ApiController]
+    [Authorize]
     public class AssetController : ODataController
     {
         private readonly ISqlServerAssetRepository _repository;

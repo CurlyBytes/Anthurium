@@ -17,7 +17,7 @@ namespace Anthurium.API.Controllers
     [Route("api/jobquotation")]
     [ApiController]
     [ODataRoutePrefix("jobquotation")]
-
+    [Authorize]
     public class JobQuotationController : ODataController
     {
         private readonly ISqlServerJobQuotationRepository _repository;

@@ -4,6 +4,7 @@ using Anthurium.Shared.Models;
 using AutoMapper;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Routing;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace Anthurium.API.Controllers
     [ODataRoutePrefix("vendor")]
     [Route("api/vendor")]
     [ApiController]
+    [Authorize]
     public class VendorController : ODataController
     {
         private readonly ISqlServerVendorRepository _repository;

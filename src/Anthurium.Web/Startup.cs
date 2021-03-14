@@ -48,65 +48,7 @@ namespace Anthurium.Web
             //ervices.Configure<UtilitySettings>("http://localhost:5001");
 
             services.AddBlazoredToast();
-            services.AddHttpClient<ClientInformationService>(client =>
-            {
-                client.BaseAddress = new Uri("http://localhost:5001");
-
-            });
-            services.AddBlazorDownloadFile();
-            services.AddHttpClient<JobOrderService>(client =>
-            {
-                client.BaseAddress = new Uri("http://localhost:5001");
-
-            });
-
-
-            services.AddHttpClient<JobOrderDescriptionOfWorkService>(client =>
-            {
-                client.BaseAddress = new Uri("http://localhost:5001");
-
-            });
-
-            services.AddHttpClient<DashboardService>(client =>
-            {
-                client.BaseAddress = new Uri("http://localhost:5001");
-
-            });
-
-            services.AddHttpClient<JobQuotationService>(client =>
-            {
-                client.BaseAddress = new Uri("http://localhost:5001");
-
-            });
-
-            services.AddHttpClient<JobQuotationDetailsDetails>(client =>
-            {
-                client.BaseAddress = new Uri("http://localhost:5001");
-
-            });
-
-                services.AddHttpClient<WarehouseService>(client =>
-            {
-                client.BaseAddress = new Uri("http://localhost:5001");
-
-            });
-
-            services.AddHttpClient<VendorService>(client =>
-            {
-                client.BaseAddress = new Uri("http://localhost:5001");
-
-            });
-            services.AddHttpClient<ItemService>(client =>
-            {
-                client.BaseAddress = new Uri("http://localhost:5001");
-
-            });
-
-            services.AddHttpClient<AssetService>(client =>
-            {
-                client.BaseAddress = new Uri("http://localhost:5001");
-
-            });
+        
             services.AddScoped(x => {
                 var apiUrl = new Uri("http://localhost:5001");
 
@@ -131,7 +73,15 @@ namespace Anthurium.Web
             //services.AddSingleton<ApiTokenCacheService>();
 
             services.AddScoped<IAccountService, AccountService>()
-                .AddScoped<IClientInformationService, ClientInformationService>()
+                .AddScoped<IJobOrderService, JobOrderService>()
+                .AddScoped<IJobOrderDescriptionOfWorkService, JobOrderDescriptionOfWorkService>()
+                .AddScoped<IDashboardService, DashboardService>()
+                .AddScoped<IJobQuotationService, JobQuotationService>()
+                .AddScoped<IJobQuotationDetailsDetails, JobQuotationDetailsDetails>()
+                .AddScoped<IWarehouseService, WarehouseService>()
+                .AddScoped<IVendorService, VendorService>()
+                .AddScoped<IItemService, ItemService>()
+                .AddScoped<IAssetService, AssetService>()
                 .AddScoped<IAlertService, AlertService>()
                 .AddScoped<IHttpService, HttpService>()
                 .AddScoped<ILocalStorageService, LocalStorageService>();

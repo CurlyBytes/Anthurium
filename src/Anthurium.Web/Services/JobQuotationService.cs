@@ -9,73 +9,53 @@ using System.Threading.Tasks;
 
 namespace Anthurium.Web.Services
 {
-    public class JobQuotationService
+    public class JobQuotationService : IJobQuotationService
     {
-        public HttpClient _httpClient;
+        public HttpService _httpService;
 
-        public JobQuotationService(HttpClient client)
+        public JobQuotationService(HttpService httpService)
         {
-            _httpClient = client;
+            _httpService = httpService;
         }
 
         public async Task<JobQuotationApiResponse> GetJobQuotationsAsync(string orderBy, int skip, int top)
         {
-            var response = await _httpClient.GetAsync($"api/jobquotation?$count=true&$orderby={orderBy}&$skip={skip}&$top={top}");
+            return await _httpService.Get<JobQuotationApiResponse>($"api/jobquotation?$count=true&$orderby={orderBy}&$skip={skip}&$top={top}");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<JobQuotationApiResponse>(responseContent);
-            }
-
-            return new JobQuotationApiResponse();
+       
         }
 
         public async Task<JobQuotationApiResponse> JobOrderQuotationByClient(string orderBy, int skip, int top, int clientInformationId)
         {
-            var response = await _httpClient.GetAsync($"api/jobquotation?$count=true&$filter=ClientInformationId eq {clientInformationId}&$orderby={orderBy}&$skip={skip}&$top={top}");
+            return await _httpService.Get<JobQuotationApiResponse>($"api/jobquotation?$count=true&$filter=ClientInformationId eq {clientInformationId}&$orderby={orderBy}&$skip={skip}&$top={top}");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<JobQuotationApiResponse>(responseContent);
-            }
 
-            return new JobQuotationApiResponse();
         }
 
-     
+
         public async Task<JobQuotationReadDto> GetJobQuotationByIdAsync(int id)
         {
-            var response = await _httpClient.GetAsync($"api/jobquotation/{id}");
+            return await _httpService.Get<JobQuotationReadDto>($"api/jobquotation/{id}");
 
-            //Handle more gracefully
-            response.EnsureSuccessStatusCode();
 
-            using var responseContent = await response.Content.ReadAsStreamAsync();
-            return await JsonSerializer.DeserializeAsync<JobQuotationReadDto>(responseContent);
         }
 
         public async Task<HttpResponseMessage> DeleteJobQuotationByIdAsync(int id)
         {
             //consider impact vs returning just status code
-            return await _httpClient.DeleteAsync($"api/jobquotation/{id}");
+            return await _httpService.Delete<HttpResponseMessage>($"api/jobquotation/{id}");
         }
 
         public async Task<HttpResponseMessage> CreateJobQuotationAsync(JobQuotationCreateDto clientinformation)
         {
-            string jsonJobQuotation = JsonSerializer.Serialize(clientinformation);
-            var stringContent = new StringContent(jsonJobQuotation, System.Text.Encoding.UTF8, "application/json");
 
-            return await _httpClient.PostAsync($"api/jobquotation", stringContent);
+            return await _httpService.Post<HttpResponseMessage>($"api/jobquotation", clientinformation);
         }
 
         public async Task<HttpResponseMessage> EditJobQuotationAsync(int id, JobQuotationUpdateDto clientinformation)
         {
-            string jsonJobQuotation = JsonSerializer.Serialize(clientinformation);
-            var stringContent = new StringContent(jsonJobQuotation, System.Text.Encoding.UTF8, "application/json");
 
-            return await _httpClient.PutAsync($"api/jobquotation/{id}", stringContent);
+            return await _httpService.Put<HttpResponseMessage>($"api/jobquotation/{id}", clientinformation);
         }
     }
 }

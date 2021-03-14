@@ -4,6 +4,7 @@ using Anthurium.Shared.Models;
 using AutoMapper;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Routing;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace Anthurium.API.Controllers
     [ODataRoutePrefix("deliveryreceiptdetails")]
     [Route("api/deliveryreceiptdetails")]
     [ApiController]
+    [Authorize]
     public class DeliveryReceiptDetailsController : ODataController
     {
         private readonly ISqlServerDeliveryReceiptDetailsRepository _repository;

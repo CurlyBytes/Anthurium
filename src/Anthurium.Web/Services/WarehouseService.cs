@@ -6,74 +6,51 @@ using System.Threading.Tasks;
 
 namespace Anthurium.Web.Services
 {
-    public class WarehouseService
+    public class WarehouseService : IWarehouseService
     {
-        public HttpClient _httpClient;
+        private IHttpService _httpService;
 
-        public WarehouseService(HttpClient client)
+        public WarehouseService(IHttpService httpService)
         {
-            _httpClient = client;
+            _httpService = httpService;
         }
 
         public async Task<WarehouseApiResponse> GetWarehousesAsync(string orderBy, int skip, int top)
         {
-            var response = await _httpClient.GetAsync($"api/warehouse?$count=true&$orderby={orderBy}&$skip={skip}&$top={top}");
+            return await _httpService.Get<WarehouseApiResponse>($"api/warehouse?$count=true&$orderby={orderBy}&$skip={skip}&$top={top}");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<WarehouseApiResponse>(responseContent);
-            }
-
-            return new WarehouseApiResponse();
         }
 
 
         public async Task<WarehouseApiResponse> GetWarehousesAsync(string orderBy, int skip)
         {
-            var response = await _httpClient.GetAsync($"api/warehouse?$count=true&$orderby={orderBy}&$skip={skip}");
+            return await _httpService.Get<WarehouseApiResponse>($"api/warehouse?$count=true&$orderby={orderBy}&$skip={skip}");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<WarehouseApiResponse>(responseContent);
-            }
-
-            return new WarehouseApiResponse();
         }
 
 
         public async Task<WarehouseReadDto> GetWarehouseByIdAsync(int id)
         {
-            var response = await _httpClient.GetAsync($"api/warehouse/{id}");
+            return await _httpService.Get<WarehouseReadDto>($"api/warehouse/{id}");
 
-            //Handle more gracefully
-            response.EnsureSuccessStatusCode();
-
-            using var responseContent = await response.Content.ReadAsStreamAsync();
-            return await JsonSerializer.DeserializeAsync<WarehouseReadDto>(responseContent);
         }
 
         public async Task<HttpResponseMessage> DeleteWarehouseByIdAsync(int id)
         {
             //consider impact vs returning just status code
-            return await _httpClient.DeleteAsync($"api/warehouse/{id}");
+            return await _httpService.Delete<HttpResponseMessage>($"api/warehouse/{id}");
         }
 
         public async Task<HttpResponseMessage> CreateWarehouseAsync(WarehouseCreateDto warehouse)
         {
-            string jsonWarehouse = JsonSerializer.Serialize(warehouse);
-            var stringContent = new StringContent(jsonWarehouse, System.Text.Encoding.UTF8, "application/json");
 
-            return await _httpClient.PostAsync($"api/warehouse", stringContent);
+            return await _httpService.Post<HttpResponseMessage>($"api/warehouse", warehouse);
         }
 
         public async Task<HttpResponseMessage> EditWarehouseAsync(int id, WarehouseUpdateDto warehouse)
         {
-            string jsonWarehouse = JsonSerializer.Serialize(warehouse);
-            var stringContent = new StringContent(jsonWarehouse, System.Text.Encoding.UTF8, "application/json");
 
-            return await _httpClient.PutAsync($"api/warehouse/{id}", stringContent);
+            return await _httpService.Put<HttpResponseMessage>($"api/warehouse/{id}", warehouse);
         }
     }
 }

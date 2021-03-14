@@ -6,73 +6,49 @@ using System.Threading.Tasks;
 
 namespace Anthurium.Web.Services
 {
-    public class VendorService
+    public class VendorService : IVendorService
     {
-        public HttpClient _httpClient;
+        private IHttpService _httpService;
 
-        public VendorService(HttpClient client)
+        public VendorService(IHttpService httpService)
         {
-            _httpClient = client;
+            _httpService = httpService;
         }
 
         public async Task<VendorApiResponse> GetVendorsAsync(string orderBy, int skip, int top)
         {
-            var response = await _httpClient.GetAsync($"api/vendor?$count=true&$orderby={orderBy}&$skip={skip}&$top={top}");
-
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<VendorApiResponse>(responseContent);
-            }
-
-            return new VendorApiResponse();
+           return await _httpService.Get<VendorApiResponse>($"api/vendor?$count=true&$orderby={orderBy}&$skip={skip}&$top={top}");
         }
 
 
         public async Task<VendorApiResponse> GetVendorsAsync(string orderBy, int skip)
         {
-            var response = await _httpClient.GetAsync($"api/vendor?$count=true&$orderby={orderBy}&$skip={skip}");
+           return await _httpService.Get<VendorApiResponse>($"api/vendor?$count=true&$orderby={orderBy}&$skip={skip}");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<VendorApiResponse>(responseContent);
-            }
-
-            return new VendorApiResponse();
         }
 
         public async Task<VendorReadDto> GetVendorByIdAsync(int id)
         {
-            var response = await _httpClient.GetAsync($"api/vendor/{id}");
+           return await _httpService.Get<VendorReadDto>($"api/vendor/{id}");
 
-            //Handle more gracefully
-            response.EnsureSuccessStatusCode();
-
-            using var responseContent = await response.Content.ReadAsStreamAsync();
-            return await JsonSerializer.DeserializeAsync<VendorReadDto>(responseContent);
         }
 
         public async Task<HttpResponseMessage> DeleteVendorByIdAsync(int id)
         {
             //consider impact vs returning just status code
-            return await _httpClient.DeleteAsync($"api/vendor/{id}");
+            return await _httpService.Delete<HttpResponseMessage>($"api/vendor/{id}");
         }
 
         public async Task<HttpResponseMessage> CreateVendorAsync(VendorCreateDto vendor)
         {
-            string jsonVendor = JsonSerializer.Serialize(vendor);
-            var stringContent = new StringContent(jsonVendor, System.Text.Encoding.UTF8, "application/json");
 
-            return await _httpClient.PostAsync($"api/vendor", stringContent);
+            return await _httpService.Post<HttpResponseMessage>($"api/vendor", vendor);
         }
 
         public async Task<HttpResponseMessage> EditVendorAsync(int id, VendorUpdateDto vendor)
         {
-            string jsonVendor = JsonSerializer.Serialize(vendor);
-            var stringContent = new StringContent(jsonVendor, System.Text.Encoding.UTF8, "application/json");
 
-            return await _httpClient.PutAsync($"api/vendor/{id}", stringContent);
+            return await _httpService.Put<HttpResponseMessage>($"api/vendor/{id}", vendor);
         }
     }
 }

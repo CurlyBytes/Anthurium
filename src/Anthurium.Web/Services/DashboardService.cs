@@ -4,56 +4,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
-using System.Threading.Tasks;
+using System.Threading.Tasks; 
 
 namespace Anthurium.Web.Services
 {
-    public class DashboardService
+    public class DashboardService : IDashboardService
     {
-        public HttpClient _httpClient;
+        private IHttpService _httpService;
 
-        public DashboardService(HttpClient client)
+        public DashboardService(IHttpService httpService)
         {
-            _httpClient = client;
+            _httpService = httpService;
         }
 
         public async Task<int> RunningTotalOfClients()
         {
-            var response = await _httpClient.GetAsync($"api/dashboard/totalclients");
+            return await _httpService.Get<int>($"api/dashboard/totalclients");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<int>(responseContent);
-            }
-
-            return new int();
         }
 
         public async Task<int> DashboardJobOrderPerClient()
         {
-            var response = await _httpClient.GetAsync($"api/dashboard/joborderwithinmonth");
+            return await _httpService.Get<int>($"api/dashboard/joborderwithinmonth");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<int>(responseContent);
-            }
 
-            return new int();
         }
 
         public async Task<JobOrderPerClientReadDto> JobOrderPerClient()
         {
-            var response = await _httpClient.GetAsync($"api/dashboard/joborderperclient");
+            return await _httpService.Get<JobOrderPerClientReadDto>($"api/dashboard/joborderperclient");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<JobOrderPerClientReadDto>(responseContent);
-            }
 
-            return new JobOrderPerClientReadDto();
         }
     }
 }
