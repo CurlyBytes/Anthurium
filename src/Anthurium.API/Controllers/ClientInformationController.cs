@@ -17,7 +17,7 @@ namespace Anthurium.API.Controllers
     [ODataRoutePrefix("clientinformation")]
     [Route("api/clientinformation")]
     [ApiController]
-
+    [Authorize]
     public class ClientInformationController : ODataController, IClientInformationController
     {
         private readonly IClientInformation _repository;

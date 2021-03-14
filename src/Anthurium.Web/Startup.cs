@@ -114,6 +114,8 @@ namespace Anthurium.Web
 
                 return new HttpClient() { BaseAddress = apiUrl };
             });
+
+
             //services.AddAccessTokenManagement(options =>
             //{
             //    options.Client.Clients.Add("web", new ClientCredentialsTokenRequest
@@ -129,6 +131,7 @@ namespace Anthurium.Web
             //services.AddSingleton<ApiTokenCacheService>();
 
             services.AddScoped<IAccountService, AccountService>()
+                .AddScoped<IClientInformationService, ClientInformationService>()
                 .AddScoped<IAlertService, AlertService>()
                 .AddScoped<IHttpService, HttpService>()
                 .AddScoped<ILocalStorageService, LocalStorageService>();

@@ -9,72 +9,52 @@ using System.Threading.Tasks;
 
 namespace Anthurium.Web.Services
 {
-    public class ClientInformationService
+    public class ClientInformationService : IClientInformationService
     {
-        public HttpClient _httpClient;
+        public IHttpService _httpService;
 
-        public ClientInformationService(HttpClient client)
+        public ClientInformationService(IHttpService httpService)
         {
-            _httpClient = client;
+            _httpService = httpService;
         }
 
         public async Task<ClientInformationApiResponse> GetClientInformationsAsync(string orderBy, int skip, int top)
         {
-            var response = await _httpClient.GetAsync($"api/clientinformation?$count=true&$orderby={orderBy}&$skip={skip}&$top={top}");
+            return await _httpService.Get<ClientInformationApiResponse>($"api/clientinformation?$count=true&$orderby={orderBy}&$skip={skip}&$top={top}");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<ClientInformationApiResponse>(responseContent);
-            }
 
-            return new ClientInformationApiResponse();
         }
 
         public async Task<ClientInformationApiResponse> GetClientInformationsAsync(string orderBy, int skip)
         {
-            var response = await _httpClient.GetAsync($"api/clientinformation?$count=true&$orderby={orderBy}&$skip={skip}");
+            return await _httpService.Get<ClientInformationApiResponse>($"api/clientinformation?$count=true&$orderby={orderBy}&$skip={skip}");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<ClientInformationApiResponse>(responseContent);
-            }
-
-            return new ClientInformationApiResponse();
         }
 
         public async Task<ClientInformationReadDto> GetClientInformationByIdAsync(int id)
         {
-            var response = await _httpClient.GetAsync($"api/clientinformation/{id}");
+            return await _httpService.Get<ClientInformationReadDto>($"api/clientinformation/{id}");
 
-            //Handle more gracefully
-            response.EnsureSuccessStatusCode();
 
-            using var responseContent = await response.Content.ReadAsStreamAsync();
-            return await JsonSerializer.DeserializeAsync<ClientInformationReadDto>(responseContent);
         }
 
         public async Task<HttpResponseMessage> DeleteClientInformationByIdAsync(int id)
         {
             //consider impact vs returning just status code
-            return await _httpClient.DeleteAsync($"api/clientinformation/{id}");
+            return await _httpService.Delete<HttpResponseMessage>($"api/clientinformation/{id}");
         }
 
         public async Task<HttpResponseMessage> CreateClientInformationAsync(ClientInformationCreateDto clientinformation)
         {
-            string jsonClientInformation = JsonSerializer.Serialize(clientinformation);
-            var stringContent = new StringContent(jsonClientInformation, System.Text.Encoding.UTF8, "application/json");
 
-            return await _httpClient.PostAsync($"api/clientinformation", stringContent);
+            return await _httpService.Post<HttpResponseMessage>($"api/clientinformation", clientinformation);
         }
 
         public async Task<HttpResponseMessage> EditClientInformationAsync(int id, ClientInformationUpdateDto clientinformation)
         {
-            string jsonClientInformation = JsonSerializer.Serialize(clientinformation);
-            var stringContent = new StringContent(jsonClientInformation, System.Text.Encoding.UTF8, "application/json");
 
-            return await _httpClient.PutAsync($"api/clientinformation/{id}", stringContent);
+
+            return await _httpService.Put<HttpResponseMessage>($"api/clientinformation/{id}", clientinformation);
         }
     }
 }

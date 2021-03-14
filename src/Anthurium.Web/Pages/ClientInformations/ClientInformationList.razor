@@ -1,4 +1,4 @@
-﻿@inject Services.ClientInformationService clientInformationService
+﻿@inject Services.IClientInformationService clientInformationService
 @using Anthurium.API.Dtos
 @using Models
 
@@ -61,17 +61,17 @@
                 <tbody>
                     @foreach (var clientInformationReadDtoItem in clientInformationReadDto)
                     {
-                    <tr>
-                        <td scope="row">@clientInformationReadDtoItem.ClientInformationId</td>
-                        <td>@clientInformationReadDtoItem.CompanyName</td>
-                        <td>@clientInformationReadDtoItem.CompanyAddress</td>
-                        <td>@clientInformationReadDtoItem.ContactPerson</td>
-                        <td>@clientInformationReadDtoItem.ContactNumber</td>
-                        <td>@clientInformationReadDtoItem.ContactEmailAddress</td>
-                        <td><a class="btn btn-info btn-sm" href="/clientinformation/@clientInformationReadDtoItem.ClientInformationId">View</a></td>
-                        <td><a class="btn btn-secondary btn-sm" href="/clientinformation/@clientInformationReadDtoItem.ClientInformationId/edit">Edit</a></td>
-                        <td><a class="btn btn-danger btn-sm" href="/clientinformation/@clientInformationReadDtoItem.ClientInformationId/delete">Delete</a></td>
-                    </tr>
+                        <tr>
+                            <td scope="row">@clientInformationReadDtoItem.ClientInformationId</td>
+                            <td>@clientInformationReadDtoItem.CompanyName</td>
+                            <td>@clientInformationReadDtoItem.CompanyAddress</td>
+                            <td>@clientInformationReadDtoItem.ContactPerson</td>
+                            <td>@clientInformationReadDtoItem.ContactNumber</td>
+                            <td>@clientInformationReadDtoItem.ContactEmailAddress</td>
+                            <td><a class="btn btn-info btn-sm" href="/clientinformation/@clientInformationReadDtoItem.ClientInformationId">View</a></td>
+                            <td><a class="btn btn-secondary btn-sm" href="/clientinformation/@clientInformationReadDtoItem.ClientInformationId/edit">Edit</a></td>
+                            <td><a class="btn btn-danger btn-sm" href="/clientinformation/@clientInformationReadDtoItem.ClientInformationId/delete">Delete</a></td>
+                        </tr>
                     }
                 </tbody>
             </table>
