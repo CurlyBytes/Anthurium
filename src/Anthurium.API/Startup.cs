@@ -77,15 +77,23 @@ namespace Anthurium.API
                 //             mysqlOptions.ServerVersion(new ServerVersion(new Version(10, 4, 6), ServerType.MariaDb))));
 
 
-                services.AddDbContext<AnthuriumContext>(options =>
-                options.UseInMemoryDatabase("LightSailsErp"));
+                //services.AddDbContext<AnthuriumContext>(options =>
+                //options.UseInMemoryDatabase("LightSailsErp"));
+                services.AddDbContext<AnthuriumContext>(options => options
+               .UseMySql("Server=localhost; Database=LightSailsErp;User=root;Password=qwerty@123456;",
+                   mysqlOptions =>
+                       mysqlOptions.ServerVersion(new ServerVersion(new Version(10, 4, 6), ServerType.MariaDb))));
             }
 
             else
             {
 
-                services.AddDbContext<AnthuriumContext>(options =>
-                   options.UseInMemoryDatabase("LightSailsErp"));
+                //services.AddDbContext<AnthuriumContext>(options =>
+                //   options.UseInMemoryDatabase("LightSailsErp"));
+                services.AddDbContext<AnthuriumContext>(options => options
+               .UseMySql("Server=localhost; Database=LightSailsErp;User=root;Password=qwerty@123456;",
+                   mysqlOptions =>
+                       mysqlOptions.ServerVersion(new ServerVersion(new Version(10, 4, 6), ServerType.MariaDb))));
             }
           
             services.AddScoped<IClientInformation, SqlServerClientInformationRepository>();
