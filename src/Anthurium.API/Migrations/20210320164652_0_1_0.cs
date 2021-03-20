@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Anthurium.API.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class _0_1_0 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -327,141 +327,6 @@ namespace Anthurium.API.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "ClientInformations",
-                columns: new[] { "ClientInformationId", "CompanyAddress", "CompanyName", "ContactEmailAddress", "ContactNumber", "ContactPerson", "DateCreated", "DateUpdated", "IsActive" },
-                values: new object[,]
-                {
-                    { 1, "eduardo aboitiz street", "AMA", "test@rrr.com", "1134455", "Tao yang", new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(2216), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(2615), true },
-                    { 2, "107 v. raman st. calamba cc", "CurlyBytes", "bbb@bb.com", "09866191", "bob uy", new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(3092), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(3103), true },
-                    { 3, "United States America", "Microsoft", "CC@cc.com", "1134455", "sicnarf noyag", new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(3110), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(3111), true }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Vendors",
-                columns: new[] { "VendorId", "DateCreated", "DateUpdated", "IsActive", "VendorCode", "VendorName" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(9217), new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(9617), true, "MS", "Microsoft" },
-                    { 2, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(50), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(62), true, "DL1", "Dell" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Warehouses",
-                columns: new[] { "WarehouseId", "DateCreated", "DateUpdated", "IsActive", "WarehouseCode", "WarehouseName" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2021, 3, 19, 15, 42, 49, 963, DateTimeKind.Utc).AddTicks(7925), new DateTime(2021, 3, 19, 15, 42, 49, 963, DateTimeKind.Utc).AddTicks(8393), true, "t-w-1", "The warehouse 1" },
-                    { 2, new DateTime(2021, 3, 19, 15, 42, 49, 963, DateTimeKind.Utc).AddTicks(8867), new DateTime(2021, 3, 19, 15, 42, 49, 963, DateTimeKind.Utc).AddTicks(8880), true, "t-w-2", "The warehouse 2" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "DeliveryReceipts",
-                columns: new[] { "DeliveryReceiptId", "ClientInformationId", "DateCreated", "DateRecieve", "DateUpdated", "IsActive", "JobQuotationId", "Remarks" },
-                values: new object[] { 3, 2, new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(7110), new DateTime(2021, 3, 4, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(7109), new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(7111), true, 12, "All mouse" });
-
-            migrationBuilder.InsertData(
-                table: "Items",
-                columns: new[] { "ItemId", "DateCreated", "DateUpdated", "IsActive", "ItemCode", "ItemGroup", "ItemName", "ItemType", "WarehouseId" },
-                values: new object[,]
-                {
-                    { 8, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9064), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9065), true, "m-cs-1", "Computer Set", "Jedel z524", "Mouse", 2 },
-                    { 6, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9061), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9061), true, "m-cs-1", "Computer Set", "Jedel z31", "Mouse", 2 },
-                    { 5, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9059), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9060), true, "m-cs-1", "Computer Set", "Razer x123", "Mouse", 2 },
-                    { 4, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9057), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9058), true, "m-cs-1", "Computer Set", "Jedel z524", "Mouse", 1 },
-                    { 3, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9054), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9055), false, "m-cs-1", "Computer Set", "Razer x33", "Mouse", 1 },
-                    { 2, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(8976), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(8987), true, "m-cs-1", "Computer Set", "Jedel z31", "Mouse", 1 },
-                    { 1, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(8131), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(8530), true, "m-cs-1", "Computer Set", "Razer x123", "Mouse", 1 },
-                    { 7, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9063), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9063), true, "m-cs-1", "Computer Set", "Razer x33", "Mouse", 2 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "JobOrders",
-                columns: new[] { "JobOrderId", "ClientInformationId", "CompanyAddress", "CompanyName", "ContactNumber", "ContactPerson", "DateCreated", "DateSchedule", "DateUpdated", "IsActive", "JoboRderDescription", "RemainingHours", "TimeEnded", "TimeStarted", "TotalHours" },
-                values: new object[,]
-                {
-                    { 1, 1, "eduardo aboitiz street", "AMA", "+0639207082", "amaers", new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(8664), new DateTime(2021, 3, 21, 22, 42, 49, 967, DateTimeKind.Utc).AddTicks(6113), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9043), true, "another work heree", 2, new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(7601), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(7219), 2 },
-                    { 5, 2, "107 v. raman st. calamba cc", "CurlyBytes", "4177214", "Cacay", new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9551), new DateTime(2021, 3, 28, 2, 42, 49, 967, DateTimeKind.Utc).AddTicks(9548), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9552), true, "job order", 4, new DateTime(2021, 3, 21, 9, 42, 49, 967, DateTimeKind.Utc).AddTicks(9550), new DateTime(2021, 3, 20, 2, 42, 49, 967, DateTimeKind.Utc).AddTicks(9549), 3 },
-                    { 4, 2, "107 v. raman st. calamba cc", "CurlyBytes", "4177214", "Cocoy", new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9547), new DateTime(2021, 4, 19, 13, 42, 49, 967, DateTimeKind.Utc).AddTicks(9544), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9547), true, "lazy work", 1, new DateTime(2021, 3, 19, 17, 42, 49, 967, DateTimeKind.Utc).AddTicks(9546), new DateTime(2021, 3, 19, 16, 42, 49, 967, DateTimeKind.Utc).AddTicks(9545), 1 },
-                    { 3, 1, "eduardo aboitiz street", "AMA", "+0639207082", "amaers", new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9542), new DateTime(2021, 3, 22, 5, 42, 49, 967, DateTimeKind.Utc).AddTicks(9539), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9543), true, "this a manual work here", 4, new DateTime(2021, 3, 19, 17, 42, 49, 967, DateTimeKind.Utc).AddTicks(9541), new DateTime(2021, 3, 19, 16, 42, 49, 967, DateTimeKind.Utc).AddTicks(9540), 1 },
-                    { 2, 1, "eduardo aboitiz street", "AMA", "+0639207082", "amaers", new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9523), new DateTime(2021, 3, 21, 19, 42, 49, 967, DateTimeKind.Utc).AddTicks(9472), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9530), true, "this a manual work here", 4, new DateTime(2021, 3, 21, 2, 42, 49, 967, DateTimeKind.Utc).AddTicks(9505), new DateTime(2021, 3, 20, 3, 42, 49, 967, DateTimeKind.Utc).AddTicks(9498), 31 },
-                    { 6, 3, "United States America", "Microsoft", "21141", "Trump", new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9556), new DateTime(2021, 4, 2, 11, 42, 49, 967, DateTimeKind.Utc).AddTicks(9553), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9556), true, "test work", 4, new DateTime(2021, 3, 20, 3, 42, 49, 967, DateTimeKind.Utc).AddTicks(9555), new DateTime(2021, 3, 19, 16, 42, 49, 967, DateTimeKind.Utc).AddTicks(9554), 8 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "JobQuotations",
-                columns: new[] { "JobQuotationId", "ClientInformationId", "CompanyAddress", "CompanyName", "ContactEmailAddress", "ContactNumber", "ContactPerson", "DateCreated", "DateUpdated", "Description", "HasCustomerAlreadyAgreed", "IsActive", "OverallCost" },
-                values: new object[,]
-                {
-                    { 2, 1, "eduardo aboitiz street", "AMA", "aaa@tset.com", "+0639207082", "amaers", new DateTime(2021, 3, 19, 15, 42, 49, 968, DateTimeKind.Utc).AddTicks(5277), new DateTime(2021, 3, 19, 15, 42, 49, 968, DateTimeKind.Utc).AddTicks(5287), "Sample Job Quotation From AMA", false, true, 200.0 },
-                    { 1, 1, "eduardo aboitiz street", "AMA", "tset@tset.com", "+0639207082", "amaers", new DateTime(2021, 3, 19, 15, 42, 49, 968, DateTimeKind.Utc).AddTicks(4321), new DateTime(2021, 3, 19, 15, 42, 49, 968, DateTimeKind.Utc).AddTicks(4721), "Sample Job Quotation From AMA", true, true, 100.0 },
-                    { 3, 2, "107 v. raman st. calamba cc", "CurlyBytes", "fff@tset.com", "4177214", "Cocoy", new DateTime(2021, 3, 19, 15, 42, 49, 968, DateTimeKind.Utc).AddTicks(5296), new DateTime(2021, 3, 19, 15, 42, 49, 968, DateTimeKind.Utc).AddTicks(5296), "CurlyBytes JobQuote", true, true, 300.0 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Assets",
-                columns: new[] { "AssetId", "ClientInformationId", "DateCreated", "DateRecieve", "DateUpdated", "IsActive", "ItemId", "SerialNumber", "VendorId", "WarrantyDate" },
-                values: new object[,]
-                {
-                    { 18, 2, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4853), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4852), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4854), true, 1, "2020-222-3333-xxx-11", 2, new DateTime(2022, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4850) },
-                    { 11, 1, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4793), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4792), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4794), true, 2, "1313-222-3333-xxx-11", 2, new DateTime(2022, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4791) },
-                    { 10, 1, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4789), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4789), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4790), true, 2, "1111-222-3333-xxx-11", 1, new DateTime(2022, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4787) },
-                    { 9, 1, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4786), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4785), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4786), true, 2, "1212-222-3333-xxx-11", 2, new DateTime(2022, 6, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4784) },
-                    { 22, 2, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4873), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4872), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4874), true, 2, "2424-222-3333-xxx-11", 1, new DateTime(2022, 11, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4871) },
-                    { 20, 2, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4863), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4862), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4864), true, 1, "2222-222-3333-xxx-11", 1, new DateTime(2023, 11, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4860) },
-                    { 19, 2, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4858), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4857), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4859), true, 1, "2121-222-3333-xxx-11", 2, new DateTime(2022, 5, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4856) },
-                    { 23, 2, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4879), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4877), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4879), true, 2, "2525-222-3333-xxx-11", 2, new DateTime(2022, 11, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4876) },
-                    { 17, 2, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4847), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4817), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4848), true, 1, "1919-222-3333-xxx-11", 0, new DateTime(2022, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4816) },
-                    { 16, 2, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4814), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4813), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4814), true, 1, "1818-222-3333-xxx-11", 1, new DateTime(2022, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4812) },
-                    { 15, 2, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4810), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4809), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4811), true, 1, "1717-222-3333-xxx-11", 2, new DateTime(2024, 11, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4807) },
-                    { 14, 2, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4805), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4804), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4806), true, 1, "1616-222-3333-xxx-11", 1, new DateTime(2023, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4803) },
-                    { 13, 2, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4801), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4800), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4802), true, 1, "1515-222-3333-xxx-11", 2, new DateTime(2023, 2, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4798) },
-                    { 8, 1, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4782), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4781), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4783), true, 1, "999-222-3333-xxx-11", 1, new DateTime(2022, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4780) },
-                    { 7, 1, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4778), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4777), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4779), true, 1, "888-222-3333-xxx-11", 2, new DateTime(2022, 5, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4776) },
-                    { 6, 1, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4774), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4773), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4775), true, 1, "777-222-3333-xxx-11", 1, new DateTime(2022, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4772) },
-                    { 5, 1, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4770), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4769), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4771), true, 1, "666-222-3333-xxx-11", 2, new DateTime(2023, 11, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4768) },
-                    { 4, 1, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4766), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4765), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4766), true, 1, "555-222-3333-xxx-11", 1, new DateTime(2022, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4763) },
-                    { 3, 1, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4761), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4760), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4762), true, 1, "444-222-3333-xxx-11", 0, new DateTime(2023, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4759) },
-                    { 2, 1, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4742), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4728), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4752), true, 1, "111-222-3333-xxx-11", 2, new DateTime(2023, 9, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4708) },
-                    { 1, 1, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(3861), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(3038), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4257), true, 1, "333-222-3333-xxx-11", 1, new DateTime(2022, 11, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(2568) },
-                    { 24, 2, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4884), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4882), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4884), true, 2, "2626-222-3333-xxx-11", 1, new DateTime(2022, 11, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4881) },
-                    { 12, 1, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4797), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4796), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4797), true, 2, "1414-222-3333-xxx-11", 1, new DateTime(2023, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4795) },
-                    { 21, 2, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4868), new DateTime(2021, 2, 27, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4867), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4869), true, 2, "2323-222-3333-xxx-11", 2, new DateTime(2022, 11, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(4865) }
-                });
-
-            migrationBuilder.InsertData(
-                table: "DeliveryReceipts",
-                columns: new[] { "DeliveryReceiptId", "ClientInformationId", "DateCreated", "DateRecieve", "DateUpdated", "IsActive", "JobQuotationId", "Remarks" },
-                values: new object[,]
-                {
-                    { 1, 1, new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(6226), new DateTime(2021, 2, 22, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(5377), new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(6625), true, 1, "All mouse" },
-                    { 2, 1, new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(7094), new DateTime(2021, 3, 4, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(7059), new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(7100), true, 1, "All keyboard" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "JobQuotationDetailss",
-                columns: new[] { "JobQuotationDetailsId", "DateCreated", "DateUpdated", "IsActive", "IsAlreadyPurchaseOrder", "ItemId", "ItemName", "JobQuotationId", "MarginPrice", "OriginalPrice", "PurchaseOrderCode", "Quantity", "SellingPrice", "TotalCost" },
-                values: new object[,]
-                {
-                    { 5, new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1170), new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1171), true, false, 5, "Razer x123", 2, 30.0, 200.0, "", 2, 230.0, 460.0 },
-                    { 2, new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1146), new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1156), true, true, 2, "Jedel z31", 1, 30.0, 200.0, "ffff-111", 1, 230.0, 230.0 },
-                    { 3, new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1165), new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1166), true, false, 3, "Razer x33", 1, 20.0, 100.0, "", 3, 120.0, 360.0 },
-                    { 4, new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1168), new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1169), true, true, 4, "Jedel z524", 2, 30.0, 200.0, "ffff-111", 3, 230.0, 390.0 },
-                    { 1, new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(214), new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(613), true, true, 1, "Razer x123", 1, 100.0, 20.0, "ffff-111", 2, 120.0, 240.0 },
-                    { 6, new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1172), new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1173), true, false, 6, "Razer x33", 3, 20.0, 100.0, "", 1, 120.0, 120.0 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "DeliveryReceiptDetailss",
-                columns: new[] { "DeliveryReceiptDetailsId", "DateCreated", "DateUpdated", "DeliveryReceiptId", "IsActive", "ItemId", "Quantity" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(2262), new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(2695), 1, true, 1, 2 },
-                    { 2, new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(3157), new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(3170), 1, true, 2, 2 },
-                    { 3, new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(3178), new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(3179), 2, true, 1, 1 },
-                    { 4, new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(3180), new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(3181), 2, true, 2, 1 }
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Assets_ClientInformationId",
                 table: "Assets",
@@ -526,6 +391,137 @@ namespace Anthurium.API.Migrations
                 name: "IX_JobQuotations_ClientInformationId",
                 table: "JobQuotations",
                 column: "ClientInformationId");
+
+            migrationBuilder.InsertData(
+               table: "ClientInformations",
+               columns: new[] { "ClientInformationId", "CompanyAddress", "CompanyName", "ContactEmailAddress", "ContactNumber", "ContactPerson", "DateCreated", "DateUpdated", "IsActive" },
+               values: new object[,]
+               {
+                    { 1, "eduardo aboitiz street", "AMA", "test@rrr.com", "1134455", "Tao yang", new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(2216), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(2615), true },
+                    { 2, "107 v. raman st. calamba cc", "CurlyBytes", "bbb@bb.com", "09866191", "bob uy", new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(3092), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(3103), true },
+                    { 3, "United States America", "Microsoft", "CC@cc.com", "1134455", "sicnarf noyag", new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(3110), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(3111), true }
+               });
+
+            migrationBuilder.InsertData(
+                table: "Vendors",
+                columns: new[] { "VendorId", "DateCreated", "DateUpdated", "IsActive", "VendorCode", "VendorName" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(9217), new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(9617), true, "MS", "Microsoft" },
+                    { 2, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(50), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(62), true, "DL1", "Dell" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Warehouses",
+                columns: new[] { "WarehouseId", "DateCreated", "DateUpdated", "IsActive", "WarehouseCode", "WarehouseName" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2021, 3, 20, 16, 22, 18, 200, DateTimeKind.Utc).AddTicks(3818), new DateTime(2021, 3, 20, 16, 22, 18, 200, DateTimeKind.Utc).AddTicks(4290), true, "t-w-1", "The warehouse 1" },
+                    { 2, new DateTime(2021, 3, 20, 16, 22, 18, 200, DateTimeKind.Utc).AddTicks(4815), new DateTime(2021, 3, 20, 16, 22, 18, 200, DateTimeKind.Utc).AddTicks(4828), true, "t-w-2", "The warehouse 2" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Items",
+                columns: new[] { "ItemId", "DateCreated", "DateUpdated", "IsActive", "ItemCode", "ItemGroup", "ItemName", "ItemType", "WarehouseId" },
+                values: new object[,]
+                {
+                    { 8, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9064), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9065), true, "m-cs-1", "Computer Set", "Jedel z524", "Mouse", 2 },
+                    { 6, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9061), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9061), true, "m-cs-1", "Computer Set", "Jedel z31", "Mouse", 2 },
+                    { 5, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9059), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9060), true, "m-cs-1", "Computer Set", "Razer x123", "Mouse", 2 },
+                    { 4, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9057), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9058), true, "m-cs-1", "Computer Set", "Jedel z524", "Mouse", 1 },
+                    { 3, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9054), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9055), false, "m-cs-1", "Computer Set", "Razer x33", "Mouse", 1 },
+                    { 2, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(8976), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(8987), true, "m-cs-1", "Computer Set", "Jedel z31", "Mouse", 1 },
+                    { 1, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(8131), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(8530), true, "m-cs-1", "Computer Set", "Razer x123", "Mouse", 1 },
+                    { 7, new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9063), new DateTime(2021, 3, 19, 15, 42, 49, 966, DateTimeKind.Utc).AddTicks(9063), true, "m-cs-1", "Computer Set", "Razer x33", "Mouse", 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "JobOrders",
+                columns: new[] { "JobOrderId", "ClientInformationId", "CompanyAddress", "CompanyName", "ContactNumber", "ContactPerson", "DateCreated", "DateSchedule", "DateUpdated", "IsActive", "JoboRderDescription", "RemainingHours", "TimeEnded", "TimeStarted", "TotalHours" },
+                values: new object[,]
+                {
+                    { 6, 3, "United States America", "Microsoft", "21141", "Trump", new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9556), new DateTime(2021, 4, 2, 11, 42, 49, 967, DateTimeKind.Utc).AddTicks(9553), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9556), true, "test work", 4, new DateTime(2021, 3, 20, 3, 42, 49, 967, DateTimeKind.Utc).AddTicks(9555), new DateTime(2021, 3, 19, 16, 42, 49, 967, DateTimeKind.Utc).AddTicks(9554), 8 },
+                    { 5, 2, "107 v. raman st. calamba cc", "CurlyBytes", "4177214", "Cacay", new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9551), new DateTime(2021, 3, 28, 2, 42, 49, 967, DateTimeKind.Utc).AddTicks(9548), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9552), true, "job order", 4, new DateTime(2021, 3, 21, 9, 42, 49, 967, DateTimeKind.Utc).AddTicks(9550), new DateTime(2021, 3, 20, 2, 42, 49, 967, DateTimeKind.Utc).AddTicks(9549), 3 },
+                    { 4, 2, "107 v. raman st. calamba cc", "CurlyBytes", "4177214", "Cocoy", new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9547), new DateTime(2021, 4, 19, 13, 42, 49, 967, DateTimeKind.Utc).AddTicks(9544), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9547), true, "lazy work", 1, new DateTime(2021, 3, 19, 17, 42, 49, 967, DateTimeKind.Utc).AddTicks(9546), new DateTime(2021, 3, 19, 16, 42, 49, 967, DateTimeKind.Utc).AddTicks(9545), 1 },
+                    { 3, 1, "eduardo aboitiz street", "AMA", "+0639207082", "amaers", new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9542), new DateTime(2021, 3, 22, 5, 42, 49, 967, DateTimeKind.Utc).AddTicks(9539), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9543), true, "this a manual work here", 4, new DateTime(2021, 3, 19, 17, 42, 49, 967, DateTimeKind.Utc).AddTicks(9541), new DateTime(2021, 3, 19, 16, 42, 49, 967, DateTimeKind.Utc).AddTicks(9540), 1 },
+                    { 2, 1, "eduardo aboitiz street", "AMA", "+0639207082", "amaers", new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9523), new DateTime(2021, 3, 21, 19, 42, 49, 967, DateTimeKind.Utc).AddTicks(9472), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9530), true, "this a manual work here", 4, new DateTime(2021, 3, 21, 2, 42, 49, 967, DateTimeKind.Utc).AddTicks(9505), new DateTime(2021, 3, 20, 3, 42, 49, 967, DateTimeKind.Utc).AddTicks(9498), 31 },
+                    { 1, 1, "eduardo aboitiz street", "AMA", "+0639207082", "amaers", new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(8664), new DateTime(2021, 3, 21, 22, 42, 49, 967, DateTimeKind.Utc).AddTicks(6113), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(9043), true, "another work heree", 2, new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(7601), new DateTime(2021, 3, 19, 15, 42, 49, 967, DateTimeKind.Utc).AddTicks(7219), 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "JobQuotations",
+                columns: new[] { "JobQuotationId", "ClientInformationId", "CompanyAddress", "CompanyName", "ContactEmailAddress", "ContactNumber", "ContactPerson", "DateCreated", "DateUpdated", "Description", "HasCustomerAlreadyAgreed", "IsActive", "OverallCost" },
+                values: new object[,]
+                {
+                    { 2, 1, "eduardo aboitiz street", "AMA", "aaa@tset.com", "+0639207082", "amaers", new DateTime(2021, 3, 19, 15, 42, 49, 968, DateTimeKind.Utc).AddTicks(5277), new DateTime(2021, 3, 19, 15, 42, 49, 968, DateTimeKind.Utc).AddTicks(5287), "Sample Job Quotation From AMA", false, true, 200.0 },
+                    { 1, 1, "eduardo aboitiz street", "AMA", "tset@tset.com", "+0639207082", "amaers", new DateTime(2021, 3, 19, 15, 42, 49, 968, DateTimeKind.Utc).AddTicks(4321), new DateTime(2021, 3, 19, 15, 42, 49, 968, DateTimeKind.Utc).AddTicks(4721), "Sample Job Quotation From AMA", true, true, 100.0 },
+                    { 3, 2, "107 v. raman st. calamba cc", "CurlyBytes", "fff@tset.com", "4177214", "Cocoy", new DateTime(2021, 3, 19, 15, 42, 49, 968, DateTimeKind.Utc).AddTicks(5296), new DateTime(2021, 3, 19, 15, 42, 49, 968, DateTimeKind.Utc).AddTicks(5296), "CurlyBytes JobQuote", true, true, 300.0 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Assets",
+                columns: new[] { "AssetId", "ClientInformationId", "DateCreated", "DateRecieve", "DateUpdated", "IsActive", "ItemId", "SerialNumber", "VendorId", "WarrantyDate" },
+                values: new object[,]
+                {
+                    { 18, 2, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3846), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3845), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3847), true, 1, "2020-222-3333-xxx-11", 2, new DateTime(2022, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3844) },
+                    { 10, 1, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3758), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3757), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3758), true, 2, "1111-222-3333-xxx-11", 1, new DateTime(2022, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3756) },
+                    { 9, 1, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3754), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3753), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3754), true, 2, "1212-222-3333-xxx-11", 2, new DateTime(2022, 6, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3751) },
+                    { 21, 2, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3859), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3858), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3859), true, 2, "2323-222-3333-xxx-11", 2, new DateTime(2022, 11, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3857) },
+                    { 20, 2, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3855), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3854), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3855), true, 1, "2222-222-3333-xxx-11", 1, new DateTime(2023, 11, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3853) },
+                    { 19, 2, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3851), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3850), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3851), true, 1, "2121-222-3333-xxx-11", 2, new DateTime(2022, 5, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3848) },
+                    { 22, 2, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3863), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3862), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3864), true, 2, "2424-222-3333-xxx-11", 1, new DateTime(2022, 11, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3861) },
+                    { 17, 2, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3841), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3840), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3842), true, 1, "1919-222-3333-xxx-11", 1, new DateTime(2022, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3838) },
+                    { 16, 2, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3784), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3783), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3785), true, 1, "1818-222-3333-xxx-11", 1, new DateTime(2022, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3782) },
+                    { 15, 2, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3779), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3778), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3780), true, 1, "1717-222-3333-xxx-11", 2, new DateTime(2024, 11, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3776) },
+                    { 14, 2, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3774), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3773), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3775), true, 1, "1616-222-3333-xxx-11", 1, new DateTime(2023, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3772) },
+                    { 13, 2, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3770), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3769), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3771), true, 1, "1515-222-3333-xxx-11", 2, new DateTime(2023, 2, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3768) },
+                    { 8, 1, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3749), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3748), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3750), true, 1, "999-222-3333-xxx-11", 1, new DateTime(2022, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3747) },
+                    { 7, 1, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3745), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3744), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3746), true, 1, "888-222-3333-xxx-11", 2, new DateTime(2022, 5, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3742) },
+                    { 6, 1, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3740), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3739), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3741), true, 1, "777-222-3333-xxx-11", 1, new DateTime(2022, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3737) },
+                    { 5, 1, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3735), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3734), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3736), true, 1, "666-222-3333-xxx-11", 2, new DateTime(2023, 11, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3733) },
+                    { 4, 1, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3731), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3730), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3731), true, 1, "555-222-3333-xxx-11", 1, new DateTime(2022, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3728) },
+                    { 3, 1, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3726), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3724), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3727), true, 1, "444-222-3333-xxx-11", 2, new DateTime(2023, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3723) },
+                    { 2, 1, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3702), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3684), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3716), true, 1, "111-222-3333-xxx-11", 2, new DateTime(2023, 9, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3660) },
+                    { 1, 1, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(2743), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(1832), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3175), true, 1, "333-222-3333-xxx-11", 1, new DateTime(2022, 11, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(1253) },
+                    { 23, 2, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3868), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3866), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3869), true, 2, "2525-222-3333-xxx-11", 2, new DateTime(2022, 11, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3865) },
+                    { 24, 2, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3875), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3874), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3876), true, 2, "2626-222-3333-xxx-11", 1, new DateTime(2022, 11, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3873) },
+                    { 11, 1, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3762), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3761), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3763), true, 2, "1313-222-3333-xxx-11", 2, new DateTime(2022, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3760) },
+                    { 12, 1, new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3766), new DateTime(2021, 2, 28, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3765), new DateTime(2021, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3767), true, 2, "1414-222-3333-xxx-11", 1, new DateTime(2023, 3, 20, 16, 22, 18, 188, DateTimeKind.Utc).AddTicks(3764) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "DeliveryReceipts",
+                columns: new[] { "DeliveryReceiptId", "ClientInformationId", "DateCreated", "DateRecieve", "DateUpdated", "IsActive", "JobQuotationId", "Remarks" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(6226), new DateTime(2021, 2, 22, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(5377), new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(6625), true, 1, "All mouse" },
+                    { 3, 2, new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(7110), new DateTime(2021, 3, 4, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(7109), new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(7111), true, 1, "All mouse" },
+                    { 2, 1, new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(7094), new DateTime(2021, 3, 4, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(7059), new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(7100), true, 1, "All keyboard" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "JobQuotationDetailss",
+                columns: new[] { "JobQuotationDetailsId", "DateCreated", "DateUpdated", "IsActive", "IsAlreadyPurchaseOrder", "ItemId", "ItemName", "JobQuotationId", "MarginPrice", "OriginalPrice", "PurchaseOrderCode", "Quantity", "SellingPrice", "TotalCost" },
+                values: new object[,]
+                {
+                    { 5, new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1170), new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1171), true, false, 5, "Razer x123", 2, 30.0, 200.0, "", 2, 230.0, 460.0 },
+                    { 2, new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1146), new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1156), true, true, 2, "Jedel z31", 1, 30.0, 200.0, "ffff-111", 1, 230.0, 230.0 },
+                    { 3, new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1165), new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1166), true, false, 3, "Razer x33", 1, 20.0, 100.0, "", 3, 120.0, 360.0 },
+                    { 4, new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1168), new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1169), true, true, 4, "Jedel z524", 2, 30.0, 200.0, "ffff-111", 3, 230.0, 390.0 },
+                    { 1, new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(214), new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(613), true, true, 1, "Razer x123", 1, 100.0, 20.0, "ffff-111", 2, 120.0, 240.0 },
+                    { 6, new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1172), new DateTime(2021, 3, 19, 15, 42, 49, 969, DateTimeKind.Utc).AddTicks(1173), true, false, 6, "Razer x33", 3, 20.0, 100.0, "", 1, 120.0, 120.0 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "DeliveryReceiptDetailss",
+                columns: new[] { "DeliveryReceiptDetailsId", "DateCreated", "DateUpdated", "DeliveryReceiptId", "IsActive", "ItemId", "Quantity" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(2262), new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(2695), 1, true, 1, 2 },
+                    { 2, new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(3157), new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(3170), 1, true, 2, 2 },
+                    { 3, new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(3178), new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(3179), 2, true, 1, 1 },
+                    { 4, new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(3180), new DateTime(2021, 3, 19, 15, 42, 49, 965, DateTimeKind.Utc).AddTicks(3181), 2, true, 2, 1 }
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

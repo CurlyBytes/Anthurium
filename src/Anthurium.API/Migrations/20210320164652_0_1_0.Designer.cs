@@ -3,14 +3,16 @@ using System;
 using Anthurium.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Anthurium.API.Migrations
 {
     [DbContext(typeof(AnthuriumContext))]
-    partial class AnthuriumContextModelSnapshot : ModelSnapshot
+    [Migration("20210320164652_0_1_0")]
+    partial class _0_1_0
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
