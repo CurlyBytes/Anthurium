@@ -83,6 +83,7 @@ namespace Anthurium.Web
                 .AddScoped<IVendorService, VendorService>()
                 .AddScoped<IItemService, ItemService>()
                 .AddScoped<IAssetService, AssetService>()
+                .AddScoped<IDeliveryReceiptService, DeliveryReceiptService>()
                 .AddScoped<IAlertService, AlertService>()
                 .AddScoped<IHttpService, HttpService>()
                 .AddScoped<ILocalStorageService, LocalStorageService>();

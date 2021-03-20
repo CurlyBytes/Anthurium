@@ -29,4 +29,8 @@
     <ProjectReference Include="..\Anthurium.API\Anthurium.API.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\DeliveryReceipts\" />
+  </ItemGroup>
+
 </Project>

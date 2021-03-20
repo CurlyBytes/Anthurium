@@ -17,15 +17,15 @@ namespace Anthurium.Web.Services
 
         public async Task<WarehouseApiResponse> GetWarehousesAsync(string orderBy, int skip, int top)
         {
-            return await _httpService.Get<WarehouseApiResponse>($"api/warehouse?$count=true&$orderby={orderBy}&$skip={skip}&$top={top}");
-
+            var test = await _httpService.Get<WarehouseApiResponse>($"api/warehouse?$count=true&$orderby={orderBy}&$skip={skip}&$top={top}");
+            return test;
         }
 
 
         public async Task<WarehouseApiResponse> GetWarehousesAsync(string orderBy, int skip)
         {
-            return await _httpService.Get<WarehouseApiResponse>($"api/warehouse?$count=true&$orderby={orderBy}&$skip={skip}");
-
+            var test =  await _httpService.Get<WarehouseApiResponse>($"api/warehouse?$count=true&$orderby={orderBy}&$skip={skip}");
+            return test;
         }
 
 
