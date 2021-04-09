@@ -34,5 +34,7 @@ namespace Anthurium.API.Dtos
 
         [Required]
         public bool IsActive { get; set; } = true;
+
+        public ICollection<DeliveryReceiptDetailsCreateDto> DeliveryReceiptDetails { get; set; }
     }
 }

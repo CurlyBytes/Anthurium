@@ -2,6 +2,7 @@
 using Anthurium.Shared.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,14 +19,27 @@ namespace Anthurium.API.Repositories.SqlServer
 
         public DeliveryReceipt DeliveryReceiptById(int Id)
         {
-            return _context.DeliveryReceipts.FirstOrDefault(p => p.DeliveryReceiptId == Id);
+            // return _context.DeliveryReceipts.FirstOrDefault(p => p.DeliveryReceiptId == Id);
+            return _context.DeliveryReceipts
+                      .Include(c => c.DeliveryReceiptDetails)
+                .Include(i => i.ClientInformation)
+                                .FirstOrDefault(p => p.DeliveryReceiptId == Id);
         }
 
 
 
         public IEnumerable<DeliveryReceipt> GetDeliveryReceipt()
         {
-            return _context.DeliveryReceipts.ToList();
+
+
+            var test = _context.DeliveryReceipts
+
+               .Include(c => c.ClientInformation)
+
+               .Include(jq => jq.JobQuotation)
+                       .Include(dr => dr.DeliveryReceiptDetails)
+               .ToList();
+            return test;
         }
 
 

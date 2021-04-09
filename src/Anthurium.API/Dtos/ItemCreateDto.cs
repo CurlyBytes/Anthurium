@@ -33,7 +33,7 @@ namespace Anthurium.API.Dtos
 
 
 
-        public ICollection<DeliveryReceiptDetailsCreateDto> DeliveryRecieptDetails { get; set; }
+        public ICollection<DeliveryReceiptDetailsCreateDto> DeliveryReceiptDetails { get; set; }
         public ICollection<JobQuotationDetailsCreateDto> JobQuotationDetails { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;
 

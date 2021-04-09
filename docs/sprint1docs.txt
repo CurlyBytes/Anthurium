@@ -81,6 +81,14 @@ isalreadypurchaseordered
 
 
 
+purchaseorder 
+purchaseorderid 
+jobquationid 
+
+purchaseorderdetails 
+purchaseorderdetailsid 
+purcahseorder
+
 asset 
 clientid
 assetid 

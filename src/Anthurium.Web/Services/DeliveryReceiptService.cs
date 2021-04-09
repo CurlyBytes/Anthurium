@@ -43,7 +43,7 @@ namespace Anthurium.Web.Services
 
         public async Task<DeliveryReceiptReadDto> GetDeliveryReceiptByIdAsync(int id)
         {
-            return await _httpService.Get<DeliveryReceiptReadDto>($"api/deliveryreceipt/{id}?$expand=Vendor,Item,ClientInformation");
+            return await _httpService.Get<DeliveryReceiptReadDto>($"api/deliveryreceipt/{id}?$expand=ClientInformation");
 
         }
 

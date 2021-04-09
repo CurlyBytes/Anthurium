@@ -34,7 +34,7 @@ namespace Anthurium.API.Dtos
 
 
 
-        public ICollection<DeliveryReceiptDetailsReadDto> DeliveryRecieptDetails { get; set; }
+        public ICollection<DeliveryReceiptDetailsReadDto> DeliveryReceiptDetails { get; set; }
         public ICollection<JobQuotationDetailsReadDto> JobQuotationDetails { get; set; }
         public DateTime DateCreated { get; set; }
 

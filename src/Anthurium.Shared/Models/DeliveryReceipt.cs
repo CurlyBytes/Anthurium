@@ -36,6 +36,6 @@ namespace Anthurium.Shared.Models
         [Required]
         public bool IsActive { get; set; }
 
-        public ICollection<DeliveryReceiptDetails> DeliveryRecieptDetails { get; set; }
+        public ICollection<DeliveryReceiptDetails> DeliveryReceiptDetails { get; set; }
     }
 }

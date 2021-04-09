@@ -30,12 +30,13 @@ namespace Anthurium.API.Repositories.SqlServer
 
         public IEnumerable<Asset> GetAsset()
         {
-            return _context.Assets
+            var test= _context.Assets
 
                 .Include(c => c.ClientInformation)
                 .Include(i => i.Item)
                 .Include(v => v.Vendor)
                 .ToList();
+            return test;
         }
 
 

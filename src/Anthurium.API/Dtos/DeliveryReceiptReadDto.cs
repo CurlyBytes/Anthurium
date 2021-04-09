@@ -35,5 +35,7 @@ namespace Anthurium.API.Dtos
         [Required]
         public bool IsActive { get; set; }
         public ICollection<JobQuotationReadDto> JobQuotationDetails { get; set; }
+
+        public ICollection<DeliveryReceiptDetailsReadDto> DeliveryReceiptDetails { get; set; }
     }
 }

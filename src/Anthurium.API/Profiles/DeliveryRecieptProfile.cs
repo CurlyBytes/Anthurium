@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Anthurium.API.Profiles
 {
-    public class DeliveryRecieptProfile : Profile
+    public class DeliveryReceiptProfile : Profile
     {
-        public DeliveryRecieptProfile()
+        public DeliveryReceiptProfile()
         {
             //source->target
             //api get,post,update(delete)
@@ -25,6 +25,9 @@ namespace Anthurium.API.Profiles
                 .ForMember(destination => destination.IsActive, source => source.Ignore());
 
             CreateMap<DeliveryReceipt, DeliveryReceiptUpdateDto>();
+
+
+
 
         }
 

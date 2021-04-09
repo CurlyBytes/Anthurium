@@ -102,7 +102,7 @@ namespace Anthurium.Web
                 configuration.AddProfile(new ItemProfile());
                 configuration.AddProfile(new AssetProfile());
                 configuration.AddProfile(new DeliveryReceiptDetailsProfiles());
-                configuration.AddProfile(new DeliveryRecieptProfile());
+                configuration.AddProfile(new DeliveryReceiptProfile());
                 configuration.AddProfile(new VendorProfile());
             });
 

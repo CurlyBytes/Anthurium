@@ -33,7 +33,7 @@ namespace Anthurium.API.Dtos
  
 
 
-        public ICollection<DeliveryReceiptDetailsUpdateDto> DeliveryRecieptDetails { get; set; }
+        public ICollection<DeliveryReceiptDetailsUpdateDto> DeliveryReceiptDetails { get; set; }
         public ICollection<JobQuotationDetailsUpdateDto> JobQuotationDetails { get; set; }
 
 

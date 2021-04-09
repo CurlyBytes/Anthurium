@@ -80,7 +80,7 @@ namespace Anthurium.API
                 //services.AddDbContext<AnthuriumContext>(options =>
                 //options.UseInMemoryDatabase("LightSailsErp"));
                 services.AddDbContext<AnthuriumContext>(options => options
-               .UseMySql("Server=localhost; Database=LightSailsErp;User=root;Password=;persistsecurityinfo=true;",
+               .UseMySql("Server=localhost; Database=LightSailsErp;User=root;Password=;persistsecurityinfo=true",
                    mysqlOptions =>
                        mysqlOptions.ServerVersion(new ServerVersion(new Version(10, 4, 6), ServerType.MariaDb))));
             }
@@ -91,7 +91,7 @@ namespace Anthurium.API
                 //services.AddDbContext<AnthuriumContext>(options =>
                 //   options.UseInMemoryDatabase("LightSailsErp"));
                 services.AddDbContext<AnthuriumContext>(options => options
-               .UseMySql("Server=localhost; Database=LightSailsErp;User=root;Password=qwerty@123456;persistsecurityinfo=true;",
+               .UseMySql("Server=localhost; Database=LightSailsErp;User=root;Password=;persistsecurityinfo=true",
                    mysqlOptions =>
                        mysqlOptions.ServerVersion(new ServerVersion(new Version(10, 4, 6), ServerType.MariaDb))));
             }

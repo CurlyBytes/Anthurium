@@ -563,13 +563,13 @@ namespace Anthurium.API.Migrations
             modelBuilder.Entity("Anthurium.Shared.Models.DeliveryReceiptDetails", b =>
                 {
                     b.HasOne("Anthurium.Shared.Models.DeliveryReceipt", "DeliveryReceipt")
-                        .WithMany("DeliveryRecieptDetails")
+                        .WithMany("DeliveryReceiptDetails")
                         .HasForeignKey("DeliveryReceiptId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Anthurium.Shared.Models.Item", "Item")
-                        .WithMany("DeliveryRecieptDetails")
+                        .WithMany("DeliveryReceiptDetails")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

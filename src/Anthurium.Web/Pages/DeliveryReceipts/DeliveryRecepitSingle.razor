@@ -1,13 +1,13 @@
-﻿@page "/asset/{Id:int}"
-@inject Services.IAssetService assetService
+﻿@page "/deliveryreceipt/{Id:int}"
+@inject Services.IDeliveryReceiptService deliveryReceiptService
 @using Anthurium.API.Dtos
 @using Microsoft.JSInterop;
 @using PuppeteerSharp;
 @inject IJSRuntime _iJSRuntime
 
-<h4>Asset Id: @Id.ToString()</h4>
+<h4>DeliveryReceipt Id: @Id.ToString()</h4>
 
-@if (assetReadDto == null)
+@if (deliveryReceiptReadDto == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -16,7 +16,7 @@ else
 
     <div class="row m-2">
         <table class="col-12 table table-hover table-responsive table-striped">
-            <caption>Asset Id: @Id.ToString()</caption>
+            <caption>Delivery Reciept Id: @Id.ToString()</caption>
             <thead>
 
                 <tr>
@@ -29,36 +29,28 @@ else
             <tbody>
                 <tr>
                     <th scope="row">Id</th>
-                    <td>@assetReadDto.AssetId</td>
-                </tr>
-                <tr>
-                    <th scope="row">Vendor Name</th>
-                    <td>@assetReadDto.Vendor.VendorName</td>
+                    <td>@deliveryReceiptReadDto.DeliveryReceiptId</td>
                 </tr>
                 <tr>
                     <th scope="row">Company Name</th>
-                    <td>@assetReadDto.ClientInformation.CompanyName</td>
+                    <td>@deliveryReceiptReadDto.ClientInformation.CompanyName</td>
                 </tr>
                 <tr>
-                    <th scope="row">Item Name</th>
-                    <td>@assetReadDto.Item.ItemName</td>
+                    <th scope="row">Remarks</th>
+                    <td>@deliveryReceiptReadDto.Remarks</td>
                 </tr>
                 <tr>
                     <th scope="row">Serial Number</th>
-                    <td>@assetReadDto.SerialNumber</td>
+                    <td>@deliveryReceiptReadDto.DateRecieve</td>
                 </tr>
-                <tr>
-                    <th scope="row">Warranty Date</th>
-                    <td>@assetReadDto.WarrantyDate</td>
-                </tr>
-
+            
                 <tr>
                     <th class="info">Date Updated</th>
-                    <td>@assetReadDto.DateCreated</td>
+                    <td>@deliveryReceiptReadDto.DateCreated</td>
                 </tr>
                 <tr>
                     <th class="info">Date Created</th>
-                    <td>@assetReadDto.DateUpdated</td>
+                    <td>@deliveryReceiptReadDto.DateUpdated</td>
                 </tr>
             </tbody>
 
@@ -67,8 +59,8 @@ else
     </div>
     <div class="row m-2">
         <div class="col-12">
-            <!--TODO Add Items list per asset-->
-            <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/asset">Return to List</a>
+            <!--TODO Add Items list per deliveryReceipt-->
+            <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/deliveryreceipt">Return to List</a>
         </div>
     </div>
 }
@@ -77,11 +69,11 @@ else
     [Parameter]
     public int Id { get; set; }
 
-    private AssetReadDto assetReadDto;
+    private DeliveryReceiptReadDto deliveryReceiptReadDto;
 
     protected override async Task OnInitializedAsync()
     {
-        assetReadDto = await assetService.GetAssetByIdAsync(Id);
+        deliveryReceiptReadDto = await deliveryReceiptService.GetDeliveryReceiptByIdAsync(Id);
     }
 
 
