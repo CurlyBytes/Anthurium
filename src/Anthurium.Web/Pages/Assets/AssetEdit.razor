@@ -18,60 +18,47 @@
 {
 <EditForm Model="@assetUpdateDto" OnValidSubmit="@UpdateAsset">
     <DataAnnotationsValidator />
-    <div class="form-row">
-        <div class="form-group col">
-            <label>Client Info: </label>
-
-            <InputSelect @bind-Value="assetUpdateDto.ClientInformationId" class="selectpicker" @onchange="ChangeClient">
-                <option>--select--</option>
-                @foreach (var item in clientInformationReadDtos)
-                    {
-                    <option value="@item.ClientInformationId">@item.CompanyName</option>
-                    }
-            </InputSelect>
-            <ValidationMessage For="@(() => assetUpdateDto.ClientInformationId)" />
-        </div>
-        <div class="form-group col">
-            <label>Item name: </label>
-
-            <InputSelect @bind-Value="assetUpdateDto.ItemId" class="selectpicker" @onchange="ChangeItem">
-                <option>--select--</option>
-                @foreach (var item in itemReadDtos)
-                    {
-                    <option value="@item.ItemId">@item.ItemName</option>
-                    }
-            </InputSelect>
-            <ValidationMessage For="@(() => assetUpdateDto.ItemId)" />
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col">
-            <label>Vendor Name: </label>
-
-            <InputSelect @bind-Value="assetUpdateDto.VendorId" class="selectpicker" @onchange="ChangeVendor">
-                <option>--select--</option>
-                @foreach (var item in vendorReadDtos)
-                    {
-                    <option value="@item.VendorId">@item.VendorName</option>
-                    }
-            </InputSelect>
-            <ValidationMessage For="@(() => assetUpdateDto.VendorId)" />
-        </div>
-        <div class="form-group col">
-            <div class="form-group col">
-                <label>Serial Number:</label>
-                <InputText @bind-Value="assetUpdateDto.SerialNumber" class="form-control" placeholder="Serial Number" />
-                <ValidationMessage For="@(() => assetUpdateDto.SerialNumber)" />
-            </div>
-        </div>
+    <div class="form-group row">
+        <label for="ClientInformationId" class="col-sm-6 col-form-label">Client Info:</label>
+        <select id="ClientInformationId" class="form-control selectpicker" value="@assetUpdateDto.ClientInformationId" @onchange="ChangeClient">
+            <option>--select--</option>
+            @foreach (var item in clientInformationReadDtos)
+            {
+                <option value="@item.ClientInformationId">@item.CompanyName</option>
+            }
+        </select>
     </div>
 
-    <div class="form-row">
-        <div class="form-group col">
-            <label>Warranty Date:</label>
-            <InputDate @bind-Value="assetUpdateDto.WarrantyDate" class="form-control" />
-            <ValidationMessage For="@(() => assetUpdateDto.WarrantyDate)" />
-        </div>
+    <div class="form-group row">
+        <label for="ItemId" class="col-sm-6 col-form-label">Item Name:</label>
+        <select id="ItemId" class="form-control selectpicker" value="@assetUpdateDto.ItemId" @onchange="ChangeItem">
+            <option>--select--</option>
+            @foreach (var item in itemReadDtos)
+            {
+                <option value="@item.ItemId">@item.ItemName</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group row">
+        <label for="clientInformationId" class="col-sm-6 col-form-label">Vendor Name:</label>
+        <select id="ClientInformationId" class="form-control selectpicker" value="@assetUpdateDto.VendorId" @onchange="ChangeVendor">
+            <option>--select--</option>
+            @foreach (var item in vendorReadDtos)
+            {
+                <option value="@item.VendorId">@item.VendorName</option>
+            }
+        </select>
+    </div>
+    <div class="form-group row">
+        <label for="SerialNumber" class="col-sm-6 col-form-label">Serial Number:</label>
+        <input id="SerialNumber" class="form-control col-sm-6 input-lg" type="text" placeholder="Serial Number" 
+               @bind="assetUpdateDto.SerialNumber" />
+    </div>
+    <div class="form-group row">
+        <label for="WarrantyDate" class="col-sm-6 col-form-label">Warranty Date:</label>
+        <input id="WarrantyDate" class="form-control col-sm-6 input-lg" placeholder="Warranty Date" type="date" 
+               @bind="assetUpdateDto.WarrantyDate" />
     </div>
 
 

@@ -67,7 +67,7 @@
                         <td>@assetReadDtoItem.Item.ItemName</td>
                         <td>@assetReadDtoItem.SerialNumber</td>
                         <td>@assetReadDtoItem.WarrantyDate</td>
-                        <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png" width="=" 50px" height="50px"></td>
+                        <td><img src="data:image/png;base64,@assetReadDtoItem.QRCode" width="50" height="50"></td>
                         <td><a class="btn btn-info btn-sm" href="/asset/@assetReadDtoItem.AssetId">View</a></td>
                         <td><a class="btn btn-secondary btn-sm" href="/asset/@assetReadDtoItem.AssetId/edit">Edit</a></td>
                         <td><a class="btn btn-danger btn-sm" href="/asset/@assetReadDtoItem.AssetId/delete">Delete</a></td>

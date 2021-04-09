@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Anthurium.API.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace Anthurium.API.Dtos
 
        
         public ItemUpdateDto Item { get; set; }
-
+        public string QRCode { get; set; }
 
         [Required]
         public DateTime WarrantyDate { get; set; }

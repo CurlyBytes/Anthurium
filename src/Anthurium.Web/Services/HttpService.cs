@@ -100,7 +100,11 @@ namespace Anthurium.Web.Services
                 return;
             }
 
-            await handleErrors(response);
+            if (response.StatusCode != HttpStatusCode.NotFound)
+            {
+                await handleErrors(response);
+            }
+
         }
 
         private async Task<T> sendRequest<T>(HttpRequestMessage request)
@@ -117,7 +121,12 @@ namespace Anthurium.Web.Services
                 return default;
             }
 
-            await handleErrors(response);
+            if (response.StatusCode != HttpStatusCode.NotFound)
+            {
+                await handleErrors(response);
+            }
+
+    
 
             var options = new JsonSerializerOptions();
             options.PropertyNameCaseInsensitive = true;
@@ -141,6 +150,9 @@ namespace Anthurium.Web.Services
             {
                 var error = await response.Content.ReadFromJsonAsync<Dictionary<string, string>>();
                 throw new Exception(error["message"]);
+            }
+            else {
+            
             }
         }
     }

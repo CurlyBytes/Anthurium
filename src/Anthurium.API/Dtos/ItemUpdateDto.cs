@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Anthurium.API.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -23,8 +24,7 @@ namespace Anthurium.API.Dtos
         [Required]
         [MaxLength(150)]
         public string ItemName { get; set; }
-
-       
+        public string QRCode { get; set; }
         [Required]
         public int WarehouseId { get; set; }
 
