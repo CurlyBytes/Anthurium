@@ -139,9 +139,20 @@
 
     private async Task FetchListAsync()
     {
+
+
         var response = await jobOrderService.GetJobOrdersAsync(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults);
-        jobOrderReadDto = response.JobOrder;
+
         matchingCount = response.Count;
+        if (matchingCount == 0)
+        {
+            jobOrderReadDto = null;
+        }
+        else
+        {
+            jobOrderReadDto = response.JobOrder;
+
+        }
     }
 
     protected override async Task OnInitializedAsync()

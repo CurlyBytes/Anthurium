@@ -116,9 +116,21 @@
 
     private async Task FetchListAsync()
     {
+
+
+
         var response = await itemService.GetItemsAsync(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults);
-        itemReadDto = response.Item;
+
         matchingCount = response.Count;
+        if (matchingCount == 0)
+        {
+            itemReadDto = null;
+        }
+        else
+        {
+            itemReadDto = response.Item;
+
+        }
     }
 
     protected override async Task OnInitializedAsync()

@@ -18,6 +18,8 @@ namespace Anthurium.Web.Services
         public async Task<WarehouseApiResponse> GetWarehousesAsync(string orderBy, int skip, int top)
         {
             var test = await _httpService.Get<WarehouseApiResponse>($"api/warehouse?$count=true&$orderby={orderBy}&$skip={skip}&$top={top}");
+           
+            
             return test;
         }
 

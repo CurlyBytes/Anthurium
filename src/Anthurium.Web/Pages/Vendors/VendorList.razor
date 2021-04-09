@@ -106,13 +106,18 @@
     {
         var response = await vendorService.GetVendorsAsync(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults);
 
-        if (response == null) {
-            vendorReadDto = null;
-            matchingCount = 0;
-        }
 
-        vendorReadDto = response.Vendor;
+
         matchingCount = response.Count;
+        if (matchingCount == 0)
+        {
+            vendorReadDto = null;
+        }
+        else
+        {
+            vendorReadDto = response.Vendor;
+
+        }
     }
 
     protected override async Task OnInitializedAsync()
