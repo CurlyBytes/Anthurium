@@ -109,12 +109,12 @@ namespace Anthurium.Web
             var mapper = mapperConfiguration.CreateMapper();
 
             services.AddSingleton(mapper);
-            services.AddLiveReload(config =>
-            {
-                config.LiveReloadEnabled = true;
-                config.ClientFileExtensions = ".css,.js,.htm,.html";
-                config.FolderToMonitor = "~/../";
-            });
+            //services.AddLiveReload(config =>
+            //{
+            //    config.LiveReloadEnabled = true;
+            //    config.ClientFileExtensions = ".css,.js,.htm,.html";
+            //    config.FolderToMonitor = "~/../";
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -123,7 +123,7 @@ namespace Anthurium.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseLiveReload();
+              //  app.UseLiveReload();
             }
             else
             {

@@ -105,8 +105,6 @@ namespace Anthurium.Web.Services
 
         private async Task<T> sendRequest<T>(HttpRequestMessage request)
         {
-            bool _isConverterNeeded = true;
-
             await addJwtHeader(request);
             
             // send request
@@ -119,25 +117,11 @@ namespace Anthurium.Web.Services
                 return default;
             }
 
-            if (!response.IsSuccessStatusCode)
-            {
-                var error = await response.Content.ReadFromJsonAsync<Dictionary<string, string>>();
-                _isConverterNeeded = false;
-               // throw new Exception(error["message"]);
-        
-            }
+            await handleErrors(response);
 
-            var options = new JsonSerializerOptions()
-            {
-               IgnoreNullValues = true,
-                PropertyNameCaseInsensitive = true
-            };
-
-
-            if (_isConverterNeeded == true) {
-                options.Converters.Add(new StringConverter());
-            }
-         
+            var options = new JsonSerializerOptions();
+            options.PropertyNameCaseInsensitive = true;
+            options.Converters.Add(new StringConverter());
             return await response.Content.ReadFromJsonAsync<T>(options);
         }
 

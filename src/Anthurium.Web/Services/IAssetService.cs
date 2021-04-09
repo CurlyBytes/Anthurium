@@ -8,8 +8,8 @@ namespace Anthurium.Web.Services
     public interface IAssetService
     {
         Task<HttpResponseMessage> CreateAssetAsync(AssetCreateDto asset);
-        Task<HttpResponseMessage> DeleteAssetByIdAsync(int id);
-        Task<HttpResponseMessage> EditAssetAsync(int id, AssetUpdateDto asset);
+        Task DeleteAssetByIdAsync(int id);
+        Task EditAssetAsync(int id, AssetUpdateDto asset);
         Task<AssetReadDto> GetAssetByIdAsync(int id);
         Task<AssetApiResponse> GetAssetsAsync(string orderBy, int skip);
         Task<AssetApiResponse> GetAssetsAsync(string orderBy, int skip, int top);

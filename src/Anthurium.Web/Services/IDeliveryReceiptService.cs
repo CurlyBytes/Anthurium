@@ -8,8 +8,8 @@ namespace Anthurium.Web.Services
     public interface IDeliveryReceiptService
     {
         Task<HttpResponseMessage> CreateDeliveryReceiptAsync(DeliveryReceiptCreateDto deliveryReceipt);
-        Task<HttpResponseMessage> DeleteDeliveryReceiptByIdAsync(int id);
-        Task<HttpResponseMessage> EditDeliveryReceiptAsync(int id, DeliveryReceiptUpdateDto deliveryReceipt);
+        Task DeleteDeliveryReceiptByIdAsync(int id);
+        Task EditDeliveryReceiptAsync(int id, DeliveryReceiptUpdateDto deliveryReceipt);
         Task<DeliveryReceiptReadDto> GetDeliveryReceiptByIdAsync(int id);
         Task<DeliveryReceiptApiResponse> GetDeliveryReceiptsAsync(string orderBy, int skip);
         Task<DeliveryReceiptApiResponse> GetDeliveryReceiptsAsync(string orderBy, int skip, int top);

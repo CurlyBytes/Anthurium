@@ -33,10 +33,10 @@ namespace Anthurium.Web.Services
 
         }
 
-        public async Task<HttpResponseMessage> DeleteVendorByIdAsync(int id)
+        public async Task DeleteVendorByIdAsync(int id)
         {
             //consider impact vs returning just status code
-            return await _httpService.Delete<HttpResponseMessage>($"api/vendor/{id}");
+            await _httpService.Delete($"api/vendor/{id}");
         }
 
         public async Task<HttpResponseMessage> CreateVendorAsync(VendorCreateDto vendor)
@@ -45,10 +45,10 @@ namespace Anthurium.Web.Services
             return await _httpService.Post<HttpResponseMessage>($"api/vendor", vendor);
         }
 
-        public async Task<HttpResponseMessage> EditVendorAsync(int id, VendorUpdateDto vendor)
+        public async Task EditVendorAsync(int id, VendorUpdateDto vendor)
         {
 
-            return await _httpService.Put<HttpResponseMessage>($"api/vendor/{id}", vendor);
+            await _httpService.Put<HttpResponseMessage>($"api/vendor/{id}", vendor);
         }
     }
 }

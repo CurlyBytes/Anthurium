@@ -47,10 +47,10 @@ namespace Anthurium.Web.Services
 
         }
 
-        public async Task<HttpResponseMessage> DeleteDeliveryReceiptByIdAsync(int id)
+        public async Task DeleteDeliveryReceiptByIdAsync(int id)
         {
             //consider impact vs returning just status code
-            return await _httpService.Delete<HttpResponseMessage>($"api/deliveryreceipt/{id}");
+            await _httpService.Delete($"api/deliveryreceipt/{id}");
         }
 
         public async Task<HttpResponseMessage> CreateDeliveryReceiptAsync(DeliveryReceiptCreateDto deliveryReceipt)
@@ -59,10 +59,10 @@ namespace Anthurium.Web.Services
             return await _httpService.Post<HttpResponseMessage>($"api/deliveryreceipt", deliveryReceipt);
         }
 
-        public async Task<HttpResponseMessage> EditDeliveryReceiptAsync(int id, DeliveryReceiptUpdateDto deliveryReceipt)
+        public async Task EditDeliveryReceiptAsync(int id, DeliveryReceiptUpdateDto deliveryReceipt)
         {
 
-            return await _httpService.Put<HttpResponseMessage>($"api/deliveryreceipt/{id}", deliveryReceipt);
+            await _httpService.Put($"api/deliveryreceipt/{id}", deliveryReceipt);
         }
     }
 }

@@ -41,13 +41,12 @@ namespace Anthurium.Web.Services
         public async Task<JobQuotationDetailsReadDto> GetJobQuotationDetailsByIdAsync(int id)
         {
             return await _httpService.Get<JobQuotationDetailsReadDto>($"api/jobquotationdetails/{id}");
+        }
 
-          }
-
-        public async Task<HttpResponseMessage> DeleteJobQuotationDetailsByIdAsync(int id)
+        public async Task DeleteJobQuotationDetailsByIdAsync(int id)
         {
             //consider impact vs returning just status code
-            return await _httpService.Delete<HttpResponseMessage>($"api/jobquotationdetails/{id}");
+            await _httpService.Delete<HttpResponseMessage>($"api/jobquotationdetails/{id}");
         }
 
         public async Task<HttpResponseMessage> CreateJobQuotationDetailsAsync(JobQuotationDetailsCreateDto clientinformation)
@@ -56,10 +55,10 @@ namespace Anthurium.Web.Services
             return await _httpService.Post<HttpResponseMessage>($"api/jobquotationdetails", clientinformation);
         }
 
-        public async Task<HttpResponseMessage> EditJobQuotationDetailsAsync(int id, JobQuotationDetailsUpdateDto clientinformation)
+        public async Task EditJobQuotationDetailsAsync(int id, JobQuotationDetailsUpdateDto clientinformation)
         {
         
-            return await _httpService.Put<HttpResponseMessage>($"api/jobquotationdetails/{id}", clientinformation);
+            await _httpService.Put<HttpResponseMessage>($"api/jobquotationdetails/{id}", clientinformation);
         }
     }
 }

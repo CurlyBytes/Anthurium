@@ -8,8 +8,8 @@ namespace Anthurium.Web.Services
     public interface IJobQuotationDetailsDetails
     {
         Task<HttpResponseMessage> CreateJobQuotationDetailsAsync(JobQuotationDetailsCreateDto clientinformation);
-        Task<HttpResponseMessage> DeleteJobQuotationDetailsByIdAsync(int id);
-        Task<HttpResponseMessage> EditJobQuotationDetailsAsync(int id, JobQuotationDetailsUpdateDto clientinformation);
+        Task DeleteJobQuotationDetailsByIdAsync(int id);
+        Task EditJobQuotationDetailsAsync(int id, JobQuotationDetailsUpdateDto clientinformation);
         Task<JobQuotationDetailsReadDto> GetJobQuotationDetailsByIdAsync(int id);
         Task<JobQuotationDetailsApiResponse> GetJobQuotationDetailssAsync(string orderBy, int skip, int top);
         Task<JobQuotationDetailsApiResponse> JobQuotationDetailsByJobOrder(string orderBy, int jobQuotationId);

@@ -8,8 +8,8 @@ namespace Anthurium.Web.Services
     public interface IClientInformationService
     {
         Task<HttpResponseMessage> CreateClientInformationAsync(ClientInformationCreateDto clientinformation);
-        Task<HttpResponseMessage> DeleteClientInformationByIdAsync(int id);
-        Task<HttpResponseMessage> EditClientInformationAsync(int id, ClientInformationUpdateDto clientinformation);
+        Task DeleteClientInformationByIdAsync(int id);
+        Task EditClientInformationAsync(int id, ClientInformationUpdateDto clientinformation);
         Task<ClientInformationReadDto> GetClientInformationByIdAsync(int id);
         Task<ClientInformationApiResponse> GetClientInformationsAsync(string orderBy, int skip);
         Task<ClientInformationApiResponse> GetClientInformationsAsync(string orderBy, int skip, int top);

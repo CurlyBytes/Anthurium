@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Anthurium.Web.Helpers
 {
-    public class StringConverter : JsonConverter<string>    
+    public class StringConverter : JsonConverter<string>
     {
         public override string Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
@@ -20,8 +20,8 @@ namespace Anthurium.Web.Helpers
             {
                 return reader.GetString();
             }
-            return reader.GetString();
 
+            throw new System.Text.Json.JsonException();
         }
 
         public override void Write(Utf8JsonWriter writer, string value, JsonSerializerOptions options)

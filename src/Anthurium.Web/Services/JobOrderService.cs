@@ -37,10 +37,10 @@ namespace Anthurium.Web.Services
 
         }
 
-        public async Task<HttpResponseMessage> DeleteJobOrderByIdAsync(int id)
+        public async Task DeleteJobOrderByIdAsync(int id)
         {
             //consider impact vs returning just status code
-            return await _httpService.Delete<HttpResponseMessage>($"api/joborder/{id}");
+            await _httpService.Delete($"api/joborder/{id}");
         }
 
         public async Task<HttpResponseMessage> CreateJobOrderAsync(JobOrderCreateDto joborderdescriptionofwork)
@@ -49,11 +49,11 @@ namespace Anthurium.Web.Services
             return await _httpService.Post<HttpResponseMessage>($"api/joborder", joborderdescriptionofwork);
         }
 
-        public async Task<HttpResponseMessage> EditJobOrderAsync(long id, JobOrderUpdateDto joborderdescriptionofwork)
+        public async Task EditJobOrderAsync(long id, JobOrderUpdateDto joborderdescriptionofwork)
         {
 
 
-            return await _httpService.Put<HttpResponseMessage>($"api/joborder/{id}", joborderdescriptionofwork);
+            await _httpService.Put($"api/joborder/{id}", joborderdescriptionofwork);
         }
     }
 

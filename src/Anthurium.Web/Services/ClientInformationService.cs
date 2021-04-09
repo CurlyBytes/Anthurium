@@ -38,10 +38,10 @@ namespace Anthurium.Web.Services
 
         }
 
-        public async Task<HttpResponseMessage> DeleteClientInformationByIdAsync(int id)
+        public async Task DeleteClientInformationByIdAsync(int id)
         {
             //consider impact vs returning just status code
-            return await _httpService.Delete<HttpResponseMessage>($"api/clientinformation/{id}");
+           await _httpService.Delete($"api/clientinformation/{id}");
         }
 
         public async Task<HttpResponseMessage> CreateClientInformationAsync(ClientInformationCreateDto clientinformation)
@@ -50,11 +50,11 @@ namespace Anthurium.Web.Services
             return await _httpService.Post<HttpResponseMessage>($"api/clientinformation", clientinformation);
         }
 
-        public async Task<HttpResponseMessage> EditClientInformationAsync(int id, ClientInformationUpdateDto clientinformation)
+        public async Task EditClientInformationAsync(int id, ClientInformationUpdateDto clientinformation)
         {
 
 
-            return await _httpService.Put<HttpResponseMessage>($"api/clientinformation/{id}", clientinformation);
+            await _httpService.Put($"api/clientinformation/{id}", clientinformation);
         }
     }
 }

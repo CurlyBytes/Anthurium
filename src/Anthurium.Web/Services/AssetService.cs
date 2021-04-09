@@ -42,10 +42,10 @@ namespace Anthurium.Web.Services
 
         }
 
-        public async Task<HttpResponseMessage> DeleteAssetByIdAsync(int id)
+        public async Task DeleteAssetByIdAsync(int id)
         {
             //consider impact vs returning just status code
-            return await _httpService.Delete<HttpResponseMessage>($"api/asset/{id}");
+             await _httpService.Delete($"api/asset/{id}");
         }
 
         public async Task<HttpResponseMessage> CreateAssetAsync(AssetCreateDto asset)
@@ -54,10 +54,10 @@ namespace Anthurium.Web.Services
             return await _httpService.Post<HttpResponseMessage>($"api/asset", asset);
         }
 
-        public async Task<HttpResponseMessage> EditAssetAsync(int id, AssetUpdateDto asset)
+        public async Task EditAssetAsync(int id, AssetUpdateDto asset)
         {
 
-            return await _httpService.Put<HttpResponseMessage>($"api/asset/{id}", asset);
+            await _httpService.Put($"api/asset/{id}", asset);
         }
     }
 }
