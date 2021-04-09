@@ -22,17 +22,20 @@ namespace Anthurium.API.Repositories.SqlServer
  
 
 
-            return _context.Items.Include(s => s.Warehouse)
+            var test=  _context.Items.Include(s => s.Warehouse)
                      .Where(s => s.ItemId == Id)
                      .FirstOrDefault<Item>();
+            return test;
         }
 
 
 
         public IEnumerable<Item> GetItem()
         {
-            return _context.Items
+            var test= _context.Items
                          .Include(x => x.Warehouse).ToList();
+
+            return test;
         }
 
   
@@ -40,24 +43,24 @@ namespace Anthurium.API.Repositories.SqlServer
 
 
 
-        public void NewItem(Item warehouse)
+        public void NewItem(Item item)
         {
-            if (warehouse == null)
+            if (item == null)
             {
-                throw new ArgumentNullException(nameof(warehouse));
+                throw new ArgumentNullException(nameof(item));
             }
 
-            _context.Items.Add(warehouse);
+            _context.Items.Add(item);
         }
 
-        public void RemoveItem(Item warehouse)
+        public void RemoveItem(Item item)
         {
-            if (warehouse == null)
+            if (item == null)
             {
-                throw new ArgumentNullException(nameof(warehouse));
+                throw new ArgumentNullException(nameof(item));
             }
 
-            _context.Items.Remove(warehouse);
+            _context.Items.Remove(item);
         }
 
 
@@ -67,7 +70,7 @@ namespace Anthurium.API.Repositories.SqlServer
             return (_context.SaveChanges()) >= 0;
         }
 
-        public void UpdateItem(Item warehouse)
+        public void UpdateItem(Item item)
         {
             //nothing
         }

@@ -48,7 +48,7 @@ namespace Anthurium.Web.Services
         public async Task EditVendorAsync(int id, VendorUpdateDto vendor)
         {
 
-            await _httpService.Put<HttpResponseMessage>($"api/vendor/{id}", vendor);
+            await _httpService.Put($"api/vendor/{id}", vendor);
         }
     }
 }

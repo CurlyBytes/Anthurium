@@ -33,7 +33,7 @@ namespace Anthurium.Web.Services
         public async Task DeleteJobOrderDescriptionOfWorkByIdAsync(int id)
         {
             //consider impact vs returning just status code
-            await _httpService.Delete<HttpResponseMessage>($"api/joborderdescriptionofwork/{id}");
+            await _httpService.Delete($"api/joborderdescriptionofwork/{id}");
         }
 
         public async Task<HttpResponseMessage> CreateJobOrderDescriptionOfWorkAsync(JobOrderDescriptionOfWorkCreateDto joborderdescriptionofwork)

@@ -41,7 +41,7 @@ namespace Anthurium.Web.Services
         public async Task DeleteJobQuotationByIdAsync(int id)
         {
             //consider impact vs returning just status code
-            await _httpService.Delete<HttpResponseMessage>($"api/jobquotation/{id}");
+            await _httpService.Delete($"api/jobquotation/{id}");
         }
 
         public async Task<HttpResponseMessage> CreateJobQuotationAsync(JobQuotationCreateDto clientinformation)

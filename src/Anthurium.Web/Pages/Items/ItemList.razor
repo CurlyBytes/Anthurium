@@ -52,8 +52,6 @@
                         <th scope="col">Item Group</th>
                         <th scope="col">Item Code</th>
                         <th scope="col">Item Name</th>
-                        <th scope="col">Local Material</th>
-                        <th scope="col">Warranty Date</th>
                         <th scope="col">Warehouse Name</th>
                         <th scope="col" colspan="3">Operations</th>
                     </tr>
@@ -61,19 +59,18 @@
                 <tbody>
                     @foreach (var itemReadDtoItem in itemReadDto)
                     {
-                        <tr>
-                            <td scope="row">@itemReadDtoItem.ItemId</td>
-                            <td>@itemReadDtoItem.ItemType</td>
-                            <td>@itemReadDtoItem.ItemGroup</td>
-                            <td>@itemReadDtoItem.ItemCode</td>
-                            <td>@itemReadDtoItem.ItemName</td>
-                   
-                            <td>@itemReadDtoItem.Warehouse.WarehouseName</td>
+                    <tr>
+                        <td scope="row">@itemReadDtoItem.ItemId</td>
+                        <td>@itemReadDtoItem.ItemType</td>
+                        <td>@itemReadDtoItem.ItemGroup</td>
+                        <td>@itemReadDtoItem.ItemCode</td>
+                        <td>@itemReadDtoItem.ItemName</td>
+                        <td>@itemReadDtoItem.Warehouse.WarehouseName</td>
 
-                            <td><a class="btn btn-info btn-sm" href="/item/@itemReadDtoItem.ItemId">View</a></td>
-                            <td><a class="btn btn-secondary btn-sm" href="/item/@itemReadDtoItem.ItemId/edit">Edit</a></td>
-                            <td><a class="btn btn-danger btn-sm" href="/item/@itemReadDtoItem.ItemId/delete">Delete</a></td>
-                        </tr>
+                        <td><a class="btn btn-info btn-sm" href="/item/@itemReadDtoItem.ItemId">View</a></td>
+                        <td><a class="btn btn-secondary btn-sm" href="/item/@itemReadDtoItem.ItemId/edit">Edit</a></td>
+                        <td><a class="btn btn-danger btn-sm" href="/item/@itemReadDtoItem.ItemId/delete">Delete</a></td>
+                    </tr>
                     }
                 </tbody>
             </table>

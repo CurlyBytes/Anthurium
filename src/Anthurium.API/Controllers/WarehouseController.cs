@@ -15,6 +15,7 @@ namespace Anthurium.API.Controllers
 {
     [ODataRoutePrefix("warehouse")]
     [Route("api/warehouse")]
+    [ApiController]
     [Authorize]
 
     public class WarehouseController : ODataController

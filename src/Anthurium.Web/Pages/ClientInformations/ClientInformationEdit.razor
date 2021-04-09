@@ -1,69 +1,74 @@
 ﻿@page "/clientinformation/{Id:int}/edit"
 @inject Services.IClientInformationService clientInformationtService
-@using AutoMapper;
+@inject Services.IAlertService AlertService
+@inject NavigationManager NavigationManager
 @inject IMapper _mapper;
+@using AutoMapper;
 @using System.Text.Json
 @using Anthurium.API.Dtos
-@inject NavigationManager NavManager
-@inject IToastService toastService
 
-<h3>Edit Client Information</h3>
-@if (clientInformationReadDto == null)
+
+
+<h3>Warehouse</h3>
+@if (clientInformationReadDto != null)
 {
-    <p><em>Loading...</em></p>
+<EditForm Model="@clientInformationUpdateDto" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-row">
+        <div class="form-group col">
+            <label>Company Name:</label>
+            <InputText @bind-Value="clientInformationUpdateDto.CompanyName" class="form-control" />
+            <ValidationMessage For="@(() => clientInformationUpdateDto.CompanyName)" />
+        </div>
+        <div class="form-group col">
+            <label>Company Address:</label>
+            <InputText @bind-Value="clientInformationUpdateDto.CompanyAddress" class="form-control" />
+            <ValidationMessage For="@(() => clientInformationUpdateDto.CompanyAddress)" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label>Contact Person:</label>
+            <InputText @bind-Value="clientInformationUpdateDto.ContactPerson" class="form-control" />
+            <ValidationMessage For="@(() => clientInformationUpdateDto.ContactPerson)" />
+        </div>
+        <div class="form-group col">
+            <label>Contact Number:</label>
+            <InputText @bind-Value="clientInformationUpdateDto.ContactNumber" class="form-control" />
+            <ValidationMessage For="@(() => clientInformationUpdateDto.ContactNumber)" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label>Contact Email:</label>
+            <InputText @bind-Value="clientInformationUpdateDto.ContactEmailAddress" class="form-control" />
+            <ValidationMessage For="@(() => clientInformationUpdateDto.ContactEmailAddress)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <button disabled="@loading" class="btn btn-primary">
+            @if (loading)
+            {
+                <span class="spinner-border spinner-border-sm mr-1"></span>
+            }
+            Save
+        </button>
+        <NavLink href="warehouse" class="btn btn-link">Cancel</NavLink>
+    </div>
+</EditForm>
 }
 else
 {
-    <div class="row m-2">
-
-        <div class="offset-sm-9 col-sm-3 text-right"> <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/clientinformation">Return to List</a></div>
-    </div>
-    <div class="row m-2">
-
-        <EditForm Model="@clientInformationUpdateDto" OnValidSubmit="@UpdateClientInformation">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
-            <div class="form-group row">
-                <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
-                <input id="companyName" class="form-control col-sm-6 input-lg" placeholder="Company Name" disabled="@isSuccess"
-                       @bind="clientInformationUpdateDto.CompanyName" />
-            </div>
-            <div class="form-group row">
-                <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
-                <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" placeholder="Company Address" disabled="@isSuccess"
-                       @bind="clientInformationUpdateDto.CompanyAddress" />
-            </div>
-            <div class="form-group row">
-                <label for="clientInformationContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
-                <input id="clientInformationContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                       @bind="clientInformationUpdateDto.ContactPerson" placeholder="Contact Person" />
-            </div>
-            <div class="form-group row">
-                <label for="clientInformationContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
-                <input id="clientInformationContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                       @bind="clientInformationUpdateDto.ContactNumber" />
-            </div>
-            <div class="form-group row">
-                <label for="clientInformationConttactEmailAddress" class="col-sm-6 col-form-label">Contact Email Address:</label>
-                <input id="clientInformationConttactEmailAddress" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                       @bind="clientInformationUpdateDto.ContactEmailAddress" />
-            </div>
-            <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
-            <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
-                 hidden="@(message=="")">@message</div>
-            </EditForm>
-
-      
+    <div class="text-center p-3">
+        <span class="spinner-border spinner-border-lg align-center"></span>
     </div>
 }
-
 
 @code {
     [Parameter]
     public int Id { get; set; }
 
-    private bool isSuccess = false;
-    private string message = "";
+    private bool loading;
 
     private ClientInformationUpdateDto clientInformationUpdateDto { get; set; } = new ClientInformationUpdateDto();
     private ClientInformationReadDto clientInformationReadDto { get; set; } = new ClientInformationReadDto();
@@ -74,27 +79,21 @@ else
         _mapper.Map(clientInformationReadDto, clientInformationUpdateDto);
     }
 
-    public async void UpdateClientInformation()
+    public async void OnValidSubmit()
     {
-
-
-        //returns response message, so can check if success
-        var response = await clientInformationtService.EditClientInformationAsync(Id, clientInformationUpdateDto);
-        if (response.IsSuccessStatusCode)
+        loading = true;
+        try
         {
-            isSuccess = true;
-            message = $"Success";
-            toastService.ShowInfo($" client information: {clientInformationUpdateDto.CompanyName} is Updated.");
-            NavManager.NavigateTo("/clientinformation");
-            //navigate to single page
-            //perhaps set flag (success) there that will display message if coming from this page
+            await clientInformationtService.EditClientInformationAsync(Id, clientInformationUpdateDto);
+            AlertService.Success("Update successful", keepAfterRouteChange: true);
+            NavigationManager.NavigateTo("/clientinformation");
         }
-        else
+        catch (Exception ex)
         {
-            message = $"Error: {response.StatusCode.ToString()}. Please try again.";
-            toastService.ShowError($" Cannot edit {clientInformationUpdateDto.CompanyName}. Please try again.");
+            AlertService.Error(ex.Message);
+            loading = false;
+            StateHasChanged();
         }
 
-        this.StateHasChanged();
     }
-}
+}}

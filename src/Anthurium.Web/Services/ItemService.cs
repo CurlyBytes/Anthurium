@@ -39,7 +39,7 @@ namespace Anthurium.Web.Services
         public async Task DeleteItemByIdAsync(int id)
         {
             //consider impact vs returning just status code
-            await _httpService.Delete<HttpResponseMessage>($"api/item/{id}");
+            await _httpService.Delete($"api/item/{id}");
         }
 
         public async Task<HttpResponseMessage> CreateItemAsync(ItemCreateDto item)
@@ -51,7 +51,7 @@ namespace Anthurium.Web.Services
         public async Task EditItemAsync(int id, ItemUpdateDto item)
         {
 
-            await _httpService.Put<HttpResponseMessage>($"api/item/{id}", item);
+            await _httpService.Put($"api/item/{id}", item);
         }
     }
 }
