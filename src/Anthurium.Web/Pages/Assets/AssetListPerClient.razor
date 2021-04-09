@@ -120,7 +120,7 @@
     private async Task FetchListAsync()
     {
         var response = await assetService.GetAssetsByClientIdAsync(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults, ClientInformationId);
- 
+
         matchingCount = response.Count;
         if (matchingCount == 0)
         {

@@ -1,25 +1,25 @@
 
-create a new warehouse 
-edit a warehouse 
-delete a warehouse 
+create a new warehouse
+edit a warehouse
+delete a warehouse
  - make sure to delete and no items in the warehouse
 view all warehouses
 
-Create new item in warehouse 
-Remove item in warehouse 
-modifiy item in warehouse 
+Create new item in warehouse
+Remove item in warehouse
+modifiy item in warehouse
 
 view item all items per warehouse
-view item per vendor 
+view item per vendor
 
-create proposal 
+create proposal
 items/price are base on items in warehouse
 modify job quotation/proposal
- create sales order    - once approve proposal, cannot edit or delete 
+ create sales order    - once approve proposal, cannot edit or delete
 
- 
 
-create purchase order per sales order on vendor 
+
+create purchase order per sales order on vendor
 link on sales order items from proposal
 
 create asset (base on items from sales order)(do until all items are delivered to client )'
@@ -29,8 +29,8 @@ create delivery asset
 delivery reciept is completed or not
 
 print job quotation with/without breakdown of items per description
-print job quotation with and without care of 
-print sales order 
+print job quotation with and without care of
+print sales order
 print delivery reciept
 
 question :
@@ -40,72 +40,72 @@ question :
 
 3)"create purchase order for the vendor" wala table, therefore internal process rani, igo lang i extract og paliton ni lightsails ang naa sa "Create Sales Order for the client" since wala mn sya table?
 =========
-warehouseid 
-warehouse name 
-warehouse code 
+warehouseid
+warehouse name
+warehouse code
 
-itemid 
-itemtype 
+itemid
+itemtype
 itemgroup
-item name 
-item code 
+item name
+item code
 islocalmaterial
 remainingquantity
 warrantyenddate
 
-vendorid 
-vendor name 
+vendorid
+vendor name
 vendor code
 
 
-clientid 
-cliename 
-client address 
-email 
-contact number 
+clientid
+cliename
+client address
+email
+contact number
 
 
-quotation 
+quotation
 quotationid
-clientid 
+clientid
 hascustomeragreed
 
-quotationdetails 
-quotationdetailsid 
-itemid 
-price 
-margin 
+quotationdetails
+quotationdetailsid
+itemid
+price
+margin
 quantity
 quotationid
 isalreadypurchaseordered
 
 
 
-purchaseorder 
-purchaseorderid 
-jobquationid 
+purchaseorder
+purchaseorderid
+jobquationid
 
-purchaseorderdetails 
-purchaseorderdetailsid 
+purchaseorderdetails
+purchaseorderdetailsid
 purcahseorder
 
-asset 
+asset
 clientid
-assetid 
+assetid
 itemid
 serialnumber
 daterecieved
 isitemalreadyreceivebyclient
 vendorId
 
-deliveryreciept 
+deliveryreciept
 clientid
 deliveryreceiptid
 quotationid
-remarks  
+remarks
 datecieve
 
-deliveryrecieptdetails 
+deliveryrecieptdetails
 deliveryreceiptid
 itemid
 quantity
