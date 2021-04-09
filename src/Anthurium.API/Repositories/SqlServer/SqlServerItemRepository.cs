@@ -19,26 +19,19 @@ namespace Anthurium.API.Repositories.SqlServer
 
         public Item ItemById(int Id)
         {
- 
-
-
-            var test=  _context.Items.Include(s => s.Warehouse)
-                     .Where(s => s.ItemId == Id)
-                     .FirstOrDefault<Item>();
-            return test;
+            return _context.Items
+                .Where(p => p.ItemId == Id)
+                .FirstOrDefault();
         }
 
 
 
         public IEnumerable<Item> GetItem()
         {
-            var test= _context.Items
-                         .Include(x => x.Warehouse).ToList();
-
-            return test;
+            return _context.Items
+                .Include(s => s.Warehouse).ToList();
         }
 
-  
 
 
 

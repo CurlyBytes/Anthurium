@@ -17,6 +17,7 @@ namespace Anthurium.API.Controllers
     [Route("api/item")]
     [ApiController]
     [Authorize]
+
     public class ItemController : ODataController
     {
         private readonly ISqlServerItemRepository _repository;
@@ -95,12 +96,9 @@ namespace Anthurium.API.Controllers
                 return NotFound();
             }
 
-          //  _mapper.Map<ItemUpdateDto>(commandItem);
             _mapper.Map(ItemUpdateDto, commandItem);
-
             _repository.UpdateItem(commandItem);
             _repository.SaveChanges();
-
             return NoContent();
         }
 
