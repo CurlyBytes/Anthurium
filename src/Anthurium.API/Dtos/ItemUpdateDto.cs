@@ -3,79 +3,73 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Anthurium.API.Dtos
-{
-public class ItemUpdateDto
-{
+namespace Anthurium.API.Dtos {
+  public class ItemUpdateDto {
     [Key]
     public int ItemId {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     [MaxLength(50)]
     public string ItemType {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     [MaxLength(50)]
     public string ItemGroup {
-        get;
-        set;
+      get;
+      set;
     }
     [Required]
     [MaxLength(50)]
     public string ItemCode {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     [MaxLength(150)]
     public string ItemName {
-        get;
-        set;
+      get;
+      set;
     }
     public string QRCode {
-        get;
-        set;
+      get;
+      set;
     }
     [Required]
     public int WarehouseId {
-        get;
-        set;
+      get;
+      set;
     }
 
     public WarehouseUpdateDto Warehouse {
-        get;
-        set;
+      get;
+      set;
     }
-
-
-
 
     public ICollection<DeliveryReceiptDetailsUpdateDto> DeliveryReceiptDetails {
-        get;
-        set;
+      get;
+      set;
     }
     public ICollection<JobQuotationDetailsUpdateDto> JobQuotationDetails {
-        get;
-        set;
+      get;
+      set;
     }
-
-
 
     public DateTime DateUpdated {
-        get;
-        set;
-    } = DateTime.UtcNow;
+      get;
+      set;
+    }
+    = DateTime.UtcNow;
 
     public bool IsActive {
-        get;
-        set;
+      get;
+      set;
     }
-}
+  }
 }

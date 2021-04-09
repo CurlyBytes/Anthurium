@@ -2,76 +2,74 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Anthurium.API.Dtos
-{
-public class DeliveryReceiptReadDto
-{
+namespace Anthurium.API.Dtos {
+  public class DeliveryReceiptReadDto {
     [Key]
     public int DeliveryReceiptId {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public int ClientInformationId {
-        get;
-        set;
+      get;
+      set;
     }
 
     public ClientInformationReadDto ClientInformation {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public int JobQuotationId {
-        get;
-        set;
+      get;
+      set;
     }
 
     public JobQuotationReadDto JobQuotation {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     [MaxLength(250)]
     public string Remarks {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public DateTime DateRecieve {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public DateTime DateCreated {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public DateTime DateUpdated {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public bool IsActive {
-        get;
-        set;
+      get;
+      set;
     }
     public ICollection<JobQuotationReadDto> JobQuotationDetails {
-        get;
-        set;
+      get;
+      set;
     }
 
     public ICollection<DeliveryReceiptDetailsReadDto> DeliveryReceiptDetails {
-        get;
-        set;
+      get;
+      set;
     }
-}
+  }
 }

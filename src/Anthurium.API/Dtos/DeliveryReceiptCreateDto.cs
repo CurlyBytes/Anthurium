@@ -4,64 +4,62 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Anthurium.API.Dtos
-{
-public class DeliveryReceiptCreateDto
-{
-
-
-
+namespace Anthurium.API.Dtos {
+  public class DeliveryReceiptCreateDto {
 
     public ClientInformationCreateDto ClientInformation {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public int JobQuotationId {
-        get;
-        set;
+      get;
+      set;
     }
 
     public JobQuotationCreateDto JobQuotation {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     [MaxLength(250)]
     public string Remarks {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public DateTime DateRecieve {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public DateTime DateCreated {
-        get;
-        set;
-    } = DateTime.UtcNow;
+      get;
+      set;
+    }
+    = DateTime.UtcNow;
 
     [Required]
     public DateTime DateUpdated {
-        get;
-        set;
-    } = DateTime.UtcNow;
+      get;
+      set;
+    }
+    = DateTime.UtcNow;
 
     [Required]
     public bool IsActive {
-        get;
-        set;
-    } = true;
+      get;
+      set;
+    }
+    = true;
 
     public ICollection<DeliveryReceiptDetailsCreateDto> DeliveryReceiptDetails {
-        get;
-        set;
+      get;
+      set;
     }
-}
+  }
 }

@@ -3,72 +3,70 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Anthurium.Shared.Models
-{
-public class DeliveryReceipt
-{
+namespace Anthurium.Shared.Models {
+  public class DeliveryReceipt {
     [Key]
     public int DeliveryReceiptId {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public int ClientInformationId {
-        get;
-        set;
+      get;
+      set;
     }
 
     public ClientInformation ClientInformation {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public int JobQuotationId {
-        get;
-        set;
+      get;
+      set;
     }
 
     public JobQuotation JobQuotation {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     [MaxLength(250)]
     public string Remarks {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public DateTime DateRecieve {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public DateTime DateCreated {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public DateTime DateUpdated {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public bool IsActive {
-        get;
-        set;
+      get;
+      set;
     }
 
     public ICollection<DeliveryReceiptDetails> DeliveryReceiptDetails {
-        get;
-        set;
+      get;
+      set;
     }
-}
+  }
 }

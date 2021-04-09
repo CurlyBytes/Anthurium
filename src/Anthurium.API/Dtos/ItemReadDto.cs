@@ -3,48 +3,46 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Anthurium.API.Dtos
-{
-public class ItemReadDto
-{
+namespace Anthurium.API.Dtos {
+  public class ItemReadDto {
     [Key]
     public int ItemId {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     [MaxLength(50)]
     public string ItemType {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     [MaxLength(50)]
     public string ItemGroup {
-        get;
-        set;
+      get;
+      set;
     }
     [Required]
     [MaxLength(50)]
     public string ItemCode {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     [MaxLength(150)]
     public string ItemName {
-        get;
-        set;
+      get;
+      set;
     }
 
     public string QRCode {
-        get;
-        set;
+      get;
+      set;
     }
-    //public string QRCode   // property
+    // public string QRCode   // property
     //{
     //    get { return QRCode; }   // get method
     //    set
@@ -56,40 +54,36 @@ public class ItemReadDto
     //}
     [Required]
     public int WarehouseId {
-        get;
-        set;
+      get;
+      set;
     }
 
     public WarehouseReadDto Warehouse {
-        get;
-        set;
+      get;
+      set;
     }
-
-
-
 
     public ICollection<DeliveryReceiptDetailsReadDto> DeliveryReceiptDetails {
-        get;
-        set;
+      get;
+      set;
     }
     public ICollection<JobQuotationDetailsReadDto> JobQuotationDetails {
-        get;
-        set;
+      get;
+      set;
     }
     public DateTime DateCreated {
-        get;
-        set;
+      get;
+      set;
     }
 
-
     public DateTime DateUpdated {
-        get;
-        set;
+      get;
+      set;
     }
 
     public bool IsActive {
-        get;
-        set;
+      get;
+      set;
     }
-}
+  }
 }

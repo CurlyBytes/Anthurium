@@ -5,86 +5,82 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Anthurium.API.Dtos
-{
-public class AssetReadDto
-{
+namespace Anthurium.API.Dtos {
+  public class AssetReadDto {
     [Key]
     public int AssetId {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public int ClientInformationId {
-        get;
-        set;
+      get;
+      set;
     }
 
-
     public ClientInformationReadDto ClientInformation {
-        get;
-        set;
+      get;
+      set;
     }
     [Required]
     public int VendorId {
-        get;
-        set;
+      get;
+      set;
     }
 
     public VendorReadDto Vendor {
-        get;
-        set;
+      get;
+      set;
     }
     [Required]
     public int ItemId {
-        get;
-        set;
+      get;
+      set;
     }
 
-
     public ItemReadDto Item {
-        get;
-        set;
+      get;
+      set;
     }
 
     public string QRCode {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public DateTime WarrantyDate {
-        get;
-        set;
+      get;
+      set;
     }
     [Required]
     [MaxLength(200)]
     public string SerialNumber {
-        get;
-        set;
+      get;
+      set;
     }
     [Required]
     public DateTime DateRecieve {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public DateTime DateCreated {
-        get;
-        set;
+      get;
+      set;
     }
 
     public DateTime DateUpdated {
-        get;
-        set;
+      get;
+      set;
     }
 
     [Required]
     public bool IsActive {
-        get;
-        set;
+      get;
+      set;
     }
-}
+  }
 }
