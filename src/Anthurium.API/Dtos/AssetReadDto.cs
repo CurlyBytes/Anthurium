@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Anthurium.API.Dtos {
   public class AssetReadDto {
+
+
     [Key]
     public int AssetId {
       get;
@@ -44,9 +46,9 @@ namespace Anthurium.API.Dtos {
       set;
     }
 
-    public string QRCode {
-      get;
-      set;
+    public string QRCode()  // property
+    {
+        return QRCodeEnrpytion.GenerateQRCode(string.Concat("assetid:", ItemId.ToString())); 
     }
 
     [Required]

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Anthurium.API.Dtos {
   public class AssetUpdateDto {
+
+
+
     [Key]
     public int AssetId {
       get;
@@ -43,10 +46,7 @@ namespace Anthurium.API.Dtos {
       get;
       set;
     }
-    public string QRCode {
-      get;
-      set;
-    }
+
 
     [Required]
     public DateTime WarrantyDate {

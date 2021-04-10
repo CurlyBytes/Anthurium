@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Anthurium.API.Dtos {
   public class ItemUpdateDto {
+
+
     [Key]
     public int ItemId {
       get;
@@ -37,10 +39,8 @@ namespace Anthurium.API.Dtos {
       get;
       set;
     }
-    public string QRCode {
-      get;
-      set;
-    }
+
+     
     [Required]
     public int WarehouseId {
       get;

@@ -53,6 +53,7 @@
                         <th scope="col">Item Code</th>
                         <th scope="col">Item Name</th>
                         <th scope="col">Warehouse Name</th>
+                        <th scope="col">Qr Code</th>
                         <th scope="col" colspan="3">Operations</th>
                     </tr>
                 </thead>
@@ -66,7 +67,7 @@
                         <td>@itemReadDtoItem.ItemCode</td>
                         <td>@itemReadDtoItem.ItemName</td>
                         <td>@itemReadDtoItem.Warehouse.WarehouseName</td>
-
+                        <td><img src="data:image/png;base64,@itemReadDtoItem.QRCode()" width="50" height="50"></td>
                         <td><a class="btn btn-info btn-sm" href="/item/@itemReadDtoItem.ItemId">View</a></td>
                         <td><a class="btn btn-secondary btn-sm" href="/item/@itemReadDtoItem.ItemId/edit">Edit</a></td>
                         <td><a class="btn btn-danger btn-sm" href="/item/@itemReadDtoItem.ItemId/delete">Delete</a></td>

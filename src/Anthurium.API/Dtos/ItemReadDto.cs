@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Anthurium.API.Dtos {
   public class ItemReadDto {
+
+
     [Key]
     public int ItemId {
       get;
@@ -38,20 +40,12 @@ namespace Anthurium.API.Dtos {
       set;
     }
 
-    public string QRCode {
-      get;
-      set;
+
+    public string QRCode ()  // property
+    {
+       return  QRCodeEnrpytion.GenerateQRCode(string.Concat("itemid:", ItemId.ToString())); 
     }
-    // public string QRCode   // property
-    //{
-    //    get { return QRCode; }   // get method
-    //    set
-    //    {
 
-    //        QRCode = QRCodeEnrpytion.GenerateQRCode(ItemName); ;
-
-    //    }  // set method
-    //}
     [Required]
     public int WarehouseId {
       get;

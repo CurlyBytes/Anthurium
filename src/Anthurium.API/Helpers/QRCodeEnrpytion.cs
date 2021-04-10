@@ -14,7 +14,7 @@ namespace Anthurium.API.Helpers {
     public static string GenerateQRCode(string stringToQrCode) {
 
       var encrpytionString =
-          EncrpytionMechanism.EncryptString(stringToQrCode, _secretKey);
+          EncrpytionMechanism.Encrypt(stringToQrCode, _secretKey);
 
       QRCodeGenerator qrGenerator = new QRCodeGenerator();
       QRCodeData qrCodeData = qrGenerator.CreateQrCode(
