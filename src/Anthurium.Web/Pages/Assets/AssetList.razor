@@ -54,25 +54,24 @@
                         <th scope="col">Item Name</th>
                         <th scope="col">Serial Number</th>
                         <th scope="col">Warranty Date</th>
-
+                        <th scope="col">Qr Code</th>
                         <th scope="col" colspan="3">Operations</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var assetReadDtoItem in assetReadDto)
                     {
-                        <tr>
-                            <td scope="row">@assetReadDtoItem.AssetId</td>
-                            <td>@assetReadDtoItem.Vendor.VendorName</td>
-                            <td>@assetReadDtoItem.ClientInformation.CompanyName</td>
-                            <td>@assetReadDtoItem.Item.ItemName</td>
-                            <td>@assetReadDtoItem.SerialNumber</td>
-                            <td>@assetReadDtoItem.WarrantyDate</td>
-
-                            <td><a class="btn btn-info btn-sm" href="/asset/@assetReadDtoItem.AssetId">View</a></td>
-                            <td><a class="btn btn-secondary btn-sm" href="/asset/@assetReadDtoItem.AssetId/edit">Edit</a></td>
-                            <td><a class="btn btn-danger btn-sm" href="/asset/@assetReadDtoItem.AssetId/delete">Delete</a></td>
-                        </tr>
+                    <tr>
+                        <td scope="row">@assetReadDtoItem.AssetId</td>
+                        <td>@assetReadDtoItem.Vendor.VendorName</td>
+                        <td>@assetReadDtoItem.Item.ItemName</td>
+                        <td>@assetReadDtoItem.SerialNumber</td>
+                        <td>@assetReadDtoItem.WarrantyDate</td>
+                        <td><img src="data:image/png;base64,@assetReadDtoItem.QRCode" width="50" height="50"></td>
+                        <td><a class="btn btn-info btn-sm" href="/asset/@assetReadDtoItem.AssetId">View</a></td>
+                        <td><a class="btn btn-secondary btn-sm" href="/asset/@assetReadDtoItem.AssetId/edit">Edit</a></td>
+                        <td><a class="btn btn-danger btn-sm" href="/asset/@assetReadDtoItem.AssetId/delete">Delete</a></td>
+                    </tr>
                     }
                 </tbody>
             </table>
@@ -118,9 +117,21 @@
 
     private async Task FetchListAsync()
     {
+
+
         var response = await assetService.GetAssetsAsync(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults);
-        assetReadDto = response.Asset;
+
         matchingCount = response.Count;
+        if (matchingCount == 0)
+        {
+            assetReadDto = null;
+        }
+        else
+        {
+            assetReadDto = response.Asset;
+
+        }
+
     }
 
     protected override async Task OnInitializedAsync()

@@ -1,111 +1,114 @@
 ﻿@page "/joborder/{Id:int}/edit"
+@attribute [Authorize]
+@inject Services.IAlertService AlertService
 @inject Services.IJobOrderService jobOrderService
 @inject Services.IClientInformationService clientInformationService
-@using AutoMapper;
+@inject NavigationManager NavigationManager
 @inject IMapper _mapper;
-@using System.Text.Json;
+@using AutoMapper;
 @using Anthurium.API.Dtos
-@inject IToastService toastService
-@inject NavigationManager NavManager
 
-<h3>Edit Job Order</h3>
-@if (jobOrderReadDto == null)
+
+
+<h3>Job Order</h3>
+@if (jobOrderReadDto != null)
 {
-    <p><em>Loading...</em></p>
+<EditForm Model="@jobOrderUpdateDto" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group row">
+        <label for="clientInfomrationId" class="col-sm-6 col-form-label">Client Info:</label>
+        <select id="clientInfomrationId" class="form-control selectpicker" value="@jobOrderUpdateDto.ClientInformationId" @onchange="ChangeOrder">
+            <option>--select--</option>
+            @foreach (var item in clientInformationReadDto)
+            {
+                <option value="@item.ClientInformationId">@item.CompanyName</option>
+                // Blazor needs to know what values it binds to!
+            }
+        </select>
+    </div>
+    <div class="form-group row">
+        <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
+        <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled="disabled"
+               @bind="jobOrderUpdateDto.CompanyName" />
+    </div>
+    <div class="form-group row">
+        <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
+        <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled="disabled"
+               @bind="jobOrderUpdateDto.CompanyAddress" />
+    </div>
+
+
+    <div class="form-group row">
+        <label for="jobOrderContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
+        <input id="jobOrderContactPerson" class="form-control col-sm-6 input-lg" type="text"
+               @bind="jobOrderUpdateDto.ContactPerson" placeholder="Contact Person" />
+    </div>
+    <div class="form-group row">
+        <label for="jobOrderContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
+        <input id="jobOrderContactNumber" class="form-control col-sm-6 input-lg" type="text"
+               @bind="jobOrderUpdateDto.ContactNumber" placeholder="Contact Number" />
+    </div>
+    <div class="form-group row">
+        <label for="jobOrdeRemainingHours" class="col-sm-6 col-form-label">Remaining Hrs(consumable):</label>
+        <input id="jobOrdeRemainingHours" class="form-control col-sm-6 input-lg" type="number"
+               @bind="jobOrderUpdateDto.RemainingHours" />
+    </div>
+
+
+    <div class="form-group row">
+        <label for="jobOrderDateSchedule" class="col-sm-6 col-form-label"> Date Scheduled:</label>
+        <input id="jobOrderDateSchedule" class="form-control col-sm-6 input-lg" type="datetime"
+               @bind="jobOrderUpdateDto.DateSchedule" />
+    </div>
+
+    <div class="form-group row">
+        <label for="jobOrderJoborderDescription" class="col-sm-6 col-form-label">Descirption:</label>
+        <input id="jobOrderJoborderDescription" class="form-control col-sm-6 input-lg" type="text"
+               @bind="jobOrderUpdateDto.JoboRderDescription" />
+    </div>
+    <div class="form-group row">
+        <label for="jobOrderTimeStarted" class="col-sm-6 col-form-label">Contact Timestarted:</label>
+        <input id="jobOrderTimeStarted" class="form-control col-sm-6 input-lg" type="time"
+               @bind="jobOrderUpdateDto.TimeStarted" />
+    </div>
+
+    <div class="form-group row">
+        <label for="jobOrderTimeEnded" class="col-sm-6 col-form-label">Contact TimeEnded:</label>
+        <input id="jobOrderTimeEnded" class="form-control col-sm-6 input-lg" type="time"
+               @bind="jobOrderUpdateDto.TimeEnded" />
+    </div>
+
+    <div class="form-group row">
+        <label for="jobOrdeTotalHours" class="col-sm-6 col-form-label">Contact Number:</label>
+        <input id="jobOrderTotalHours" class="form-control col-sm-6 input-lg" type="number"
+               @bind="jobOrderUpdateDto.TotalHours" />
+    </div>
+
+    <div class="form-group">
+        <button disabled="@loading" class="btn btn-primary">
+            @if (loading)
+            {
+                <span class="spinner-border spinner-border-sm mr-1"></span>
+            }
+            Save
+        </button>
+        <NavLink href="warehouse" class="btn btn-link">Cancel</NavLink>
+    </div>
+</EditForm>
 }
 else
 {
-    <div class="row m-2">
-
-        <div class="offset-sm-9 col-sm-3 text-right"> <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/joborder">Return to List</a></div>
+    <div class="text-center p-3">
+        <span class="spinner-border spinner-border-lg align-center"></span>
     </div>
-    <div class="row m-2">
-        <EditForm Model="@jobOrderUpdateDto" OnValidSubmit="@UpdateJobOrder">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
-            <div class="form-group row">
-                <label for="clientInfomrationId" class="col-sm-6 col-form-label">Client Info:</label>
-                <select id="clientInfomrationId" class="form-control selectpicker" value="@jobOrderUpdateDto.ClientInformationId" @onchange="ChangeOrder">
-                    <option>--select--</option>
-                    @foreach (var item in clientInformationReadDto)
-                    {
-                        <option value="@item.ClientInformationId">@item.CompanyName</option>
-                        // Blazor needs to know what values it binds to!
-                    }
-                </select>
-            </div>
-            <div class="form-group row">
-                <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
-                <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled="disabled"
-                       @bind="jobOrderUpdateDto.CompanyName" />
-            </div>
-            <div class="form-group row">
-                <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
-                <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled="disabled"
-                       @bind="jobOrderUpdateDto.CompanyAddress" />
-            </div>
-
-
-            <div class="form-group row">
-                <label for="jobOrderContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
-                <input id="jobOrderContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                       @bind="jobOrderUpdateDto.ContactPerson" placeholder="Contact Person" />
-            </div>
-            <div class="form-group row">
-                <label for="jobOrderContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
-                <input id="jobOrderContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                       @bind="jobOrderUpdateDto.ContactNumber" placeholder="Contact Number" />
-            </div>
-            <div class="form-group row">
-                <label for="jobOrdeRemainingHours" class="col-sm-6 col-form-label">Remaining Hrs(consumable):</label>
-                <input id="jobOrdeRemainingHours" class="form-control col-sm-6 input-lg" type="number" disabled="@isSuccess"
-                       @bind="jobOrderUpdateDto.RemainingHours" />
-            </div>
-
-
-            <div class="form-group row">
-                <label for="jobOrderDateSchedule" class="col-sm-6 col-form-label"> Date Scheduled:</label>
-                <input id="jobOrderDateSchedule" class="form-control col-sm-6 input-lg" type="datetime" disabled="@isSuccess"
-                       @bind="jobOrderUpdateDto.DateSchedule" />
-            </div>
-
-            <div class="form-group row">
-                <label for="jobOrderJoborderDescription" class="col-sm-6 col-form-label">Descirption:</label>
-                <input id="jobOrderJoborderDescription" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                       @bind="jobOrderUpdateDto.JoboRderDescription" />
-            </div>
-            <div class="form-group row">
-                <label for="jobOrderTimeStarted" class="col-sm-6 col-form-label">Contact Timestarted:</label>
-                <input id="jobOrderTimeStarted" class="form-control col-sm-6 input-lg" type="time" disabled="@isSuccess"
-                       @bind="jobOrderUpdateDto.TimeStarted" />
-            </div>
-
-            <div class="form-group row">
-                <label for="jobOrderTimeEnded" class="col-sm-6 col-form-label">Contact TimeEnded:</label>
-                <input id="jobOrderTimeEnded" class="form-control col-sm-6 input-lg" type="time" disabled="@isSuccess"
-                       @bind="jobOrderUpdateDto.TimeEnded" />
-            </div>
-
-            <div class="form-group row">
-                <label for="jobOrdeTotalHours" class="col-sm-6 col-form-label">Contact Number:</label>
-                <input id="jobOrderTotalHours" class="form-control col-sm-6 input-lg" type="number" disabled="@isSuccess"
-                       @bind="jobOrderUpdateDto.TotalHours" />
-            </div>
-            <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
-            <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
-                 hidden="@(message=="")">@message</div>
-            </EditForm>
-        </div>
-
-    }
-
+}
 
 @code {
     [Parameter]
     public int Id { get; set; }
 
-    private bool isSuccess = false;
-    private string message = "";
+    private bool loading = false;
 
     private List<ClientInformationReadDto> clientInformationReadDto = new List<ClientInformationReadDto>();
     private JobOrderUpdateDto jobOrderUpdateDto { get; set; } = new JobOrderUpdateDto();
@@ -123,28 +126,22 @@ else
 
     }
 
-    public async void UpdateJobOrder()
+    private async void OnValidSubmit()
     {
 
-
-        //returns response message, so can check if success
-        var response = await jobOrderService.EditJobOrderAsync(Id, jobOrderUpdateDto);
-        if (response.IsSuccessStatusCode)
+        loading = true;
+        try
         {
-            isSuccess = true;
-            message = $"Success";
-            toastService.ShowSuccess($" A job order from {jobOrderUpdateDto.CompanyName} is Edited.");
-            //navigate to single page
-            //perhaps set flag (success) there that will display message if coming from this page
-            NavManager.NavigateTo("/joborder");
+            await jobOrderService.EditJobOrderAsync(Id, jobOrderUpdateDto);
+            AlertService.Success("Update successful", keepAfterRouteChange: true);
+            NavigationManager.NavigateTo("/joborder");
         }
-        else {
-            toastService.ShowError($" Error on editing {jobOrderUpdateDto.CompanyName} with ID {Id}.");
-            message = $"Error: {response.StatusCode.ToString()}. Please try again.";
-
+        catch (Exception ex)
+        {
+            AlertService.Error(ex.Message);
+            loading = false;
+            StateHasChanged();
         }
-
-        this.StateHasChanged();
 
     }
 
@@ -154,6 +151,6 @@ else
         clientInformationReadDtoSingle = await clientInformationService.GetClientInformationByIdAsync(Int32.Parse(e.Value.ToString()));
         _mapper.Map(clientInformationReadDtoSingle, jobOrderChangeCreate);
         _mapper.Map(jobOrderChangeCreate, jobOrderUpdateDto);
-        message = "";
+
     }
 }

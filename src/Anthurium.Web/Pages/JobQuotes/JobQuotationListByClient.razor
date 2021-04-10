@@ -60,7 +60,7 @@
                         <th scope="col">Description</th>
                         <th scope="col">OverallCost</th>
                         <th scope="col">DateCreated</th>
-                      
+
                         <th scope="col" colspan="3">Operations</th>
                     </tr>
                 </thead>
@@ -130,8 +130,17 @@
     private async Task FetchListAsync()
     {
         var response = await jobQuotationService.JobOrderQuotationByClient(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults, ClientInformationId);
-        jobQuotationReadDto = response.JobQuotationApi;
+
         matchingCount = response.Count;
+        if (matchingCount == 0)
+        {
+            jobQuotationReadDto = null;
+        }
+        else
+        {
+            jobQuotationReadDto = response.JobQuotationApi;
+
+        }
     }
 
     protected override async Task OnInitializedAsync()

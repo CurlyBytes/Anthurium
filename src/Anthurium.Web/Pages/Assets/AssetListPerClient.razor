@@ -120,8 +120,17 @@
     private async Task FetchListAsync()
     {
         var response = await assetService.GetAssetsByClientIdAsync(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults, ClientInformationId);
-        assetReadDto = response.Asset;
+
         matchingCount = response.Count;
+        if (matchingCount == 0)
+        {
+            assetReadDto = null;
+        }
+        else
+        {
+            assetReadDto = response.Asset;
+
+        }
     }
 
     protected override async Task OnInitializedAsync()

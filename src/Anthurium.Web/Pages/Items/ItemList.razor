@@ -33,7 +33,7 @@
                         <option value="ItemGroup desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ItemGroup desc")>Item Group (Z - A)</option>
                         <option value="ItemType" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ItemType")>Item Type (A - Z)</option>
                         <option value="ItemType desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="ItemType desc")>Item Type (Z - A)</option>
-                  
+
                         <option value="DateCreated" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated")>Date Created (Asc)</option>
                         <option value="DateCreated Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateCreated Desc")>Date Created (Desc)</option>
                         <option value="DateUpdated" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateUpdated")>Date Updated (Asc)</option>
@@ -52,8 +52,6 @@
                         <th scope="col">Item Group</th>
                         <th scope="col">Item Code</th>
                         <th scope="col">Item Name</th>
-                        <th scope="col">Local Material</th>
-                        <th scope="col">Warranty Date</th>
                         <th scope="col">Warehouse Name</th>
                         <th scope="col" colspan="3">Operations</th>
                     </tr>
@@ -61,19 +59,18 @@
                 <tbody>
                     @foreach (var itemReadDtoItem in itemReadDto)
                     {
-                        <tr>
-                            <td scope="row">@itemReadDtoItem.ItemId</td>
-                            <td>@itemReadDtoItem.ItemType</td>
-                            <td>@itemReadDtoItem.ItemGroup</td>
-                            <td>@itemReadDtoItem.ItemCode</td>
-                            <td>@itemReadDtoItem.ItemName</td>
-                   
-                            <td>@itemReadDtoItem.Warehouse.WarehouseName</td>
+                    <tr>
+                        <td scope="row">@itemReadDtoItem.ItemId</td>
+                        <td>@itemReadDtoItem.ItemType</td>
+                        <td>@itemReadDtoItem.ItemGroup</td>
+                        <td>@itemReadDtoItem.ItemCode</td>
+                        <td>@itemReadDtoItem.ItemName</td>
+                        <td>@itemReadDtoItem.Warehouse.WarehouseName</td>
 
-                            <td><a class="btn btn-info btn-sm" href="/item/@itemReadDtoItem.ItemId">View</a></td>
-                            <td><a class="btn btn-secondary btn-sm" href="/item/@itemReadDtoItem.ItemId/edit">Edit</a></td>
-                            <td><a class="btn btn-danger btn-sm" href="/item/@itemReadDtoItem.ItemId/delete">Delete</a></td>
-                        </tr>
+                        <td><a class="btn btn-info btn-sm" href="/item/@itemReadDtoItem.ItemId">View</a></td>
+                        <td><a class="btn btn-secondary btn-sm" href="/item/@itemReadDtoItem.ItemId/edit">Edit</a></td>
+                        <td><a class="btn btn-danger btn-sm" href="/item/@itemReadDtoItem.ItemId/delete">Delete</a></td>
+                    </tr>
                     }
                 </tbody>
             </table>
@@ -119,9 +116,21 @@
 
     private async Task FetchListAsync()
     {
+
+
+
         var response = await itemService.GetItemsAsync(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults);
-        itemReadDto = response.Item;
+
         matchingCount = response.Count;
+        if (matchingCount == 0)
+        {
+            itemReadDto = null;
+        }
+        else
+        {
+            itemReadDto = response.Item;
+
+        }
     }
 
     protected override async Task OnInitializedAsync()

@@ -128,8 +128,18 @@
     private async Task FetchListAsync()
     {
         var response = await jobQuotationService.GetJobQuotationsAsync(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults);
-        jobQuotationReadDto = response.JobQuotationApi;
+
+
         matchingCount = response.Count;
+        if (matchingCount == 0)
+        {
+            jobQuotationReadDto = null;
+        }
+        else
+        {
+            jobQuotationReadDto = response.JobQuotationApi;
+
+        }
     }
 
     protected override async Task OnInitializedAsync()

@@ -105,8 +105,19 @@
     private async Task FetchListAsync()
     {
         var response = await warehouseService.GetWarehousesAsync(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults);
-        warehouseReadDto = response.Warehouse;
         matchingCount = response.Count;
+        if (matchingCount == 0)
+        {
+            warehouseReadDto = null;
+        }
+        else
+        {
+            warehouseReadDto = response.Warehouse;
+
+        }
+
+
+
     }
 
     protected override async Task OnInitializedAsync()

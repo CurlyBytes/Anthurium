@@ -1,87 +1,82 @@
 ﻿@page "/vendor/{Id:int}/edit"
+@attribute [Authorize]
+@inject Services.IAlertService AlertService
 @inject Services.IVendorService vendorService
-@using AutoMapper;
+@inject NavigationManager NavigationManager
 @inject IMapper _mapper;
+@using AutoMapper;
 @using System.Text.Json
 @using Anthurium.API.Dtos
-@inject NavigationManager NavManager
-@inject IToastService toastService
 
-<h3>Edit Vendor Information</h3>
-@if (vendorReadDto == null)
+
+<h3>Vendor Information</h3>
+@if (vendorUpdateDto != null)
 {
-    <p><em>Loading...</em></p>
+<EditForm Model="@vendorUpdateDto" OnValidSubmit="UpdateVendor">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group row">
+        <label for="companyName" class="col-sm-6 col-form-label">Vendor Name:</label>
+        <input id="companyName" class="form-control col-sm-6 input-lg" placeholder="Vendor Name"
+               @bind="vendorUpdateDto.VendorName" />
+    </div>
+    <div class="form-group row">
+        <label for="companyAddress" class="col-sm-6 col-form-label">Vendor Code:</label>
+        <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" placeholder="Vendor Code"
+               @bind="vendorUpdateDto.VendorCode" />
+    </div>
+
+
+    <div class="form-group">
+        <button disabled="@loading" class="btn btn-primary">
+            @if (loading)
+            {
+                <span class="spinner-border spinner-border-sm mr-1"></span>
+            }
+            Save
+        </button>
+        <NavLink href="warehouse" class="btn btn-link">Cancel</NavLink>
+    </div>
+</EditForm>
 }
 else
 {
-    <div class="row m-2">
-
-        <div class="offset-sm-9 col-sm-3 text-right"> <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/vendor">Return to List</a></div>
+    <div class="text-center p-3">
+        <span class="spinner-border spinner-border-lg align-center"></span>
     </div>
-    <div class="row m-2">
-
-        <EditForm Model="@vendorUpdateDto" OnValidSubmit="@UpdateVendor">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
-            <div class="form-group row">
-                <label for="companyName" class="col-sm-6 col-form-label">Vendor Name:</label>
-                <input id="companyName" class="form-control col-sm-6 input-lg" placeholder="Vendor Name" disabled="@isSuccess"
-                       @bind="vendorUpdateDto.VendorName" />
-            </div>
-            <div class="form-group row">
-                <label for="companyAddress" class="col-sm-6 col-form-label">Vendor Code:</label>
-                <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" placeholder="Vendor Code" disabled="@isSuccess"
-                       @bind="vendorUpdateDto.VendorCode" />
-            </div>
-
-
-            <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
-            <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
-                 hidden="@(message=="")">@message</div>
-            </EditForm>
-
-
-        </div>
-    }
+}
 
 
 @code {
     [Parameter]
     public int Id { get; set; }
 
-    private bool isSuccess = false;
-    private string message = "";
+    private bool loading;
 
-    private VendorUpdateDto vendorUpdateDto { get; set; } = new VendorUpdateDto();
-    private VendorReadDto vendorReadDto { get; set; } = new VendorReadDto();
+    private VendorUpdateDto vendorUpdateDto;
+    private VendorReadDto vendorReadDto;
 
     protected override async Task OnInitializedAsync()
     {
+        vendorUpdateDto = new VendorUpdateDto();
         vendorReadDto = await vendorService.GetVendorByIdAsync(Id);
         _mapper.Map(vendorReadDto, vendorUpdateDto);
     }
 
     public async void UpdateVendor()
     {
-
-
-        //returns response message, so can check if success
-        var response = await vendorService.EditVendorAsync(Id, vendorUpdateDto);
-        if (response.IsSuccessStatusCode)
+        loading = true;
+        try
         {
-            isSuccess = true;
-            message = $"Success";
-            toastService.ShowInfo($" vendor information: {vendorUpdateDto.VendorName} is Updated.");
-            NavManager.NavigateTo("/vendor");
-            //navigate to single page
-            //perhaps set flag (success) there that will display message if coming from this page
+            await vendorService.EditVendorAsync(Id, vendorUpdateDto);
+            AlertService.Success("Update successful", keepAfterRouteChange: true);
+            NavigationManager.NavigateTo("/vendor");
         }
-        else
+        catch (Exception ex)
         {
-            message = $"Error: {response.StatusCode.ToString()}. Please try again.";
-            toastService.ShowError($" Cannot edit {vendorUpdateDto.VendorName}. Please try again.");
+            AlertService.Error(ex.Message);
+            loading = false;
+            StateHasChanged();
         }
-
-        this.StateHasChanged();
     }
 }

@@ -117,9 +117,20 @@
 
     private async Task FetchListAsync()
     {
+
+
         var response = await clientInformationService.GetClientInformationsAsync(ListPrefsProvider.listPrefs.OrderBy, skip, ListPrefsProvider.listPrefs.NumResults);
-        clientInformationReadDto = response.ClientInformation;
+
         matchingCount = response.Count;
+        if (matchingCount == 0)
+        {
+            clientInformationReadDto = null;
+        }
+        else
+        {
+            clientInformationReadDto = response.ClientInformation;
+
+        }
     }
 
     protected override async Task OnInitializedAsync()

@@ -1,93 +1,92 @@
 ﻿@page "/asset/{Id:int}/edit"
+@attribute [Authorize]
 @inject Services.IAssetService assetService
 @inject Services.IItemService itemService
 @inject Services.IVendorService vendorService
 @inject Services.IClientInformationService clientInformationService
-@using AutoMapper;
+@inject Services.IAlertService AlertService
+@inject Services.IWarehouseService warehouseService
+@inject NavigationManager NavigationManager
 @inject IMapper _mapper;
+@using AutoMapper;
 @using System.Text.Json
 @using Anthurium.API.Dtos
-@inject NavigationManager NavManager
-@inject IToastService toastService
 
 
 <h3>Edit Asset Information</h3>
-@if (assetReadDto == null)
+@if (assetReadDto != null)
 {
-    <p><em>Loading...</em></p>
+<EditForm Model="@assetUpdateDto" OnValidSubmit="@UpdateAsset">
+    <DataAnnotationsValidator />
+    <div class="form-group row">
+        <label for="ClientInformationId" class="col-sm-6 col-form-label">Client Info:</label>
+        <select id="ClientInformationId" class="form-control selectpicker" value="@assetUpdateDto.ClientInformationId" @onchange="ChangeClient">
+            <option>--select--</option>
+            @foreach (var item in clientInformationReadDtos)
+            {
+                <option value="@item.ClientInformationId">@item.CompanyName</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group row">
+        <label for="ItemId" class="col-sm-6 col-form-label">Item Name:</label>
+        <select id="ItemId" class="form-control selectpicker" value="@assetUpdateDto.ItemId" @onchange="ChangeItem">
+            <option>--select--</option>
+            @foreach (var item in itemReadDtos)
+            {
+                <option value="@item.ItemId">@item.ItemName</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group row">
+        <label for="clientInformationId" class="col-sm-6 col-form-label">Vendor Name:</label>
+        <select id="ClientInformationId" class="form-control selectpicker" value="@assetUpdateDto.VendorId" @onchange="ChangeVendor">
+            <option>--select--</option>
+            @foreach (var item in vendorReadDtos)
+            {
+                <option value="@item.VendorId">@item.VendorName</option>
+            }
+        </select>
+    </div>
+    <div class="form-group row">
+        <label for="SerialNumber" class="col-sm-6 col-form-label">Serial Number:</label>
+        <input id="SerialNumber" class="form-control col-sm-6 input-lg" type="text" placeholder="Serial Number"
+               @bind="assetUpdateDto.SerialNumber" />
+    </div>
+    <div class="form-group row">
+        <label for="WarrantyDate" class="col-sm-6 col-form-label">Warranty Date:</label>
+        <input id="WarrantyDate" class="form-control col-sm-6 input-lg" placeholder="Warranty Date" type="date"
+               @bind="assetUpdateDto.WarrantyDate" />
+    </div>
+
+
+    <div class="form-group">
+        <button disabled="@loading" class="btn btn-primary">
+            @if (loading)
+            {
+                <span class="spinner-border spinner-border-sm mr-1"></span>
+            }
+            Save
+        </button>
+        <NavLink href="warehouse" class="btn btn-link">Cancel</NavLink>
+    </div>
+</EditForm>
 }
 else
 {
-    <div class="row m-2">
-
-        <div class="offset-sm-9 col-sm-3 text-right"> <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/asset">Return to List</a></div>
+    <div class="text-center p-3">
+        <span class="spinner-border spinner-border-lg align-center"></span>
     </div>
-    <div class="row m-2">
-
-        <EditForm Model="@assetUpdateDto" OnValidSubmit="@UpdateAsset">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
-            <div class="form-group row">
-                <label for="ClientInformationId" class="col-sm-6 col-form-label">Client Info:</label>
-                <select id="ClientInformationId" class="form-control selectpicker" value="@assetUpdateDto.ClientInformationId" @onchange="ChangeClient">
-                    <option>--select--</option>
-                    @foreach (var item in clientInformationReadDtos)
-                    {
-                        <option value="@item.ClientInformationId">@item.CompanyName</option>
-                    }
-                </select>
-            </div>
-
-            <div class="form-group row">
-                <label for="ItemId" class="col-sm-6 col-form-label">Item Name:</label>
-                <select id="ItemId" class="form-control selectpicker" value="@assetUpdateDto.ItemId" @onchange="ChangeItem">
-                    <option>--select--</option>
-                    @foreach (var item in itemReadDtos)
-                    {
-                        <option value="@item.ItemId">@item.ItemName</option>
-                    }
-                </select>
-            </div>
-
-            <div class="form-group row">
-                <label for="clientInformationId" class="col-sm-6 col-form-label">Vendor Name:</label>
-                <select id="ClientInformationId" class="form-control selectpicker" value="@assetUpdateDto.VendorId" @onchange="ChangeVendor">
-                    <option>--select--</option>
-                    @foreach (var item in vendorReadDtos)
-                    {
-                        <option value="@item.VendorId">@item.VendorName</option>
-                    }
-                </select>
-            </div>
-           <div class="form-group row">
-            <label for="SerialNumber" class="col-sm-6 col-form-label">Serial Number:</label>
-            <input id="SerialNumber" class="form-control col-sm-6 input-lg" type="text" placeholder="Serial Number" disabled="@isSuccess"
-                   @bind="assetUpdateDto.SerialNumber" />
-        </div>
-        <div class="form-group row">
-            <label for="WarrantyDate" class="col-sm-6 col-form-label">Warranty Date:</label>
-            <input id="WarrantyDate" class="form-control col-sm-6 input-lg" placeholder="Warranty Date" type="date" disabled="@isSuccess"
-                   @bind="assetUpdateDto.WarrantyDate" />
-        </div>
-
-
-
-            <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
-            <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
-                 hidden="@(message=="")">@message</div>
-            </EditForm>
-
-
-        </div>
-    }
+}
 
 
 @code {
     [Parameter]
     public int Id { get; set; }
 
-    private bool isSuccess = false;
-    private string message = "";
+    private bool loading;
     private int matchingCount;
 
     private List<VendorReadDto> vendorReadDtos = new List<VendorReadDto>();
@@ -115,21 +114,19 @@ else
 
         clientInformationReadDto = await clientInformationService.GetClientInformationByIdAsync(Int32.Parse(e.Value.ToString()));
         _mapper.Map(clientInformationReadDto, assetUpdateDto);
-        message = "";
     }
     private async Task ChangeItem(ChangeEventArgs e)
     {
 
         itemReadDto = await itemService.GetItemByIdAsync(Int32.Parse(e.Value.ToString()));
         _mapper.Map(itemReadDto, assetUpdateDto);
-        message = "";
     }
     private async Task ChangeVendor(ChangeEventArgs e)
     {
 
         vendorReadDto = await vendorService.GetVendorByIdAsync(Int32.Parse(e.Value.ToString()));
         _mapper.Map(vendorReadDto, assetUpdateDto);
-        message = "";
+
     }
     private async Task FetchListAsync()
     {
@@ -149,24 +146,19 @@ else
     {
 
 
-        //returns response message, so can check if success
-        var response = await assetService.EditAssetAsync(Id, assetUpdateDto);
-        if (response.IsSuccessStatusCode)
+        loading = true;
+        try
         {
-            isSuccess = true;
-            message = $"Success";
-            toastService.ShowInfo($" asset information: {assetUpdateDto.SerialNumber} is Updated.");
-            NavManager.NavigateTo("/asset");
-            //navigate to single page
-            //perhaps set flag (success) there that will display message if coming from this page
+            await assetService.EditAssetAsync(Id, assetUpdateDto);
+            AlertService.Success("Update successful", keepAfterRouteChange: true);
+            NavigationManager.NavigateTo("/asset");
         }
-        else
+        catch (Exception ex)
         {
-            message = $"Error: {response.StatusCode.ToString()}. Please try again.";
-            toastService.ShowError($" Cannot edit {assetUpdateDto.SerialNumber}. Please try again.");
+            AlertService.Error(ex.Message);
+            loading = false;
+            StateHasChanged();
         }
-
-        this.StateHasChanged();
     }
 
 
