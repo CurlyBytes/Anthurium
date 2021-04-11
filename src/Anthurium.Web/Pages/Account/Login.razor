@@ -5,29 +5,39 @@
 @using Models.Account
 @using Models
 
-<div class="card">
-    <h4 class="card-header">Login</h4>
-    <div class="card-body">
-        <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
-            <DataAnnotationsValidator />
-            <div class="form-group">
-                <label>Username</label>
-                <InputText @bind-Value="model.Username" class="form-control" />
-                <ValidationMessage For="@(() => model.Username)" />
+<div class="row justify-content-center">
+    <div class="col-md-9" style="height: 90vh;">
+        <div class="card o-hidden border-0 shadow-lg my-5 login-card-middle">
+            <div class="card-body p-0">
+                <div class="row">
+                    <div class="col-lg-6 d-lg-block bg-login-image"><span style="display: inline-block; height: 100%; vertical-align: middle;"></span><img src="./img/lightsailits_aad.png"  alt="lightsail it solutions logo" style="width: 100%; vertical-align: middle;"></div>
+                    <div class="col-lg-6">
+                        <div class="p-3">
+                            <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+                                <DataAnnotationsValidator />
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <InputText @bind-Value="model.Username" class="form-control form-control-user" />
+                                    <ValidationMessage For="@(() => model.Username)" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <InputText @bind-Value="model.Password" type="password" class="form-control form-control-user" />
+                                    <ValidationMessage For="@(() => model.Password)" />
+                                </div>
+                                <button disabled="@loading" class="btn btn-primary btn-user btn-block bg-lightsail login-btn">
+                                    @if (loading)
+                                    {
+                                        <span class="spinner-border spinner-border-sm mr-1"></span>
+                                    }
+                                    Login
+                                </button>
+                            </EditForm>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Password</label>
-                <InputText @bind-Value="model.Password" type="password" class="form-control" />
-                <ValidationMessage For="@(() => model.Password)" />
-            </div>
-            <button disabled="@loading" class="btn btn-primary">
-                @if (loading)
-                {
-                    <span class="spinner-border spinner-border-sm mr-1"></span>
-                }
-                Login
-            </button>
-        </EditForm>
+        </div>
     </div>
 </div>
 
@@ -45,7 +55,7 @@
         {
             await AccountService.Login(model);
 
-          //  var returnUrl = NavigationManager.("returnUrl") ?? "";
+            //  var returnUrl = NavigationManager.("returnUrl") ?? "";
             NavigationManager.NavigateTo("/");
         }
         catch (Exception ex)

@@ -3,26 +3,21 @@
 @inject Services.IAccountService AccountService
 <BlazoredToasts />
 
-@if (LoggedIn)
-{
-    <!-- nav -->
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-}
 
 
-
-<div class="main app-container @(LoggedIn ? "bg-light" : "")">
     <Alert />
-    <div class="top-row px-4">
-        <a href="https://lightsailits.com/" target="_blank">About</a>
-    </div>
 
-    <div class="content px-4">
+    <div class="container">
+        @if (LoggedIn)
+        {
+            <!-- nav -->
+            <div class="sidebar">
+                <NavMenu />
+            </div>
+        }
         @Body
     </div>
-</div>
+
 
 @code {
     public bool LoggedIn

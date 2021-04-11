@@ -6,18 +6,20 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LightSails - ERP</title>
+    <title>LightSail - IT Solution</title>
     <base href="~/" />
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
-    <link href="_content/Blazored.Toast/blazored-toast.min.css" rel="stylesheet" />
+    <link href="css/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="css/poppins.css" rel="stylesheet" />
     <link href="css/site.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link href="_content/Blazored.Toast/blazored-toast.min.css" rel="stylesheet" />
 </head>
-<body>
+<body class="bg-gradient-lightsail">
+    <div class="container">
     <app>
         @(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))
     </app>
-
+    </div>
     <script src="_framework/blazor.server.js"></script>
     <script src="_content/Blazored.Modal/blazored.modal.js"></script>
     <script src="~/download.js"></script>
