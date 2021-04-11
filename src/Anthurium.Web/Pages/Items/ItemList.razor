@@ -1,11 +1,13 @@
 ﻿@inject Services.IItemService itemService
+@inject IJSRuntime _iJSRuntime
+
 @using Anthurium.API.Dtos
 @using Models
 
-<div class="container">
+<div class="container card shadow mb-4 animated--grow-in">
     <div class="row m-2">
         <div class="col"><h3>Item:</h3></div>
-        <div class=" col-sm-3 text-right"><a href="/item/create" class="btn btn-primary">New Item</a></div>
+        <div class=" col-sm-3 text-right"><a href="/item/create" class="btn btn-lightsail">New Item</a></div>
     </div>
     @if (itemReadDto == null)
     {
@@ -43,7 +45,7 @@
             </div>
         </div>
         <div class="row  m-2">
-            <table class="col-12 table table-hover table-responsive table-striped">
+            <table class="col-12 table table-borderless table-sm dataTable w-100">
                 <caption>List of Item</caption>
                 <thead>
                     <tr>
@@ -60,18 +62,18 @@
                 <tbody>
                     @foreach (var itemReadDtoItem in itemReadDto)
                     {
-                    <tr>
-                        <td scope="row">@itemReadDtoItem.ItemId</td>
-                        <td>@itemReadDtoItem.ItemType</td>
-                        <td>@itemReadDtoItem.ItemGroup</td>
-                        <td>@itemReadDtoItem.ItemCode</td>
-                        <td>@itemReadDtoItem.ItemName</td>
-                        <td>@itemReadDtoItem.Warehouse.WarehouseName</td>
-                        <td><img src="data:image/png;base64,@itemReadDtoItem.QRCode()" width="50" height="50"></td>
-                        <td><a class="btn btn-info btn-sm" href="/item/@itemReadDtoItem.ItemId">View</a></td>
-                        <td><a class="btn btn-secondary btn-sm" href="/item/@itemReadDtoItem.ItemId/edit">Edit</a></td>
-                        <td><a class="btn btn-danger btn-sm" href="/item/@itemReadDtoItem.ItemId/delete">Delete</a></td>
-                    </tr>
+                        <tr>
+                            <td scope="row">@itemReadDtoItem.ItemId</td>
+                            <td>@itemReadDtoItem.ItemType</td>
+                            <td>@itemReadDtoItem.ItemGroup</td>
+                            <td>@itemReadDtoItem.ItemCode</td>
+                            <td>@itemReadDtoItem.ItemName</td>
+                            <td>@itemReadDtoItem.Warehouse.WarehouseName</td>
+                            <td><button @onclick="() => OnClickQRCode(itemReadDtoItem.QRCode(),itemReadDtoItem.ItemId)" class="btn btn-lightsail"> <img src="data:image/png;base64,@itemReadDtoItem.QRCode()" width="50" height="50"></button></td>
+                            <td><a class="btn btn-info btn-sm" href="/item/@itemReadDtoItem.ItemId">View</a></td>
+                            <td><a class="btn btn-secondary btn-sm" href="/item/@itemReadDtoItem.ItemId/edit">Edit</a></td>
+                            <td><a class="btn btn-danger btn-sm" href="/item/@itemReadDtoItem.ItemId/delete">Delete</a></td>
+                        </tr>
                     }
                 </tbody>
             </table>
@@ -132,6 +134,18 @@
             itemReadDto = response.Item;
 
         }
+    }
+
+    protected async void OnClickQRCode(string base64image, int id)
+    {
+
+
+        await _iJSRuntime.InvokeVoidAsync("BlazorDownloadFile", $"{DateTime.UtcNow}-item-{id}-qrcode.png", "application/png", base64image);
+        // var bytes = await HttpClient.GetByteArrayAsync("api/pictures/1");
+        // await BlazorDownloadFileService.DownloadFile("joborder.pdf", pdfBytes, BufferSize, "application/octet-stream");
+
+
+
     }
 
     protected override async Task OnInitializedAsync()

@@ -4,158 +4,158 @@
 @using Microsoft.JSInterop;
 @using PuppeteerSharp;
 @inject IJSRuntime _iJSRuntime
+    <div class="container card shadow mb-4 animated--grow-in">
+        <h4>Job Order Id: @Id.ToString()</h4>
 
-<h4>Job Order Id: @Id.ToString()</h4>
+        @if (jobOrderReadDto == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
 
-@if (jobOrderReadDto == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
+            <div class="row m-2">
+                <table class="col-12 table table-borderless table-sm dataTable w-100">
+                    <caption>Job OrdersId: @Id.ToString()</caption>
+                    <thead>
 
-    <div class="row m-2">
-        <table class="col-12 table table-hover table-responsive table-striped">
-            <caption>Job OrdersId: @Id.ToString()</caption>
-            <thead>
-
-                <tr>
-                    <th scope="col">Record Type</th>
-                    <th scope="col">Record Info</th>
-                </tr>
-
-
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">Id</th>
-                    <td>@jobOrderReadDto.ClientInformationId</td>
-                </tr>
-                <tr>
-                    <th class="info">Company Name</th>
-                    <td>@jobOrderReadDto.CompanyName</td>
-                </tr>
-                <tr>
-                    <th class="info">Company Address</th>
-                    <td>@jobOrderReadDto.CompanyAddress</td>
-                </tr>
-                <tr>
-                    <th class="info">Contact Person</th>
-                    <td>@jobOrderReadDto.ContactPerson</td>
-                </tr>
-                <tr>
-                    <th class="info">Contact Number</th>
-                    <td>@jobOrderReadDto.ContactNumber</td>
-                </tr>
-                <tr>
-                    <th class="info">Remaining Hrs(CONSUMABLES)</th>
-                    <td>@jobOrderReadDto.RemainingHours</td>
-                </tr>
-                <tr>
-                    <th class="info">Date Scheduled</th>
-                    <td>@jobOrderReadDto.DateSchedule</td>
-                </tr>
-                <tr>
-                    <th class="info">Description</th>
-                    <td>@jobOrderReadDto.JoboRderDescription</td>
-                </tr>
-                <tr>
-                    <th class="info">Time Started</th>
-                    <td>@jobOrderReadDto.TimeStarted</td>
-                </tr>
-                <tr>
-                    <th class="info">Time Ended</th>
-                    <td>@jobOrderReadDto.TimeEnded</td>
-                </tr>
-                <tr>
-                    <th class="info">Total Hours</th>
-                    <td>@jobOrderReadDto.TotalHours</td>
-                </tr>
-                <tr>
-                    <th class="info">Date Updated</th>
-                    <td>@jobOrderReadDto.DateCreated</td>
-                </tr>
-                <tr>
-                    <th class="info">Date Created</th>
-                    <td>@jobOrderReadDto.DateUpdated</td>
-                </tr>
-            </tbody>
+                        <tr>
+                            <th scope="col">Record Type</th>
+                            <th scope="col">Record Info</th>
+                        </tr>
 
 
-        </table>
-    </div>
-    <div class="row m-2">
-        <div class="col-12">
-            <button @onclick="OnPrintClickPdf" class="btn btn-info btn-sm">print</button>
-            <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/joborder">Return to List</a>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Id</th>
+                            <td>@jobOrderReadDto.ClientInformationId</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Company Name</th>
+                            <td>@jobOrderReadDto.CompanyName</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Company Address</th>
+                            <td>@jobOrderReadDto.CompanyAddress</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Contact Person</th>
+                            <td>@jobOrderReadDto.ContactPerson</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Contact Number</th>
+                            <td>@jobOrderReadDto.ContactNumber</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Remaining Hrs(CONSUMABLES)</th>
+                            <td>@jobOrderReadDto.RemainingHours</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Date Scheduled</th>
+                            <td>@jobOrderReadDto.DateSchedule</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Description</th>
+                            <td>@jobOrderReadDto.JoboRderDescription</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Time Started</th>
+                            <td>@jobOrderReadDto.TimeStarted</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Time Ended</th>
+                            <td>@jobOrderReadDto.TimeEnded</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Total Hours</th>
+                            <td>@jobOrderReadDto.TotalHours</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Date Updated</th>
+                            <td>@jobOrderReadDto.DateCreated</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Date Created</th>
+                            <td>@jobOrderReadDto.DateUpdated</td>
+                        </tr>
+                    </tbody>
+
+
+                </table>
+            </div>
+            <div class="row m-2">
+                <div class="col-12">
+                    <button @onclick="OnPrintClickPdf" class="btn btn-info btn-sm">print</button>
+                    <a class="btn btn-lightsail active btn-sm " role="button" aria-pressed="true" href="/joborder">Return to List</a>
+                </div>
+            </div>
+        }
         </div>
-    </div>
-}
+        @code {
+            [Parameter]
+            public int Id { get; set; }
 
-@code {
-    [Parameter]
-    public int Id { get; set; }
+            private JobOrderReadDto jobOrderReadDto;
 
-    private JobOrderReadDto jobOrderReadDto;
-
-    protected override async Task OnInitializedAsync()
-    {
-        jobOrderReadDto = await jobOrderService.GetJobOrderByIdAsync(Id);
-    }
-
-
-    protected async void OnPrintClickPdf()
-    {
-
-        await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision);
-
-        byte[] pdfBytes;
-
-        PuppeteerSharp.Browser browser = null;
-        Page page = null;
-
-        try
-        {
-            browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true });
-
-            page = await browser.NewPageAsync();
-
-            await page.SetViewportAsync(new ViewPortOptions()
+            protected override async Task OnInitializedAsync()
             {
-                Height = 600,
-                Width = 800
-            });
-
-            await page.GoToAsync($"http://localhost:5002/joborder/print/{Id}");
-
-
-
-            pdfBytes = await page.PdfDataAsync(new PdfOptions
-            {
-                PrintBackground = true,
-                Width = 600.ToString() + "px",
-                Height = 790.ToString() + "px"
-            });
-
-            await _iJSRuntime.InvokeVoidAsync("BlazorDownloadFile", $"{DateTime.UtcNow}-joborder.pdf", "application/pdf", pdfBytes);
-            // var bytes = await HttpClient.GetByteArrayAsync("api/pictures/1");
-            // await BlazorDownloadFileService.DownloadFile("joborder.pdf", pdfBytes, BufferSize, "application/octet-stream");
-        }
-        finally
-        {
-            if (!page?.IsClosed ?? false)
-            {
-                await page?.CloseAsync();
+                jobOrderReadDto = await jobOrderService.GetJobOrderByIdAsync(Id);
             }
 
-            page?.Dispose();
 
-            if (!browser?.IsClosed ?? false)
+            protected async void OnPrintClickPdf()
             {
-                await browser?.CloseAsync();
-            }
 
-            browser?.Dispose();
+                await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision);
+
+                byte[] pdfBytes;
+
+                PuppeteerSharp.Browser browser = null;
+                Page page = null;
+
+                try
+                {
+                    browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true });
+
+                    page = await browser.NewPageAsync();
+
+                    await page.SetViewportAsync(new ViewPortOptions()
+                    {
+                        Height = 600,
+                        Width = 800
+                    });
+
+                    await page.GoToAsync($"http://localhost:5002/joborder/print/{Id}");
+
+
+
+                    pdfBytes = await page.PdfDataAsync(new PdfOptions
+                    {
+                        PrintBackground = true,
+                        Width = 600.ToString() + "px",
+                        Height = 790.ToString() + "px"
+                    });
+
+                    await _iJSRuntime.InvokeVoidAsync("BlazorDownloadFile", $"{DateTime.UtcNow}-joborder.pdf", "application/pdf", pdfBytes);
+                    // var bytes = await HttpClient.GetByteArrayAsync("api/pictures/1");
+                    // await BlazorDownloadFileService.DownloadFile("joborder.pdf", pdfBytes, BufferSize, "application/octet-stream");
+                }
+                finally
+                {
+                    if (!page?.IsClosed ?? false)
+                    {
+                        await page?.CloseAsync();
+                    }
+
+                    page?.Dispose();
+
+                    if (!browser?.IsClosed ?? false)
+                    {
+                        await browser?.CloseAsync();
+                    }
+
+                    browser?.Dispose();
+                }
+            }
         }
-    }
-}

@@ -8,213 +8,214 @@
 @using AutoMapper;
 @inject IMapper _mapper;
 @inject IToastService toastService
-
-<h3>New Quotaiton</h3>
-<div class="row m-2">
-    <EditForm Model="@jobQuotationnCreateDto" OnValidSubmit="@PostJobQuotation">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <div class="form-group row">
-            <label for="clientInformationId" class="col-sm-6 col-form-label">Client Info:</label>
-            <select id="ClientInformationId" class="form-control selectpicker" value="@jobQuotationnCreateDto.ClientInformationId" @onchange="ChangeOrder">
-                <option>--select--</option>
-                @foreach (var item in clientInformationReadDto)
-                {
-                    <option value="@item.ClientInformationId">@item.CompanyName</option>
-                }
-            </select>
-        </div>
-        <div class="form-group row">
-            <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
-            <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled
-                   @bind="jobQuotationnCreateDto.CompanyName" placeholder="CompanyName" />
-        </div>
-        <div class="form-group row">
-            <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
-            <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled
-                   @bind="jobQuotationnCreateDto.CompanyAddress" placeholder="Company Address" />
-        </div>
-
-        <div class="form-group row">
-            <label for="jobQuotationContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
-            <input id="jobQuotationContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled
-                   @bind="jobQuotationnCreateDto.ContactPerson" placeholder="Contact Person" />
-        </div>
-        <div class="form-group row">
-            <label for="jobQuotationContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
-            <input id="jobQuotationContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled
-                   @bind="jobQuotationnCreateDto.ContactNumber" placeholder="Contact Number" />
-        </div>
-        <div class="form-group row">
-            <label for="jobQuotationContactNumber" class="col-sm-6 col-form-label">Email Address:</label>
-            <input id="jobQuotationContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled
-                   @bind="jobQuotationnCreateDto.ContactEmailAddress" placeholder="Email Address" />
-        </div>
-        <div class="form-group row">
-            <label for="companyAddress" class="col-sm-6 col-form-label">Description</label>
-            <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text"
-                   @bind="jobQuotationnCreateDto.Description" placeholder="Description" />
-        </div>
+    <div class="container card shadow mb-4 animated--grow-in">
+        <h3>New Quotaiton</h3>
         <div class="row m-2">
-            <button class="btn btn-primary" type="button" @onclick="AddField" disabled="@isSuccess"> Add JobQuotation Details</button>
+            <EditForm Model="@jobQuotationnCreateDto" OnValidSubmit="@PostJobQuotation">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="form-group row">
+                    <label for="clientInformationId" class="col-sm-6 col-form-label">Client Info:</label>
+                    <select id="ClientInformationId" class="form-control selectpicker" value="@jobQuotationnCreateDto.ClientInformationId" @onchange="ChangeOrder">
+                        <option>--select--</option>
+                        @foreach (var item in clientInformationReadDto)
+                        {
+                            <option value="@item.ClientInformationId">@item.CompanyName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
+                    <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled
+                           @bind="jobQuotationnCreateDto.CompanyName" placeholder="CompanyName" />
+                </div>
+                <div class="form-group row">
+                    <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
+                    <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled
+                           @bind="jobQuotationnCreateDto.CompanyAddress" placeholder="Company Address" />
+                </div>
 
+                <div class="form-group row">
+                    <label for="jobQuotationContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
+                    <input id="jobQuotationContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled
+                           @bind="jobQuotationnCreateDto.ContactPerson" placeholder="Contact Person" />
+                </div>
+                <div class="form-group row">
+                    <label for="jobQuotationContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
+                    <input id="jobQuotationContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled
+                           @bind="jobQuotationnCreateDto.ContactNumber" placeholder="Contact Number" />
+                </div>
+                <div class="form-group row">
+                    <label for="jobQuotationContactNumber" class="col-sm-6 col-form-label">Email Address:</label>
+                    <input id="jobQuotationContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled
+                           @bind="jobQuotationnCreateDto.ContactEmailAddress" placeholder="Email Address" />
+                </div>
+                <div class="form-group row">
+                    <label for="companyAddress" class="col-sm-6 col-form-label">Description</label>
+                    <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text"
+                           @bind="jobQuotationnCreateDto.Description" placeholder="Description" />
+                </div>
+                <div class="row m-2">
+                    <button class="btn btn-lightsail" type="button" @onclick="AddField" disabled="@isSuccess"> Add JobQuotation Details</button>
+
+                </div>
+
+                @foreach (var item in jobQuotationDetailsCreateDtoList.Select((value, i) => (value, i)))
+                {
+                    <div class="form-group row">
+                        <label for="ItemId" class="col-sm-6 col-form-label">Item:</label>
+                        <select id="ItemId" class="form-control selectpicker" value="@item.value.ItemId" @onchange="(e => ChangeSelectedItem(e, item.i))">
+                            <option>--select--</option>
+                            @foreach (var itemsingle in itemReadDto)
+                            {
+
+                                <option value="@itemsingle.ItemId">@itemsingle.ItemName</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col ">
+                            <label for="@item.value.ItemName" class="col-sm-6 col-form-label">Item Name:</label>
+                            <input id="@item.value.ItemName" type="text" class="form-control" placeholder="Item Name" @bind="@item.value.ItemName" disabled>
+                        </div>
+                        <div class="col">
+                            <label for="@item.value.MarginPrice" class="col-sm-2 col-form-label">Margin Price:</label>
+                            <input id="@item.value.MarginPrice" type="text" class="form-control" placeholder="Margin Price" @bind="@item.value.MarginPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
+                        </div>
+                        <div class="col">
+                            <label for="@item.value.OriginalPrice" class="col-sm-2 col-form-label">Original Price:</label>
+                            <input id="@item.value.OriginalPrice" type="text" class="form-control" placeholder="Original Price" @bind="@item.value.OriginalPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
+                        </div>
+                        <div class="col">
+                            <label for="@item.value.SellingPrice" class="col-sm-2 col-form-label">Selling Price:</label>
+                            <input id="@item.value.SellingPrice" type="text" class="form-control" disabled placeholder="Selling Price" @bind="@item.value.SellingPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
+                        </div>
+                        <div class="col">
+                            <label for="@item.value.Quantity" class="col-sm-2 col-form-label">Quantity:</label>
+                            <input id="@item.value.Quantity" type="number" class="form-control" placeholder="Quantity" @bind="@item.value.Quantity" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
+                        </div>
+                        <div class="col">
+
+                            <label for="@item.value.TotalCost" class="col-sm-2 col-form-label">TotalCost:</label>
+                            <input id="@item.value.TotalCost" type="text" class="form-control" placeholder="TotalCost" @bind="@item.value.TotalCost" readonly disabled>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-danger" type="button" @onclick="() => RemoveField(item.value)">X</button>
+                        </div>
+
+                    </div>
+                }
+
+                <div class="form-group row">
+                    <label for="companyName" class="col-sm-6 col-form-label">Overall Cost:</label>
+                    <input id="companyName" class="form-control col-sm-6 input-lg" type="text" placeholder="Company Name" disabled="@isSuccess"
+                           @bind="jobQuotationnCreateDto.OverallCost" readonly />
+                </div>
+
+
+
+
+                <button class="btn btn-lightsail" type="submit" disabled="@isSuccess">Submit</button>
+                <a class="btn btn-lightsail active btn-sm " role="button" aria-pressed="true" href="/jobquote">Return to List</a>
+                <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
+                     hidden="@(message=="")">@message</div>
+                </EditForm>
+            </div>
         </div>
+            @code {
+                private List<ClientInformationReadDto> clientInformationReadDto = new List<ClientInformationReadDto>();
+                private List<JobQuotationDetailsCreateDto> jobQuotationDetailsCreateDtoList = new List<JobQuotationDetailsCreateDto>();
+                private JobQuotationCreateDto jobQuotationnCreateDto = new JobQuotationCreateDto();
+                private JobQuotationChangeCreate jobQuotationChangeCreate = new JobQuotationChangeCreate();
+                private ClientInformationReadDto clientInformationReadDtoSingle { get; set; } = new ClientInformationReadDto();
 
-        @foreach (var item in jobQuotationDetailsCreateDtoList.Select((value, i) => (value, i)))
-        {
-            <div class="form-group row">
-                <label for="ItemId" class="col-sm-6 col-form-label">Item:</label>
-                <select id="ItemId" class="form-control selectpicker" value="@item.value.ItemId" @onchange="(e => ChangeSelectedItem(e, item.i))">
-                    <option>--select--</option>
-                    @foreach (var itemsingle in itemReadDto)
+                private List<ItemReadDto> itemReadDto = new List<ItemReadDto>();
+                private ItemReadDto itemReadDtoSingle { get; set; } = new ItemReadDto();
+
+                private bool isSuccess = false;
+                private string message = "";
+                private int matchingCount;
+                private int matchingCountItem;
+
+                private string selectedItem { get; set; }
+
+                private async Task FetchListAsync()
+                {
+                    var response = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
+                    clientInformationReadDto = response.ClientInformation;
+                    matchingCount = response.Count;
+
+                    var responseItem = await itemService.GetItemsAsync("ItemName", 0);
+                    itemReadDto = responseItem.Item;
+                    matchingCountItem = responseItem.Count;
+                }
+
+
+                protected override async Task OnInitializedAsync()
+                {
+                    await FetchListAsync();
+                }
+                void AddField()
+                {
+                    jobQuotationDetailsCreateDtoList.Add(new JobQuotationDetailsCreateDto());
+                }
+
+                void RemoveField(JobQuotationDetailsCreateDto removeJobQuotation)
+                {
+
+                    jobQuotationDetailsCreateDtoList.Remove(removeJobQuotation);
+                    jobQuotationnCreateDto.OverallCost = jobQuotationDetailsCreateDtoList.Sum(x => x.TotalCost);
+
+
+                }
+                public async void PostJobQuotation()
+                {
+                    //returns response message, so can check if success
+                    jobQuotationnCreateDto.JobQuotationDetails = jobQuotationDetailsCreateDtoList;
+                    var response = await jobQuotationService.CreateJobQuotationAsync(jobQuotationnCreateDto);
+                    if (response.IsSuccessStatusCode)
                     {
-
-                        <option value="@itemsingle.ItemId">@itemsingle.ItemName</option>
+                        isSuccess = true;
+                        message = $"Success";
+                        toastService.ShowSuccess($" A job quotation from {jobQuotationnCreateDto.CompanyName} is created.");
+                        NavManager.NavigateTo("/jobquotation");
                     }
-                </select>
-            </div>
+                    else
+                    {
+                        toastService.ShowError($" Error while creating job quotation from {jobQuotationnCreateDto.CompanyName}. Kindly retry.");
+                        message = $"Error: {response.StatusCode.ToString()}. Please try again.";
 
-            <div class="row form-group">
-                <div class="col ">
-                    <label for="@item.value.ItemName" class="col-sm-6 col-form-label">Item Name:</label>
-                    <input id="@item.value.ItemName" type="text" class="form-control" placeholder="Item Name" @bind="@item.value.ItemName" disabled>
-                </div>
-                <div class="col">
-                    <label for="@item.value.MarginPrice" class="col-sm-2 col-form-label">Margin Price:</label>
-                    <input id="@item.value.MarginPrice" type="text" class="form-control" placeholder="Margin Price" @bind="@item.value.MarginPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
-                </div>
-                <div class="col">
-                    <label for="@item.value.OriginalPrice" class="col-sm-2 col-form-label">Original Price:</label>
-                    <input id="@item.value.OriginalPrice" type="text" class="form-control" placeholder="Original Price" @bind="@item.value.OriginalPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
-                </div>
-                <div class="col">
-                    <label for="@item.value.SellingPrice" class="col-sm-2 col-form-label">Selling Price:</label>
-                    <input id="@item.value.SellingPrice" type="text" class="form-control" disabled placeholder="Selling Price" @bind="@item.value.SellingPrice" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
-                </div>
-                <div class="col">
-                    <label for="@item.value.Quantity" class="col-sm-2 col-form-label">Quantity:</label>
-                    <input id="@item.value.Quantity" type="number" class="form-control" placeholder="Quantity" @bind="@item.value.Quantity" @onclick="() => ComputeCost(item.i)" @onfocusout="() => ComputeCost(item.i)" @onblur="() => ComputeCost(item.i)">
-                </div>
-                <div class="col">
+                    }
+                    this.StateHasChanged();
 
-                    <label for="@item.value.TotalCost" class="col-sm-2 col-form-label">TotalCost:</label>
-                    <input id="@item.value.TotalCost" type="text" class="form-control" placeholder="TotalCost" @bind="@item.value.TotalCost" readonly disabled>
-                </div>
-                <div class="col-sm-2">
-                    <button class="btn btn-danger" type="button" @onclick="() => RemoveField(item.value)">X</button>
-                </div>
-
-            </div>
-        }
-
-        <div class="form-group row">
-            <label for="companyName" class="col-sm-6 col-form-label">Overall Cost:</label>
-            <input id="companyName" class="form-control col-sm-6 input-lg" type="text" placeholder="Company Name" disabled="@isSuccess"
-                   @bind="jobQuotationnCreateDto.OverallCost" readonly />
-        </div>
+                }
 
 
 
+                private async Task ChangeSelectedItem(ChangeEventArgs e, int index)
+                {
 
-        <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
-        <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/jobquote">Return to List</a>
-        <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
-             hidden="@(message=="")">@message</div>
-        </EditForm>
-    </div>
-    @code {
-        private List<ClientInformationReadDto> clientInformationReadDto = new List<ClientInformationReadDto>();
-        private List<JobQuotationDetailsCreateDto> jobQuotationDetailsCreateDtoList = new List<JobQuotationDetailsCreateDto>();
-        private JobQuotationCreateDto jobQuotationnCreateDto = new JobQuotationCreateDto();
-        private JobQuotationChangeCreate jobQuotationChangeCreate = new JobQuotationChangeCreate();
-        private ClientInformationReadDto clientInformationReadDtoSingle { get; set; } = new ClientInformationReadDto();
+                    itemReadDtoSingle = await itemService.GetItemByIdAsync(Int32.Parse(e.Value.ToString()));
+                    jobQuotationDetailsCreateDtoList[index].ItemName = itemReadDtoSingle.ItemName;
+                    jobQuotationDetailsCreateDtoList[index].ItemId = itemReadDtoSingle.ItemId;
 
-        private List<ItemReadDto> itemReadDto = new List<ItemReadDto>();
-        private ItemReadDto itemReadDtoSingle { get; set; } = new ItemReadDto();
+                }
+                private async Task ChangeOrder(ChangeEventArgs e)
+                {
 
-        private bool isSuccess = false;
-        private string message = "";
-        private int matchingCount;
-        private int matchingCountItem;
-
-        private string selectedItem { get; set; }
-
-        private async Task FetchListAsync()
-        {
-            var response = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
-            clientInformationReadDto = response.ClientInformation;
-            matchingCount = response.Count;
-
-            var responseItem = await itemService.GetItemsAsync("ItemName", 0);
-            itemReadDto = responseItem.Item;
-            matchingCountItem = responseItem.Count;
-        }
+                    clientInformationReadDtoSingle = await clientInformationService.GetClientInformationByIdAsync(Int32.Parse(e.Value.ToString()));
+                    _mapper.Map(clientInformationReadDtoSingle, jobQuotationChangeCreate);
+                    _mapper.Map(jobQuotationChangeCreate, jobQuotationnCreateDto);
+                    message = "";
+                }
+                private void ComputeCost(int Id)
+                {
+                    jobQuotationDetailsCreateDtoList[Id].SellingPrice = jobQuotationDetailsCreateDtoList[Id].MarginPrice + jobQuotationDetailsCreateDtoList[Id].OriginalPrice;
+                    jobQuotationDetailsCreateDtoList[Id].TotalCost = jobQuotationDetailsCreateDtoList[Id].Quantity * jobQuotationDetailsCreateDtoList[Id].SellingPrice;
+                    jobQuotationnCreateDto.OverallCost = jobQuotationDetailsCreateDtoList.Sum(x => x.TotalCost);
+                }
 
 
-        protected override async Task OnInitializedAsync()
-        {
-            await FetchListAsync();
-        }
-        void AddField()
-        {
-            jobQuotationDetailsCreateDtoList.Add(new JobQuotationDetailsCreateDto());
-        }
-
-        void RemoveField(JobQuotationDetailsCreateDto removeJobQuotation)
-        {
-
-            jobQuotationDetailsCreateDtoList.Remove(removeJobQuotation);
-            jobQuotationnCreateDto.OverallCost = jobQuotationDetailsCreateDtoList.Sum(x => x.TotalCost);
-
-
-        }
-        public async void PostJobQuotation()
-        {
-            //returns response message, so can check if success
-            jobQuotationnCreateDto.JobQuotationDetails = jobQuotationDetailsCreateDtoList;
-            var response = await jobQuotationService.CreateJobQuotationAsync(jobQuotationnCreateDto);
-            if (response.IsSuccessStatusCode)
-            {
-                isSuccess = true;
-                message = $"Success";
-                toastService.ShowSuccess($" A job quotation from {jobQuotationnCreateDto.CompanyName} is created.");
-                NavManager.NavigateTo("/jobquotation");
-            }
-            else
-            {
-                toastService.ShowError($" Error while creating job quotation from {jobQuotationnCreateDto.CompanyName}. Kindly retry.");
-                message = $"Error: {response.StatusCode.ToString()}. Please try again.";
 
             }
-            this.StateHasChanged();
-
-        }
-
-
-
-        private async Task ChangeSelectedItem(ChangeEventArgs e,int index)
-        {
-
-            itemReadDtoSingle = await itemService.GetItemByIdAsync(Int32.Parse(e.Value.ToString()));
-            jobQuotationDetailsCreateDtoList[index].ItemName = itemReadDtoSingle.ItemName;
-            jobQuotationDetailsCreateDtoList[index].ItemId = itemReadDtoSingle.ItemId;
-
-        }
-        private async Task ChangeOrder(ChangeEventArgs e)
-        {
-
-            clientInformationReadDtoSingle = await clientInformationService.GetClientInformationByIdAsync(Int32.Parse(e.Value.ToString()));
-            _mapper.Map(clientInformationReadDtoSingle, jobQuotationChangeCreate);
-            _mapper.Map(jobQuotationChangeCreate, jobQuotationnCreateDto);
-            message = "";
-        }
-        private void ComputeCost(int Id)
-        {
-            jobQuotationDetailsCreateDtoList[Id].SellingPrice = jobQuotationDetailsCreateDtoList[Id].MarginPrice + jobQuotationDetailsCreateDtoList[Id].OriginalPrice;
-            jobQuotationDetailsCreateDtoList[Id].TotalCost = jobQuotationDetailsCreateDtoList[Id].Quantity * jobQuotationDetailsCreateDtoList[Id].SellingPrice;
-            jobQuotationnCreateDto.OverallCost = jobQuotationDetailsCreateDtoList.Sum(x => x.TotalCost);
-        }
-
-
-
-    }

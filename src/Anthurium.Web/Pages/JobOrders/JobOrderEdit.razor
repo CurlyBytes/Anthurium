@@ -9,148 +9,148 @@
 @using Anthurium.API.Dtos
 
 
-
-<h3>Job Order</h3>
-@if (jobOrderReadDto != null)
-{
-<EditForm Model="@jobOrderUpdateDto" OnValidSubmit="OnValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    <div class="form-group row">
-        <label for="clientInfomrationId" class="col-sm-6 col-form-label">Client Info:</label>
-        <select id="clientInfomrationId" class="form-control selectpicker" value="@jobOrderUpdateDto.ClientInformationId" @onchange="ChangeOrder">
-            <option>--select--</option>
-            @foreach (var item in clientInformationReadDto)
-            {
-                <option value="@item.ClientInformationId">@item.CompanyName</option>
-                // Blazor needs to know what values it binds to!
-            }
-        </select>
-    </div>
-    <div class="form-group row">
-        <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
-        <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled="disabled"
-               @bind="jobOrderUpdateDto.CompanyName" />
-    </div>
-    <div class="form-group row">
-        <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
-        <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled="disabled"
-               @bind="jobOrderUpdateDto.CompanyAddress" />
-    </div>
-
-
-    <div class="form-group row">
-        <label for="jobOrderContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
-        <input id="jobOrderContactPerson" class="form-control col-sm-6 input-lg" type="text"
-               @bind="jobOrderUpdateDto.ContactPerson" placeholder="Contact Person" />
-    </div>
-    <div class="form-group row">
-        <label for="jobOrderContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
-        <input id="jobOrderContactNumber" class="form-control col-sm-6 input-lg" type="text"
-               @bind="jobOrderUpdateDto.ContactNumber" placeholder="Contact Number" />
-    </div>
-    <div class="form-group row">
-        <label for="jobOrdeRemainingHours" class="col-sm-6 col-form-label">Remaining Hrs(consumable):</label>
-        <input id="jobOrdeRemainingHours" class="form-control col-sm-6 input-lg" type="number"
-               @bind="jobOrderUpdateDto.RemainingHours" />
-    </div>
-
-
-    <div class="form-group row">
-        <label for="jobOrderDateSchedule" class="col-sm-6 col-form-label"> Date Scheduled:</label>
-        <input id="jobOrderDateSchedule" class="form-control col-sm-6 input-lg" type="datetime"
-               @bind="jobOrderUpdateDto.DateSchedule" />
-    </div>
-
-    <div class="form-group row">
-        <label for="jobOrderJoborderDescription" class="col-sm-6 col-form-label">Descirption:</label>
-        <input id="jobOrderJoborderDescription" class="form-control col-sm-6 input-lg" type="text"
-               @bind="jobOrderUpdateDto.JoboRderDescription" />
-    </div>
-    <div class="form-group row">
-        <label for="jobOrderTimeStarted" class="col-sm-6 col-form-label">Contact Timestarted:</label>
-        <input id="jobOrderTimeStarted" class="form-control col-sm-6 input-lg" type="time"
-               @bind="jobOrderUpdateDto.TimeStarted" />
-    </div>
-
-    <div class="form-group row">
-        <label for="jobOrderTimeEnded" class="col-sm-6 col-form-label">Contact TimeEnded:</label>
-        <input id="jobOrderTimeEnded" class="form-control col-sm-6 input-lg" type="time"
-               @bind="jobOrderUpdateDto.TimeEnded" />
-    </div>
-
-    <div class="form-group row">
-        <label for="jobOrdeTotalHours" class="col-sm-6 col-form-label">Contact Number:</label>
-        <input id="jobOrderTotalHours" class="form-control col-sm-6 input-lg" type="number"
-               @bind="jobOrderUpdateDto.TotalHours" />
-    </div>
-
-    <div class="form-group">
-        <button disabled="@loading" class="btn btn-primary">
-            @if (loading)
-            {
-                <span class="spinner-border spinner-border-sm mr-1"></span>
-            }
-            Save
-        </button>
-        <NavLink href="warehouse" class="btn btn-link">Cancel</NavLink>
-    </div>
-</EditForm>
-}
-else
-{
-    <div class="text-center p-3">
-        <span class="spinner-border spinner-border-lg align-center"></span>
-    </div>
-}
-
-@code {
-    [Parameter]
-    public int Id { get; set; }
-
-    private bool loading = false;
-
-    private List<ClientInformationReadDto> clientInformationReadDto = new List<ClientInformationReadDto>();
-    private JobOrderUpdateDto jobOrderUpdateDto { get; set; } = new JobOrderUpdateDto();
-    private JobOrderReadDto jobOrderReadDto { get; set; } = new JobOrderReadDto();
-    private JobOrderChangeCreate jobOrderChangeCreate = new JobOrderChangeCreate();
-    private ClientInformationReadDto clientInformationReadDtoSingle { get; set; } = new ClientInformationReadDto();
-
-    protected override async Task OnInitializedAsync()
+<div class="container card shadow mb-4 animated--grow-in">
+    <h3>Job Order</h3>
+    @if (jobOrderReadDto != null)
     {
-        jobOrderReadDto = await jobOrderService.GetJobOrderByIdAsync(Id);
-        _mapper.Map(jobOrderReadDto, jobOrderUpdateDto);
-        var response = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
-        clientInformationReadDto = response.ClientInformation;
+        <EditForm Model="@jobOrderUpdateDto" OnValidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group row">
+                <label for="clientInfomrationId" class="col-sm-6 col-form-label">Client Info:</label>
+                <select id="clientInfomrationId" class="form-control selectpicker" value="@jobOrderUpdateDto.ClientInformationId" @onchange="ChangeOrder">
+                    <option>--select--</option>
+                    @foreach (var item in clientInformationReadDto)
+                    {
+                        <option value="@item.ClientInformationId">@item.CompanyName</option>
+                        // Blazor needs to know what values it binds to!
+                    }
+                </select>
+            </div>
+            <div class="form-group row">
+                <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
+                <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled="disabled"
+                       @bind="jobOrderUpdateDto.CompanyName" />
+            </div>
+            <div class="form-group row">
+                <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
+                <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled="disabled"
+                       @bind="jobOrderUpdateDto.CompanyAddress" />
+            </div>
 
 
+            <div class="form-group row">
+                <label for="jobOrderContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
+                <input id="jobOrderContactPerson" class="form-control col-sm-6 input-lg" type="text"
+                       @bind="jobOrderUpdateDto.ContactPerson" placeholder="Contact Person" />
+            </div>
+            <div class="form-group row">
+                <label for="jobOrderContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
+                <input id="jobOrderContactNumber" class="form-control col-sm-6 input-lg" type="text"
+                       @bind="jobOrderUpdateDto.ContactNumber" placeholder="Contact Number" />
+            </div>
+            <div class="form-group row">
+                <label for="jobOrdeRemainingHours" class="col-sm-6 col-form-label">Remaining Hrs(consumable):</label>
+                <input id="jobOrdeRemainingHours" class="form-control col-sm-6 input-lg" type="number"
+                       @bind="jobOrderUpdateDto.RemainingHours" />
+            </div>
+
+
+            <div class="form-group row">
+                <label for="jobOrderDateSchedule" class="col-sm-6 col-form-label"> Date Scheduled:</label>
+                <input id="jobOrderDateSchedule" class="form-control col-sm-6 input-lg" type="datetime"
+                       @bind="jobOrderUpdateDto.DateSchedule" />
+            </div>
+
+            <div class="form-group row">
+                <label for="jobOrderJoborderDescription" class="col-sm-6 col-form-label">Descirption:</label>
+                <input id="jobOrderJoborderDescription" class="form-control col-sm-6 input-lg" type="text"
+                       @bind="jobOrderUpdateDto.JoboRderDescription" />
+            </div>
+            <div class="form-group row">
+                <label for="jobOrderTimeStarted" class="col-sm-6 col-form-label">Contact Timestarted:</label>
+                <input id="jobOrderTimeStarted" class="form-control col-sm-6 input-lg" type="time"
+                       @bind="jobOrderUpdateDto.TimeStarted" />
+            </div>
+
+            <div class="form-group row">
+                <label for="jobOrderTimeEnded" class="col-sm-6 col-form-label">Contact TimeEnded:</label>
+                <input id="jobOrderTimeEnded" class="form-control col-sm-6 input-lg" type="time"
+                       @bind="jobOrderUpdateDto.TimeEnded" />
+            </div>
+
+            <div class="form-group row">
+                <label for="jobOrdeTotalHours" class="col-sm-6 col-form-label">Contact Number:</label>
+                <input id="jobOrderTotalHours" class="form-control col-sm-6 input-lg" type="number"
+                       @bind="jobOrderUpdateDto.TotalHours" />
+            </div>
+
+            <div class="form-group">
+                <button disabled="@loading" class="btn btn-lightsail">
+                    @if (loading)
+                    {
+                        <span class="spinner-border spinner-border-sm mr-1"></span>
+                    }
+                    Save
+                </button>
+                <NavLink href="warehouse" class="btn btn-link">Cancel</NavLink>
+            </div>
+        </EditForm>
     }
-
-    private async void OnValidSubmit()
+    else
     {
+        <div class="text-center p-3">
+            <span class="spinner-border spinner-border-lg align-center"></span>
+        </div>
+    }
+    </div>
+    @code {
+        [Parameter]
+        public int Id { get; set; }
 
-        loading = true;
-        try
+        private bool loading = false;
+
+        private List<ClientInformationReadDto> clientInformationReadDto = new List<ClientInformationReadDto>();
+        private JobOrderUpdateDto jobOrderUpdateDto { get; set; } = new JobOrderUpdateDto();
+        private JobOrderReadDto jobOrderReadDto { get; set; } = new JobOrderReadDto();
+        private JobOrderChangeCreate jobOrderChangeCreate = new JobOrderChangeCreate();
+        private ClientInformationReadDto clientInformationReadDtoSingle { get; set; } = new ClientInformationReadDto();
+
+        protected override async Task OnInitializedAsync()
         {
-            await jobOrderService.EditJobOrderAsync(Id, jobOrderUpdateDto);
-            AlertService.Success("Update successful", keepAfterRouteChange: true);
-            NavigationManager.NavigateTo("/joborder");
-        }
-        catch (Exception ex)
-        {
-            AlertService.Error(ex.Message);
-            loading = false;
-            StateHasChanged();
+            jobOrderReadDto = await jobOrderService.GetJobOrderByIdAsync(Id);
+            _mapper.Map(jobOrderReadDto, jobOrderUpdateDto);
+            var response = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
+            clientInformationReadDto = response.ClientInformation;
+
+
         }
 
+        private async void OnValidSubmit()
+        {
+
+            loading = true;
+            try
+            {
+                await jobOrderService.EditJobOrderAsync(Id, jobOrderUpdateDto);
+                AlertService.Success("Update successful", keepAfterRouteChange: true);
+                NavigationManager.NavigateTo("/joborder");
+            }
+            catch (Exception ex)
+            {
+                AlertService.Error(ex.Message);
+                loading = false;
+                StateHasChanged();
+            }
+
+        }
+
+        private async Task ChangeOrder(ChangeEventArgs e)
+        {
+
+            clientInformationReadDtoSingle = await clientInformationService.GetClientInformationByIdAsync(Int32.Parse(e.Value.ToString()));
+            _mapper.Map(clientInformationReadDtoSingle, jobOrderChangeCreate);
+            _mapper.Map(jobOrderChangeCreate, jobOrderUpdateDto);
+
+        }
     }
-
-    private async Task ChangeOrder(ChangeEventArgs e)
-    {
-
-        clientInformationReadDtoSingle = await clientInformationService.GetClientInformationByIdAsync(Int32.Parse(e.Value.ToString()));
-        _mapper.Map(clientInformationReadDtoSingle, jobOrderChangeCreate);
-        _mapper.Map(jobOrderChangeCreate, jobOrderUpdateDto);
-
-    }
-}

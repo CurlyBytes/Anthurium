@@ -7,102 +7,103 @@
 @inject IToastService toastService
 @using AutoMapper;
 @inject IMapper _mapper;
+    <div class="container card shadow mb-4 animated--grow-in">
+        <h4>New Item</h4>
+        <div class="row m-2">
+            <EditForm Model="@itemCreateDto" OnValidSubmit="@PostItem">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="form-group row">
+                    <label for="WarehouseId" class="col-sm-6 col-form-label">Warehouse Info:</label>
+                    <select id="WarehouseId" class="form-control selectpicker" value="@itemCreateDto.WarehouseId" @onchange="ChangeWarehouseName">
+                        <option>--select--</option>
+                        @foreach (var item in warehouseReadDto)
+                        {
+                            <option value="@item.WarehouseId">@item.WarehouseName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <label for="ItemName" class="col-sm-6 col-form-label">Item Name:</label>
+                    <input id="ItemName" class="form-control col-sm-6 input-lg" type="text" placeholder="Item Name" disabled="@isSuccess"
+                           @bind="itemCreateDto.ItemName" />
+                </div>
+                <div class="form-group row">
+                    <label for="ItemCode" class="col-sm-6 col-form-label">Item Code:</label>
+                    <input id="ItemCode" class="form-control col-sm-6 input-lg" placeholder="Item Code" type="text" disabled="@isSuccess"
+                           @bind="itemCreateDto.ItemCode" />
+                </div>
 
-<h4>New Item</h4>
-<div class="row m-2">
-    <EditForm Model="@itemCreateDto" OnValidSubmit="@PostItem">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <div class="form-group row">
-            <label for="WarehouseId" class="col-sm-6 col-form-label">Warehouse Info:</label>
-            <select id="WarehouseId" class="form-control selectpicker" value="@itemCreateDto.WarehouseId" @onchange="ChangeWarehouseName">
-                <option>--select--</option>
-                @foreach (var item in warehouseReadDto)
+                <div class="form-group row">
+                    <label for="ItemType" class="col-sm-6 col-form-label">Item Type:</label>
+                    <input id="ItemType" class="form-control col-sm-6 input-lg" placeholder="Item Type" type="text" disabled="@isSuccess"
+                           @bind="itemCreateDto.ItemType" />
+                </div>
+
+                <div class="form-group row">
+                    <label for="ItemType" class="col-sm-6 col-form-label">Item Group:</label>
+                    <input id="ItemType" class="form-control col-sm-6 input-lg" placeholder="Item Group" type="text" disabled="@isSuccess"
+                           @bind="itemCreateDto.ItemGroup" />
+                </div>
+                <button class="btn btn-lightsail" type="submit" disabled="@isSuccess">Submit</button>
+                <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
+                     hidden="@(message=="")">@message</div>
+                </EditForm>
+            </div>
+        </div>
+            @code {
+                private List<WarehouseReadDto> warehouseReadDto = new List<WarehouseReadDto>();
+                private WarehouseReadDto warehouseSingleReadDto { get; set; } = new WarehouseReadDto();
+
+
+                private ItemCreateDto itemCreateDto = new ItemCreateDto();
+                private bool isSuccess = false;
+                private string message = "";
+
+                private int matchingCount;
+
+                protected override async Task OnInitializedAsync()
                 {
-                    <option value="@item.WarehouseId">@item.WarehouseName</option>
+                    await FetchListAsync();
                 }
-            </select>
-        </div>
-        <div class="form-group row">
-            <label for="ItemName" class="col-sm-6 col-form-label">Item Name:</label>
-            <input id="ItemName" class="form-control col-sm-6 input-lg" type="text" placeholder="Item Name" disabled="@isSuccess"
-                   @bind="itemCreateDto.ItemName" />
-        </div>
-        <div class="form-group row">
-            <label for="ItemCode" class="col-sm-6 col-form-label">Item Code:</label>
-            <input id="ItemCode" class="form-control col-sm-6 input-lg" placeholder="Item Code" type="text" disabled="@isSuccess"
-                   @bind="itemCreateDto.ItemCode" />
-        </div>
+                public async void PostItem()
+                {
+                    //returns response message, so can check if success
+                    var response = await itemService.CreateItemAsync(itemCreateDto);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        isSuccess = true;
+                        toastService.ShowSuccess($" {itemCreateDto.ItemName} is added in client information.");
+                        message = $"Success";
+                        NavManager.NavigateTo("/item");
+                    }
+                    else
+                    {
 
-        <div class="form-group row">
-            <label for="ItemType" class="col-sm-6 col-form-label">Item Type:</label>
-            <input id="ItemType" class="form-control col-sm-6 input-lg" placeholder="Item Type" type="text" disabled="@isSuccess"
-                   @bind="itemCreateDto.ItemType" />
-        </div>
+                        message = $"Error: {response.StatusCode.ToString()}. Please try again.";
+                        toastService.ShowError($" Error while adding {itemCreateDto.ItemName}. Kindly retry.");
 
-        <div class="form-group row">
-            <label for="ItemType" class="col-sm-6 col-form-label">Item Group:</label>
-            <input id="ItemType" class="form-control col-sm-6 input-lg" placeholder="Item Group" type="text" disabled="@isSuccess"
-                   @bind="itemCreateDto.ItemGroup" />
-        </div>
-        <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
-        <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
-             hidden="@(message=="")">@message</div>
-        </EditForm>
-    </div>
-    @code {
-        private List<WarehouseReadDto> warehouseReadDto = new List<WarehouseReadDto>();
-        private WarehouseReadDto warehouseSingleReadDto { get; set; } = new WarehouseReadDto();
-       
+                    }
 
-        private ItemCreateDto itemCreateDto = new ItemCreateDto();
-        private bool isSuccess = false;
-        private string message = "";
+                    this.StateHasChanged();
 
-        private int matchingCount;
+                }
 
-        protected override async Task OnInitializedAsync()
-        {
-            await FetchListAsync();
-        }
-        public async void PostItem()
-        {
-            //returns response message, so can check if success
-            var response = await itemService.CreateItemAsync(itemCreateDto);
-            if (response.IsSuccessStatusCode)
-            {
-                isSuccess = true;
-                toastService.ShowSuccess($" {itemCreateDto.ItemName} is added in client information.");
-                message = $"Success";
-                NavManager.NavigateTo("/item");
+                private async Task FetchListAsync()
+                {
+                    var response = await warehouseService.GetWarehousesAsync("WarehouseName", 0);
+                    warehouseReadDto = response.Warehouse;
+                    matchingCount = response.Count;
+
+
+
+                }
+
+                private async Task ChangeWarehouseName(ChangeEventArgs e)
+                {
+
+                    warehouseSingleReadDto = await warehouseService.GetWarehouseByIdAsync(Int32.Parse(e.Value.ToString()));
+                    _mapper.Map(warehouseSingleReadDto, itemCreateDto);
+                    message = "";
+                }
             }
-            else
-            {
-
-                message = $"Error: {response.StatusCode.ToString()}. Please try again.";
-                toastService.ShowError($" Error while adding {itemCreateDto.ItemName}. Kindly retry.");
-
-            }
-
-            this.StateHasChanged();
-
-        }
-
-        private async Task FetchListAsync()
-        {
-            var response = await warehouseService.GetWarehousesAsync("WarehouseName", 0);
-            warehouseReadDto = response.Warehouse;
-            matchingCount = response.Count;
-
-
-
-        }
-
-        private async Task ChangeWarehouseName(ChangeEventArgs e)
-        {
-
-            warehouseSingleReadDto = await warehouseService.GetWarehouseByIdAsync(Int32.Parse(e.Value.ToString()));
-            _mapper.Map(warehouseSingleReadDto, itemCreateDto);
-            message = "";
-        }
-    }

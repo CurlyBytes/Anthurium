@@ -8,12 +8,12 @@
 @using AutoMapper;
 @using System.Text.Json
 @using Anthurium.API.Dtos
-
-<h3>Warehouse</h3>
-@if (warehouseReadDto != null)
-{
-    <EditForm Model="@itemUpdateDto" OnValidSubmit="UpdateItem">
-        <DataAnnotationsValidator />
+<div class="container card shadow mb-4 animated--grow-in">
+    <h3>Warehouse</h3>
+    @if (warehouseReadDto != null)
+    {
+        <EditForm Model="@itemUpdateDto" OnValidSubmit="UpdateItem">
+            <DataAnnotationsValidator />
             <ValidationSummary />
             <div class="form-group row">
                 <label for="WarehouseId" class="col-sm-6 col-form-label">Warehouse Info:</label>
@@ -36,80 +36,80 @@
                        @bind="itemUpdateDto.ItemCode" />
             </div>
 
-        <div class="form-group">
-            <button disabled="@loading" class="btn btn-primary">
-                @if (loading)
-                {
-                    <span class="spinner-border spinner-border-sm mr-1"></span>
-                }
-                Save
-            </button>
-            <NavLink href="warehouse" class="btn btn-link">Cancel</NavLink>
+            <div class="form-group">
+                <button disabled="@loading" class="btn btn-lightsail">
+                    @if (loading)
+                    {
+                        <span class="spinner-border spinner-border-sm mr-1"></span>
+                    }
+                    Save
+                </button>
+                <NavLink href="warehouse" class="btn btn-link">Cancel</NavLink>
+            </div>
+        </EditForm>
+    }
+    else
+    {
+        <div class="text-center p-3">
+            <span class="spinner-border spinner-border-lg align-center"></span>
         </div>
-    </EditForm>
-}
-else
-{
-    <div class="text-center p-3">
-        <span class="spinner-border spinner-border-lg align-center"></span>
+    }
     </div>
-}
 
+    @code {
+        [Parameter]
+        public int Id { get; set; }
 
-@code {
-    [Parameter]
-    public int Id { get; set; }
+        private bool loading = false;
+        private int matchingCount;
 
-    private bool loading = false;
-    private int matchingCount;
-
-    private List<WarehouseReadDto> warehouseReadDto = new List<WarehouseReadDto>();
-    private WarehouseReadDto warehouseSingleReadDto { get; set; } = new WarehouseReadDto();
-
-
-
-    private ItemUpdateDto itemUpdateDto { get; set; } = new ItemUpdateDto();
-    private ItemReadDto itemReadDto { get; set; } = new ItemReadDto();
-
-    protected override async Task OnInitializedAsync()
-    {
-        await FetchListAsync();
-        itemReadDto = await itemService.GetItemByIdAsync(Id);
-        _mapper.Map(itemReadDto, itemUpdateDto);
-    }
-
-    private async Task FetchListAsync()
-    {
-        var response = await warehouseService.GetWarehousesAsync("WarehouseName", 0);
-        warehouseReadDto = response.Warehouse;
-        matchingCount = response.Count;
+        private List<WarehouseReadDto> warehouseReadDto = new List<WarehouseReadDto>();
+        private WarehouseReadDto warehouseSingleReadDto { get; set; } = new WarehouseReadDto();
 
 
 
-    }
-    public async void UpdateItem()
-    {
+        private ItemUpdateDto itemUpdateDto { get; set; } = new ItemUpdateDto();
+        private ItemReadDto itemReadDto { get; set; } = new ItemReadDto();
 
-
-        loading = true;
-        try
+        protected override async Task OnInitializedAsync()
         {
-            await itemService.EditItemAsync(Id, itemUpdateDto);
-            AlertService.Success("Update successful", keepAfterRouteChange: true);
-            NavigationManager.NavigateTo("/item");
+            await FetchListAsync();
+            itemReadDto = await itemService.GetItemByIdAsync(Id);
+            _mapper.Map(itemReadDto, itemUpdateDto);
         }
-        catch (Exception ex)
+
+        private async Task FetchListAsync()
         {
-            AlertService.Error(ex.Message);
-            loading = false;
-            StateHasChanged();
+            var response = await warehouseService.GetWarehousesAsync("WarehouseName", 0);
+            warehouseReadDto = response.Warehouse;
+            matchingCount = response.Count;
+
+
+
+        }
+        public async void UpdateItem()
+        {
+
+
+            loading = true;
+            try
+            {
+                await itemService.EditItemAsync(Id, itemUpdateDto);
+                AlertService.Success("Update successful", keepAfterRouteChange: true);
+                NavigationManager.NavigateTo("/item");
+            }
+            catch (Exception ex)
+            {
+                AlertService.Error(ex.Message);
+                loading = false;
+                StateHasChanged();
+            }
+        }
+
+        private async Task ChangeWarehouseName(ChangeEventArgs e)
+        {
+
+            warehouseSingleReadDto = await warehouseService.GetWarehouseByIdAsync(Int32.Parse(e.Value.ToString()));
+            _mapper.Map(warehouseSingleReadDto, itemUpdateDto);
         }
     }
-
-    private async Task ChangeWarehouseName(ChangeEventArgs e)
-    {
-
-        warehouseSingleReadDto = await warehouseService.GetWarehouseByIdAsync(Int32.Parse(e.Value.ToString()));
-        _mapper.Map(warehouseSingleReadDto, itemUpdateDto);
-    }
-}

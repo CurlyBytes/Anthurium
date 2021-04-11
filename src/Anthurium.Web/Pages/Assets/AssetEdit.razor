@@ -12,154 +12,154 @@
 @using System.Text.Json
 @using Anthurium.API.Dtos
 
-
-<h3>Edit Asset Information</h3>
-@if (assetReadDto != null)
-{
-<EditForm Model="@assetUpdateDto" OnValidSubmit="@UpdateAsset">
-    <DataAnnotationsValidator />
-    <div class="form-group row">
-        <label for="ClientInformationId" class="col-sm-6 col-form-label">Client Info:</label>
-        <select id="ClientInformationId" class="form-control selectpicker" value="@assetUpdateDto.ClientInformationId" @onchange="ChangeClient">
-            <option>--select--</option>
-            @foreach (var item in clientInformationReadDtos)
-            {
-                <option value="@item.ClientInformationId">@item.CompanyName</option>
-            }
-        </select>
-    </div>
-
-    <div class="form-group row">
-        <label for="ItemId" class="col-sm-6 col-form-label">Item Name:</label>
-        <select id="ItemId" class="form-control selectpicker" value="@assetUpdateDto.ItemId" @onchange="ChangeItem">
-            <option>--select--</option>
-            @foreach (var item in itemReadDtos)
-            {
-                <option value="@item.ItemId">@item.ItemName</option>
-            }
-        </select>
-    </div>
-
-    <div class="form-group row">
-        <label for="clientInformationId" class="col-sm-6 col-form-label">Vendor Name:</label>
-        <select id="ClientInformationId" class="form-control selectpicker" value="@assetUpdateDto.VendorId" @onchange="ChangeVendor">
-            <option>--select--</option>
-            @foreach (var item in vendorReadDtos)
-            {
-                <option value="@item.VendorId">@item.VendorName</option>
-            }
-        </select>
-    </div>
-    <div class="form-group row">
-        <label for="SerialNumber" class="col-sm-6 col-form-label">Serial Number:</label>
-        <input id="SerialNumber" class="form-control col-sm-6 input-lg" type="text" placeholder="Serial Number"
-               @bind="assetUpdateDto.SerialNumber" />
-    </div>
-    <div class="form-group row">
-        <label for="WarrantyDate" class="col-sm-6 col-form-label">Warranty Date:</label>
-        <input id="WarrantyDate" class="form-control col-sm-6 input-lg" placeholder="Warranty Date" type="date"
-               @bind="assetUpdateDto.WarrantyDate" />
-    </div>
-
-
-    <div class="form-group">
-        <button disabled="@loading" class="btn btn-primary">
-            @if (loading)
-            {
-                <span class="spinner-border spinner-border-sm mr-1"></span>
-            }
-            Save
-        </button>
-        <NavLink href="warehouse" class="btn btn-link">Cancel</NavLink>
-    </div>
-</EditForm>
-}
-else
-{
-    <div class="text-center p-3">
-        <span class="spinner-border spinner-border-lg align-center"></span>
-    </div>
-}
-
-
-@code {
-    [Parameter]
-    public int Id { get; set; }
-
-    private bool loading;
-    private int matchingCount;
-
-    private List<VendorReadDto> vendorReadDtos = new List<VendorReadDto>();
-    private VendorReadDto vendorReadDto { get; set; } = new VendorReadDto();
-    private List<ClientInformationReadDto> clientInformationReadDtos = new List<ClientInformationReadDto>();
-    private ClientInformationReadDto clientInformationReadDto { get; set; } = new ClientInformationReadDto();
-    private List<ItemReadDto> itemReadDtos = new List<ItemReadDto>();
-    private ItemReadDto itemReadDto { get; set; } = new ItemReadDto();
-
-
-
-    private AssetUpdateDto assetUpdateDto { get; set; } = new AssetUpdateDto();
-    private AssetReadDto assetReadDto { get; set; } = new AssetReadDto();
-
-    protected override async Task OnInitializedAsync()
+<div class="container card shadow mb-4 animated--grow-in">
+    <h3>Edit Asset Information</h3>
+    @if (assetReadDto != null)
     {
-        await FetchListAsync();
-        assetReadDto = await assetService.GetAssetByIdAsync(Id);
-        _mapper.Map(assetReadDto, assetUpdateDto);
+        <EditForm Model="@assetUpdateDto" OnValidSubmit="@UpdateAsset">
+            <DataAnnotationsValidator />
+            <div class="form-group row">
+                <label for="ClientInformationId" class="col-sm-6 col-form-label">Client Info:</label>
+                <select id="ClientInformationId" class="form-control selectpicker" value="@assetUpdateDto.ClientInformationId" @onchange="ChangeClient">
+                    <option>--select--</option>
+                    @foreach (var item in clientInformationReadDtos)
+                    {
+                        <option value="@item.ClientInformationId">@item.CompanyName</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group row">
+                <label for="ItemId" class="col-sm-6 col-form-label">Item Name:</label>
+                <select id="ItemId" class="form-control selectpicker" value="@assetUpdateDto.ItemId" @onchange="ChangeItem">
+                    <option>--select--</option>
+                    @foreach (var item in itemReadDtos)
+                    {
+                        <option value="@item.ItemId">@item.ItemName</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group row">
+                <label for="clientInformationId" class="col-sm-6 col-form-label">Vendor Name:</label>
+                <select id="ClientInformationId" class="form-control selectpicker" value="@assetUpdateDto.VendorId" @onchange="ChangeVendor">
+                    <option>--select--</option>
+                    @foreach (var item in vendorReadDtos)
+                    {
+                        <option value="@item.VendorId">@item.VendorName</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group row">
+                <label for="SerialNumber" class="col-sm-6 col-form-label">Serial Number:</label>
+                <input id="SerialNumber" class="form-control col-sm-6 input-lg" type="text" placeholder="Serial Number"
+                       @bind="assetUpdateDto.SerialNumber" />
+            </div>
+            <div class="form-group row">
+                <label for="WarrantyDate" class="col-sm-6 col-form-label">Warranty Date:</label>
+                <input id="WarrantyDate" class="form-control col-sm-6 input-lg" placeholder="Warranty Date" type="date"
+                       @bind="assetUpdateDto.WarrantyDate" />
+            </div>
+
+
+            <div class="form-group">
+                <button disabled="@loading" class="btn btn-lightsail">
+                    @if (loading)
+                    {
+                        <span class="spinner-border spinner-border-sm mr-1"></span>
+                    }
+                    Save
+                </button>
+                <NavLink href="warehouse" class="btn btn-link">Cancel</NavLink>
+            </div>
+        </EditForm>
+    }
+    else
+    {
+        <div class="text-center p-3">
+            <span class="spinner-border spinner-border-lg align-center"></span>
+        </div>
     }
 
+    </div>
+    @code {
+        [Parameter]
+        public int Id { get; set; }
 
-    private async Task ChangeClient(ChangeEventArgs e)
-    {
+        private bool loading;
+        private int matchingCount;
 
-        clientInformationReadDto = await clientInformationService.GetClientInformationByIdAsync(Int32.Parse(e.Value.ToString()));
-        _mapper.Map(clientInformationReadDto, assetUpdateDto);
-    }
-    private async Task ChangeItem(ChangeEventArgs e)
-    {
-
-        itemReadDto = await itemService.GetItemByIdAsync(Int32.Parse(e.Value.ToString()));
-        _mapper.Map(itemReadDto, assetUpdateDto);
-    }
-    private async Task ChangeVendor(ChangeEventArgs e)
-    {
-
-        vendorReadDto = await vendorService.GetVendorByIdAsync(Int32.Parse(e.Value.ToString()));
-        _mapper.Map(vendorReadDto, assetUpdateDto);
-
-    }
-    private async Task FetchListAsync()
-    {
-        var responseVendor = await vendorService.GetVendorsAsync("VendorName", 0);
-        vendorReadDtos = responseVendor.Vendor;
-
-        var responseItem = await itemService.GetItemsAsync("ItemName", 0);
-        itemReadDtos = responseItem.Item;
-
-        var responseClientinformation = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
-        clientInformationReadDtos = responseClientinformation.ClientInformation;
+        private List<VendorReadDto> vendorReadDtos = new List<VendorReadDto>();
+        private VendorReadDto vendorReadDto { get; set; } = new VendorReadDto();
+        private List<ClientInformationReadDto> clientInformationReadDtos = new List<ClientInformationReadDto>();
+        private ClientInformationReadDto clientInformationReadDto { get; set; } = new ClientInformationReadDto();
+        private List<ItemReadDto> itemReadDtos = new List<ItemReadDto>();
+        private ItemReadDto itemReadDto { get; set; } = new ItemReadDto();
 
 
 
-    }
-    public async void UpdateAsset()
-    {
+        private AssetUpdateDto assetUpdateDto { get; set; } = new AssetUpdateDto();
+        private AssetReadDto assetReadDto { get; set; } = new AssetReadDto();
 
-
-        loading = true;
-        try
+        protected override async Task OnInitializedAsync()
         {
-            await assetService.EditAssetAsync(Id, assetUpdateDto);
-            AlertService.Success("Update successful", keepAfterRouteChange: true);
-            NavigationManager.NavigateTo("/asset");
+            await FetchListAsync();
+            assetReadDto = await assetService.GetAssetByIdAsync(Id);
+            _mapper.Map(assetReadDto, assetUpdateDto);
         }
-        catch (Exception ex)
+
+
+        private async Task ChangeClient(ChangeEventArgs e)
         {
-            AlertService.Error(ex.Message);
-            loading = false;
-            StateHasChanged();
+
+            clientInformationReadDto = await clientInformationService.GetClientInformationByIdAsync(Int32.Parse(e.Value.ToString()));
+            _mapper.Map(clientInformationReadDto, assetUpdateDto);
         }
+        private async Task ChangeItem(ChangeEventArgs e)
+        {
+
+            itemReadDto = await itemService.GetItemByIdAsync(Int32.Parse(e.Value.ToString()));
+            _mapper.Map(itemReadDto, assetUpdateDto);
+        }
+        private async Task ChangeVendor(ChangeEventArgs e)
+        {
+
+            vendorReadDto = await vendorService.GetVendorByIdAsync(Int32.Parse(e.Value.ToString()));
+            _mapper.Map(vendorReadDto, assetUpdateDto);
+
+        }
+        private async Task FetchListAsync()
+        {
+            var responseVendor = await vendorService.GetVendorsAsync("VendorName", 0);
+            vendorReadDtos = responseVendor.Vendor;
+
+            var responseItem = await itemService.GetItemsAsync("ItemName", 0);
+            itemReadDtos = responseItem.Item;
+
+            var responseClientinformation = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
+            clientInformationReadDtos = responseClientinformation.ClientInformation;
+
+
+
+        }
+        public async void UpdateAsset()
+        {
+
+
+            loading = true;
+            try
+            {
+                await assetService.EditAssetAsync(Id, assetUpdateDto);
+                AlertService.Success("Update successful", keepAfterRouteChange: true);
+                NavigationManager.NavigateTo("/asset");
+            }
+            catch (Exception ex)
+            {
+                AlertService.Error(ex.Message);
+                loading = false;
+                StateHasChanged();
+            }
+        }
+
+
     }
-
-
-}

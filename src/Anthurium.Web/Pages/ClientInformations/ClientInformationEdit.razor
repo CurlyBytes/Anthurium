@@ -8,92 +8,92 @@
 @using Anthurium.API.Dtos
 
 
+<div class="container card shadow mb-4 animated--grow-in">
+    <h3>Warehouse</h3>
+    @if (clientInformationReadDto != null)
+    {
+        <EditForm Model="@clientInformationUpdateDto" OnValidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator />
+            <div class="form-row">
+                <div class="form-group col">
+                    <label>Company Name:</label>
+                    <InputText @bind-Value="clientInformationUpdateDto.CompanyName" class="form-control" />
+                    <ValidationMessage For="@(() => clientInformationUpdateDto.CompanyName)" />
+                </div>
+                <div class="form-group col">
+                    <label>Company Address:</label>
+                    <InputText @bind-Value="clientInformationUpdateDto.CompanyAddress" class="form-control" />
+                    <ValidationMessage For="@(() => clientInformationUpdateDto.CompanyAddress)" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <label>Contact Person:</label>
+                    <InputText @bind-Value="clientInformationUpdateDto.ContactPerson" class="form-control" />
+                    <ValidationMessage For="@(() => clientInformationUpdateDto.ContactPerson)" />
+                </div>
+                <div class="form-group col">
+                    <label>Contact Number:</label>
+                    <InputText @bind-Value="clientInformationUpdateDto.ContactNumber" class="form-control" />
+                    <ValidationMessage For="@(() => clientInformationUpdateDto.ContactNumber)" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <label>Contact Email:</label>
+                    <InputText @bind-Value="clientInformationUpdateDto.ContactEmailAddress" class="form-control" />
+                    <ValidationMessage For="@(() => clientInformationUpdateDto.ContactEmailAddress)" />
+                </div>
+            </div>
+            <div class="form-group">
+                <button disabled="@loading" class="btn btn-lightsail">
+                    @if (loading)
+                    {
+                        <span class="spinner-border spinner-border-sm mr-1"></span>
+                    }
+                    Save
+                </button>
+                <NavLink href="warehouse" class="btn btn-link">Cancel</NavLink>
+            </div>
+        </EditForm>
+    }
+    else
+    {
+        <div class="text-center p-3">
+            <span class="spinner-border spinner-border-lg align-center"></span>
+        </div>
+    }
+    </div>
+    @code {
+        [Parameter]
+        public int Id { get; set; }
 
-<h3>Warehouse</h3>
-@if (clientInformationReadDto != null)
-{
-<EditForm Model="@clientInformationUpdateDto" OnValidSubmit="OnValidSubmit">
-    <DataAnnotationsValidator />
-    <div class="form-row">
-        <div class="form-group col">
-            <label>Company Name:</label>
-            <InputText @bind-Value="clientInformationUpdateDto.CompanyName" class="form-control" />
-            <ValidationMessage For="@(() => clientInformationUpdateDto.CompanyName)" />
-        </div>
-        <div class="form-group col">
-            <label>Company Address:</label>
-            <InputText @bind-Value="clientInformationUpdateDto.CompanyAddress" class="form-control" />
-            <ValidationMessage For="@(() => clientInformationUpdateDto.CompanyAddress)" />
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col">
-            <label>Contact Person:</label>
-            <InputText @bind-Value="clientInformationUpdateDto.ContactPerson" class="form-control" />
-            <ValidationMessage For="@(() => clientInformationUpdateDto.ContactPerson)" />
-        </div>
-        <div class="form-group col">
-            <label>Contact Number:</label>
-            <InputText @bind-Value="clientInformationUpdateDto.ContactNumber" class="form-control" />
-            <ValidationMessage For="@(() => clientInformationUpdateDto.ContactNumber)" />
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col">
-            <label>Contact Email:</label>
-            <InputText @bind-Value="clientInformationUpdateDto.ContactEmailAddress" class="form-control" />
-            <ValidationMessage For="@(() => clientInformationUpdateDto.ContactEmailAddress)" />
-        </div>
-    </div>
-    <div class="form-group">
-        <button disabled="@loading" class="btn btn-primary">
-            @if (loading)
+        private bool loading;
+
+        private ClientInformationUpdateDto clientInformationUpdateDto { get; set; } = new ClientInformationUpdateDto();
+        private ClientInformationReadDto clientInformationReadDto { get; set; } = new ClientInformationReadDto();
+
+        protected override async Task OnInitializedAsync()
+        {
+            clientInformationReadDto = await clientInformationtService.GetClientInformationByIdAsync(Id);
+            _mapper.Map(clientInformationReadDto, clientInformationUpdateDto);
+        }
+
+        public async void OnValidSubmit()
+        {
+            loading = true;
+            try
             {
-                <span class="spinner-border spinner-border-sm mr-1"></span>
+                await clientInformationtService.EditClientInformationAsync(Id, clientInformationUpdateDto);
+                AlertService.Success("Update successful", keepAfterRouteChange: true);
+                NavigationManager.NavigateTo("/clientinformation");
             }
-            Save
-        </button>
-        <NavLink href="warehouse" class="btn btn-link">Cancel</NavLink>
-    </div>
-</EditForm>
-}
-else
-{
-    <div class="text-center p-3">
-        <span class="spinner-border spinner-border-lg align-center"></span>
-    </div>
-}
+            catch (Exception ex)
+            {
+                AlertService.Error(ex.Message);
+                loading = false;
+                StateHasChanged();
+            }
 
-@code {
-    [Parameter]
-    public int Id { get; set; }
-
-    private bool loading;
-
-    private ClientInformationUpdateDto clientInformationUpdateDto { get; set; } = new ClientInformationUpdateDto();
-    private ClientInformationReadDto clientInformationReadDto { get; set; } = new ClientInformationReadDto();
-
-    protected override async Task OnInitializedAsync()
-    {
-        clientInformationReadDto = await clientInformationtService.GetClientInformationByIdAsync(Id);
-        _mapper.Map(clientInformationReadDto, clientInformationUpdateDto);
-    }
-
-    public async void OnValidSubmit()
-    {
-        loading = true;
-        try
-        {
-            await clientInformationtService.EditClientInformationAsync(Id, clientInformationUpdateDto);
-            AlertService.Success("Update successful", keepAfterRouteChange: true);
-            NavigationManager.NavigateTo("/clientinformation");
         }
-        catch (Exception ex)
-        {
-            AlertService.Error(ex.Message);
-            loading = false;
-            StateHasChanged();
-        }
-
-    }
-}}
+    }}

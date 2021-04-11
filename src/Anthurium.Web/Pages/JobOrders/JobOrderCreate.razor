@@ -7,142 +7,144 @@
 @using AutoMapper;
 @inject IMapper _mapper;
 @inject IToastService toastService
+    <div class="container card shadow mb-4 animated--grow-in">
+        <h3>New Job Order</h3>
+        <div class="row m-2">
+            <EditForm Model="@jobOrdernCreateDto" OnValidSubmit="@PostJobOrder">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="form-group row">
+                    <label for="clientInformationId" class="col-sm-6 col-form-label">Client Info:</label>
+                    <select id="ClientInformationId" class="form-control selectpicker" value="@jobOrdernCreateDto.ClientInformationId" @onchange="ChangeOrder">
+                        <option>--select--</option>
+                        @foreach (var item in clientInformationReadDto)
+                        {
+                            <option value="@item.ClientInformationId">@item.CompanyName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
+                    <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled
+                           @bind="jobOrdernCreateDto.CompanyName" placeholder="CompanyName" />
+                </div>
+                <div class="form-group row">
+                    <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
+                    <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled
+                           @bind="jobOrdernCreateDto.CompanyAddress" placeholder="Company Address" />
+                </div>
 
-<h3>New Job Order</h3>
-<div class="row m-2">
-    <EditForm Model="@jobOrdernCreateDto" OnValidSubmit="@PostJobOrder">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <div class="form-group row">
-            <label for="clientInformationId" class="col-sm-6 col-form-label">Client Info:</label>
-            <select id="ClientInformationId" class="form-control selectpicker" value="@jobOrdernCreateDto.ClientInformationId" @onchange="ChangeOrder">
-                <option>--select--</option>
-                @foreach (var item in clientInformationReadDto)
+                <div class="form-group row">
+                    <label for="jobOrderContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
+                    <input id="jobOrderContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                           @bind="jobOrdernCreateDto.ContactPerson" placeholder="Contact Person" />
+                </div>
+                <div class="form-group row">
+                    <label for="jobOrderContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
+                    <input id="jobOrderContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                           @bind="jobOrdernCreateDto.ContactNumber" />
+                </div>
+
+                <div class="form-group row">
+                    <label for="jobOrdeRemainingHours" class="col-sm-6 col-form-label">Remaining Hrs(CONSUMABLES):</label>
+                    <input id="jobOrdeRemainingHours" class="form-control col-sm-6 input-lg" type="number" disabled="@isSuccess"
+                           @bind="jobOrdernCreateDto.RemainingHours" />
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="jobOrderDateSchedule" class="col-sm-6 col-form-label"> Date Scheduled:</label>
+                    <input id="jobOrderDateSchedule" class="form-control col-sm-6 input-lg" type="datetime" disabled="@isSuccess"
+                           @bind="jobOrdernCreateDto.DateSchedule" />
+                </div>
+
+                <div class="form-group row">
+                    <label for="jobOrderJoborderDescription" class="col-sm-6 col-form-label"> Descirption:</label>
+                    <input id="jobOrderJoborderDescription" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                           @bind="jobOrdernCreateDto.JoboRderDescription" />
+                </div>
+
+                <div class="form-group row">
+                    <label for="jobOrderTimeStarted" class="col-sm-6 col-form-label"> Time started:</label>
+                    <input id="jobOrderTimeStarted" class="form-control col-sm-6 input-lg" type="time" disabled="@isSuccess"
+                           @bind="jobOrdernCreateDto.TimeStarted" />
+                </div>
+
+                <div class="form-group row">
+                    <label for="jobOrderTimeEnded" class="col-sm-6 col-form-label"> Time Ended:</label>
+                    <input id="jobOrderTimeEnded" class="form-control col-sm-6 input-lg" type="time" disabled="@isSuccess"
+                           @bind="jobOrdernCreateDto.TimeEnded" />
+                </div>
+
+                <div class="form-group row">
+                    <label for="jobOrdeTotalHours" class="col-sm-6 col-form-label">Total Hours:</label>
+                    <input id="jobOrderTotalHours" class="form-control col-sm-6 input-lg" type="number" disabled="@isSuccess"
+                           @bind="jobOrdernCreateDto.TotalHours" />
+                </div>
+
+
+
+
+
+                <button class="btn btn-lightsail" type="submit" disabled="@isSuccess">Submit</button>
+                <a class="btn btn-lightsail active btn-sm " role="button" aria-pressed="true" href="/joborder">Return to List</a>
+                <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
+                     hidden="@(message=="")">@message</div>
+                </EditForm>
+            </div>
+        </div>
+            @code {
+                private List<ClientInformationReadDto> clientInformationReadDto = new List<ClientInformationReadDto>();
+                private JobOrderCreateDto jobOrdernCreateDto = new JobOrderCreateDto();
+                private JobOrderChangeCreate jobOrderChangeCreate = new JobOrderChangeCreate();
+                private ClientInformationReadDto clientInformationReadDtoSingle { get; set; } = new ClientInformationReadDto();
+
+                private bool isSuccess = false;
+                private string message = "";
+                private int matchingCount;
+
+
+                private async Task FetchListAsync()
                 {
-                    <option value="@item.ClientInformationId">@item.CompanyName</option>
+                    var response = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
+                    clientInformationReadDto = response.ClientInformation;
+                    matchingCount = response.Count; clientInformationReadDto = response.ClientInformation;
+
+
                 }
-            </select>
-        </div>
-        <div class="form-group row">
-            <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
-            <input id="companyName" class="form-control col-sm-6 input-lg" type="text" disabled
-                   @bind="jobOrdernCreateDto.CompanyName" placeholder="CompanyName" />
-        </div>
-        <div class="form-group row">
-            <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
-            <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" disabled
-                   @bind="jobOrdernCreateDto.CompanyAddress" placeholder="Company Address" />
-        </div>
 
-        <div class="form-group row">
-            <label for="jobOrderContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
-            <input id="jobOrderContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                   @bind="jobOrdernCreateDto.ContactPerson" placeholder="Contact Person" />
-        </div>
-        <div class="form-group row">
-            <label for="jobOrderContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
-            <input id="jobOrderContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                   @bind="jobOrdernCreateDto.ContactNumber" />
-        </div>
+                protected override async Task OnInitializedAsync()
+                {
+                    await FetchListAsync();
+                }
 
-        <div class="form-group row">
-            <label for="jobOrdeRemainingHours" class="col-sm-6 col-form-label">Remaining Hrs(CONSUMABLES):</label>
-            <input id="jobOrdeRemainingHours" class="form-control col-sm-6 input-lg" type="number" disabled="@isSuccess"
-                   @bind="jobOrdernCreateDto.RemainingHours" />
-        </div>
+                public async void PostJobOrder()
+                {
+                    //returns response message, so can check if success
+                    var response = await jobOrderService.CreateJobOrderAsync(jobOrdernCreateDto);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        isSuccess = true;
+                        message = $"Success";
+                        toastService.ShowSuccess($" A job order from {jobOrdernCreateDto.CompanyName} is created.");
+                        NavManager.NavigateTo("/joborder");
+                    }
+                    else
+                    {
+                        toastService.ShowError($" Error while creating job order from {jobOrdernCreateDto.CompanyName}. Kindly retry.");
+                        message = $"Error: {response.StatusCode.ToString()}. Please try again.";
 
+                    }
+                    this.StateHasChanged();
 
-        <div class="form-group row">
-            <label for="jobOrderDateSchedule" class="col-sm-6 col-form-label"> Date Scheduled:</label>
-            <input id="jobOrderDateSchedule" class="form-control col-sm-6 input-lg" type="datetime" disabled="@isSuccess"
-                   @bind="jobOrdernCreateDto.DateSchedule" />
-        </div>
+                }
 
-        <div class="form-group row">
-            <label for="jobOrderJoborderDescription" class="col-sm-6 col-form-label"> Descirption:</label>
-            <input id="jobOrderJoborderDescription" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                   @bind="jobOrdernCreateDto.JoboRderDescription" />
-        </div>
+                private async Task ChangeOrder(ChangeEventArgs e)
+                {
 
-        <div class="form-group row">
-            <label for="jobOrderTimeStarted" class="col-sm-6 col-form-label"> Time started:</label>
-            <input id="jobOrderTimeStarted" class="form-control col-sm-6 input-lg" type="time" disabled="@isSuccess"
-                   @bind="jobOrdernCreateDto.TimeStarted" />
-        </div>
-
-        <div class="form-group row">
-            <label for="jobOrderTimeEnded" class="col-sm-6 col-form-label"> Time Ended:</label>
-            <input id="jobOrderTimeEnded" class="form-control col-sm-6 input-lg" type="time" disabled="@isSuccess"
-                   @bind="jobOrdernCreateDto.TimeEnded" />
-        </div>
-
-        <div class="form-group row">
-            <label for="jobOrdeTotalHours" class="col-sm-6 col-form-label">Total Hours:</label>
-            <input id="jobOrderTotalHours" class="form-control col-sm-6 input-lg" type="number" disabled="@isSuccess"
-                   @bind="jobOrdernCreateDto.TotalHours" />
-        </div>
-
-
-
-
-
-        <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
-        <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/joborder">Return to List</a>
-        <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
-             hidden="@(message=="")">@message</div>
-        </EditForm>
-    </div>
-    @code {
-        private List<ClientInformationReadDto> clientInformationReadDto = new List<ClientInformationReadDto>();
-        private JobOrderCreateDto jobOrdernCreateDto = new JobOrderCreateDto();
-        private JobOrderChangeCreate jobOrderChangeCreate = new JobOrderChangeCreate();
-        private ClientInformationReadDto clientInformationReadDtoSingle { get; set; } = new ClientInformationReadDto();
-
-        private bool isSuccess = false;
-        private string message = "";
-        private int matchingCount;
-
-
-        private async Task FetchListAsync()
-        {
-            var response = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
-            clientInformationReadDto = response.ClientInformation;
-            matchingCount = response.Count; clientInformationReadDto = response.ClientInformation;
-
-
-        }
-
-        protected override async Task OnInitializedAsync()
-        {
-            await FetchListAsync();
-        }
-
-        public async void PostJobOrder()
-        {
-            //returns response message, so can check if success
-            var response = await jobOrderService.CreateJobOrderAsync(jobOrdernCreateDto);
-            if (response.IsSuccessStatusCode)
-            {
-                isSuccess = true;
-                message = $"Success";
-                toastService.ShowSuccess($" A job order from {jobOrdernCreateDto.CompanyName} is created.");
-                NavManager.NavigateTo("/joborder");
+                    clientInformationReadDtoSingle = await clientInformationService.GetClientInformationByIdAsync(Int32.Parse(e.Value.ToString()));
+                    _mapper.Map(clientInformationReadDtoSingle, jobOrderChangeCreate);
+                    _mapper.Map(jobOrderChangeCreate, jobOrdernCreateDto);
+                    message = "";
+                }
             }
-            else {
-                toastService.ShowError($" Error while creating job order from {jobOrdernCreateDto.CompanyName}. Kindly retry.");
-                message = $"Error: {response.StatusCode.ToString()}. Please try again.";
-
-            }
-            this.StateHasChanged();
-
-        }
-
-        private async Task ChangeOrder(ChangeEventArgs e)
-        {
-
-            clientInformationReadDtoSingle = await clientInformationService.GetClientInformationByIdAsync(Int32.Parse(e.Value.ToString()));
-            _mapper.Map(clientInformationReadDtoSingle, jobOrderChangeCreate);
-            _mapper.Map(jobOrderChangeCreate, jobOrdernCreateDto);
-            message = "";
-        }
-    }

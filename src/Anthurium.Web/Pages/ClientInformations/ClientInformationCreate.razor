@@ -5,67 +5,69 @@
 @inject NavigationManager NavManager
 @inject IToastService toastService
 
-
-<h4>New Client Information</h4>
-<div class="row m-2">
-    <EditForm Model="@clientInformationCreateDto" OnValidSubmit="@PostClientInformation">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <div class="form-group row">
-            <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
-            <input id="companyName" class="form-control col-sm-6 input-lg" type="text" placeholder="Company Name" disabled="@isSuccess"
-                   @bind="clientInformationCreateDto.CompanyName" />
+<div class="container card shadow mb-4 animated--grow-in">
+    <h4>New Client Information</h4>
+    <div class="row m-2">
+        <EditForm Model="@clientInformationCreateDto" OnValidSubmit="@PostClientInformation">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group row">
+                <label for="companyName" class="col-sm-6 col-form-label">Company Name:</label>
+                <input id="companyName" class="form-control col-sm-6 input-lg" type="text" placeholder="Company Name" disabled="@isSuccess"
+                       @bind="clientInformationCreateDto.CompanyName" />
+            </div>
+            <div class="form-group row">
+                <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
+                <input id="companyAddress" class="form-control col-sm-6 input-lg" placeholder="Company Address" type="text" disabled="@isSuccess"
+                       @bind="clientInformationCreateDto.CompanyAddress" />
+            </div>
+            <div class="form-group row">
+                <label for="clientInformationContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
+                <input id="clientInformationContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                       @bind="clientInformationCreateDto.ContactPerson" placeholder="Contact Person" />
+            </div>
+            <div class="form-group row">
+                <label for="clientInformationContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
+                <input id="clientInformationContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                       @bind="clientInformationCreateDto.ContactNumber" placeholder="Contact Number" />
+            </div>
+            <div class="form-group row">
+                <label for="clientInformationConttactEmailAddress" class="col-sm-6 col-form-label">Contact Email Address:</label>
+                <input id="clientInformationConttactEmailAddress" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
+                       @bind="clientInformationCreateDto.ContactEmailAddress" placeholder="Email Address" />
+            </div>
+            <button class="btn btn-lightsail" type="submit" disabled="@isSuccess">Submit</button>
+            <a class="btn btn-lightsail active btn-sm " role="button" aria-pressed="true" href="/clientinformation">Return to List</a>
+            <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
+                 hidden="@(message=="")">@message</div>
+            </EditForm>
         </div>
-        <div class="form-group row">
-            <label for="companyAddress" class="col-sm-6 col-form-label">Company Address:</label>
-            <input id="companyAddress" class="form-control col-sm-6 input-lg" placeholder="Company Address" type="text" disabled="@isSuccess"
-                   @bind="clientInformationCreateDto.CompanyAddress" />
-        </div>
-        <div class="form-group row">
-            <label for="clientInformationContactPerson" class="col-sm-6 col-form-label">Contact Person:</label>
-            <input id="clientInformationContactPerson" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                   @bind="clientInformationCreateDto.ContactPerson" placeholder="Contact Person" />
-        </div>
-        <div class="form-group row">
-            <label for="clientInformationContactNumber" class="col-sm-6 col-form-label">Contact Number:</label>
-            <input id="clientInformationContactNumber" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                   @bind="clientInformationCreateDto.ContactNumber" placeholder="Contact Number" />
-        </div>
-        <div class="form-group row">
-            <label for="clientInformationConttactEmailAddress" class="col-sm-6 col-form-label">Contact Email Address:</label>
-            <input id="clientInformationConttactEmailAddress" class="form-control col-sm-6 input-lg" type="text" disabled="@isSuccess"
-                   @bind="clientInformationCreateDto.ContactEmailAddress" placeholder="Email Address" />
-        </div>
-        <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
-        <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/clientinformation">Return to List</a>
-        <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
-             hidden="@(message=="")">@message</div>
-        </EditForm>
     </div>
-    @code {
-        private ClientInformationCreateDto clientInformationCreateDto = new ClientInformationCreateDto();
-        private bool isSuccess = false;
-        private string message = "";
+        @code {
+            private ClientInformationCreateDto clientInformationCreateDto = new ClientInformationCreateDto();
+            private bool isSuccess = false;
+            private string message = "";
 
-        public async void PostClientInformation()
-        {
-            //returns response message, so can check if success
-            var response = await clientInformationService.CreateClientInformationAsync(clientInformationCreateDto);
-            if (response.IsSuccessStatusCode)
+            public async void PostClientInformation()
             {
-                isSuccess = true;
-                toastService.ShowSuccess($" {clientInformationCreateDto.CompanyName} is added in client information.");
-                message = $"Success";
-                NavManager.NavigateTo("/clientinformation");
+                //returns response message, so can check if success
+                var response = await clientInformationService.CreateClientInformationAsync(clientInformationCreateDto);
+                if (response.IsSuccessStatusCode)
+                {
+                    isSuccess = true;
+                    toastService.ShowSuccess($" {clientInformationCreateDto.CompanyName} is added in client information.");
+                    message = $"Success";
+                    NavManager.NavigateTo("/clientinformation");
+                }
+                else
+                {
+
+                    message = $"Error: {response.StatusCode.ToString()}. Please try again.";
+                    toastService.ShowError($" Error while adding {clientInformationCreateDto.CompanyName}. Kindly retry.");
+
+                }
+
+                this.StateHasChanged();
+
             }
-            else {
-
-                message = $"Error: {response.StatusCode.ToString()}. Please try again.";
-                toastService.ShowError($" Error while adding {clientInformationCreateDto.CompanyName}. Kindly retry.");
-
-            }
-
-            this.StateHasChanged();
-
         }
-    }

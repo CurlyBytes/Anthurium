@@ -3,10 +3,10 @@
 @inject Services.IAccountService AccountService
 @using Models.Account
 @using Models
-
+<div class="container card shadow mb-4 animated--grow-in">
 <h1>Users</h1>
 <NavLink href="users/add" class="btn btn-sm btn-success mb-2">Add User</NavLink>
-<table class="table table-striped">
+<table class="col-12 table table-borderless table-sm dataTable w-100">
     <thead>
         <tr>
             <th style="width: 30%">First Name</th>
@@ -50,7 +50,7 @@
         }
     </tbody>
 </table>
-
+</div>
 @code {
     private bool loading;
     private IList<User> users;

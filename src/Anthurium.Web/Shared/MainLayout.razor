@@ -3,20 +3,33 @@
 @inject Services.IAccountService AccountService
 <BlazoredToasts />
 
+    @if (LoggedIn)
+    {
+        <!-- nav -->
+        <div class="sidebar">
+            <NavMenu />
+        </div>
 
+        <div class="main app-container">
 
-    <Alert />
+            <Alert />
 
-    <div class="container">
-        @if (LoggedIn)
-        {
-            <!-- nav -->
-            <div class="sidebar">
-                <NavMenu />
+            <div class="content px-4">
+                @Body
             </div>
-        }
-        @Body
-    </div>
+        </div>
+    }
+    else
+    {
+
+        <div class="container">
+            <Alert />
+            @Body
+        </div>
+    }
+
+
+
 
 
 @code {

@@ -4,74 +4,74 @@
 @using Microsoft.JSInterop;
 @using PuppeteerSharp;
 @inject IJSRuntime _iJSRuntime
+    <div class="container card shadow mb-4 animated--grow-in">
+        <h4>Vendor Id: @Id.ToString()</h4>
 
-<h4>Vendor Id: @Id.ToString()</h4>
+        @if (vendorReadDto == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
 
-@if (vendorReadDto == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
+            <div class="row m-2">
+                <table class="col-12 table table-borderless table-sm dataTable w-100">
+                    <caption>Vendor Id: @Id.ToString()</caption>
+                    <thead>
 
-    <div class="row m-2">
-        <table class="col-12 table table-hover table-responsive table-striped">
-            <caption>Vendor Id: @Id.ToString()</caption>
-            <thead>
-
-                <tr>
-                    <th scope="col">Record Type</th>
-                    <th scope="col">Record Info</th>
-                </tr>
-
-
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">Id</th>
-                    <td>@vendorReadDto.VendorId</td>
-                </tr>
-                <tr>
-                    <th class="info">Vendor Name</th>
-                    <td>@vendorReadDto.VendorName</td>
-                </tr>
-                <tr>
-                    <th class="info">Vendor Code</th>
-                    <td>@vendorReadDto.VendorCode</td>
-                </tr>
-
-                <tr>
-                    <th class="info">Date Updated</th>
-                    <td>@vendorReadDto.DateCreated</td>
-                </tr>
-                <tr>
-                    <th class="info">Date Created</th>
-                    <td>@vendorReadDto.DateUpdated</td>
-                </tr>
-            </tbody>
+                        <tr>
+                            <th scope="col">Record Type</th>
+                            <th scope="col">Record Info</th>
+                        </tr>
 
 
-        </table>
-    </div>
-    <div class="row m-2">
-        <div class="col-12">
-            <!--TODO Add Items list per vendor-->
-            <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/vendor">Return to List</a>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Id</th>
+                            <td>@vendorReadDto.VendorId</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Vendor Name</th>
+                            <td>@vendorReadDto.VendorName</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Vendor Code</th>
+                            <td>@vendorReadDto.VendorCode</td>
+                        </tr>
+
+                        <tr>
+                            <th class="info">Date Updated</th>
+                            <td>@vendorReadDto.DateCreated</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Date Created</th>
+                            <td>@vendorReadDto.DateUpdated</td>
+                        </tr>
+                    </tbody>
+
+
+                </table>
+            </div>
+            <div class="row m-2">
+                <div class="col-12">
+                    <!--TODO Add Items list per vendor-->
+                    <a class="btn btn-lightsail active btn-sm " role="button" aria-pressed="true" href="/vendor">Return to List</a>
+                </div>
+            </div>
+        }
         </div>
-    </div>
-}
+        @code {
+            [Parameter]
+            public int Id { get; set; }
 
-@code {
-    [Parameter]
-    public int Id { get; set; }
+            private VendorReadDto vendorReadDto;
 
-    private VendorReadDto vendorReadDto;
-
-    protected override async Task OnInitializedAsync()
-    {
-        vendorReadDto = await vendorService.GetVendorByIdAsync(Id);
-    }
+            protected override async Task OnInitializedAsync()
+            {
+                vendorReadDto = await vendorService.GetVendorByIdAsync(Id);
+            }
 
 
 
-}
+        }

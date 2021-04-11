@@ -4,55 +4,56 @@
 @using Anthurium.API.Dtos
 @inject NavigationManager NavManager
 @inject IToastService toastService
+    <div class="container card shadow mb-4 animated--grow-in">
 
+        <h4>New Vendor</h4>
+        <div class="row m-2">
+            <EditForm Model="@vendorCreateDto" OnValidSubmit="@PostVendor">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="form-group row">
+                    <label for="companyName" class="col-sm-6 col-form-label">Vendor Name:</label>
+                    <input id="companyName" class="form-control col-sm-6 input-lg" type="text" placeholder="Vendor Name" disabled="@isSuccess"
+                           @bind="vendorCreateDto.VendorName" />
+                </div>
+                <div class="form-group row">
+                    <label for="companyAddress" class="col-sm-6 col-form-label">Vendor Code:</label>
+                    <input id="companyAddress" class="form-control col-sm-6 input-lg" placeholder="Vendor Code" type="text" disabled="@isSuccess"
+                           @bind="vendorCreateDto.VendorCode" />
+                </div>
 
-<h4>New Vendor</h4>
-<div class="row m-2">
-    <EditForm Model="@vendorCreateDto" OnValidSubmit="@PostVendor">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <div class="form-group row">
-            <label for="companyName" class="col-sm-6 col-form-label">Vendor Name:</label>
-            <input id="companyName" class="form-control col-sm-6 input-lg" type="text" placeholder="Vendor Name" disabled="@isSuccess"
-                   @bind="vendorCreateDto.VendorName" />
+                <button class="btn btn-lightsail" type="submit" disabled="@isSuccess">Submit</button>
+                <a class="btn btn-lightsail active btn-sm " role="button" aria-pressed="true" href="/vendor">Return to List</a>
+                <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
+                     hidden="@(message=="")">@message</div>
+                </EditForm>
+            </div>
         </div>
-        <div class="form-group row">
-            <label for="companyAddress" class="col-sm-6 col-form-label">Vendor Code:</label>
-            <input id="companyAddress" class="form-control col-sm-6 input-lg" placeholder="Vendor Code" type="text" disabled="@isSuccess"
-                   @bind="vendorCreateDto.VendorCode" />
-        </div>
+            @code {
+                private VendorCreateDto vendorCreateDto = new VendorCreateDto();
+                private bool isSuccess = false;
+                private string message = "";
 
-        <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
-        <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/vendor">Return to List</a>
-        <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
-             hidden="@(message=="")">@message</div>
-        </EditForm>
-    </div>
-    @code {
-        private VendorCreateDto vendorCreateDto = new VendorCreateDto();
-        private bool isSuccess = false;
-        private string message = "";
+                public async void PostVendor()
+                {
+                    //returns response message, so can check if success
+                    var response = await vendorService.CreateVendorAsync(vendorCreateDto);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        isSuccess = true;
+                        toastService.ShowSuccess($" {vendorCreateDto.VendorName} is added in client information.");
+                        message = $"Success";
+                        NavManager.NavigateTo("/vendor");
+                    }
+                    else
+                    {
 
-        public async void PostVendor()
-        {
-            //returns response message, so can check if success
-            var response = await vendorService.CreateVendorAsync(vendorCreateDto);
-            if (response.IsSuccessStatusCode)
-            {
-                isSuccess = true;
-                toastService.ShowSuccess($" {vendorCreateDto.VendorName} is added in client information.");
-                message = $"Success";
-                NavManager.NavigateTo("/vendor");
+                        message = $"Error: {response.StatusCode.ToString()}. Please try again.";
+                        toastService.ShowError($" Error while adding {vendorCreateDto.VendorName}. Kindly retry.");
+
+                    }
+
+                    this.StateHasChanged();
+
+                }
             }
-            else
-            {
-
-                message = $"Error: {response.StatusCode.ToString()}. Please try again.";
-                toastService.ShowError($" Error while adding {vendorCreateDto.VendorName}. Kindly retry.");
-
-            }
-
-            this.StateHasChanged();
-
-        }
-    }

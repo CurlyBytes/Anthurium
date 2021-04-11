@@ -2,91 +2,91 @@
 @inject Services.IJobQuotationService jobQuotationService
 @using Anthurium.API.Dtos
 @using Anthurium.Web.Pages.JobQuotes
+<div class="container card shadow mb-4 animated--grow-in">
+    <h4>Job Quotation Id: @Id.ToString()</h4>
 
-<h4>Job Quotation Id: @Id.ToString()</h4>
-
-@if (jobQuotationReadDto == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-
-    <div class="row m-2">
-        <table class="col-12 table table-hover table-responsive table-striped">
-            <caption>Job Quotation Id: @Id.ToString()</caption>
-            <thead>
-
-                <tr>
-                    <th scope="col">Record Type</th>
-                    <th scope="col">Record Info</th>
-                </tr>
-
-
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">Id</th>
-                    <td>@jobQuotationReadDto.ClientInformationId</td>
-                </tr>
-                <tr>
-                    <th class="info">Company Name</th>
-                    <td>@jobQuotationReadDto.CompanyName</td>
-                </tr>
-                <tr>
-                    <th class="info">Company Address</th>
-                    <td>@jobQuotationReadDto.CompanyAddress</td>
-                </tr>
-                <tr>
-                    <th class="info">Contact Person</th>
-                    <td>@jobQuotationReadDto.ContactPerson</td>
-                </tr>
-                <tr>
-                    <th class="info">Contact Number</th>
-                    <td>@jobQuotationReadDto.ContactNumber</td>
-                </tr>
-                <tr>
-                    <th class="info">Description</th>
-                    <td>@jobQuotationReadDto.Description</td>
-                </tr>
-                <tr>
-                    <th class="info">Overall Cost</th>
-                    <td>@jobQuotationReadDto.OverallCost</td>
-                </tr>
-                <tr>
-                    <th class="info">Date Created</th>
-                    <td>@jobQuotationReadDto.DateCreated</td>
-                </tr>
-                <tr>
-                    <th class="info">Date Updated</th>
-                    <td>@jobQuotationReadDto.DateUpdated</td>
-                </tr>
-            </tbody>
-
-
-        </table>
-    </div>
-    <JobQuotationDetailsListParent>
-        <JobQuotationDetailsList JobQuotationDetailsId="Id" />
-    </JobQuotationDetailsListParent>
-    <div class="row m-2">
-        <div class="col-12">
-
-            <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/jobquotation">Return to List</a>
-        </div>
-    </div>
-}
-
-@code {
-    [Parameter]
-    public int Id { get; set; }
-
-
-    private JobQuotationReadDto jobQuotationReadDto;
-
-    protected override async Task OnInitializedAsync()
+    @if (jobQuotationReadDto == null)
     {
-        jobQuotationReadDto = await jobQuotationService.GetJobQuotationByIdAsync(Id);
-
+        <p><em>Loading...</em></p>
     }
-}
+    else
+    {
+
+        <div class="row m-2">
+            <table class="col-12 table table-borderless table-sm dataTable w-100">
+                <caption>Job Quotation Id: @Id.ToString()</caption>
+                <thead>
+
+                    <tr>
+                        <th scope="col">Record Type</th>
+                        <th scope="col">Record Info</th>
+                    </tr>
+
+
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Id</th>
+                        <td>@jobQuotationReadDto.ClientInformationId</td>
+                    </tr>
+                    <tr>
+                        <th class="info">Company Name</th>
+                        <td>@jobQuotationReadDto.CompanyName</td>
+                    </tr>
+                    <tr>
+                        <th class="info">Company Address</th>
+                        <td>@jobQuotationReadDto.CompanyAddress</td>
+                    </tr>
+                    <tr>
+                        <th class="info">Contact Person</th>
+                        <td>@jobQuotationReadDto.ContactPerson</td>
+                    </tr>
+                    <tr>
+                        <th class="info">Contact Number</th>
+                        <td>@jobQuotationReadDto.ContactNumber</td>
+                    </tr>
+                    <tr>
+                        <th class="info">Description</th>
+                        <td>@jobQuotationReadDto.Description</td>
+                    </tr>
+                    <tr>
+                        <th class="info">Overall Cost</th>
+                        <td>@jobQuotationReadDto.OverallCost</td>
+                    </tr>
+                    <tr>
+                        <th class="info">Date Created</th>
+                        <td>@jobQuotationReadDto.DateCreated</td>
+                    </tr>
+                    <tr>
+                        <th class="info">Date Updated</th>
+                        <td>@jobQuotationReadDto.DateUpdated</td>
+                    </tr>
+                </tbody>
+
+
+            </table>
+        </div>
+        <JobQuotationDetailsListParent>
+            <JobQuotationDetailsList JobQuotationDetailsId="Id" />
+        </JobQuotationDetailsListParent>
+        <div class="row m-2">
+            <div class="col-12">
+
+                <a class="btn btn-lightsail active btn-sm " role="button" aria-pressed="true" href="/jobquotation">Return to List</a>
+            </div>
+        </div>
+    }
+    </div>
+    @code {
+        [Parameter]
+        public int Id { get; set; }
+
+
+        private JobQuotationReadDto jobQuotationReadDto;
+
+        protected override async Task OnInitializedAsync()
+        {
+            jobQuotationReadDto = await jobQuotationService.GetJobQuotationByIdAsync(Id);
+
+        }
+    }

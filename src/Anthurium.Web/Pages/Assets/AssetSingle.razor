@@ -4,86 +4,86 @@
 @using Microsoft.JSInterop;
 @using PuppeteerSharp;
 @inject IJSRuntime _iJSRuntime
+    <div class="container card shadow mb-4 animated--grow-in">
+        <h4>Asset Id: @Id.ToString()</h4>
 
-<h4>Asset Id: @Id.ToString()</h4>
+        @if (assetReadDto == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
 
-@if (assetReadDto == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
+            <div class="row m-2">
+                <table class="col-12 table table-borderless table-sm dataTable w-100">
+                    <caption>Asset Id: @Id.ToString()</caption>
+                    <thead>
 
-    <div class="row m-2">
-        <table class="col-12 table table-hover table-responsive table-striped">
-            <caption>Asset Id: @Id.ToString()</caption>
-            <thead>
-
-                <tr>
-                    <th scope="col">Record Type</th>
-                    <th scope="col">Record Info</th>
-                </tr>
-
-
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">Id</th>
-                    <td>@assetReadDto.AssetId</td>
-                </tr>
-                <tr>
-                    <th scope="row">Vendor Name</th>
-                    <td>@assetReadDto.Vendor.VendorName</td>
-                </tr>
-                <tr>
-                    <th scope="row">Company Name</th>
-                    <td>@assetReadDto.ClientInformation.CompanyName</td>
-                </tr>
-                <tr>
-                    <th scope="row">Item Name</th>
-                    <td>@assetReadDto.Item.ItemName</td>
-                </tr>
-                <tr>
-                    <th scope="row">Serial Number</th>
-                    <td>@assetReadDto.SerialNumber</td>
-                </tr>
-                <tr>
-                    <th scope="row">Warranty Date</th>
-                    <td>@assetReadDto.WarrantyDate</td>
-                </tr>
-
-                <tr>
-                    <th class="info">Date Updated</th>
-                    <td>@assetReadDto.DateCreated</td>
-                </tr>
-                <tr>
-                    <th class="info">Date Created</th>
-                    <td>@assetReadDto.DateUpdated</td>
-                </tr>
-            </tbody>
+                        <tr>
+                            <th scope="col">Record Type</th>
+                            <th scope="col">Record Info</th>
+                        </tr>
 
 
-        </table>
-    </div>
-    <div class="row m-2">
-        <div class="col-12">
-            <!--TODO Add Items list per asset-->
-            <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/asset">Return to List</a>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Id</th>
+                            <td>@assetReadDto.AssetId</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Vendor Name</th>
+                            <td>@assetReadDto.Vendor.VendorName</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Company Name</th>
+                            <td>@assetReadDto.ClientInformation.CompanyName</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Item Name</th>
+                            <td>@assetReadDto.Item.ItemName</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Serial Number</th>
+                            <td>@assetReadDto.SerialNumber</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Warranty Date</th>
+                            <td>@assetReadDto.WarrantyDate</td>
+                        </tr>
+
+                        <tr>
+                            <th class="info">Date Updated</th>
+                            <td>@assetReadDto.DateCreated</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Date Created</th>
+                            <td>@assetReadDto.DateUpdated</td>
+                        </tr>
+                    </tbody>
+
+
+                </table>
+            </div>
+            <div class="row m-2">
+                <div class="col-12">
+                    <!--TODO Add Items list per asset-->
+                    <a class="btn btn-lightsail active btn-sm " role="button" aria-pressed="true" href="/asset">Return to List</a>
+                </div>
+            </div>
+        }
         </div>
-    </div>
-}
+        @code {
+            [Parameter]
+            public int Id { get; set; }
 
-@code {
-    [Parameter]
-    public int Id { get; set; }
+            private AssetReadDto assetReadDto;
 
-    private AssetReadDto assetReadDto;
-
-    protected override async Task OnInitializedAsync()
-    {
-        assetReadDto = await assetService.GetAssetByIdAsync(Id);
-    }
+            protected override async Task OnInitializedAsync()
+            {
+                assetReadDto = await assetService.GetAssetByIdAsync(Id);
+            }
 
 
 
-}
+        }

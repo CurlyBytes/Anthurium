@@ -9,136 +9,137 @@
 @inject IToastService toastService
 @using AutoMapper;
 @inject IMapper _mapper;
+    <div class="container card shadow mb-4 animated--grow-in">
+        <h4>New Asset</h4>
+        <div class="row m-2">
+            <EditForm Model="@assetCreateDto" OnValidSubmit="@PostAsset">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="form-group row">
+                    <label for="ClientInformationId" class="col-sm-6 col-form-label">Client Info:</label>
+                    <select id="ClientInformationId" class="form-control selectpicker" value="@assetCreateDto.ClientInformationId" @onchange="ChangeClient">
+                        <option>--select--</option>
+                        @foreach (var item in clientInformationReadDtos)
+                        {
+                            <option value="@item.ClientInformationId">@item.CompanyName</option>
+                        }
+                    </select>
+                </div>
 
-<h4>New Asset</h4>
-<div class="row m-2">
-    <EditForm Model="@assetCreateDto" OnValidSubmit="@PostAsset">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <div class="form-group row">
-            <label for="ClientInformationId" class="col-sm-6 col-form-label">Client Info:</label>
-            <select id="ClientInformationId" class="form-control selectpicker" value="@assetCreateDto.ClientInformationId" @onchange="ChangeClient">
-                <option>--select--</option>
-                @foreach (var item in clientInformationReadDtos)
+                <div class="form-group row">
+                    <label for="ItemId" class="col-sm-6 col-form-label">Item Name:</label>
+                    <select id="ItemId" class="form-control selectpicker" value="@assetCreateDto.ItemId" @onchange="ChangeItem">
+                        <option>--select--</option>
+                        @foreach (var item in itemReadDtos)
+                        {
+                            <option value="@item.ItemId">@item.ItemName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group row">
+                    <label for="clientInformationId" class="col-sm-6 col-form-label">Vendor Name:</label>
+                    <select id="ClientInformationId" class="form-control selectpicker" value="@assetCreateDto.VendorId" @onchange="ChangeVendor">
+                        <option>--select--</option>
+                        @foreach (var item in vendorReadDtos)
+                        {
+                            <option value="@item.VendorId">@item.VendorName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <label for="SerialNumber" class="col-sm-6 col-form-label">Serial Number:</label>
+                    <input id="SerialNumber" class="form-control col-sm-6 input-lg" type="text" placeholder="Serial Number" disabled="@isSuccess"
+                           @bind="assetCreateDto.SerialNumber" />
+                </div>
+                <div class="form-group row">
+                    <label for="WarrantyDate" class="col-sm-6 col-form-label">Warranty Date:</label>
+                    <input id="WarrantyDate" class="form-control col-sm-6 input-lg" placeholder="Warranty Date" type="date" disabled="@isSuccess"
+                           @bind="assetCreateDto.WarrantyDate" />
+                </div>
+
+                <button class="btn btn-lightsail" type="submit" disabled="@isSuccess">Submit</button>
+                <a class="btn btn-lightsail active btn-sm " role="button" aria-pressed="true" href="/asset">Return to List</a>
+                <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
+                     hidden="@(message=="")">@message</div>
+                </EditForm>
+            </div>
+        </div>
+            @code {
+                private AssetCreateDto assetCreateDto = new AssetCreateDto();
+                private List<VendorReadDto> vendorReadDtos = new List<VendorReadDto>();
+                private VendorReadDto vendorReadDto { get; set; } = new VendorReadDto();
+                private List<ClientInformationReadDto> clientInformationReadDtos = new List<ClientInformationReadDto>();
+                private ClientInformationReadDto clientInformationReadDto { get; set; } = new ClientInformationReadDto();
+                private List<ItemReadDto> itemReadDtos = new List<ItemReadDto>();
+                private ItemReadDto itemReadDto { get; set; } = new ItemReadDto();
+
+
+
+                private bool isSuccess = false;
+                private string message = "";
+
+                private async Task FetchListAsync()
                 {
-                    <option value="@item.ClientInformationId">@item.CompanyName</option>
-                }
-            </select>
-        </div>
+                    var responseVendor = await vendorService.GetVendorsAsync("VendorName", 0);
+                    vendorReadDtos = responseVendor.Vendor;
 
-        <div class="form-group row">
-            <label for="ItemId" class="col-sm-6 col-form-label">Item Name:</label>
-            <select id="ItemId" class="form-control selectpicker" value="@assetCreateDto.ItemId" @onchange="ChangeItem">
-                <option>--select--</option>
-                @foreach (var item in itemReadDtos)
+                    var responseItem = await itemService.GetItemsAsync("ItemName", 0);
+                    itemReadDtos = responseItem.Item;
+
+                    var responseClientinformation = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
+                    clientInformationReadDtos = responseClientinformation.ClientInformation;
+
+                }
+
+                private async Task ChangeClient(ChangeEventArgs e)
                 {
-                    <option value="@item.ItemId">@item.ItemName</option>
-                }
-            </select>
-        </div>
 
-        <div class="form-group row">
-            <label for="clientInformationId" class="col-sm-6 col-form-label">Vendor Name:</label>
-            <select id="ClientInformationId" class="form-control selectpicker" value="@assetCreateDto.VendorId" @onchange="ChangeVendor">
-                <option>--select--</option>
-                @foreach (var item in vendorReadDtos)
+                    clientInformationReadDto = await clientInformationService.GetClientInformationByIdAsync(Int32.Parse(e.Value.ToString()));
+                    _mapper.Map(clientInformationReadDto, assetCreateDto);
+                    message = "";
+                }
+                private async Task ChangeItem(ChangeEventArgs e)
                 {
-                    <option value="@item.VendorId">@item.VendorName</option>
+
+                    itemReadDto = await itemService.GetItemByIdAsync(Int32.Parse(e.Value.ToString()));
+                    _mapper.Map(itemReadDto, assetCreateDto);
+                    message = "";
                 }
-            </select>
-        </div>
-        <div class="form-group row">
-            <label for="SerialNumber" class="col-sm-6 col-form-label">Serial Number:</label>
-            <input id="SerialNumber" class="form-control col-sm-6 input-lg" type="text" placeholder="Serial Number" disabled="@isSuccess"
-                   @bind="assetCreateDto.SerialNumber" />
-        </div>
-        <div class="form-group row">
-            <label for="WarrantyDate" class="col-sm-6 col-form-label">Warranty Date:</label>
-            <input id="WarrantyDate" class="form-control col-sm-6 input-lg" placeholder="Warranty Date" type="date" disabled="@isSuccess"
-                   @bind="assetCreateDto.WarrantyDate" />
-        </div>
+                private async Task ChangeVendor(ChangeEventArgs e)
+                {
 
-        <button class="btn btn-primary" type="submit" disabled="@isSuccess">Submit</button>
-        <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/asset">Return to List</a>
-        <div class="alert @(isSuccess?"alert-success":"alert-danger")" style="margin-top:1rem" role="alert"
-             hidden="@(message=="")">@message</div>
-        </EditForm>
-    </div>
-    @code {
-        private AssetCreateDto assetCreateDto = new AssetCreateDto();
-        private List<VendorReadDto> vendorReadDtos = new List<VendorReadDto>();
-        private VendorReadDto vendorReadDto { get; set; } = new VendorReadDto();
-        private List<ClientInformationReadDto> clientInformationReadDtos = new List<ClientInformationReadDto>();
-        private ClientInformationReadDto clientInformationReadDto { get; set; } = new ClientInformationReadDto();
-        private List<ItemReadDto> itemReadDtos = new List<ItemReadDto>();
-        private ItemReadDto itemReadDto { get; set; } = new ItemReadDto();
+                    vendorReadDto = await vendorService.GetVendorByIdAsync(Int32.Parse(e.Value.ToString()));
+                    _mapper.Map(vendorReadDto, assetCreateDto);
+                    message = "";
+                }
 
+                protected override async Task OnInitializedAsync()
+                {
+                    await FetchListAsync();
 
+                }
 
-        private bool isSuccess = false;
-        private string message = "";
+                public async void PostAsset()
+                {
+                    //returns response message, so can check if success
+                    var response = await assetService.CreateAssetAsync(assetCreateDto);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        isSuccess = true;
+                        toastService.ShowSuccess($" {assetCreateDto.SerialNumber} is added in asset.");
+                        message = $"Success";
+                        NavManager.NavigateTo("/asset");
+                    }
+                    else
+                    {
 
-        private async Task FetchListAsync()
-        {
-            var responseVendor = await vendorService.GetVendorsAsync("VendorName", 0);
-            vendorReadDtos = responseVendor.Vendor;
+                        message = $"Error: {response.StatusCode.ToString()}. Please try again.";
+                        toastService.ShowError($" Error while adding {assetCreateDto.SerialNumber}. Kindly retry.");
 
-            var responseItem = await itemService.GetItemsAsync("ItemName", 0);
-            itemReadDtos = responseItem.Item;
+                    }
 
-            var responseClientinformation = await clientInformationService.GetClientInformationsAsync("CompanyName", 0);
-            clientInformationReadDtos = responseClientinformation.ClientInformation;
+                    this.StateHasChanged();
 
-        }
-
-        private async Task ChangeClient(ChangeEventArgs e)
-        {
-
-            clientInformationReadDto = await clientInformationService.GetClientInformationByIdAsync(Int32.Parse(e.Value.ToString()));
-            _mapper.Map(clientInformationReadDto, assetCreateDto);
-            message = "";
-        }
-        private async Task ChangeItem(ChangeEventArgs e)
-        {
-
-            itemReadDto = await itemService.GetItemByIdAsync(Int32.Parse(e.Value.ToString()));
-            _mapper.Map(itemReadDto, assetCreateDto);
-            message = "";
-        }
-        private async Task ChangeVendor(ChangeEventArgs e)
-        {
-
-            vendorReadDto = await vendorService.GetVendorByIdAsync(Int32.Parse(e.Value.ToString()));
-            _mapper.Map(vendorReadDto, assetCreateDto);
-            message = "";
-        }
-
-        protected override async Task OnInitializedAsync()
-        {
-            await FetchListAsync();
-        
-        }
-
-        public async void PostAsset()
-        {
-            //returns response message, so can check if success
-            var response = await assetService.CreateAssetAsync(assetCreateDto);
-            if (response.IsSuccessStatusCode)
-            {
-                isSuccess = true;
-                toastService.ShowSuccess($" {assetCreateDto.SerialNumber} is added in asset.");
-                message = $"Success";
-                NavManager.NavigateTo("/asset");
+                }
             }
-            else
-            {
-
-                message = $"Error: {response.StatusCode.ToString()}. Please try again.";
-                toastService.ShowError($" Error while adding {assetCreateDto.SerialNumber}. Kindly retry.");
-
-            }
-
-            this.StateHasChanged();
-
-        }
-    }

@@ -7,73 +7,73 @@
 @inject IMapper _mapper;
 @using Anthurium.API.Dtos
 
-
-<h3>Warehouse</h3>
-@if (warehouseReadDto != null)
-{
-    <EditForm Model="@warehouseUpdateDto" OnValidSubmit="OnValidSubmit">
-        <DataAnnotationsValidator />
-        <div class="form-row">
-            <div class="form-group col">
-                <label>Warehouse Name</label>
-                <InputText @bind-Value="warehouseUpdateDto.WarehouseName" class="form-control" />
-                <ValidationMessage For="@(() => warehouseUpdateDto.WarehouseName)" />
+<div class="container card shadow mb-4 animated--grow-in">
+    <h3>Warehouse</h3>
+    @if (warehouseReadDto != null)
+    {
+        <EditForm Model="@warehouseUpdateDto" OnValidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator />
+            <div class="form-row">
+                <div class="form-group col">
+                    <label>Warehouse Name</label>
+                    <InputText @bind-Value="warehouseUpdateDto.WarehouseName" class="form-control" />
+                    <ValidationMessage For="@(() => warehouseUpdateDto.WarehouseName)" />
+                </div>
+                <div class="form-group col">
+                    <label>Warehouse Code:</label>
+                    <InputText @bind-Value="warehouseUpdateDto.WarehouseCode" class="form-control" />
+                    <ValidationMessage For="@(() => warehouseUpdateDto.WarehouseCode)" />
+                </div>
             </div>
-            <div class="form-group col">
-                <label>Warehouse Code:</label>
-                <InputText @bind-Value="warehouseUpdateDto.WarehouseCode" class="form-control" />
-                <ValidationMessage For="@(() => warehouseUpdateDto.WarehouseCode)" />
-            </div>
-        </div>
 
-        <div class="form-group">
-            <button disabled="@loading" class="btn btn-primary">
-                @if (loading)
-                {
-                    <span class="spinner-border spinner-border-sm mr-1"></span>
-                }
-                Save
-            </button>
-            <NavLink href="warehouse" class="btn btn-link">Cancel</NavLink>
+            <div class="form-group">
+                <button disabled="@loading" class="btn btn-lightsail">
+                    @if (loading)
+                    {
+                        <span class="spinner-border spinner-border-sm mr-1"></span>
+                    }
+                    Save
+                </button>
+                <NavLink href="warehouse" class="btn btn-link">Cancel</NavLink>
+            </div>
+        </EditForm>
+    }
+    else
+    {
+        <div class="text-center p-3">
+            <span class="spinner-border spinner-border-lg align-center"></span>
         </div>
-    </EditForm>
-}
-else
-{
-    <div class="text-center p-3">
-        <span class="spinner-border spinner-border-lg align-center"></span>
+    }
     </div>
-}
+    @code {
 
-@code {
+        private WarehouseUpdateDto warehouseUpdateDto { get; set; } = new WarehouseUpdateDto();
+        private WarehouseReadDto warehouseReadDto { get; set; } = new WarehouseReadDto();
+        private bool loading;
 
-    private WarehouseUpdateDto warehouseUpdateDto { get; set; } = new WarehouseUpdateDto();
-    private WarehouseReadDto warehouseReadDto { get; set; } = new WarehouseReadDto();
-    private bool loading;
+        [Parameter]
+        public int Id { get; set; }
 
-    [Parameter]
-    public int Id { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        warehouseReadDto = await warehouseService.GetWarehouseByIdAsync(Id);
-        _mapper.Map(warehouseReadDto, warehouseUpdateDto);
-    }
-
-    private async void OnValidSubmit()
-    {
-        loading = true;
-        try
+        protected override async Task OnInitializedAsync()
         {
-            await warehouseService.EditWarehouseAsync(Id, warehouseUpdateDto);
-            AlertService.Success("Update successful", keepAfterRouteChange: true);
-            NavigationManager.NavigateTo("/warehouse");
+            warehouseReadDto = await warehouseService.GetWarehouseByIdAsync(Id);
+            _mapper.Map(warehouseReadDto, warehouseUpdateDto);
         }
-        catch (Exception ex)
+
+        private async void OnValidSubmit()
         {
-            AlertService.Error(ex.Message);
-            loading = false;
-            StateHasChanged();
+            loading = true;
+            try
+            {
+                await warehouseService.EditWarehouseAsync(Id, warehouseUpdateDto);
+                AlertService.Success("Update successful", keepAfterRouteChange: true);
+                NavigationManager.NavigateTo("/warehouse");
+            }
+            catch (Exception ex)
+            {
+                AlertService.Error(ex.Message);
+                loading = false;
+                StateHasChanged();
+            }
         }
     }
-}

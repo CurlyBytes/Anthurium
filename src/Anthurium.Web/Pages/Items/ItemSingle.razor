@@ -4,90 +4,91 @@
 @using Microsoft.JSInterop;
 @using PuppeteerSharp;
 @inject IJSRuntime _iJSRuntime
+    <div class="container card shadow mb-4 animated--grow-in">
+        <h4>Item Id: @Id.ToString()</h4>
 
-<h4>Item Id: @Id.ToString()</h4>
+        @if (itemReadDto == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
 
-@if (itemReadDto == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
+            <div class="row m-2">
+                <table class="col-12 table table-borderless table-sm dataTable w-100">
+                    <caption>Item Id: @Id.ToString()</caption>
+                    <thead>
 
-    <div class="row m-2">
-        <table class="col-12 table table-hover table-responsive table-striped">
-            <caption>Item Id: @Id.ToString()</caption>
-            <thead>
-
-                <tr>
-                    <th scope="col">Record Type</th>
-                    <th scope="col">Record Info</th>
-                </tr>
-
-
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">Id</th>
-                    <td>@itemReadDto.ItemId</td>
-                </tr>
-                <tr>
-                    <th class="info">Item Type</th>
-                    <td>@itemReadDto.ItemType</td>
-                </tr>
-                <tr>
-                    <th class="info">Item Group</th>
-                    <td>@itemReadDto.ItemGroup</td>
-                </tr>
-                <tr>
-                    <th class="info">Item Code</th>
-                    <td>@itemReadDto.ItemCode</td>
-                </tr>
-                <tr>
-                    <th class="info">Item Name</th>
-                    <td>@itemReadDto.ItemName</td>
-                </tr>
-     
-                <tr>
-                    <th class="info">Warehouse Name</th>
-                    <td>@itemReadDto.Warehouse.WarehouseName</td>
-                </tr>
-                <tr>
-                    <th class="info">Warehouse Name</th>
-                    <td>@itemReadDto.Warehouse.WarehouseCode</td>
-                </tr>
-                <tr>
-                    <th class="info">Date Updated</th>
-                    <td>@itemReadDto.DateCreated</td>
-                </tr>
-                <tr>
-                    <th class="info">Date Created</th>
-                    <td>@itemReadDto.DateUpdated</td>
-                </tr>
-            </tbody>
+                        <tr>
+                            <th scope="col">Record Type</th>
+                            <th scope="col">Record Info</th>
+                        </tr>
 
 
-        </table>
-    </div>
-    <div class="row m-2">
-        <div class="col-12">
-            <!--TODO Add Items list per item-->
-            <a class="btn btn-primary active btn-sm " role="button" aria-pressed="true" href="/item">Return to List</a>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Id</th>
+                            <td>@itemReadDto.ItemId</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Item Type</th>
+                            <td>@itemReadDto.ItemType</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Item Group</th>
+                            <td>@itemReadDto.ItemGroup</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Item Code</th>
+                            <td>@itemReadDto.ItemCode</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Item Name</th>
+                            <td>@itemReadDto.ItemName</td>
+                        </tr>
+
+                        <tr>
+                            <th class="info">Warehouse Name</th>
+                            <td>@itemReadDto.Warehouse.WarehouseName</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Warehouse Name</th>
+                            <td>@itemReadDto.Warehouse.WarehouseCode</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Date Updated</th>
+                            <td>@itemReadDto.DateCreated</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Date Created</th>
+                            <td>@itemReadDto.DateUpdated</td>
+                        </tr>
+                    </tbody>
+
+
+                </table>
+            </div>
+            <div class="row m-2">
+                <div class="col-12">
+                    <!--TODO Add Items list per item-->
+                    <a class="btn btn-lightsail active btn-sm " role="button" aria-pressed="true" href="/item">Return to List</a>
+                </div>
+            </div>
+        }
         </div>
-    </div>
-}
 
-@code {
-    [Parameter]
-    public int Id { get; set; }
+        @code {
+            [Parameter]
+            public int Id { get; set; }
 
-    private ItemReadDto itemReadDto;
+            private ItemReadDto itemReadDto;
 
-    protected override async Task OnInitializedAsync()
-    {
-        itemReadDto = await itemService.GetItemByIdAsync(Id);
-    }
+            protected override async Task OnInitializedAsync()
+            {
+                itemReadDto = await itemService.GetItemByIdAsync(Id);
+            }
 
 
 
-}
+        }

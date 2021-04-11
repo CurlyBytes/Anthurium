@@ -30,7 +30,7 @@
                 <InputText @bind-Value="model.Password" type="password" class="form-control" />
                 <ValidationMessage For="@(() => model.Password)" />
             </div>
-            <button disabled="@loading" class="btn btn-primary">
+            <button disabled="@loading" class="btn btn-lightsail">
                 @if (loading)
                 {
                     <span class="spinner-border spinner-border-sm mr-1"></span>

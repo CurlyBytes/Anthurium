@@ -8,75 +8,75 @@
 @using System.Text.Json
 @using Anthurium.API.Dtos
 
+<div class="container card shadow mb-4 animated--grow-in">
+    <h3>Vendor Information</h3>
+    @if (vendorUpdateDto != null)
+    {
+        <EditForm Model="@vendorUpdateDto" OnValidSubmit="UpdateVendor">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group row">
+                <label for="companyName" class="col-sm-6 col-form-label">Vendor Name:</label>
+                <input id="companyName" class="form-control col-sm-6 input-lg" placeholder="Vendor Name"
+                       @bind="vendorUpdateDto.VendorName" />
+            </div>
+            <div class="form-group row">
+                <label for="companyAddress" class="col-sm-6 col-form-label">Vendor Code:</label>
+                <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" placeholder="Vendor Code"
+                       @bind="vendorUpdateDto.VendorCode" />
+            </div>
 
-<h3>Vendor Information</h3>
-@if (vendorUpdateDto != null)
-{
-<EditForm Model="@vendorUpdateDto" OnValidSubmit="UpdateVendor">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    <div class="form-group row">
-        <label for="companyName" class="col-sm-6 col-form-label">Vendor Name:</label>
-        <input id="companyName" class="form-control col-sm-6 input-lg" placeholder="Vendor Name"
-               @bind="vendorUpdateDto.VendorName" />
+
+            <div class="form-group">
+                <button disabled="@loading" class="btn btn-lightsail">
+                    @if (loading)
+                    {
+                        <span class="spinner-border spinner-border-sm mr-1"></span>
+                    }
+                    Save
+                </button>
+                <NavLink href="warehouse" class="btn btn-link">Cancel</NavLink>
+            </div>
+        </EditForm>
+    }
+    else
+    {
+        <div class="text-center p-3">
+            <span class="spinner-border spinner-border-lg align-center"></span>
+        </div>
+    }
     </div>
-    <div class="form-group row">
-        <label for="companyAddress" class="col-sm-6 col-form-label">Vendor Code:</label>
-        <input id="companyAddress" class="form-control col-sm-6 input-lg" type="text" placeholder="Vendor Code"
-               @bind="vendorUpdateDto.VendorCode" />
-    </div>
 
+    @code {
+        [Parameter]
+        public int Id { get; set; }
 
-    <div class="form-group">
-        <button disabled="@loading" class="btn btn-primary">
-            @if (loading)
+        private bool loading;
+
+        private VendorUpdateDto vendorUpdateDto;
+        private VendorReadDto vendorReadDto;
+
+        protected override async Task OnInitializedAsync()
+        {
+            vendorUpdateDto = new VendorUpdateDto();
+            vendorReadDto = await vendorService.GetVendorByIdAsync(Id);
+            _mapper.Map(vendorReadDto, vendorUpdateDto);
+        }
+
+        public async void UpdateVendor()
+        {
+            loading = true;
+            try
             {
-                <span class="spinner-border spinner-border-sm mr-1"></span>
+                await vendorService.EditVendorAsync(Id, vendorUpdateDto);
+                AlertService.Success("Update successful", keepAfterRouteChange: true);
+                NavigationManager.NavigateTo("/vendor");
             }
-            Save
-        </button>
-        <NavLink href="warehouse" class="btn btn-link">Cancel</NavLink>
-    </div>
-</EditForm>
-}
-else
-{
-    <div class="text-center p-3">
-        <span class="spinner-border spinner-border-lg align-center"></span>
-    </div>
-}
-
-
-@code {
-    [Parameter]
-    public int Id { get; set; }
-
-    private bool loading;
-
-    private VendorUpdateDto vendorUpdateDto;
-    private VendorReadDto vendorReadDto;
-
-    protected override async Task OnInitializedAsync()
-    {
-        vendorUpdateDto = new VendorUpdateDto();
-        vendorReadDto = await vendorService.GetVendorByIdAsync(Id);
-        _mapper.Map(vendorReadDto, vendorUpdateDto);
-    }
-
-    public async void UpdateVendor()
-    {
-        loading = true;
-        try
-        {
-            await vendorService.EditVendorAsync(Id, vendorUpdateDto);
-            AlertService.Success("Update successful", keepAfterRouteChange: true);
-            NavigationManager.NavigateTo("/vendor");
-        }
-        catch (Exception ex)
-        {
-            AlertService.Error(ex.Message);
-            loading = false;
-            StateHasChanged();
+            catch (Exception ex)
+            {
+                AlertService.Error(ex.Message);
+                loading = false;
+                StateHasChanged();
+            }
         }
     }
-}
