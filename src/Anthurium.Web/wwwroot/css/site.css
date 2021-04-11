@@ -11549,11 +11549,11 @@ app {
             }
 
             .sidebar .nav-item .nav-link {
-                display: block;
+                
                 width: 100%;
                 text-align: left;
                 padding: 1rem;
-                width: 14rem;
+                
             }
 
                 .sidebar .nav-item .nav-link i {

@@ -5,11 +5,16 @@
 @using Models
 @attribute [Authorize]
 @inject Services.IAccountService AccountService
-<h2>Dashboard</h2>
 
 
-<div class="">
-    <div class="row w-100">
+
+<div class="container card shadow mb-4 animated--grow-in">
+
+    <div class="row m-2 card-header py-3">
+        <div class="col"><h3>Dashboard</h3></div>
+
+    </div>
+    <div class="row w-100 mb-4">
 
         <div class="col-md-6">
             <div class="card border-danger mx-sm-1 p-3">
