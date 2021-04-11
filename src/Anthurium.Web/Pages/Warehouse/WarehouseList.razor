@@ -4,9 +4,9 @@
 
 <div class="container card shadow mb-4 animated--grow-in">
   
-    <div class="row m-2">
+    <div class="row m-2 card-header py-3">
         <div class="col"><h3>Warehouse:</h3></div>
-        <div class=" col-sm-3 text-right"><a href="/warehouse/create" class="btn btn-lightsail">New Warehouse</a></div>
+       
     </div>
     @if (warehouseReadDto == null)
     {
@@ -16,13 +16,14 @@
     {
         <!--Todo Add search keywords here-->
         <div class="row m-2">
-            <div class="col-sm-8">
-                <h4>Showing @(skip + 1) - @(Math.Min(skip + ListPrefsProvider.listPrefs.NumResults, matchingCount)) of @matchingCount</h4>
+            <div class="col-sm-4">
+                <a href="/warehouse/create" class="btn btn-lightsail">New Warehouse</a> 
+                @*<h4>Showing @(skip + 1) - @(Math.Min(skip + ListPrefsProvider.listPrefs.NumResults, matchingCount)) of @matchingCount</h4>*@
             </div>
-            <div class="col-sm-4 text-right">
+            <div class="col-sm-4 offset-4">
                 <div class="row form-group">
                     <label for="sortBy" class="col-form-label col-form-label-sm col">Sort by:</label>
-                    <select id="sortBy" class="form-control form-control-sm" style="width:auto;" @onchange="ChangeOrder">
+                    <select id="sortBy" class="form-control form-control-sm" @onchange="ChangeOrder">
                         <option value="WarehouseId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="WarehouseId")>ID (Asc)</option>
                         <option value="WarehouseId desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="WarehouseId Desc")>ID (Desc)</option>
                         <option value="WarehouseName" selected=@(ListPrefsProvider.listPrefs.OrderBy=="WarehouseName")>Warehouse Name (A - Z)</option>
@@ -82,7 +83,7 @@
             <div class="col-sm-4 text-right">
                 <div class="row form-group">
                     <label for="numResults" class="col-form-label col-form-label-sm col">Show:</label>
-                    <select id="numResults" class="form-control form-control-sm" style="width:auto;" @onchange="ChangeTop">
+                    <select id="numResults" class="form-control form-control-sm" @onchange="ChangeTop">
                         <option value="10" selected=@(ListPrefsProvider.listPrefs.NumResults==10)>10</option>
                         <option value="25" selected=@(ListPrefsProvider.listPrefs.NumResults==25)>25</option>
                         <option value="50" selected=@(ListPrefsProvider.listPrefs.NumResults==50)>50</option>

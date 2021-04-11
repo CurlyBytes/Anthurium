@@ -3,9 +3,8 @@
 @using Models
 
 <div class="container card shadow mb-4 animated--grow-in">
-    <div class="row m-2">
+    <div class="row m-2 card-header py-3">
         <div class="col"><h3>Job Orders:</h3></div>
-        <div class=" col-sm-3 text-right"><a href="/joborder/create" class="btn btn-lightsail">New Job Order</a></div>
     </div>
     @if (jobOrderReadDto == null)
     {
@@ -15,13 +14,13 @@
     {
         <!--Add search key words here-->
         <div class="row m-2">
-            <div class="col-sm-8">
-                <h4>Showing @(skip + 1) - @(Math.Min(skip + ListPrefsProvider.listPrefs.NumResults, matchingCount)) of @matchingCount</h4>
+            <div class="col-sm-4">
+                <a href="/joborder/create" class="btn btn-lightsail">New Job Order</a>
             </div>
-            <div class="col-sm-4 text-right">
+            <div class="col-sm-4 offset-4">
                 <div class="row form-group">
                     <label for="sortBy" class="col-form-label col-form-label-sm col">Sort by:</label>
-                    <select id="sortBy" class="form-control form-control-sm" style="width:auto;" @onchange="ChangeOrder">
+                    <select id="sortBy" class="form-control form-control-sm" @onchange="ChangeOrder">
                         <option value="JobOrderId" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobOrderId")>ID (Asc)</option>
                         <option value="JobOrderId Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JobOrderId Desc")>ID (Desc)</option>
                         <option value="CompanyName" selected=@(ListPrefsProvider.listPrefs.OrderBy=="CompanyName")>Company Name (A - Z)</option>
@@ -39,6 +38,7 @@
                         <option value="DateSchedule Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="DateSchedule Desc")>DateScheduled (Desc)</option>
                         <option value="JoboRderDescription" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JoboRderDescription")>Description (A-Z)</option>
                         <option value="JoboRderDescription Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="JoboRderDescription Desc")>Description (A-Z)</option>
+
                         <option value="TimeStarted" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeStarted")>Time Started (Asc)</option>
                         <option value="TimeStarted Desc" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeStarted Desc")>Time Started (Desc)</option>
                         <option value="TimeEnded" selected=@(ListPrefsProvider.listPrefs.OrderBy=="TimeEnded")>Time Ended (Asc)</option>
@@ -58,7 +58,7 @@
             <table class="col-12 table table-borderless table-sm dataTable w-100">
                 <caption>List of Job Orders</caption>
                 <thead>
-                    <tr>
+                    <tr class="bg-lightsail text-white text-center">
                         <th scope="col">ID</th>
                         <th scope="col">Company Name</th>
                         <th scope="col">Company Address</th>
@@ -77,22 +77,22 @@
                 <tbody>
                     @foreach (var jobOrderReadDtoItem in jobOrderReadDto)
                     {
-                    <tr>
-                        <td scope="row">@jobOrderReadDtoItem.JobOrderId</td>
-                        <td><a href="/joborder/@jobOrderReadDtoItem.JobOrderId">@jobOrderReadDtoItem.CompanyName</a></td>
-                        <td>@jobOrderReadDtoItem.CompanyAddress</td>
-                        <td>@jobOrderReadDtoItem.ContactPerson</td>
-                        <td>@jobOrderReadDtoItem.ContactNumber</td>
-                        <td>@jobOrderReadDtoItem.RemainingHours</td>
-                        <td>@jobOrderReadDtoItem.DateSchedule</td>
-                        <td>@jobOrderReadDtoItem.JoboRderDescription</td>
-                        <td>@jobOrderReadDtoItem.TimeStarted</td>
-                        <td>@jobOrderReadDtoItem.TimeEnded</td>
-                        <td>@jobOrderReadDtoItem.TotalHours</td>
-                        <td><a class="btn btn-info btn-sm" href="/joborder/@jobOrderReadDtoItem.JobOrderId">View</a></td>
-                        <td><a class="btn btn-secondary btn-sm" href="/joborder/@jobOrderReadDtoItem.JobOrderId/edit">Edit</a></td>
-                        <td><a class="btn btn-danger btn-sm" href="/joborder/@jobOrderReadDtoItem.JobOrderId/delete">Delete</a></td>
-                    </tr>
+                        <tr>
+                            <td scope="row">@jobOrderReadDtoItem.JobOrderId</td>
+                            <td><a href="/joborder/@jobOrderReadDtoItem.JobOrderId">@jobOrderReadDtoItem.CompanyName</a></td>
+                            <td>@jobOrderReadDtoItem.CompanyAddress</td>
+                            <td>@jobOrderReadDtoItem.ContactPerson</td>
+                            <td>@jobOrderReadDtoItem.ContactNumber</td>
+                            <td>@jobOrderReadDtoItem.RemainingHours</td>
+                            <td>@jobOrderReadDtoItem.DateSchedule</td>
+                            <td>@jobOrderReadDtoItem.JoboRderDescription</td>
+                            <td>@jobOrderReadDtoItem.TimeStarted</td>
+                            <td>@jobOrderReadDtoItem.TimeEnded</td>
+                            <td>@jobOrderReadDtoItem.TotalHours</td>
+                            <td><a class="btn btn-info btn-sm" href="/joborder/@jobOrderReadDtoItem.JobOrderId">View</a></td>
+                            <td><a class="btn btn-secondary btn-sm" href="/joborder/@jobOrderReadDtoItem.JobOrderId/edit">Edit</a></td>
+                            <td><a class="btn btn-danger btn-sm" href="/joborder/@jobOrderReadDtoItem.JobOrderId/delete">Delete</a></td>
+                        </tr>
                     }
                 </tbody>
             </table>
@@ -115,7 +115,7 @@
             <div class="col-sm-4 text-right">
                 <div class="row form-group">
                     <label for="numResults" class="col-form-label col-form-label-sm col">Show:</label>
-                    <select id="numResults" class="form-control form-control-sm" style="width:auto;" @onchange="ChangeTop">
+                    <select id="numResults" class="form-control form-control-sm" @onchange="ChangeTop">
                         <option value="10" selected=@(ListPrefsProvider.listPrefs.NumResults==10)>10</option>
                         <option value="25" selected=@(ListPrefsProvider.listPrefs.NumResults==25)>25</option>
                         <option value="50" selected=@(ListPrefsProvider.listPrefs.NumResults==50)>50</option>
