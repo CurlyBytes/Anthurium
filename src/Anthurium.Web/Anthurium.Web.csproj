@@ -14,7 +14,7 @@
     <PackageReference Include="Blazored.Toast" Version="3.1.2" />
     <PackageReference Include="IdentityModel" Version="4.6.0" />
     <PackageReference Include="IdentityModel.AspNetCore" Version="1.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.32" />
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.1.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
